@@ -15,9 +15,9 @@ void Rho1(){
   
   //chain->Add("/Volumes/MYPASSPORT/Torri/Desktop/g11/g11_photon/g11_PPipPimNtuple_10*.root");
   
-  //chain->Add("/home/physics/Research/g11_photon/g11_PPipPimNtuple_*.root");
+  chain->Add("/home/physics/Research/g11_photon/g11_PPipPimNtuple_*.root");
 
-  chain->Add("/home/tylerviducic/research/rho/g11/g11_photon/g11_PPipPimNtuple_*.root");
+  //chain->Add("/home/tylerviducic/research/rho/g11/g11_photon/g11_PPipPimNtuple_*.root");
   
   //chain->Add("/home/physics/Research/g11_photon/g11_PPipPimNtuple_*1.root");
   
@@ -212,8 +212,8 @@ void Rho1(){
   // cout << " start";
   
   //loop to make histogram arrays with corresponding names
-  TFile *f = new TFile("/home/tylerviducic/research/rho/g11/PipPimRHo.root","recreate");
-  
+  //TFile *f = new TFile("/home/tylerviducic/research/rho/g11/PipPimRHo.root","recreate");
+  TFile *f = new TFile("/home/physics/Research/rho/g11/PipPimRHo.root","recreate");
   
   TH1F *mxp[61]; //array of histograms with mx_P in regio of eta
   TH1F *mx2_sig[61]; // array of mx2_PPipPim histograms with signal region of mx_P selected
@@ -228,7 +228,8 @@ void Rho1(){
   TH1F *h_imPipPim = new TH1F("h_imPipPim", "h_imPipPim", 150, 0, 1);
   TH1F *h_PPipPim = new TH1F("PPipPim", "PPipPim", 100, -.005, .005);
   TH1F *h_vertex = new TH1F("vertex", "vertex", 1000, -5, 5);
-  TH2F *mxp_imPipPim = new TH2F("mxp_imPipPim", "mxp_imPipPim", 200, .3, .9, 200, 0.2, 1.5);  
+  TH2F *mxp_imPipPim = new TH2F("mxp_imPipPim", "mxp_imPipPim", 200, .3, .9, 200, 0.2, 1.5);
+  TH1F *h_me_PPipPimGam = new TH1F("me_PPipPimGam", "me_PPipPimGam", 100, -.05, .05);  
  
   char hname[61];
   char cname[61];
@@ -332,7 +333,7 @@ void Rho1(){
     
     
     me_PPipPim = vMM_PPipPim.E();
-    //me_PPipPimGam = VMM_PPipPimGam.E();.
+    me_PPipPimGam = vMM_PPipPimGam.E();
 /*    if (beam < 2.2) 
     {
 		h_mxP->Fill(mx_P);    
@@ -412,6 +413,7 @@ void Rho1(){
 	
 	mxp_imPipPim->Fill(IM_PipPim, mx_P);
 	h_mxP->Fill(mx_P);
+	h_me_PPipPimGam->Fill(me_PPipPimGam);
 	
 	if(abs(mx_P-M_Rho)<0.06){
 		h_imPipPim->Fill(IM_PipPim);
