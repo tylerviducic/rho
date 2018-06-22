@@ -229,7 +229,8 @@ void Rho1(){
   TH1F *h_PPipPim = new TH1F("PPipPim", "PPipPim", 100, -.005, .005);
   TH1F *h_vertex = new TH1F("vertex", "vertex", 1000, -5, 5);
   TH2F *mxp_imPipPim = new TH2F("mxp_imPipPim", "mxp_imPipPim", 200, .3, .9, 200, 0.2, 1.5);
-  TH1F *h_me_PPipPimGam = new TH1F("me_PPipPimGam", "me_PPipPimGam", 100, -.05, .05);  
+  TH1F *h_me_PPipPimGam = new TH1F("me_PPipPimGam", "me_PPipPimGam", 100, -.05, .05);
+  TH1F *hIM_PipPimGam-mxp = new TH1F("IM_PipPimGam-mxp", "IM_PipPimGam-mxp", 200, -1, 1);  
  
   char hname[61];
   char cname[61];
@@ -417,6 +418,7 @@ void Rho1(){
 	
 	if(abs(mx_P-M_Rho)<0.06){
 		h_imPipPim->Fill(IM_PipPim);
+		hIM_PipPimGam-mxp->Fill(IM_PipPimGam - mx_P);
 	}
     }
     
