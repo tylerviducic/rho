@@ -139,7 +139,7 @@ void Rho1(){
   
   Float_t buffer[50];
   
-//  TH1D* h_mx_P = new TH1D("h_mx_P","mx_P [GeV]",80,0.0,1.5);
+  TH1D* h_mx_P = new TH1D("h_mx_P","mx_P [GeV]",80,0.0,1.5);
   
   TLorentzVector vT, vbeam, vP, vPip, vPim, vGam;
   TLorentzVector vBT, vEtaRest, vGamEta, vPipEta, vPimEta, vEtaEta, vIM_PipPim_Eta;
@@ -230,7 +230,7 @@ void Rho1(){
   TH1F *h_vertex = new TH1F("vertex", "vertex", 1000, -5, 5);
   TH2F *mxp_imPipPim = new TH2F("mxp_imPipPim", "mxp_imPipPim", 200, .3, .9, 200, 0.2, 1.5);
   TH1F *h_me_PPipPimGam = new TH1F("me_PPipPimGam", "me_PPipPimGam", 100, -.05, .05);
-  TH1F *hIM_PipPimGam_mxp = new TH1F("IM_PipPimGam-mxp", "IM_PipPimGam-mxp", 200, -1, 1);  
+  TH1F *hIM_PipPimGam_mxp = new TH1F("IM_PipPimGam-mxp", "IM_PipPimGam-mxp", 100, -.3, .3);  
  
   char hname[61];
   char cname[61];
