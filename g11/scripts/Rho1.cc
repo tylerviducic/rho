@@ -13,11 +13,11 @@ void Rho1(){
   
   TChain *chain = new TChain("g11_PPipPim");
   
-  chain->Add("/Volumes/MYPASSPORT/Torri/Desktop/g11/g11_photon/g11_PPipPimNtuple_10*.root");
+  //chain->Add("/Volumes/MYPASSPORT/Torri/Desktop/g11/g11_photon/g11_PPipPimNtuple_10*.root");
   
   //chain->Add("/home/physics/Research/g11_photon/g11_PPipPimNtuple_*.root");
 
-  //chain->Add("/home/tylerviducic/research/rho/g11/g11_photon/g11_PPipPimNtuple_*.root");
+  chain->Add("/home/tylerviducic/research/rho/g11/g11_photon/g11_PPipPimNtuple_*.root");
   
   //chain->Add("/home/physics/Research/g11_photon/g11_PPipPimNtuple_*1.root");
   
@@ -139,7 +139,7 @@ void Rho1(){
   
   Float_t buffer[50];
   
-  TH1D* h_mx_P = new TH1D("h_mx_P","mx_P [GeV]",80,0.0,1.5);
+//  TH1D* h_mx_P = new TH1D("h_mx_P","mx_P [GeV]",80,0.0,1.5);
   
   TLorentzVector vT, vbeam, vP, vPip, vPim, vGam;
   TLorentzVector vBT, vEtaRest, vGamEta, vPipEta, vPimEta, vEtaEta, vIM_PipPim_Eta;
@@ -230,7 +230,7 @@ void Rho1(){
   TH1F *h_vertex = new TH1F("vertex", "vertex", 1000, -5, 5);
   TH2F *mxp_imPipPim = new TH2F("mxp_imPipPim", "mxp_imPipPim", 200, .3, .9, 200, 0.2, 1.5);
   TH1F *h_me_PPipPimGam = new TH1F("me_PPipPimGam", "me_PPipPimGam", 100, -.05, .05);
-  TH1F *hIM_PipPimGam-mxp = new TH1F("IM_PipPimGam-mxp", "IM_PipPimGam-mxp", 200, -1, 1);  
+  TH1F *hIM_PipPimGam_mxp = new TH1F("IM_PipPimGam-mxp", "IM_PipPimGam-mxp", 200, -1, 1);  
  
   char hname[61];
   char cname[61];
@@ -241,7 +241,7 @@ void Rho1(){
   char bin_sb[61];
   char bin_sub[61];
   double e;
-  for (k=0; k<=61; k++)
+  for (int k=0; k<=61; k++)
     {
       e=0.3+(double(k)/100.0); //connecting histogram number with bin number
       
@@ -334,14 +334,8 @@ void Rho1(){
     
     
     me_PPipPim = vMM_PPipPim.E();
-    me_PPipPimGam = vMM_PPipPimGam.E();
-/*    if (beam < 2.2) 
-    {
-		h_mxP->Fill(mx_P);    
-    }
-    
-    h_vertex->Fill(vz_Pip - vz_P); //runNum is switched with pim
-*/    
+    //me_PPipPimGam = vMM_PPipPimGam.E(); Is this not a method in ROOT?
+ 
     
     
     
@@ -408,17 +402,25 @@ void Rho1(){
 	{
 	h_PPipPim->Fill(mx2_PPipPim);
 	}
+
+    if (beam < 2.2) 
+    {
+		h_mxP->Fill(mx_P);    
+    }
+    
+    h_vertex->Fill(vz_Pip - vz_P); //runNum is switched with pim
+  
 */    
 	
 	if(Pgam > 0.1 && me_PPipPim > 0.1 && abs(mx2_PPipPimGam)<0.002 && abs(me_PPipPim-Pgam)<0.2 && abs(mx2_PPipPim)<0.005){
 	
 	mxp_imPipPim->Fill(IM_PipPim, mx_P);
 	h_mxP->Fill(mx_P);
-	h_me_PPipPimGam->Fill(me_PPipPimGam);
+	//h_me_PPipPimGam->Fill(me_PPipPimGam);
 	
 	if(abs(mx_P-M_Rho)<0.06){
 		h_imPipPim->Fill(IM_PipPim);
-		hIM_PipPimGam-mxp->Fill(IM_PipPimGam - mx_P);
+		hIM_PipPimGam_mxp->Fill(IM_PipPimGam - mx_P);
 	}
     }
     
