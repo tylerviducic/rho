@@ -13,9 +13,9 @@ void Rho1(){
   
   TChain *chain = new TChain("g11_PPipPim");
   
-  //chain->Add("/Volumes/MYPASSPORT/Torri/Desktop/g11/g11_photon/g11_PPipPimNtuple_10*.root");
+  chain->Add("/Volumes/MYPASSPORT/Torri/Desktop/g11/g11_photon/g11_PPipPimNtuple_10*.root");
   
-  chain->Add("/home/physics/Research/g11_photon/g11_PPipPimNtuple_*.root");
+  //chain->Add("/home/physics/Research/g11_photon/g11_PPipPimNtuple_*.root");
 
   //chain->Add("/home/tylerviducic/research/rho/g11/g11_photon/g11_PPipPimNtuple_*.root");
   
@@ -212,8 +212,8 @@ void Rho1(){
   // cout << " start";
   
   //loop to make histogram arrays with corresponding names
-  //TFile *f = new TFile("/home/tylerviducic/research/rho/g11/PipPimRHo.root","recreate");
-  TFile *f = new TFile("/home/physics/Research/rho/g11/PipPimRHo.root","recreate");
+  TFile *f = new TFile("/home/tylerviducic/research/rho/g11/PipPimRHo.root","recreate");
+  //TFile *f = new TFile("/home/physics/Research/rho/g11/PipPimRHo.root","recreate");
   
   TH1F *mxp[61]; //array of histograms with mx_P in regio of eta
   TH1F *mx2_sig[61]; // array of mx2_PPipPim histograms with signal region of mx_P selected
