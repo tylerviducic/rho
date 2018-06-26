@@ -163,9 +163,10 @@ void Rho1(){
   
   Double_t cosTheta, phi;
   
-  Double_t P_theta,Pip_theta,Pim_theta,Gam_theta,P_phi,Pip_phi,Pim_phi,Gam_phi;
+  Double_t P_theta,Pip_theta,Pim_theta,Gam_theta,P_phi,Pip_phi,Pim_phi,Gam_phi,Rho_phi;
   
   Double_t mxP_pass, mxP_tight_pass, mx2_PPipPim_pass, gamEta_pass, gamEtaP_pass, gamEtaP_tight_pass, IM2_PipPim_eta_pass, IM2_PipPim_etaP_pass, costheta_pass, eBeam_pass, mx2_PPipPimGam_pass;
+  
   
   Double_t gamEtaP_pass1, gamEtaP_pass2, gamEtaP_pass3, gamEtaP_pass4,gamEtaP_pass_low,gamEtaP_pass_high;
   
@@ -293,6 +294,10 @@ void Rho1(){
     Ppip = sqrt(p2_Pip);
     Ppim = sqrt(p2_Pim);
     
+    px_rho = px_Pip + px_Pim + px_G;
+    py_rho = py_Pip + py_Pim + py_G;
+    pz_rho = pz_Pip + pz_Pim + pz_G;
+    
     //---------------------------Energy -----------------------------------
     
     Eproton = sqrt(p2_P + M_P*M_P);
@@ -350,12 +355,14 @@ void Rho1(){
     me_PPipPimGam = vMM_PPipPimGam.E(); 
     
     
-    // loop to make mx_P, mx2_PPipPim_sb, and mx2_PPipPim_signal histograms
+    //---------------------------------Azimuthal Angle 
     
-
+	
 
     //------------------------Cuts and Filling Histograms--------------------------------
 
+
+	// loop to make mx_P, mx2_PPipPim_sb, and mx2_PPipPim_signal histograms
 
     Int_t k=0;
     double j=0.3;
