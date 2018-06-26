@@ -235,6 +235,7 @@ void Rho1(){
   TH2F *mxp_imPipPim = new TH2F("mxp_imPipPim", "mxp_imPipPim", 200, .3, .9, 200, 0.2, 1.5);
   TH1F *h_me_PPipPimGam = new TH1F("me_PPipPimGam", "me_PPipPimGam", 100, -.3, .3);
   TH1F *hIM_PipPimGam_mxp = new TH1F("IM_PipPimGam-mxp", "IM_PipPimGam-mxp", 100, -.3, .3);
+  TH1F *beamenergy = new TH1F("beam", "beam", 100, 1.5, 2.0);
   
   //creating histograms for signal in different ranges of energy
   TH1F *hsignal_1 = new TH1F("signal_1", "signal_1", 80, -.05, .05);  
@@ -415,12 +416,15 @@ void Rho1(){
 	
 	if (abs(mx_P-M_Rho)<0.06 &&Pgam > 0.1 && me_PPipPim > 0.1 && abs(mx2_PPipPimGam)<0.002 && abs(me_PPipPim-Pgam)<0.2)
 	{
+		//beamenergy->Fill(beam);
 		//h_PPipPim->Fill(mx2_PPipPim);
-		if(beam <= 1.0){
+		if(beam <= 1.75){
 			hsignal_1->Fill(mx2_PPipPim);	
-		} else if(beam > 1.0 <= 2.0){
+		} 
+		if(beam > 1.75 <= 2.0){
 			hsignal_2->Fill(mx2_PPipPim);	
-		} else if(beam > 2.0){
+		}
+		if(beam > 2.0){
 			hsignal_3->Fill(mx2_PPipPim);	
 		}
 		
