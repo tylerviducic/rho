@@ -355,9 +355,9 @@ void Rho1(){
     me_PPipPimGam = vMM_PPipPimGam.E(); 
     
     
-    //---------------------------------Azimuthal Angle 
+    //---------------------------------Azimuthal Angle of Rho-----------------
     
-	
+	Rho_phi = atan(py_rho / px_rho);
 
     //------------------------Cuts and Filling Histograms--------------------------------
 
