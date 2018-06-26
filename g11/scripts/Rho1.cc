@@ -15,9 +15,9 @@ void Rho1(){
   
   //chain->Add("/Volumes/MYPASSPORT/Torri/Desktop/g11/g11_photon/g11_PPipPimNtuple_10*.root");
   
-  //chain->Add("/home/physics/Research/g11_photon/g11_PPipPimNtuple_*.root");
+  chain->Add("/home/physics/research/g11_photon/g11_PPipPimNtuple_*.root");
 
-  chain->Add("/home/tylerviducic/research/rho/g11/g11_photon/g11_PPipPimNtuple_*.root");
+  //chain->Add("/home/tylerviducic/research/rho/g11/g11_photon/g11_PPipPimNtuple_*.root");
   
   //chain->Add("/home/physics/Research/g11_photon/g11_PPipPimNtuple_*1.root");
   
@@ -124,7 +124,7 @@ void Rho1(){
   
   //------------------------------missing energy-------------------------------
   
-  Double_t me_PPipPim;
+  Double_t me_PPipPim, me_PPipPimGam;
   
   chain->SetBranchAddress("me_PPipPim", &me_PPipPim);
   
@@ -212,9 +212,13 @@ void Rho1(){
   // cout << " start";
   
   //loop to make histogram arrays with corresponding names
-  TFile *f = new TFile("/home/tylerviducic/research/rho/g11/PipPimRHo.root","recreate");
-  //TFile *f = new TFile("/home/physics/Research/rho/g11/PipPimRHo.root","recreate");
+  //TFile *f = new TFile("/home/tylerviducic/research/rho/g11/PipPimRHo.root","recreate");
+  TFile *f = new TFile("/home/physics/research/rho/g11/PipPimRHo.root","recreate");
   
+
+//-----------------------Make Histograms-----------------------------------
+
+
   TH1F *mxp[61]; //array of histograms with mx_P in regio of eta
   TH1F *mx2_sig[61]; // array of mx2_PPipPim histograms with signal region of mx_P selected
   TH1F *mx2_sb[61]; // array of  mx2_PPipPim histograms with sideband regions of mx_P selected
@@ -229,8 +233,16 @@ void Rho1(){
   TH1F *h_PPipPim = new TH1F("PPipPim", "PPipPim", 100, -.005, .005);
   TH1F *h_vertex = new TH1F("vertex", "vertex", 1000, -5, 5);
   TH2F *mxp_imPipPim = new TH2F("mxp_imPipPim", "mxp_imPipPim", 200, .3, .9, 200, 0.2, 1.5);
-  TH1F *h_me_PPipPimGam = new TH1F("me_PPipPimGam", "me_PPipPimGam", 100, -.05, .05);
-  TH1F *hIM_PipPimGam_mxp = new TH1F("IM_PipPimGam-mxp", "IM_PipPimGam-mxp", 100, -.3, .3);  
+  TH1F *h_me_PPipPimGam = new TH1F("me_PPipPimGam", "me_PPipPimGam", 100, -.3, .3);
+  TH1F *hIM_PipPimGam_mxp = new TH1F("IM_PipPimGam-mxp", "IM_PipPimGam-mxp", 100, -.3, .3);
+  
+  //creating histograms for signal in different ranges of energy
+  TH1F *hsignal_1 = new TH1F("signal_1", "signal_1", 80, -.05, .05);  
+  TH1F *hsignal_2 = new TH1F("signal_2", "signal_2", 80, -.05, .05);
+  TH1F *hsignal_3 = new TH1F("signal_3", "signal_3", 80, -.05, .05); 
+ 
+ 
+ 
  
   char hname[61];
   char cname[61];
@@ -334,16 +346,16 @@ void Rho1(){
     
     
     me_PPipPim = vMM_PPipPim.E();
-    //me_PPipPimGam = vMM_PPipPimGam.E(); Is this not a method in ROOT?
- 
-    
-    
-    
-   
+    me_PPipPimGam = vMM_PPipPimGam.E(); 
     
     
     // loop to make mx_P, mx2_PPipPim_sb, and mx2_PPipPim_signal histograms
     
+
+
+    //------------------------Cuts and Filling Histograms--------------------------------
+
+
     Int_t k=0;
     double j=0.3;
     double h;
@@ -398,11 +410,24 @@ void Rho1(){
 	{
 	h_imPipPim->Fill(IM_PipPim);
 	}
+	
+*/	
+	
 	if (abs(mx_P-M_Rho)<0.06 &&Pgam > 0.1 && me_PPipPim > 0.1 && abs(mx2_PPipPimGam)<0.002 && abs(me_PPipPim-Pgam)<0.2)
 	{
-	h_PPipPim->Fill(mx2_PPipPim);
+		//h_PPipPim->Fill(mx2_PPipPim);
+		if(beam <= 1.0){
+			hsignal_1->Fill(mx2_PPipPim);	
+		} else if(beam > 1.0 <= 2.0){
+			hsignal_2->Fill(mx2_PPipPim);	
+		} else if(beam > 2.0){
+			hsignal_3->Fill(mx2_PPipPim);	
+		}
+		
 	}
 
+
+/*
     if (beam < 2.2) 
     {
 		h_mxP->Fill(mx_P);    
@@ -416,7 +441,7 @@ void Rho1(){
 	
 	mxp_imPipPim->Fill(IM_PipPim, mx_P);
 	h_mxP->Fill(mx_P);
-	//h_me_PPipPimGam->Fill(me_PPipPimGam);
+	h_me_PPipPimGam->Fill(me_PPipPimGam);
 	
 	if(abs(mx_P-M_Rho)<0.06){
 		h_imPipPim->Fill(IM_PipPim);
@@ -480,7 +505,7 @@ void Rho1(){
     //        H_mx2_PPipPimGam->Fill(mx2_PPipPimGam);
     //        H_mx2_PPipPim->Fill(mx2_PPipPim);
     
-    //------------------------Cuts--------------------------------
+
     
     
     
