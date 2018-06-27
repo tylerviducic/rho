@@ -239,9 +239,9 @@ void Rho1(){
   TH1F *h_me_PPipPimGam = new TH1F("me_PPipPimGam", "me_PPipPimGam", 100, -.3, .3);
   TH1F *hIM_PipPimGam_mxp = new TH1F("IM_PipPimGam-mxp", "IM_PipPimGam-mxp", 100, -.3, .3);
   TH1F *beamenergy = new TH1F("beam", "beam", 100, 1.5, 2.0);
-  TH1F *rho_phi = new TH1F("rho_phi", "rho_phi", 100, -3, 3);
-  TH1F *pphi = new TH1F("rho_phi", "rho_phi", 100, -3, 3);
-  TH1F *rhophiPphi = new TH1F("rhophi_Phi", "rhophi_Phi", 100, -3, 3);
+  TH1F *rho_phi = new TH1F("rho_phi", "rho_phi", 200, -5, 5);
+  TH1F *pphi = new TH1F("p_phi", "p_phi", 200, -5, 5);
+  TH1F *rhophiPphi = new TH1F("rhophi_Phi", "rhophi_Phi", 200, -5, 5);
   
   //creating histograms for signal in different ranges of energy
   TH1F *hsignal_1 = new TH1F("signal_1", "signal_1", 80, -.05, .05);  
@@ -467,8 +467,7 @@ void Rho1(){
 		rho_phi->Fill(Rho_phi);
 		pphi->Fill(P_phi);
 		rhophiPphi->Fill(Rho_phi - P_phi);
-		
-	}
+		}
     }
     
     
