@@ -165,6 +165,8 @@ void Rho1(){
   
   Double_t P_theta,Pip_theta,Pim_theta,Gam_theta,P_phi,Pip_phi,Pim_phi,Gam_phi,Rho_phi;
   
+  Double_t px_rho, py_rho, pz_rho;
+  
   Double_t mxP_pass, mxP_tight_pass, mx2_PPipPim_pass, gamEta_pass, gamEtaP_pass, gamEtaP_tight_pass, IM2_PipPim_eta_pass, IM2_PipPim_etaP_pass, costheta_pass, eBeam_pass, mx2_PPipPimGam_pass;
   
   
@@ -237,6 +239,9 @@ void Rho1(){
   TH1F *h_me_PPipPimGam = new TH1F("me_PPipPimGam", "me_PPipPimGam", 100, -.3, .3);
   TH1F *hIM_PipPimGam_mxp = new TH1F("IM_PipPimGam-mxp", "IM_PipPimGam-mxp", 100, -.3, .3);
   TH1F *beamenergy = new TH1F("beam", "beam", 100, 1.5, 2.0);
+  TH1F *rho_phi = new TH1F("rho_phi", "rho_phi", 100, -3, 3);
+  TH1F *pphi = new TH1F("rho_phi", "rho_phi", 100, -3, 3);
+  TH1F *rhophiPphi = new TH1F("rhophi_Phi", "rhophi_Phi", 100, -3, 3);
   
   //creating histograms for signal in different ranges of energy
   TH1F *hsignal_1 = new TH1F("signal_1", "signal_1", 80, -.05, .05);  
@@ -367,7 +372,7 @@ void Rho1(){
     Int_t k=0;
     double j=0.3;
     double h;
-    
+/*    
     for (int k=0; k<=60; k++)
       {
 	h=0.3+(double(k)/100.0); //relates histogram number (place in array) to bin of IM_PipPim
@@ -389,7 +394,7 @@ void Rho1(){
 	      }
 	  }
 	  }
-/*	  
+	  
 	if (me_PPipPim > 0.2  && abs(me_PPipPim - Pgam)<0.2 && abs(mx2_PPipPimGam)<0.0025  && (abs(mx_P-0.710)<0.010 || abs(mx_P-0.830)<0.01) )
 	  {
 	    if (abs(IM_PipPim-h)<0.005)//Selects bin of IM_PipPim
@@ -435,6 +440,8 @@ void Rho1(){
 			hsignal_3->Fill(mx2_PPipPim);	
 		}
 		
+		 
+		
 	}
 
 
@@ -450,13 +457,17 @@ void Rho1(){
 	
 	if(Pgam > 0.1 && me_PPipPim > 0.1 && abs(mx2_PPipPimGam)<0.002 && abs(me_PPipPim-Pgam)<0.2 && abs(mx2_PPipPim)<0.005){
 	
-	mxp_imPipPim->Fill(IM_PipPim, mx_P);
-	h_mxP->Fill(mx_P);
-	h_me_PPipPimGam->Fill(me_PPipPimGam);
+//	mxp_imPipPim->Fill(IM_PipPim, mx_P);
+//	h_mxP->Fill(mx_P);
+//	h_me_PPipPimGam->Fill(me_PPipPimGam);
 	
 	if(abs(mx_P-M_Rho)<0.06){
 		h_imPipPim->Fill(IM_PipPim);
 		hIM_PipPimGam_mxp->Fill(IM_PipPimGam - mx_P);
+		rho_phi->Fill(Rho_phi);
+		pphi->Fill(P_phi);
+		rhophiPphi->Fill(Rho_phi - P_phi);
+		
 	}
     }
     
