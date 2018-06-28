@@ -15,9 +15,9 @@ void Rho1(){
   
   //chain->Add("/Volumes/MYPASSPORT/Torri/Desktop/g11/g11_photon/g11_PPipPimNtuple_10*.root");
   
-  chain->Add("/home/physics/research/g11_photon/g11_PPipPimNtuple_*.root");
+  //chain->Add("/home/physics/research/g11_photon/g11_PPipPimNtuple_*.root");
 
-  //chain->Add("/home/tylerviducic/research/rho/g11/g11_photon/g11_PPipPimNtuple_*.root");
+  chain->Add("/home/tylerviducic/research/rho/g11/g11_photon/g11_PPipPimNtuple_*.root");
   
   //chain->Add("/home/physics/Research/g11_photon/g11_PPipPimNtuple_*1.root");
   
@@ -215,8 +215,8 @@ void Rho1(){
   // cout << " start";
   
   //loop to make histogram arrays with corresponding names
-  //TFile *f = new TFile("/home/tylerviducic/research/rho/g11/PipPimRHo.root","recreate");
-  TFile *f = new TFile("/home/physics/research/rho/g11/PipPimRHo.root","recreate");
+  TFile *f = new TFile("/home/tylerviducic/research/rho/g11/PipPimRHo.root","recreate");
+  //TFile *f = new TFile("/home/physics/research/rho/g11/PipPimRHo.root","recreate");
   
 
 //-----------------------Make Histograms-----------------------------------
@@ -377,7 +377,7 @@ void Rho1(){
     for (int k=0; k<=60; k++)
       {
 	h=0.3+(double(k)/100.0); //relates histogram number (place in array) to bin of IM_PipPim
-	if (abs(mx_P-M_Rho)<0.06 && abs(mx_P - .780) > .008 &&Pgam > 0.1 && me_PPipPim > 0.1 && abs(mx2_PPipPimGam)<0.002 && abs(me_PPipPim-Pgam)<0.2 && abs(mx2_PPipPim)<0.005)
+	if (abs(mx_P-M_Rho)<0.06 &&Pgam > 0.1 && me_PPipPim > 0.1 && abs(mx2_PPipPimGam)<0.002 && abs(me_PPipPim-Pgam)<0.2 && abs(mx2_PPipPim)<0.005)
 	  {
 	    if (abs(IM_PipPim-h)<0.005) //selects bin of IM_PipPim
 	      {
@@ -453,14 +453,20 @@ void Rho1(){
     }
     
     h_vertex->Fill(vz_Pip - vz_P); //runNum is switched with pim
+
+
   
 */    
 	
 	if(Pgam > 0.1 && me_PPipPim > 0.1 && abs(mx2_PPipPimGam)<0.002 && abs(me_PPipPim-Pgam)<0.2 && abs(mx2_PPipPim)<0.005){
+
+
+//plot the me_PPipPim-PGam
+//t = ptarget - p detected ->> 2*mp^2 - 2*E_P*M_P
 	
 //	mxp_imPipPim->Fill(IM_PipPim, mx_P);
 //	h_mxP->Fill(mx_P);
-//	h_me_PPipPimGam->Fill(me_PPipPimGam);
+	h_me_PPipPimGam->Fill(me_PPipPimGam);
 	
 	if(abs(mx_P-M_Rho)<0.06){
 		h_imPipPim->Fill(IM_PipPim);
