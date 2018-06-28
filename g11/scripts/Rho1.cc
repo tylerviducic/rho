@@ -157,7 +157,7 @@ void Rho1(){
   
   Double_t IM_PipPim,IM_PipPimGam,IM2_PipPim,IM2_PipPimGam;
   
-  Double_t IM2_PipPim_Eta;
+  Double_t IM2_PipPim_Eta,tmand;
   
   Double_t gamEta;
   
@@ -242,6 +242,7 @@ void Rho1(){
   TH1F *rho_phi = new TH1F("rho_phi", "rho_phi", 360, -180, 180);
   TH1F *pphi = new TH1F("p_phi", "p_phi", 360, -180, 180);
   TH1F *rhophiPphi = new TH1F("rhophi_Phi", "rhophi_Phi", 600, -300, 300);
+  TH1F *tMand = new TH1F("tMand", "tMand", 200, -2, 2);
   
   //creating histograms for signal in different ranges of energy
   TH1F *hsignal_1 = new TH1F("signal_1", "signal_1", 80, -.05, .05);  
@@ -362,7 +363,13 @@ void Rho1(){
     
     //---------------------------------Azimuthal Angle of Rho-----------------
     
-	Rho_phi = (atan(py_rho / px_rho) * 180)/ TMath::Pi();
+    Rho_phi = (atan(py_rho / px_rho) * 180)/ TMath::Pi();
+
+
+    //-----------------------------t-mandelston consturction-----------------------
+
+    
+    tmand= (2 * (M_P * M_P)) - (2 * Eproton * M_P); 
 	
 
     //------------------------Cuts and Filling Histograms--------------------------------
@@ -474,6 +481,7 @@ void Rho1(){
 		rho_phi->Fill(Rho_phi);
 		pphi->Fill(P_phi);
 		rhophiPphi->Fill(Rho_phi - P_phi);
+		tMand->Fill(tmand);
 		}
     }
     
