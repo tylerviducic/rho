@@ -1,33 +1,15 @@
-//using namespace std;
-//#include "RootHeaders.h"
 
-//void EpEmGam();
-//
-//int main(){
-//    EpEmGam();  
-//    return 0;
-//}
-//test
 
 void Rho1(){
   
   TChain *chain = new TChain("g11_PPipPim");
   
-  //chain->Add("/Volumes/MYPASSPORT/Torri/Desktop/g11/g11_photon/g11_PPipPimNtuple_10*.root");
-  
-  //chain->Add("/home/physics/research/g11_photon/g11_PPipPimNtuple_*.root");
+  chain->Add("/home/physics/research/g11_photon/g11_PPipPimNtuple_*.root");
 
-  chain->Add("/home/tylerviducic/research/rho/g11/g11_photon/g11_PPipPimNtuple_*.root");
+  //chain->Add("/home/tylerviducic/research/rho/g11/g11_photon/g11_PPipPimNtuple_*.root");
   
   //chain->Add("/home/physics/Research/g11_photon/g11_PPipPimNtuple_*1.root");
   
-  //chain->Add("/siliconDisk/data/penta/g11root.1/g11_PPipPimNtuple*.root");
-  
-  //chain->Add("/siliconDisk/data2/penta/gmbianda/g11/g11_data/data/g11_PPipPimNtuple*.root");
-  
-  //chain->Add("/Users/Torri/g11/g11_PPipPimNtuple_*.root");
-  
-  //chain->Add("/Users/physics/Desktop/g11_photon/g11_PPipPimNtuple_*.root");
   
   Int_t nEvent = chain->GetEntries();
   
@@ -139,7 +121,6 @@ void Rho1(){
   
   Float_t buffer[50];
   
-  TH1D* h_mx_P = new TH1D("h_mx_P","mx_P [GeV]",80,0.0,1.5);
   
   TLorentzVector vT, vbeam, vP, vPip, vPim, vGam;
   TLorentzVector vBT, vEtaRest, vGamEta, vPipEta, vPimEta, vEtaEta, vIM_PipPim_Eta;
@@ -212,11 +193,10 @@ void Rho1(){
   dataTree->Branch("Pim_phi",&Pim_phi,"Pim_phi/D");
   dataTree->Branch("Gam_phi",&Gam_phi,"Gam_phi/D");
   
-  // cout << " start";
   
-  //loop to make histogram arrays with corresponding names
-  TFile *f = new TFile("/home/tylerviducic/research/rho/g11/PipPimRHo.root","recreate");
-  //TFile *f = new TFile("/home/physics/research/rho/g11/PipPimRHo.root","recreate");
+  
+  //TFile *f = new TFile("/home/tylerviducic/research/rho/g11/PipPimRHo.root","recreate");
+  TFile *f = new TFile("/home/physics/research/rho/g11/PipPimRHo.root","recreate");
   
 
 //-----------------------Make Histograms-----------------------------------
@@ -226,32 +206,10 @@ void Rho1(){
   TH1F *mx2_sig[61]; // array of mx2_PPipPim histograms with signal region of mx_P selected
   TH1F *mx2_sb[61]; // array of  mx2_PPipPim histograms with sideband regions of mx_P selected
   TH1F *h_mxP = new TH1F("h_mxP", "mxP", 200, .2, 1.1);
-  TH1F *h_Mrho = new TH1F("h_Mrho", "Mrho", 200, .5, 1);
-  TH1F *subtract[61]; // array of histograms with sidebands subtracted
-  TH2F *PipPimPipPimGamma = new TH2F("mx2_PPipPimGam [x], mx2_PPipPim[y]", "mx2_PPipPimGam [x], mx2_PPipPim[y]", 400, -.01, .002, 100, -.01 ,.03);
-  TH1F *mgammaPgam = new TH1F("me_PPipPim - Pgam","me_PPipPim - Pgam", 200, -1, 1);
-  TH1F *hmx_p = new TH1F("mx_P^2","mx_P^2", 200, 0, 2);
-  TH1F *hmx_4p = new TH1F("mx2_PPipPimGam","mx2_PPipPimGam", 100, -.5, .5);
+  TH1F *subtract[61]; // array of histograms with sidebands subtracted;
   TH1F *h_imPipPim = new TH1F("h_imPipPim", "h_imPipPim", 150, 0, 1);
-  TH1F *h_PPipPim = new TH1F("PPipPim", "PPipPim", 100, -.005, .005);
-  TH1F *h_vertex = new TH1F("vertex", "vertex", 1000, -5, 5);
-  TH2F *mxp_imPipPim = new TH2F("mxp_imPipPim", "mxp_imPipPim", 200, .3, .9, 200, 0.2, 1.5);
-  TH1F *h_me_PPipPimGam = new TH1F("me_PPipPimGam", "me_PPipPimGam", 100, -.3, .3);
-  TH1F *hIM_PipPimGam_mxp = new TH1F("IM_PipPimGam-mxp", "IM_PipPimGam-mxp", 100, -.3, .3);
-  TH1F *beamenergy = new TH1F("beam", "beam", 100, 1.5, 2.0);
-  TH1F *rho_phi = new TH1F("rho_phi", "rho_phi", 360, -180, 180);
-  TH1F *pphi = new TH1F("p_phi", "p_phi", 360, -180, 180);
-  TH1F *rhophiPphi = new TH1F("rhophi_Phi", "rhophi_Phi", 600, -300, 300);
   TH1F *tMand = new TH1F("tMand", "tMand", 200, -2, 2);
   
-  //creating histograms for signal in different ranges of energy
-  TH1F *hsignal_1 = new TH1F("signal_1", "signal_1", 80, -.05, .05);  
-  TH1F *hsignal_2 = new TH1F("signal_2", "signal_2", 80, -.05, .05);
-  TH1F *hsignal_3 = new TH1F("signal_3", "signal_3", 80, -.05, .05); 
- 
- 
- 
- 
   char hname[61];
   char cname[61];
   char sbname[61];
@@ -369,18 +327,18 @@ void Rho1(){
     //-----------------------------t-mandelston consturction-----------------------
 
     
-    tmand= (2 * (M_P * M_P)) - (2 * Eproton * M_P); 
+    tmand= (2.0 * (M_P * M_P)) - (2.0 * Eproton * M_P); 
 	
 
     //------------------------Cuts and Filling Histograms--------------------------------
 
 
 	// loop to make mx_P, mx2_PPipPim_sb, and mx2_PPipPim_signal histograms
-
+/*
     Int_t k=0;
     double j=0.3;
     double h;
-/*    
+ 
     for (int k=0; k<=60; k++)
       {
 	h=0.3+(double(k)/100.0); //relates histogram number (place in array) to bin of IM_PipPim
@@ -401,7 +359,7 @@ void Rho1(){
 		mx2_sig[k]->Fill(mx2_PPipPim); //array of mx2 histograms from signal region of rho
 	      }
 	  }
-	  }
+	  
 	  
 	if (me_PPipPim > 0.2  && abs(me_PPipPim - Pgam)<0.2 && abs(mx2_PPipPimGam)<0.0025  && (abs(mx_P-0.710)<0.010 || abs(mx_P-0.830)<0.01) )
 	  {
@@ -419,70 +377,18 @@ void Rho1(){
     		PipPimPipPimGamma->Fill(mx2_PPipPimGam, mx2_PPipPim);
     	}
     	
-    	
-   if(abs(mx_P-M_Rho)<0.06 && me_PPipPim > 0.1 && Pgam > 0.1 && abs(mx2_PPipPim) < 0.002 && abs(mx2_PPipPimGam) < 0.002)
-   {ls
     
-    mgammaPgam->Fill(me_PPipPim - Pgam);
-   } 
-    hmx_p->Fill(mx_P);
-    hmx_4p->Fill(mx2_PPipPimGam);
-	if(abs(mx_P-M_Rho)<0.06 && me_PPipPim > 0.1 && Pgam > 0.1 && abs(mx2_PPipPim) < 0.003 && abs(mx2_PPipPimGam) < 0.002 && abs(me_PPipPim - Pgam) < .2)
-	{
-	h_imPipPim->Fill(IM_PipPim);
-	}
-	
-*/	
-	
-	if (abs(mx_P-M_Rho)<0.06 &&Pgam > 0.1 && me_PPipPim > 0.1 && abs(mx2_PPipPimGam)<0.002 && abs(me_PPipPim-Pgam)<0.2)
-	{
-		//beamenergy->Fill(beam);
-		//h_PPipPim->Fill(mx2_PPipPim);
-		if(beam <= 1.75){
-			hsignal_1->Fill(mx2_PPipPim);	
-		} 
-		if(beam > 1.75 <= 2.0){
-			hsignal_2->Fill(mx2_PPipPim);	
-		}
-		if(beam > 2.0){
-			hsignal_3->Fill(mx2_PPipPim);	
-		}
-		
-		 
-		
-	}
-
-
-/*
-    if (beam < 2.2) 
-    {
-		h_mxP->Fill(mx_P);    
-    }
-    
-    h_vertex->Fill(vz_Pip - vz_P); //runNum is switched with pim
-
-
-  
-*/    
-	
-	if(Pgam > 0.1 && me_PPipPim > 0.1 && abs(mx2_PPipPimGam)<0.002 && abs(me_PPipPim-Pgam)<0.2 && abs(mx2_PPipPim)<0.005){
+	*/
+	if(Pgam > 0.1 && me_PPipPim > 0.1 && abs(mx2_PPipPimGam)<0.002 && abs(me_PPipPim-Pgam)<0.2 && abs(mx2_PPipPim)<0.005&&abs(mx_P-M_Rho)<0.06){
 
 
 //plot the me_PPipPim-PGam
 //t = ptarget - p detected ->> 2*mp^2 - 2*E_P*M_P
 	
-//	mxp_imPipPim->Fill(IM_PipPim, mx_P);
-//	h_mxP->Fill(mx_P);
-	h_me_PPipPimGam->Fill(me_PPipPimGam);
 	
-	if(abs(mx_P-M_Rho)<0.06){
 		h_imPipPim->Fill(IM_PipPim);
-		hIM_PipPimGam_mxp->Fill(IM_PipPimGam - mx_P);
-		rho_phi->Fill(Rho_phi);
-		pphi->Fill(P_phi);
-		rhophiPphi->Fill(Rho_phi - P_phi);
 		tMand->Fill(tmand);
-		}
+	
     }
     
     
@@ -528,21 +434,46 @@ void Rho1(){
     Pim_phi = vPim.Phi()*57.29;
     Gam_phi = vGam.Phi()*57.29;
     
-    //---------------------COM Frames-----------------------------
     
-    //Double_t gamEta = (mx_P - IM2_PipPim/mx_P)/2.0 ;
-    
-    //------------------------------------------------------------
-    
-    //        diff_mx_P_M_EtaP->Fill(mx_P-M_EtaP);
-    //        diff_me_Pgam->Fill(me_PPipPim-Pgam);
-    //        H_Pgam->Fill(Pgam);
-    //        H_me->Fill(me_PPipPim);
-    //        H_mx2_PPipPimGam->Fill(mx2_PPipPimGam);
-    //        H_mx2_PPipPim->Fill(mx2_PPipPim);
-    
+if((me_PPipPim>0.15) && TMath::Abs(mx2_PPipPim)<0.008){mxP_pass=1.0;}
 
-    
+        // if(TMath::Abs(mx2_PPipPim)<0.008){mxP_pass=1.0;}
+
+        else{mxP_pass=0.0;}
+
+        
+
+        mxP_tight_pass=1.0;
+
+        
+
+        if(TMath::Abs(mx_P - M_Eta)<0.05 && TMath::Abs(mx2_PPipPim)<0.005 && TMath::Abs(me_PPipPim - Pgam)<0.05 && Pgam>0.1 && me_PPipPim>0.1){mx2_PPipPimGam_pass=1.0;}
+
+        else{mx2_PPipPimGam_pass=0.0;}
+
+        
+
+        mx2_PPipPimGam_pass=1.0;
+
+        
+
+        if(TMath::Abs(mx_P - 0.1349766)<0.06){gamEta_pass=1.0;}
+
+        else{gamEta_pass=0.0;}
+
+        
+
+        gamEtaP_pass=1.0;
+
+        gamEtaP_tight_pass=1.0;
+
+        mx2_PPipPim_pass=1.0;
+
+        
+
+        if(beam >= 1.58 && beam <= 3.502){eBeam_pass=1.0;}
+
+        else{eBeam_pass=0.0;}
     
     
     if(runNum != 43490 && runNum != 43491 && runNum != 43492 && runNum != 43493 && runNum != 43494 && runNum != 43495 && runNum != 43496 && runNum != 43497 && runNum != 43498 && runNum != 43499 && runNum != 43500 && runNum != 43501 && runNum != 43502 && runNum != 43503 && runNum != 43504 && runNum != 43505 && runNum != 43506 && runNum != 43507 && runNum != 43508 && runNum != 43509 && runNum != 43510 && runNum != 43511 && runNum != 43512 && runNum != 43513 && runNum != 43514 && runNum != 43515 && runNum != 43516 && runNum != 43517 && runNum != 43518 && runNum != 43519 && runNum != 43520 && runNum != 43521 && runNum != 43522 && runNum != 43523 && runNum != 43524 && runNum != 43525 && runNum != 43558 && runNum != 43675 && runNum != 43676 && runNum != 43777 && runNum != 43778 && runNum != 43871 && runNum != 43981 && runNum != 43982 && runNum != 43989 && runNum != 43990 && runNum != 43991 && runNum != 44013 && runNum != 44108 && runNum != 44109 && runNum != 44110 && runNum != 44111 && runNum != 44112 && runNum != 44113){good_run_pass=1.0;}
@@ -594,13 +525,14 @@ void Rho1(){
         
         T->Fill(buffer);
       }
+      
     dataTree->Fill();
     
   }
   
   //###########################################   END OUTGOING DATA  #######################################
   
-  //TFile *f = new TFile("/siliconDisk/data2/penta/Torri/g11/g11_rootfiles/ntuples4rho.root","recreate");
+
   dataTree->Write();
   
 
