@@ -334,7 +334,7 @@ void Rho1(){
 
 
 	// loop to make mx_P, mx2_PPipPim_sb, and mx2_PPipPim_signal histograms
-/*
+
     Int_t k=0;
     double j=0.3;
     double h;
@@ -352,15 +352,15 @@ void Rho1(){
 	  
 	
 	
-	if (abs(mx_P-M_Rho)<0.06  && abs(mx_P - .780) > .008 && me_PPipPim > 0.1 && abs(mx2_PPipPimGam) < 0.002  && Pgam > 0.1 && abs(me_PPipPim - Pgam)<0.2)
+	if (abs(mx_P-M_Rho)<0.06  && me_PPipPim > 0.1 && abs(mx2_PPipPimGam) < 0.002  && Pgam > 0.1 && abs(me_PPipPim - Pgam)<0.2&&abs(tmand)<.4)
 	  {
 	    if (abs(IM_PipPim-h)<0.005) //selects bin of IM_PipPim
 	      {
 		mx2_sig[k]->Fill(mx2_PPipPim); //array of mx2 histograms from signal region of rho
 	      }
 	  }
-	  
-	  
+	}//remove this when doing sidebands  
+/*	  
 	if (me_PPipPim > 0.2  && abs(me_PPipPim - Pgam)<0.2 && abs(mx2_PPipPimGam)<0.0025  && (abs(mx_P-0.710)<0.010 || abs(mx_P-0.830)<0.01) )
 	  {
 	    if (abs(IM_PipPim-h)<0.005)//Selects bin of IM_PipPim
@@ -379,8 +379,7 @@ void Rho1(){
     	
     
 	*/
-	if(Pgam > 0.1 && me_PPipPim > 0.1 && abs(mx2_PPipPimGam)<0.002 && abs(me_PPipPim-Pgam)<0.2 && abs(mx2_PPipPim)<0.005&&abs(mx_P-M_Rho)<0.06){
-
+	if(Pgam > 0.1 && me_PPipPim > 0.1 && abs(mx2_PPipPimGam)<0.002 && abs(me_PPipPim-Pgam)<0.2 && abs(mx2_PPipPim)<0.005&&abs(mx_P-M_Rho)<0.06&&abs(tmand)>.5){
 
 //plot the me_PPipPim-PGam
 //t = ptarget - p detected ->> 2*mp^2 - 2*E_P*M_P
