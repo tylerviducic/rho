@@ -11,16 +11,19 @@ void mxp_samecanvas()
     
 
     TCanvas *c1 = new TCanvas("c1","display",900,700);
+    TCanvas *c2 = new TCanvas("c2","display",900,700);
+    TCanvas *c3 = new TCanvas("c3","display",900,700);
 
     gStyle->SetOptStat(0);
 
-    c1->Divide(7,8,0.001,0.003);
-
+    c1->Divide(4,5,0,0);
+	c2->Divide(4,5,0,0);
+	c3->Divide(4,5,0,0);
     
 
     //This line opens the file where your histograms are saved
 
-    TFile *g = TFile::Open("/home/physics/Research/rho/g11/PipPimRHo.root");
+    TFile *g = TFile::Open("/home/physics/research/rho/g11/PipPimRHo.root");
 
 
 
@@ -46,23 +49,7 @@ void mxp_samecanvas()
 
         
 
-        
-
-        sprintf(mxp,"%s%d","h",k);
-
-//        TH1F *mxp = (TH1F*)g->Get->("h"+str);
-		TH1F *mxp = (TH1F*)g->Get("h"+str);
-
-        c1->cd(k+1); //fills the canvas, numbering starts from 1 instead of 0
-
-        mxp->Draw();
-
-        
-
-        //use this part to draw the signal and sidebands on top of each other. Moskov will have you do this eventually so you may as well keep it
-
-        
-
+       
         sprintf(signal,"%s%d","signal",k);
 
         //sprintf(sideband,"%s%d","sideband",k);
@@ -71,24 +58,38 @@ void mxp_samecanvas()
 
         TH1F *signal = (TH1F*)g->Get("signal"+str);
 
-        //TH1F *sideband = (TH1F*)g->Get("sideband"+str);
+     
 
-        c1->cd(k+1); // fills the canvas, it starts from 1 instead of 0
+        if(k<21){
 
-        signal->SetFillColor(4);
+
+
+        c1->cd(k+1); 
+
+        //signal->SetFillColor(4);
 
         signal->Draw();
 
-        //sideband->SetFillColor(2);
-
-        //sideband->Draw("same");
 
          
 
         
 
         c1->Update();
+		}else if(k >=21 && k < 41){
 
+
+
+    	    c2->cd(k-20);
+
+
+    	    signal->Draw();
+		} else{
+			c3->cd(k-40);
+
+
+    	    signal->Draw();
+		}
     }
 
 }
