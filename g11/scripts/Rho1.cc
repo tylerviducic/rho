@@ -19,6 +19,11 @@ void Rho1(){
   Int_t runNum;
   chain->SetBranchAddress("runNum", &runNum);
   
+  //---------------------------------------------------For Neutral----------------------------
+  
+  Int_t neutral;
+  chain->SetBranchAddress("neutral", &neutral);
+  
   
   //----------------------------------------------------For Incoming beam---------------------------------------------------------
   
@@ -117,7 +122,7 @@ void Rho1(){
   //###########################################   BEGIN OUTGOING DATA   ##############################################################
   
   
-  TNtuple *T = new TNtuple("g11_Ntuple","g11_Ntuple","Pp:Ppip:Ppim:Pgam:P_theta:Pip_theta:Pim_theta:Gam_theta:P_phi:Pip_phi:Pim_phi:Gam_phi:mx_P:mxp:mxpGam:me_PPipPim:beam:cosTheta:gamEta:IM_PipPim:IM_PipPimGam:IM2_PipPim:phi:vz_P:vz_Pip:vz_Pim:runNum:px_G:py_G:pz_G:px_Pip:py_Pip:pz_Pip:px_Pim:py_Pim:pz_Pim:mx2_PPipPimGam:mx_PPipPimGam:px_P:py_P:pz_P:mx2_PPipPim");
+  TNtuple *T = new TNtuple("g11_Ntuple","g11_Ntuple","Pp:Ppip:Ppim:Pgam:P_theta:Pip_theta:Pim_theta:Gam_theta:P_phi:Pip_phi:Pim_phi:Gam_phi:mx_P:mxp:mxpGam:me_PPipPim:beam:cosTheta:gamEta:IM_PipPim:IM_PipPimGam:IM2_PipPim:phi:vz_P:vz_Pip:vz_Pim:runNum:px_G:py_G:pz_G:px_Pip:py_Pip:pz_Pip:px_Pim:py_Pim:pz_Pim:mx2_PPipPimGam:mx_PPipPimGam:px_P:py_P:pz_P:mx2_PPipPim:neutral");
   
   Float_t buffer[50];
   
@@ -209,6 +214,7 @@ void Rho1(){
   TH1F *subtract[61]; // array of histograms with sidebands subtracted;
   TH1F *h_imPipPim = new TH1F("h_imPipPim", "h_imPipPim", 150, 0, 1);
   TH1F *tMand = new TH1F("tMand", "tMand", 200, -2, 2);
+  TH1F *h_neutral = new TH1F("neutral", "neutral", 3, 0,3);
   
   char hname[61];
   char cname[61];
@@ -352,7 +358,7 @@ void Rho1(){
 	  
 	
 	
-	if (abs(mx_P-M_Rho)<0.06  && me_PPipPim > 0.1 && abs(mx2_PPipPimGam) < 0.002  && Pgam > 0.1 && abs(me_PPipPim - Pgam)<0.2&&abs(tmand)<.4)
+	if (abs(mx_P-M_Rho)<0.06  && me_PPipPim > 0.1 && abs(mx2_PPipPimGam) < 0.002  && Pgam > 0.1 && abs(me_PPipPim - Pgam)<0.2&&neutral<2)
 	  {
 	    if (abs(IM_PipPim-h)<0.005) //selects bin of IM_PipPim
 	      {
@@ -379,12 +385,12 @@ void Rho1(){
     	
     
 	*/
-	if(Pgam > 0.1 && me_PPipPim > 0.1 && abs(mx2_PPipPimGam)<0.002 && abs(me_PPipPim-Pgam)<0.2 && abs(mx2_PPipPim)<0.005&&abs(mx_P-M_Rho)<0.06&&abs(tmand)>.5){
+	if(Pgam > 0.1 && me_PPipPim > 0.1 && abs(mx2_PPipPimGam)<0.002 && abs(me_PPipPim-Pgam)<0.2 && abs(mx2_PPipPim)<0.005&&abs(mx_P-M_Rho)<0.06){
 
 //plot the me_PPipPim-PGam
 //t = ptarget - p detected ->> 2*mp^2 - 2*E_P*M_P
 	
-	
+		h_neutral->Fill(neutral);
 		h_imPipPim->Fill(IM_PipPim);
 		tMand->Fill(tmand);
 	
