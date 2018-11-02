@@ -1,17 +1,16 @@
 package org.jlab
 
-import org.jlab.jnp.hipo.data.HipoEvent;
-import org.jlab.jnp.hipo.data.HipoGroup;
-import org.jlab.jnp.hipo.data.HipoNode;
+import org.jlab.jnp.hipo.data.HipoEvent
+import org.jlab.jnp.hipo.data.HipoGroup
 import org.jlab.jnp.hipo.io.HipoReader
-import org.jlab.jnp.hipo.io.HipoWriter;
-
-String dataFile = "/home/tylerviducic/research/rho/clas12/data/run_43526_full.hipo";
+import org.jlab.jnp.hipo.io.HipoWriter
+//String dataFile = "/home/tylerviducic/research/rho/clas12/data/run_43526_full.hipo";
+String dataFile = "/home/physics/research/rho/clas12/data/run_43491_full.hipo";
 
 HipoReader reader = new HipoReader();
 reader.open(dataFile);
 HipoWriter writer = reader.createWriter();
-writer.open("/home/tylerviducic/research/rho/clas12/data/run_43526_full_filtered.hipo");
+writer.open("/home/physics/research/rho/clas12/data/run_43491_full_filtered.hipo");
 
 while (reader.hasNext()==true){
     HipoEvent event = reader.readNextEvent();

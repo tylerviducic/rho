@@ -1,13 +1,11 @@
 
 package org.jlab
 
-import org.jlab.jnp.hipo.data.HipoEvent;
-import org.jlab.jnp.hipo.data.HipoGroup;
-import org.jlab.jnp.hipo.data.HipoNode;
-import org.jlab.jnp.hipo.io.HipoReader;
-
+import org.jlab.jnp.hipo.data.HipoEvent
+import org.jlab.jnp.hipo.data.HipoGroup
+import org.jlab.jnp.hipo.io.HipoReader
 //String dataFile = "/home/tylerviducic/research/rho/clas12/data/run_43491_full.hipo";
-String dataFile = "/home/tylerviducic/research/rho/clas12/data/run_43526_full_filtered.hipo";
+String dataFile = "/home/physics/research/rho/clas12/data/run_43526_full_filtered.hipo";
 
 //dataFile = args[0]
 
