@@ -16,7 +16,9 @@ import org.jlab.jnp.physics.Particle
 import org.jlab.jnp.physics.PhysicsEvent
 
 //String dataFile = "/home/tylerviducic/research/rho/clas12/data/run_43526_full_filtered.hipo";
-String dataFile = "/home/physics/research/rho/clas12/data/run_43526_full_filtered.hipo";
+//String dataFile = "/home/tylerviducic/research/rho/clas12/data/run_43491_full_filtered.hipo";
+//String dataFile = "/home/physics/research/rho/clas12/data/run_43526_full_filtered.hipo";
+String dataFile = "/work/clas12/viducic/g11TestFile_filtered.hipo"
 //String inputFile = args[0];
 
 H1F h100 = new H1F("h100", 100, 0.4, 1.2);
@@ -28,12 +30,7 @@ h101.setTitle("mx_P_cut");
 h101.setFillColor(42);
 
 TCanvas c1 = new TCanvas("c1", 500, 600);
-c1.getCanvas().initTimer(1000);
-c1.divide(1,2);
-c1.cd(0);
-c1.draw(h100);
-c1.cd(1);
-c1.draw(h101);
+//c1.getCanvas().initTimer(1000);
 
 
 HipoReader reader = new HipoReader();
@@ -52,11 +49,18 @@ while(reader.hasNext()){
     Particle mx_PPipPimGam = physEvent.getParticle("[b] + [t] - [2212] -[211] - [-211]-[22]");
     h100.fill(mx_P.mass());
 
-    if(Math.abs(mx_PPipPimGam.mass())<0.01){
+    if(Math.abs(mx_PPipPim.mass())<0.005){
         h101.fill(mx_P.mass());
     }
 
 }
+
+c1.divide(1,2);
+c1.cd(0);
+c1.draw(h100);
+c1.cd(1);
+c1.draw(h101);
+
 
 println ("done");
 
