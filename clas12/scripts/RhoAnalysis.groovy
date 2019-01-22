@@ -21,27 +21,81 @@ import org.jlab.jnp.physics.PhysicsEvent
 String dataFile = "/work/clas12/viducic/g11_data_filtered.hipo"
 //String inputFile = args[0];
 
-H1F h100 = new H1F("h100", 100, 0.4, 1.2);
-h100.setTitle("mx_P");
-h100.setFillColor(43);
+//Declare constants
 
-H1F h101 = new H1F("h101", 100, 0.4, 1.2);
-h101.setTitle("mx_P_cut");
-h101.setFillColor(42);
+mRho = 0.770;
+mP = 0.938272;
+
+//Declare Histograms
+H1F hMxpUncut = new H1F("hMePPipPimpGam", 100, 0.4, 1.2);
+hMxpUncut.setTitle("mx_P");
+hMxpUncut.setFillColor(43);
+
+H1F hMxp = new H1F("hMePPipPimpGam", 100, 0.4, 1.2);
+hMxp.setTitle("mx_P_cut");
+hMxp.setFillColor(42);
+
+H1F hPGam = new H1F("hMePPipPimpGam", "Energy of detected photon [GeV]", "N", 250, 0, 2.5);
+hPGam.setTitle("PGam [GeV]");
+hPGam.setFillColor(44);
+
+H1F hMePPipPim = new H1F("hMePPipPimpGam", "Missing Energy of PPipPim [GeV]", "N", 250, 0, 2.5);
+hMePPipPim.setTitle("Missing Energy of PPipPim [GeV]");
+hMePPipPim.setFillColor(45);
+
+H1F hMePPipPimpGam = new H1F("hMePPipPimpGam", "Missing Energy of PPipPim - PGam [GeV]", "N", 70, -0.2, 0.5);
+hMePPipPimpGam.setTitle("Missing Energy of PPipPim - PGam [GeV]");
+hMePPipPimpGam.setFillColor(41);
+
+H1F hMxPPipPim = new H1F("hMxPPipPim", "Missing mass#^2 of PPipPim [GeV]#^2", "N", 100, -0.02, 0.05);
+hMePPipPimpGam.setTitle("Missing mass#^2 of PPipPim [GeV]#^2");
+hMePPipPimpGam.setFillColor(41);
+
+H1F hMxPPipPimGam = new H1F("hMxPPipPimGam", "Missing mass#^2 of PPipPimGam [GeV]#^2", "N", 100, -0.02, 0.002);
+hMePPipPimpGam.setTitle("Missing mass#^2 of PPipPimGam [GeV]#^2");
+hMePPipPimpGam.setFillColor(41);
+
+//Declare Canvas
 
 TCanvas c1 = new TCanvas("c1", 500, 600);
+TCanvas c2 = new TCanvas("c2", 500, 600);
+TCanvas c3 = new TCanvas("c3", 500, 600);
+
+
+c1.getCanvas().initTimer(1000);
 c1.getCanvas().initTimer(1000);
 c1.divide(1, 2);
-c1.cd(0);
-c1.draw(h100);
+//c1.cd(0);
+c1.draw(hMxpUncut);
 c1.cd(1);
-c1.draw(h101);
+c1.draw(hMxp);
 
+c2.getCanvas().initTimer(1000);
+c2.divide(1, 3);
+c2.cd(0);
+c2.draw(hPGam);
+c2.cd(1);
+c2.draw(hMePPipPim);
+c2.cd(2);
+c2.draw(hMePPipPimpGam);
+
+c3.getCanvas().initTimer(1000);
+c3.divide(1, 2);
+c3.cd(0);
+c3.draw(hMxPPipPimGam);
+c3.cd(1);
+c3.draw(hMxPPipPim);
+
+//Open File
 
 HipoReader reader = new HipoReader();
 reader.open(dataFile);
 
+//Set event filter
+
 EventFilter filter = new EventFilter("2212:211:-211:22");
+
+// Begin Particle Loop
 
 while (reader.hasNext()) {
 
@@ -49,16 +103,47 @@ while (reader.hasNext()) {
     HipoEvent event = reader.readNextEvent();
     float beam = findBeamEnergy(event);
 
+//get particle data
+
     PhysicsEvent physEvent = setPhysicsEvent(beam, event);
     if (filter.isValid(physEvent)) {
         //System.out.println(physEvent.toLundString());
         Particle mx_P = physEvent.getParticle("[b] + [t] - [2212]");
         Particle mx_PPipPim = physEvent.getParticle("[b] + [t] - [2212] -[211] - [-211]");
         Particle mx_PPipPimGam = physEvent.getParticle("[b] + [t] - [2212] -[211] - [-211]-[22]");
-        h100.fill(mx_P.mass());
+        Particle pgam = physEvent.getParticle("[22]");
+        Particle me_PPipPim = physEvent.getParticle("[b] + [t] - [2212] - [211] - [-211]");
+
+//Fill Histograms
+
+        hMxpUncut.fill(mx_P.mass());
 
         if (Math.abs(mx_PPipPimGam.mass2()) < 0.01 && Math.abs(mx_PPipPim.mass2()) < 0.005) {
-            h101.fill(mx_P.mass());
+            hMxp.fill(mx_P.mass());
+        }
+
+        if (Math.abs(mx_P.mass() - mRho) < 0.06 && me_PPipPim.e() > 0.1) {
+            hPGam.fill(pgam.e());
+        }
+
+        if(Math.abs(mx_P.mass() - mRho) < 0.06 && pgam.e() > 0.1){
+            hMePPipPim.fill(me_PPipPim.e());
+        }
+        if (pgam.e() > 0.1 && me_PPipPim.e() > 0.1 && Math.abs(mx_P.mass() - mRho) < 0.06
+                && Math.abs(mx_PPipPimGam.mass2()) < 0.01 && Math.abs(mx_PPipPim.mass2()) < 0.005) {
+            hMePPipPimpGam.fill(me_PPipPim.e() - pgam.e());
+        }
+
+        if(pgam.e() > 0.1 && me_PPipPim.e()> 0.1 && Math.abs(mx_P.mass() - mRho) < 0.770
+                && me_PPipPim.e() - pgam.e() > -0.1 && me_PPipPim.e() - pgam.e() < 0.3
+                && Math.abs(mx_PPipPim.mass2()) < 0.005){
+            hMxPPipPimGam.fill(mx_PPipPimGam.mass2());
+        }
+
+        if(pgam.e() > 0.1 && me_PPipPim.e()> 0.1 && Math.abs(mx_P.mass() - mRho) < 0.770
+                && me_PPipPim.e() - pgam.e() > -0.1 && me_PPipPim.e() - pgam.e() < 0.3
+                && Math.abs(mx_PPipPimGam.mass2()) < 0.0005){
+            hMxPPipPim.fill(mx_PPipPim.mass2());
         }
     }
 

@@ -4,11 +4,11 @@ void Rho1(){
   
   TChain *chain = new TChain("g11_PPipPim");
   
-  chain->Add("/home/physics/research/g11_photon/g11_PPipPimNtuple_*.root");
+  //chain->Add("/home/physics/research/g11_photon/g11_PPipPimNtuple_*.root");
 
   //chain->Add("/home/tylerviducic/research/rho/g11/g11_photon/g11_PPipPimNtuple_*.root");
   
-  //chain->Add("/home/physics/Research/g11_photon/g11_PPipPimNtuple_*1.root");
+  chain->Add("/home/physics/research/g11_photon/g11_PPipPimNtuple_*1.root");
   
   
   Int_t nEvent = chain->GetEntries();
@@ -122,7 +122,7 @@ void Rho1(){
   //###########################################   BEGIN OUTGOING DATA   ##############################################################
   
   
-  TNtuple *T = new TNtuple("g11_Ntuple","g11_Ntuple","Pp:Ppip:Ppim:Pgam:P_theta:Pip_theta:Pim_theta:Gam_theta:P_phi:Pip_phi:Pim_phi:Gam_phi:mx_P:mxp:mxpGam:me_PPipPim:beam:cosTheta:gamEta:IM_PipPim:IM_PipPimGam:IM2_PipPim:phi:vz_P:vz_Pip:vz_Pim:runNum:px_G:py_G:pz_G:px_Pip:py_Pip:pz_Pip:px_Pim:py_Pim:pz_Pim:mx2_PPipPimGam:mx_PPipPimGam:px_P:py_P:pz_P:mx2_PPipPim:neutral");
+  TNtuple *T = new TNtuple("g11_Ntuple","g11_Ntuple","Pp:Ppip:Ppim:Pgam:P_theta:Pip_theta:Pim_theta:Gam_theta:P_phi:Pip_phi:Pim_phi:Gam_phi:mx_P:me_PPipPim:beam:cosTheta:gamEta:IM_PipPim:IM_PipPimGam:IM2_PipPim:phi:vz_P:vz_Pip:vz_Pim:runNum:px_G:py_G:pz_G:px_Pip:py_Pip:pz_Pip:px_Pim:py_Pim:pz_Pim:mx2_PPipPimGam:mx_PPipPimGam:px_P:py_P:pz_P:mx2_PPipPim");
   
   Float_t buffer[50];
   
@@ -139,7 +139,7 @@ void Rho1(){
   
   Double_t beam, W;
   
-  Double_t mx_P,mx_PipPim,mx_PipPimGam,mx_PPipPim,mx_PPipPimGam,mx2_PPipPim,mx2_PPipPimGam;
+  Double_t mx_P,mx_PipPim,mx_PipPimGam,mx_PPipPim,mx_PPipPimGam,mx2_PPipPim,mx2_PPipPimGam,mxProton;
   
   Double_t IM_PipPim,IM_PipPimGam,IM2_PipPim,IM2_PipPimGam;
   
@@ -211,10 +211,12 @@ void Rho1(){
   TH1F *mx2_sig[61]; // array of mx2_PPipPim histograms with signal region of mx_P selected
   TH1F *mx2_sb[61]; // array of  mx2_PPipPim histograms with sideband regions of mx_P selected
   TH1F *h_mxP = new TH1F("h_mxP", "mxP", 200, .2, 1.1);
+  TH1F *h_mxP2 = new TH1F("h_mxP2", "mxP2", 200, .2, 1.1);
   TH1F *subtract[61]; // array of histograms with sidebands subtracted;
   TH1F *h_imPipPim = new TH1F("h_imPipPim", "h_imPipPim", 150, 0, 1);
   TH1F *tMand = new TH1F("tMand", "tMand", 200, -2, 2);
   TH1F *h_neutral = new TH1F("neutral", "neutral", 3, 0,3);
+  TH1F *h_mx2_PPipPim = new TH1F("mx2_PPipPim","mx2_PPipPim", 100, -.05, .05);
   
   char hname[61];
   char cname[61];
@@ -258,7 +260,7 @@ void Rho1(){
     p2_Pip = px_Pip*px_Pip + py_Pip*py_Pip + pz_Pip*pz_Pip;
     p2_Pim = px_Pim*px_Pim + py_Pim*py_Pim + pz_Pim*pz_Pim;
     p2_Gam = px_G*px_G + py_G*py_G + pz_G*pz_G;
-    
+   
     Pp = sqrt(p2_P);
     Pgam = sqrt(p2_Gam);
     Ppip = sqrt(p2_Pip);
@@ -318,6 +320,8 @@ void Rho1(){
     IM2_PipPim = vIM_PipPim.M2();
     IM2_PipPimGam = vIM_PipPimGam.M2();
     
+    
+    
     //------------------------------------Missing Energy -------------------
     
     
@@ -344,11 +348,14 @@ void Rho1(){
     Int_t k=0;
     double j=0.3;
     double h;
- 
+    
+    h_mxP->Fill(mx_P);
+    //h_mxP2->Fill(mxProton);
+
     for (int k=0; k<=60; k++)
       {
 	h=0.3+(double(k)/100.0); //relates histogram number (place in array) to bin of IM_PipPim
-	if (abs(mx_P-M_Rho)<0.06 &&Pgam > 0.1 && me_PPipPim > 0.1 && abs(mx2_PPipPimGam)<0.002 && abs(me_PPipPim-Pgam)<0.2 && abs(mx2_PPipPim)<0.005)
+	if ( Pgam > 0.1 && me_PPipPim > 0.1 && abs(mx2_PPipPimGam) < 0.0005  && Pgam > 0.1 && me_PPipPim - Pgam>-0.01 && me_PPipPim - Pgam < 0.3 && abs(mx2_PPipPim)<0.005)
 	  {
 	    if (abs(IM_PipPim-h)<0.005) //selects bin of IM_PipPim
 	      {
@@ -358,16 +365,16 @@ void Rho1(){
 	  
 	
 	
-	if (abs(mx_P-M_Rho)<0.06  && me_PPipPim > 0.1 && abs(mx2_PPipPimGam) < 0.002  && Pgam > 0.1 && abs(me_PPipPim - Pgam)<0.2&&neutral<2)
+	if (abs(mx_P-M_Rho)<0.6  && me_PPipPim > 0.1 && abs(mx2_PPipPimGam) < 0.0005  && Pgam > 0.1 && me_PPipPim - Pgam>-0.01 && me_PPipPim - Pgam < 0.3)
 	  {
 	    if (abs(IM_PipPim-h)<0.005) //selects bin of IM_PipPim
 	      {
 		mx2_sig[k]->Fill(mx2_PPipPim); //array of mx2 histograms from signal region of rho
 	      }
 	  }
-	}//remove this when doing sidebands  
-/*	  
-	if (me_PPipPim > 0.2  && abs(me_PPipPim - Pgam)<0.2 && abs(mx2_PPipPimGam)<0.0025  && (abs(mx_P-0.710)<0.010 || abs(mx_P-0.830)<0.01) )
+	//remove this when doing sidebands  
+	  
+	if (me_PPipPim > 0.1  && abs(me_PPipPim - Pgam)<0.05 && abs(mx2_PPipPimGam)<0.002  && (abs(mx_P-0.625)<0.015 || abs(mx_P-0.915)<0.015) )
 	  {
 	    if (abs(IM_PipPim-h)<0.005)//Selects bin of IM_PipPim
 	      {
@@ -378,23 +385,9 @@ void Rho1(){
 	subtract[k]->Add(mx2_sig[k],mx2_sb[k],1,-1); //used to subtract the sidebands from the signal region for each bin of IM_PipPim
 	}
       
-    if  (abs(mx_P-M_Rho)<0.06 && me_PPipPim > 0.1   && Pgam > 0.1 && abs(me_PPipPim - Pgam)<0.2) 
-    	{
-    		PipPimPipPimGamma->Fill(mx2_PPipPimGam, mx2_PPipPim);
-    	}
-    	
-    
-	*/
-	if(Pgam > 0.1 && me_PPipPim > 0.1 && abs(mx2_PPipPimGam)<0.002 && abs(me_PPipPim-Pgam)<0.2 && abs(mx2_PPipPim)<0.005&&abs(mx_P-M_Rho)<0.06){
+   
+	
 
-//plot the me_PPipPim-PGam
-//t = ptarget - p detected ->> 2*mp^2 - 2*E_P*M_P
-	
-		h_neutral->Fill(neutral);
-		h_imPipPim->Fill(IM_PipPim);
-		tMand->Fill(tmand);
-	
-    }
     
     
     //---------------boosting--------------
@@ -442,7 +435,7 @@ void Rho1(){
     
 if((me_PPipPim>0.15) && TMath::Abs(mx2_PPipPim)<0.008){mxP_pass=1.0;}
 
-        // if(TMath::Abs(mx2_PPipPim)<0.008){mxP_pass=1.0;}
+         if(TMath::Abs(mx2_PPipPim)<0.008){mxP_pass=1.0;}
 
         else{mxP_pass=0.0;}
 
@@ -452,7 +445,7 @@ if((me_PPipPim>0.15) && TMath::Abs(mx2_PPipPim)<0.008){mxP_pass=1.0;}
 
         
 
-        if(TMath::Abs(mx_P - M_Eta)<0.05 && TMath::Abs(mx2_PPipPim)<0.005 && TMath::Abs(me_PPipPim - Pgam)<0.05 && Pgam>0.1 && me_PPipPim>0.1){mx2_PPipPimGam_pass=1.0;}
+        if(TMath::Abs(mx_P - M_Rho)<0.06 && TMath::Abs(mx2_PPipPim)<0.005 && TMath::Abs(me_PPipPim - Pgam)<0.2 && Pgam>0.1 && me_PPipPim>0.1){mx2_PPipPimGam_pass=1.0;}
 
         else{mx2_PPipPimGam_pass=0.0;}
 
@@ -499,34 +492,33 @@ if((me_PPipPim>0.15) && TMath::Abs(mx2_PPipPim)<0.008){mxP_pass=1.0;}
         buffer[10] = Pim_phi;
         buffer[11] = Gam_phi;
         buffer[12] = mx_P;
-        buffer[13] = mx2_PPipPim;
-        buffer[14] = me_PPipPim;
-        buffer[15] = beam;
-        buffer[16] = cosTheta;
-        buffer[17] = gamEta;
-        buffer[18] = IM_PipPim;
-        buffer[19] = IM_PipPimGam;
-        buffer[20] = IM2_PipPim;
-        buffer[21] = phi;
-        buffer[22] = vz_P;
-        buffer[23] = vz_Pip;
-        buffer[24] = vz_Pim;
-        buffer[25] = runNum;
-        buffer[26] = px_G;
-        buffer[27] = py_G;
-        buffer[28] = pz_G;
-        buffer[29] = px_Pip;
-        buffer[30] = py_Pip;
-        buffer[31] = pz_Pip;
-        buffer[32] = px_Pim;
-        buffer[33] = py_Pim;
-        buffer[34] = pz_Pim;
-        buffer[35] = mx2_PPipPimGam;
-        buffer[36] = mx_PPipPimGam;
-        buffer[37] = px_P;
-        buffer[38] = py_P;
-        buffer[39] = pz_P;
-        buffer[40] = mx2_PPipPim;
+        buffer[13] = me_PPipPim;
+        buffer[14] = beam;
+        buffer[15] = cosTheta;
+        buffer[16] = gamEta;
+        buffer[17] = IM_PipPim;
+        buffer[18] = IM_PipPimGam;
+        buffer[19] = IM2_PipPim;
+        buffer[20] = phi;
+        buffer[21] = vz_P;
+        buffer[22] = vz_Pip;
+        buffer[23] = vz_Pim;
+        buffer[24] = runNum;
+        buffer[25] = px_G;
+        buffer[26] = py_G;
+        buffer[27] = pz_G;
+        buffer[28] = px_Pip;
+        buffer[29] = py_Pip;
+        buffer[30] = pz_Pip;
+        buffer[31] = px_Pim;
+        buffer[32] = py_Pim;
+        buffer[33] = pz_Pim;
+        buffer[34] = mx2_PPipPimGam;
+        buffer[35] = mx_PPipPimGam;
+        buffer[36] = px_P;
+        buffer[37] = py_P;
+        buffer[38] = pz_P;
+        buffer[39] = mx2_PPipPim;
         
         T->Fill(buffer);
       }
