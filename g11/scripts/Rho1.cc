@@ -216,7 +216,7 @@ void Rho1(){
   TH1F *h_imPipPim = new TH1F("h_imPipPim", "h_imPipPim", 150, 0, 1);
   TH1F *tMand = new TH1F("tMand", "tMand", 200, -2, 2);
   TH1F *h_neutral = new TH1F("neutral", "neutral", 3, 0,3);
-  TH1F *h_mx2_PPipPim = new TH1F("mx2_PPipPim","mx2_PPipPim", 100, -.05, .05);
+  TH1F *h_mx2_PPipPimGam = new TH1F("mx2_PPipPimGam","mx2_PPipPimGam", 100, -.01, .01);
   
   char hname[61];
   char cname[61];
@@ -342,6 +342,10 @@ void Rho1(){
 
     //------------------------Cuts and Filling Histograms--------------------------------
 
+	if(Pgam > 0.1 && me_PPipPim > 0.1 && abs(me_PPipPim - Pgam) < 0.1 && abs(mx_P - M_Rho) < 0.6 && abs(mx2_PPipPim) < 0.005){
+		h_mx2_PPipPimGam->Fill((beam + M_P - Eproton - Epip - Epim - Pgam) * (beam + M_P - Eproton - Epip - Epim - Pgam) - ((-px_P - px_Pip - px_Pim - px_G) * (-px_P - px_Pip - px_Pim - px_G) + (-py_P - py_Pip - py_Pim - py_G)*(-py_P - py_Pip - py_Pim - py_G) + (beam -pz_P - pz_Pip - pz_Pim - pz_G) * (beam -pz_P - pz_Pip - pz_Pim - pz_G)));
+	}
+	
 
 	// loop to make mx_P, mx2_PPipPim_sb, and mx2_PPipPim_signal histograms
 
@@ -365,7 +369,7 @@ void Rho1(){
 	  
 	
 	
-	if (abs(mx_P-M_Rho)<0.6  && me_PPipPim > 0.1 && abs(mx2_PPipPimGam) < 0.0005  && Pgam > 0.1 && me_PPipPim - Pgam>-0.01 && me_PPipPim - Pgam < 0.3)
+	if (abs(mx_P-M_Rho)<0.6  && me_PPipPim > 0.1 && abs(mx2_PPipPimGam) < 0.0005  && Pgam > 0.1 && me_PPipPim - Pgam>-0.01 && me_PPipPim - Pgam < 0.1)
 	  {
 	    if (abs(IM_PipPim-h)<0.005) //selects bin of IM_PipPim
 	      {
@@ -445,13 +449,13 @@ if((me_PPipPim>0.15) && TMath::Abs(mx2_PPipPim)<0.008){mxP_pass=1.0;}
 
         
 
-        if(TMath::Abs(mx_P - M_Rho)<0.06 && TMath::Abs(mx2_PPipPim)<0.005 && TMath::Abs(me_PPipPim - Pgam)<0.2 && Pgam>0.1 && me_PPipPim>0.1){mx2_PPipPimGam_pass=1.0;}
+        if(TMath::Abs(mx_P - M_Rho)<0.06 && TMath::Abs(mx2_PPipPim)<0.005 && TMath::Abs(me_PPipPim - Pgam)<0.1 && Pgam>0.1 && me_PPipPim>0.1){mx2_PPipPimGam_pass=1.0;}
 
         else{mx2_PPipPimGam_pass=0.0;}
 
         
 
-        mx2_PPipPimGam_pass=1.0;
+        //mx2_PPipPimGam_pass=1.0;
 
         
 

@@ -85,16 +85,16 @@ void Plot_Data()
         
         h_beam->Fill(beam);
         
-        if(TMath::Abs(mx_P - M_Rho)<0.06 && TMath::Abs(me_PPipPim - Pgam)<0.2 && Pgam>0.1 && TMath::Abs(mx2_PPipPimGam)<0.005 && TMath::Abs(mx2_PPipPim)<0.005)
+        if(TMath::Abs(mx_P - M_Rho)<0.06 && TMath::Abs(me_PPipPim - Pgam)<0.1 && Pgam>0.1 && TMath::Abs(mx2_PPipPimGam)<0.005 && TMath::Abs(mx2_PPipPim)<0.005)
         {h_me->Fill(me_PPipPim);}
         
-        if(TMath::Abs(mx_P - M_Rho)<0.06 && me_PPipPim>0.1 && Pgam>0.1 && TMath::Abs(mx2_PPipPimGam)<0.005 && TMath::Abs(mx2_PPipPim)<0.005)
+        if(TMath::Abs(mx_P - M_Rho)<0.06 && me_PPipPim>0.1 && Pgam>0.1 && TMath::Abs(mx2_PPipPimGam)<0.0005 && TMath::Abs(mx2_PPipPim)<0.005)
         {h_mePg->Fill(me_PPipPim-Pgam);}
         
-        if(TMath::Abs(mx_P - M_Rho)<0.06 && me_PPipPim - Pgam>-0.1 && me_PPipPim - Pgam<0.3 && me_PPipPim>0.1 && Pgam>0.1 && TMath::Abs(mx2_PPipPimGam)<0.0005)
+        if(TMath::Abs(mx_P - M_Rho)<0.06 && me_PPipPim - Pgam>-0.1 && me_PPipPim - Pgam<0.1 && me_PPipPim>0.1 && Pgam>0.1 && TMath::Abs(mx2_PPipPimGam)<0.0005)
         {h_mx2_PPipPim->Fill(mx2_PPipPim);}
         
-        if(TMath::Abs(mx_P - M_Rho)<0.06 && me_PPipPim - Pgam>-0.1 && me_PPipPim - Pgam< 0.3 && me_PPipPim>0.1 && Pgam>0.1 && TMath::Abs(mx2_PPipPim)<0.005)
+        if(TMath::Abs(mx_P - M_Rho)<0.06 && me_PPipPim - Pgam>-0.1 && me_PPipPim - Pgam< 0.1 && me_PPipPim>0.1 && Pgam>0.1 && TMath::Abs(mx2_PPipPim)<0.005)
         {h_mx2_PPipPimGam->Fill(mx2_PPipPimGam);}
         
         if(TMath::Abs(mx_P - M_Eta)<0.03 && TMath::Abs(me_PPipPim - Pgam)<0.12 && me_PPipPim>0.1 && Pgam>0.1 && TMath::Abs(mx2_PPipPimGam)<0.0005 && TMath::Abs(mx2_PPipPim)<0.008)

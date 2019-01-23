@@ -26,6 +26,16 @@ String dataFile = "/work/clas12/viducic/g11_data_filtered.hipo"
 mRho = 0.770;
 mP = 0.938272;
 
+//Declare cut constants
+
+cutRhoRegion = 0.6;
+cutPGam = 0.1;
+cutMePPipPim = 0.1;
+cutMxPPipPimGam = 0.0005;
+cutMxPPipPim = 0.005;
+cutMePPipPimPgamSubtract = 0.1;
+
+
 //Declare Histograms
 H1F hMxpUncut = new H1F("hMePPipPimpGam", 100, 0.4, 1.2);
 hMxpUncut.setTitle("mx_P");
@@ -116,33 +126,36 @@ while (reader.hasNext()) {
 
 //Fill Histograms
 
-        hMxpUncut.fill(mx_P.mass());
-
+        if(pgam.e() > cutPGam && me_PPipPim.e()> cutMePPipPim && Math.abs(mx_PPipPim.mass2()) < cutMxPPipPim
+                && Math.abs(me_PPipPim.e() - pgam.e()) < cutMePPipPimPgamSubtract
+                && Math.abs(mx_PPipPimGam.mass2()) < cutMxPPipPimGam) {
+            hMxpUncut.fill(mx_P.mass());
+        }
         if (Math.abs(mx_PPipPimGam.mass2()) < 0.01 && Math.abs(mx_PPipPim.mass2()) < 0.005) {
             hMxp.fill(mx_P.mass());
         }
 
-        if (Math.abs(mx_P.mass() - mRho) < 0.06 && me_PPipPim.e() > 0.1) {
+        if (Math.abs(mx_P.mass() - mRho) < cutRhoRegion && me_PPipPim.e() > cutMePPipPim) {
             hPGam.fill(pgam.e());
         }
 
-        if(Math.abs(mx_P.mass() - mRho) < 0.06 && pgam.e() > 0.1){
+        if(Math.abs(mx_P.mass() - mRho) < cutRhoRegion && pgam.e() > cutPGam){
             hMePPipPim.fill(me_PPipPim.e());
         }
-        if (pgam.e() > 0.1 && me_PPipPim.e() > 0.1 && Math.abs(mx_P.mass() - mRho) < 0.06
-                && Math.abs(mx_PPipPimGam.mass2()) < 0.01 && Math.abs(mx_PPipPim.mass2()) < 0.005) {
+        if (pgam.e() > cutPGam && me_PPipPim.e() > cutMePPipPim && Math.abs(mx_P.mass() - mRho) < cutRhoRegion
+                && Math.abs(mx_PPipPimGam.mass2()) < cutMxPPipPimGam && Math.abs(mx_PPipPim.mass2()) < cutMxPPipPim) {
             hMePPipPimpGam.fill(me_PPipPim.e() - pgam.e());
         }
 
-        if(pgam.e() > 0.1 && me_PPipPim.e()> 0.1 && Math.abs(mx_P.mass() - mRho) < 0.770
-                && me_PPipPim.e() - pgam.e() > -0.1 && me_PPipPim.e() - pgam.e() < 0.3
-                && Math.abs(mx_PPipPim.mass2()) < 0.005){
+        if(pgam.e() > cutPGam && me_PPipPim.e()> cutMePPipPim && Math.abs(mx_P.mass() - mRho) < cutRhoRegion
+                && Math.abs(me_PPipPim.e() - pgam.e()) < cutMePPipPimPgamSubtract
+                && Math.abs(mx_PPipPim.mass2()) < cutMxPPipPim){
             hMxPPipPimGam.fill(mx_PPipPimGam.mass2());
         }
 
-        if(pgam.e() > 0.1 && me_PPipPim.e()> 0.1 && Math.abs(mx_P.mass() - mRho) < 0.770
-                && me_PPipPim.e() - pgam.e() > -0.1 && me_PPipPim.e() - pgam.e() < 0.3
-                && Math.abs(mx_PPipPimGam.mass2()) < 0.0005){
+        if(pgam.e() > cutPGam && me_PPipPim.e()> cutMePPipPim && Math.abs(mx_P.mass() - mRho) < cutRhoRegion
+                && Math.abs(me_PPipPim.e() - pgam.e()) < cutMePPipPimPgamSubtract
+                && Math.abs(mx_PPipPimGam.mass2()) < cutMxPPipPimGam){
             hMxPPipPim.fill(mx_PPipPim.mass2());
         }
     }
