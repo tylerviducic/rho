@@ -4,11 +4,11 @@ void Rho1(){
   
   TChain *chain = new TChain("g11_PPipPim");
   
-  //chain->Add("/home/physics/research/g11_photon/g11_PPipPimNtuple_*.root");
+  chain->Add("/home/physics/research/g11_photon/g11_PPipPimNtuple_*.root");
 
   //chain->Add("/home/tylerviducic/research/rho/g11/g11_photon/g11_PPipPimNtuple_*.root");
   
-  chain->Add("/home/physics/research/g11_photon/g11_PPipPimNtuple_*1.root");
+ // chain->Add("/home/physics/research/g11_photon/g11_PPipPimNtuple_*1.root");
   
   
   Int_t nEvent = chain->GetEntries();

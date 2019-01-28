@@ -65,6 +65,10 @@ H1F hMxPPipPimGam = new H1F("hMxPPipPimGam", "Missing mass#^2 of PPipPimGam [GeV
 hMePPipPimpGam.setTitle("Missing mass#^2 of PPipPimGam [GeV]#^2");
 hMePPipPimpGam.setFillColor(41);
 
+H1F hImPPipPim = new H1F("hImPPipPim", "IM(PimPim) [GeV]", "N", 100, 0, 1);
+hImPPipPim.setTitle("Invariant Mass of PiPPim [GeV]");
+hImPPipPim.setFillColor(42);
+
 //Declare Canvas
 
 TCanvas c1 = new TCanvas("c1", 500, 600);
@@ -75,7 +79,7 @@ TCanvas c3 = new TCanvas("c3", 500, 600);
 c1.getCanvas().initTimer(1000);
 c1.getCanvas().initTimer(1000);
 c1.divide(1, 2);
-//c1.cd(0);
+c1.cd(0);
 c1.draw(hMxpUncut);
 c1.cd(1);
 c1.draw(hMxp);
@@ -90,11 +94,13 @@ c2.cd(2);
 c2.draw(hMePPipPimpGam);
 
 c3.getCanvas().initTimer(1000);
-c3.divide(1, 2);
+c3.divide(1, 3);
 c3.cd(0);
 c3.draw(hMxPPipPimGam);
 c3.cd(1);
 c3.draw(hMxPPipPim);
+c3.cd(2);
+c3.draw(hImPPipPim);
 
 //Open File
 
@@ -123,6 +129,7 @@ while (reader.hasNext()) {
         Particle mx_PPipPimGam = physEvent.getParticle("[b] + [t] - [2212] -[211] - [-211]-[22]");
         Particle pgam = physEvent.getParticle("[22]");
         Particle me_PPipPim = physEvent.getParticle("[b] + [t] - [2212] - [211] - [-211]");
+        Particle im_PipPim = physEvent.getParticle("[211] + [-211]");
 
 //Fill Histograms
 
@@ -158,10 +165,19 @@ while (reader.hasNext()) {
                 && Math.abs(mx_PPipPimGam.mass2()) < cutMxPPipPimGam){
             hMxPPipPim.fill(mx_PPipPim.mass2());
         }
+
+        if(pgam.e() > cutPGam && me_PPipPim.e() > cutMePPipPim
+                && Math.abs(me_PPipPim.e() - pgam.e()) < cutMePPipPimPgamSubtract
+                && Math.abs(mx_P.mass() - mRho) < cutRhoRegion && Math.abs(mx_PPipPim.mass2()) < cutMxPPipPim
+                && Math.abs(mx_PPipPimGam.mass2()) < cutMxPPipPimGam){
+            hImPPipPim.fill(im_PipPim.mass())
+        }
     }
 
 
 }
+
+println(hImPPipPim.getEntries());
 
 println("done");
 
