@@ -6,6 +6,7 @@
 
 
 import org.jlab.groot.data.H1F
+import org.jlab.groot.data.TDirectory
 import org.jlab.groot.ui.TCanvas
 import org.jlab.jnp.hipo.data.HipoEvent
 import org.jlab.jnp.hipo.data.HipoGroup
@@ -68,6 +69,20 @@ hMePPipPimpGam.setFillColor(41);
 H1F hImPPipPim = new H1F("hImPPipPim", "IM(PimPim) [GeV]", "N", 100, 0, 1);
 hImPPipPim.setTitle("Invariant Mass of PiPPim [GeV]");
 hImPPipPim.setFillColor(42);
+
+ArrayList<H1F> hSignal = new ArrayList<H1F>();
+
+TDirectory dir = new TDirectory();
+
+dir.mkdir("/Signal");
+dir.cd("/Signal");
+dir.addDataSet(hSignal);
+
+for (int i = 0; i<66; i ++){
+    H1F h = new H1F("hSignal " + (i + 1), "MX^2(PPipPim) [GeV^2]", N, 100, -0.05, 0.05);
+    h.setTitle("Signal plot for IM(PipPim) = " + (double)((i + 24.5)/100) + " +/- .005" + " [GeV^2]")
+    hSignal.add(h);
+}
 
 //Declare Canvas
 
@@ -172,6 +187,17 @@ while (reader.hasNext()) {
                 && Math.abs(mx_PPipPimGam.mass2()) < cutMxPPipPimGam){
             hImPPipPim.fill(im_PipPim.mass())
         }
+
+        for(int i = 0; i < 66; i++){
+            double x = 0.24 + ((double)(i)/100.0);
+
+            if(pgam.e() > cutPGam && me_PPipPim.e()> cutMePPipPim && Math.abs(mx_P.mass() - mRho) < cutRhoRegion
+                    && Math.abs(me_PPipPim.e() - pgam.e()) < cutMePPipPimPgamSubtract
+                    && Math.abs(mx_PPipPimGam.mass2()) < cutMxPPipPimGam
+                    && Math.abs(im_PipPim.mass() - x) < 0.005){
+                hSignal.get(i).fill(mx_PPipPim.mass2());
+            }
+        }
     }
 
 
@@ -180,6 +206,8 @@ while (reader.hasNext()) {
 println(hImPPipPim.getEntries());
 
 println("done");
+
+dir.writeFile("myAnalysis.hipo");
 
 // defining method because getPhysicsEvent only works for one type of bank
 
