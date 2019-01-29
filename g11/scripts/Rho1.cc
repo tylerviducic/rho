@@ -4,11 +4,11 @@ void Rho1(){
   
   TChain *chain = new TChain("g11_PPipPim");
   
-  chain->Add("/home/physics/research/g11_photon/g11_PPipPimNtuple_*.root");
+  //chain->Add("/home/physics/research/g11_photon/g11_PPipPimNtuple_*.root");
 
   //chain->Add("/home/tylerviducic/research/rho/g11/g11_photon/g11_PPipPimNtuple_*.root");
   
- // chain->Add("/home/physics/research/g11_photon/g11_PPipPimNtuple_*1.root");
+ chain->Add("/home/physics/research/g11_photon/g11_PPipPimNtuple_*1.root");
   
   
   Int_t nEvent = chain->GetEntries();
@@ -214,7 +214,7 @@ void Rho1(){
   TH1F *h_mxP2 = new TH1F("h_mxP2", "mxP2", 200, .2, 1.1);
   TH1F *subtract[61]; // array of histograms with sidebands subtracted;
   TH1F *h_imPipPim = new TH1F("h_imPipPim", "h_imPipPim", 150, 0, 1);
-  TH1F *tMand = new TH1F("tMand", "tMand", 200, -2, 2);
+  TH1F *htMand = new TH1F("tMand", "tMand", 210, -2, 0.1);
   TH1F *h_neutral = new TH1F("neutral", "neutral", 3, 0,3);
   TH1F *h_mx2_PPipPimGam = new TH1F("mx2_PPipPimGam","mx2_PPipPimGam", 100, -.01, .01);
   
@@ -227,7 +227,7 @@ void Rho1(){
   char bin_sb[61];
   char bin_sub[61];
   double e;
-  for (int k=0; k<=61; k++)
+  for (int k=0; k<=60; k++)
     {
       e=0.3+(double(k)/100.0); //connecting histogram number with bin number
       
@@ -346,6 +346,10 @@ void Rho1(){
 		h_mx2_PPipPimGam->Fill((beam + M_P - Eproton - Epip - Epim - Pgam) * (beam + M_P - Eproton - Epip - Epim - Pgam) - ((-px_P - px_Pip - px_Pim - px_G) * (-px_P - px_Pip - px_Pim - px_G) + (-py_P - py_Pip - py_Pim - py_G)*(-py_P - py_Pip - py_Pim - py_G) + (beam -pz_P - pz_Pip - pz_Pim - pz_G) * (beam -pz_P - pz_Pip - pz_Pim - pz_G)));
 	}
 	
+	if ( abs(mx_P-M_Rho)< 0.06 && Pgam > 0.1 && me_PPipPim > 0.1 && abs(mx2_PPipPimGam) < 0.0005  && Pgam > 0.1 && me_PPipPim - Pgam>-0.01 && me_PPipPim - Pgam < 0.3 && abs(mx2_PPipPim)<0.005){
+		htMand->Fill(tmand);
+	}
+	
 
 	// loop to make mx_P, mx2_PPipPim_sb, and mx2_PPipPim_signal histograms
 
@@ -369,7 +373,7 @@ void Rho1(){
 	  
 	
 	
-	if (abs(mx_P-M_Rho)<0.6  && me_PPipPim > 0.1 && abs(mx2_PPipPimGam) < 0.0005  && Pgam > 0.1 && me_PPipPim - Pgam>-0.01 && me_PPipPim - Pgam < 0.1)
+	if (abs(mx_P-M_Rho)<0.6  && me_PPipPim > 0.1 && abs(mx2_PPipPimGam) < 0.0005  && Pgam > 0.1 && me_PPipPim - Pgam>-0.01 && me_PPipPim - Pgam < 0.1 && abs(mx_P-0.782)>0.005)
 	  {
 	    if (abs(IM_PipPim-h)<0.005) //selects bin of IM_PipPim
 	      {

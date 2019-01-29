@@ -32,7 +32,7 @@ mP = 0.938272;
 cutRhoRegion = 0.6;
 cutPGam = 0.1;
 cutMePPipPim = 0.1;
-cutMxPPipPimGam = 0.0005;
+cutMxPPipPimGam = 0.005;
 cutMxPPipPim = 0.005;
 cutMePPipPimPgamSubtract = 0.1;
 
@@ -57,11 +57,11 @@ H1F hMePPipPimpGam = new H1F("hMePPipPimpGam", "Missing Energy of PPipPim - PGam
 hMePPipPimpGam.setTitle("Missing Energy of PPipPim - PGam [GeV]");
 hMePPipPimpGam.setFillColor(41);
 
-H1F hMxPPipPim = new H1F("hMxPPipPim", "Missing mass#^2 of PPipPim [GeV]#^2", "N", 100, -0.02, 0.05);
+H1F hMxPPipPim = new H1F("hMxPPipPim", "Missing mass#^2 of PPipPim [GeV]#^2", "N", 100, -0.05, 0.05);
 hMePPipPimpGam.setTitle("Missing mass#^2 of PPipPim [GeV]#^2");
 hMePPipPimpGam.setFillColor(41);
 
-H1F hMxPPipPimGam = new H1F("hMxPPipPimGam", "Missing mass#^2 of PPipPimGam [GeV]#^2", "N", 100, -0.02, 0.002);
+H1F hMxPPipPimGam = new H1F("hMxPPipPimGam", "Missing mass#^2 of PPipPimGam [GeV]#^2", "N", 100, -0.01, 0.002);
 hMePPipPimpGam.setTitle("Missing mass#^2 of PPipPimGam [GeV]#^2");
 hMePPipPimpGam.setFillColor(41);
 
@@ -69,22 +69,27 @@ H1F hImPPipPim = new H1F("hImPPipPim", "IM(PimPim) [GeV]", "N", 100, 0, 1);
 hImPPipPim.setTitle("Invariant Mass of PiPPim [GeV]");
 hImPPipPim.setFillColor(42);
 
+H1F hpP = new H1F("hpP", "p(p) [GeV]", "N", 100, 0, 2);
+hpP.setTitle("Proton momentum [GeV]");
+
 ArrayList<H1F> hSignal = new ArrayList<H1F>();
-
-
 for (int i = 0; i < 66; i++) {
     H1F h = new H1F("hSignal " + (i + 1), "MX^2(PPipPim) [GeV^2]", "N", 100, -0.05, 0.05);
-    h.setTitle("Signal plot for IM(PipPim) = " + (double) ((i + 24.5) / 100) + " +/- .005" + " [GeV^2]")
+    h.setTitle("Signal plot for IM(PipPim) = " + (double)((i + 24) / 100) + " +/- .005" + " [GeV^2]")
     hSignal.add(h);
 }
 
 TDirectory dir = new TDirectory();
 dir.mkdir("/Signal");
+dir.mkdir("/Cuts");
 dir.cd("/Signal");
 
 for (int i = 0; i < 66; i++) {
     dir.addDataSet(hSignal.get(i));
 }
+
+dir.cd("/Cuts");
+dir.addDataSet(hpP);
 
 //Declare Canvas
 
@@ -95,11 +100,13 @@ TCanvas c3 = new TCanvas("c3", 500, 600);
 
 c1.getCanvas().initTimer(1000);
 c1.getCanvas().initTimer(1000);
-c1.divide(1, 2);
+c1.divide(1, 3);
 c1.cd(0);
 c1.draw(hMxpUncut);
 c1.cd(1);
 c1.draw(hMxp);
+c1.cd(2);
+c1.draw(hpP);
 
 c2.getCanvas().initTimer(1000);
 c2.divide(1, 3);
@@ -147,6 +154,7 @@ while (reader.hasNext()) {
         Particle pgam = physEvent.getParticle("[22]");
         Particle me_PPipPim = physEvent.getParticle("[b] + [t] - [2212] - [211] - [-211]");
         Particle im_PipPim = physEvent.getParticle("[211] + [-211]");
+        Particle pP = physEvent.getParticle("[2212]");
 
 //Fill Histograms
 
@@ -190,8 +198,16 @@ while (reader.hasNext()) {
             hImPPipPim.fill(im_PipPim.mass())
         }
 
+        if (pgam.e() > cutPGam && me_PPipPim.e() > cutMePPipPim
+                && Math.abs(me_PPipPim.e() - pgam.e()) < cutMePPipPimPgamSubtract
+                && Math.abs(mx_P.mass() - mRho) < cutRhoRegion && Math.abs(mx_PPipPim.mass2()) < cutMxPPipPim
+                && Math.abs(mx_PPipPimGam.mass2()) < cutMxPPipPimGam && Math.abs(mx_PPipPim.mass2()) < cutMxPPipPim){
+            hpP.fill(pP.p());
+        }
+
+
         for (int i = 0; i < 66; i++) {
-            double x = 0.24 + ((double) (i) / 100.0);
+            double x = 0.24 + ((double)(i) / 100.0);
 
             if (pgam.e() > cutPGam && me_PPipPim.e() > cutMePPipPim && Math.abs(mx_P.mass() - mRho) < cutRhoRegion
                     && Math.abs(me_PPipPim.e() - pgam.e()) < cutMePPipPimPgamSubtract
