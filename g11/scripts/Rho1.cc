@@ -373,7 +373,7 @@ void Rho1(){
 	  
 	
 	
-	if (abs(mx_P-M_Rho)<0.6  && me_PPipPim > 0.1 && abs(mx2_PPipPimGam) < 0.0005  && Pgam > 0.1 && me_PPipPim - Pgam>-0.01 && me_PPipPim - Pgam < 0.1 && abs(mx_P-0.782)>0.005)
+	if (abs(mx_P-M_Rho)<0.6  && me_PPipPim > 0.1 && abs(mx2_PPipPimGam) < 0.0005  && Pgam > 0.1 && me_PPipPim - Pgam>-0.01 && me_PPipPim - Pgam < 0.1 && abs(mx_P-0.782)>0.02)
 	  {
 	    if (abs(IM_PipPim-h)<0.005) //selects bin of IM_PipPim
 	      {

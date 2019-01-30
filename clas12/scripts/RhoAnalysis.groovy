@@ -19,7 +19,7 @@ import org.jlab.jnp.physics.PhysicsEvent
 //String dataFile = "/home/tylerviducic/research/rho/clas12/data/run_43526_full_filtered.hipo";
 //String dataFile = "/home/tylerviducic/research/rho/clas12/data/run_43491_full_filtered.hipo";
 //String dataFile = "/home/physics/research/rho/clas12/data/run_43526_full_filtered.hipo";
-String dataFile = "/work/clas12/viducic/g11_data_filtered.hipo"
+String dataFile = "/work/clas12/viducic/g11_data_filtered.hipo";
 //String inputFile = args[0];
 
 //Declare constants
@@ -32,24 +32,24 @@ mP = 0.938272;
 cutRhoRegion = 0.6;
 cutPGam = 0.1;
 cutMePPipPim = 0.1;
-cutMxPPipPimGam = 0.005;
+cutMxPPipPimGam = 0.001;
 cutMxPPipPim = 0.005;
 cutMePPipPimPgamSubtract = 0.1;
 
 //Declare Histograms
-H1F hMxpUncut = new H1F("hMePPipPimpGam", 100, 0.4, 1.2);
+H1F hMxpUncut = new H1F("hMxPUncut", 100, 0.4, 1.2);
 hMxpUncut.setTitle("mx_P");
 hMxpUncut.setFillColor(43);
 
-H1F hMxp = new H1F("hMePPipPimpGam", 100, 0.4, 1.2);
+H1F hMxp = new H1F("hMxp", 100, 0.4, 1.2);
 hMxp.setTitle("mx_P_cut");
 hMxp.setFillColor(42);
 
-H1F hPGam = new H1F("hMePPipPimpGam", "Energy of detected photon [GeV]", "N", 250, 0, 2.5);
+H1F hPGam = new H1F("hPGam", "Energy of detected photon [GeV]", "N", 250, 0, 2.5);
 hPGam.setTitle("PGam [GeV]");
 hPGam.setFillColor(44);
 
-H1F hMePPipPim = new H1F("hMePPipPimpGam", "Missing Energy of PPipPim [GeV]", "N", 250, 0, 2.5);
+H1F hMePPipPim = new H1F("hMePPipPimp", "Missing Energy of PPipPim [GeV]", "N", 250, 0, 2.5);
 hMePPipPim.setTitle("Missing Energy of PPipPim [GeV]");
 hMePPipPim.setFillColor(45);
 
@@ -58,12 +58,12 @@ hMePPipPimpGam.setTitle("Missing Energy of PPipPim - PGam [GeV]");
 hMePPipPimpGam.setFillColor(41);
 
 H1F hMxPPipPim = new H1F("hMxPPipPim", "Missing mass#^2 of PPipPim [GeV]#^2", "N", 100, -0.05, 0.05);
-hMePPipPimpGam.setTitle("Missing mass#^2 of PPipPim [GeV]#^2");
-hMePPipPimpGam.setFillColor(41);
+hMxPPipPim.setTitle("Missing mass#^2 of PPipPim [GeV]#^2");
+hMxPPipPim.setFillColor(41);
 
 H1F hMxPPipPimGam = new H1F("hMxPPipPimGam", "Missing mass#^2 of PPipPimGam [GeV]#^2", "N", 100, -0.01, 0.002);
-hMePPipPimpGam.setTitle("Missing mass#^2 of PPipPimGam [GeV]#^2");
-hMePPipPimpGam.setFillColor(41);
+hMxPPipPimGam.setTitle("Missing mass#^2 of PPipPimGam [GeV]#^2");
+hMxPPipPimGam.setFillColor(41);
 
 H1F hImPPipPim = new H1F("hImPPipPim", "IM(PimPim) [GeV]", "N", 100, 0, 1);
 hImPPipPim.setTitle("Invariant Mass of PiPPim [GeV]");
@@ -74,7 +74,7 @@ hpP.setTitle("Proton momentum [GeV]");
 
 ArrayList<H1F> hSignal = new ArrayList<H1F>();
 for (int i = 0; i < 66; i++) {
-    H1F h = new H1F("hSignal " + (i + 1), "MX^2(PPipPim) [GeV^2]", "N", 100, -0.05, 0.05);
+    H1F h = new H1F("hSignal" + (i + 1), "MX^2(PPipPim) [GeV^2]", "N", 100, -0.05, 0.05);
     h.setTitle("Signal plot for IM(PipPim) = " + (double)((i + 24) / 100) + " +/- .005" + " [GeV^2]")
     hSignal.add(h);
 }
@@ -82,14 +82,13 @@ for (int i = 0; i < 66; i++) {
 TDirectory dir = new TDirectory();
 dir.mkdir("/Signal");
 dir.mkdir("/Cuts");
+
 dir.cd("/Signal");
 
 for (int i = 0; i < 66; i++) {
     dir.addDataSet(hSignal.get(i));
 }
 
-dir.cd("/Cuts");
-dir.addDataSet(hpP);
 
 //Declare Canvas
 
@@ -220,6 +219,14 @@ while (reader.hasNext()) {
 
 
 }
+
+dir.cd("/Cuts");
+
+dir.addDataSet(hpP);
+dir.addDataSet(hImPPipPim);
+dir.addDataSet(hMxPPipPimGam);
+dir.addDataSet(hPGam);
+dir.addDataSet(hMePPipPimpGam);
 
 
 dir.writeFile("myAnalysis.hipo");

@@ -49,8 +49,8 @@ void Plot_Data()
     TH1D* h_beam = new TH1D("h_beam","Beam [GeV]",200,1.51,3.51);
     
     TH1D* h_me = new TH1D("h_me","me_PPipPim [GeV]",200,0,1);
-    TH1D* h_mePg = new TH1D("h_mePg","(me_PPipPim-Pgam) [GeV]",40,-0.2,0.5);
-    TH1D* h_mx2_PPipPim = new TH1D("h_mx2_PPipPim","mx2_PPipPim [GeV^{2}]",100,-0.05,0.05);
+    TH1D* h_mePg = new TH1D("h_mePg","(ME(p#pi^{+}#pi^{-})-E_{#gamma}) [GeV]",40,-0.2,0.5);
+    TH1D* h_mx2_PPipPim = new TH1D("h_mx2_PPipPim","MX^{2}(p#pi^{+}#pi^{-}) [GeV^{2}]",100,-0.05,0.05);
     TH1D* h_mx2_PPipPimGam = new TH1D("h_mx2_PPipPimGam","mx2_PPipPimGam [GeV^{2}]",200,-0.001,0.001);
     TH1D* h_mPipPimG = new TH1D("h_mPipPimG","mPipPimGam [GeV]",30,0.82,1.1);
     
@@ -88,10 +88,10 @@ void Plot_Data()
         if(TMath::Abs(mx_P - M_Rho)<0.06 && TMath::Abs(me_PPipPim - Pgam)<0.1 && Pgam>0.1 && TMath::Abs(mx2_PPipPimGam)<0.005 && TMath::Abs(mx2_PPipPim)<0.005)
         {h_me->Fill(me_PPipPim);}
         
-        if(TMath::Abs(mx_P - M_Rho)<0.06 && me_PPipPim>0.1 && Pgam>0.1 && TMath::Abs(mx2_PPipPimGam)<0.0005 && TMath::Abs(mx2_PPipPim)<0.005)
+        if(TMath::Abs(mx_P - M_Rho)<0.06 && me_PPipPim>0.1 && Pgam>0.1 && TMath::Abs(mx2_PPipPimGam)<0.001 && TMath::Abs(mx2_PPipPim)<0.005)
         {h_mePg->Fill(me_PPipPim-Pgam);}
         
-        if(TMath::Abs(mx_P - M_Rho)<0.06 && me_PPipPim - Pgam>-0.1 && me_PPipPim - Pgam<0.1 && me_PPipPim>0.1 && Pgam>0.1 && TMath::Abs(mx2_PPipPimGam)<0.0005)
+        if(TMath::Abs(mx_P - M_Rho)<0.06 && me_PPipPim - Pgam>-0.1 && me_PPipPim - Pgam<0.1 && me_PPipPim>0.1 && Pgam>0.1 && TMath::Abs(mx2_PPipPimGam)<0.001)
         {h_mx2_PPipPim->Fill(mx2_PPipPim);}
         
         if(TMath::Abs(mx_P - M_Rho)<0.06 && me_PPipPim - Pgam>-0.1 && me_PPipPim - Pgam< 0.1 && me_PPipPim>0.1 && Pgam>0.1 && TMath::Abs(mx2_PPipPim)<0.005)
