@@ -4,11 +4,11 @@ void Rho1(){
   
   TChain *chain = new TChain("g11_PPipPim");
   
-  //chain->Add("/home/physics/research/g11_photon/g11_PPipPimNtuple_*.root");
+  chain->Add("/home/physics/research/g11_photon/g11_PPipPimNtuple_*.root");
 
   //chain->Add("/home/tylerviducic/research/rho/g11/g11_photon/g11_PPipPimNtuple_*.root");
   
- chain->Add("/home/physics/research/g11_photon/g11_PPipPimNtuple_*1.root");
+ //chain->Add("/home/physics/research/g11_photon/g11_PPipPimNtuple_*1.root");
   
   
   Int_t nEvent = chain->GetEntries();
@@ -210,7 +210,7 @@ void Rho1(){
   TH1F *mxp[61]; //array of histograms with mx_P in regio of eta
   TH1F *mx2_sig[61]; // array of mx2_PPipPim histograms with signal region of mx_P selected
   TH1F *mx2_sb[61]; // array of  mx2_PPipPim histograms with sideband regions of mx_P selected
-  TH1F *mxpcuts[20]; //array of mx2_PPipPim histograms to test signal for different cuts of mxp
+  TH1F *mcuts[25]; //array of mx2_PPipPim histograms to test signal for different cuts of mxp
   TH1F *h_mxP = new TH1F("h_mxP", "mxP", 200, .2, 1.1);
   TH1F *h_mxP2 = new TH1F("h_mxP2", "mxP2", 200, .2, 1.1);
   TH1F *subtract[61]; // array of histograms with sidebands subtracted;
@@ -218,12 +218,15 @@ void Rho1(){
   TH1F *htMand = new TH1F("tMand", "tMand", 210, -2, 0.1);
   TH1F *h_neutral = new TH1F("neutral", "neutral", 3, 0,3);
   TH1F *h_mx2_PPipPimGam = new TH1F("mx2_PPipPimGam","mx2_PPipPimGam", 100, -.01, .01);
+  TH1F *omegaP = new TH1F("omegaP", "omegaP", 100, -0.05, 0.05);
+  TH1F *rhoP = new TH1F("rhoP", "rhoP", 100, -0.05, 0.05);
+  TH1F *h_1 = new TH1F("h_1", "h_1", 100, -0.05, 0.05);
   
   char hname[61];
   char cname[61];
   char sbname[61];
-  char mname[20];
-  char mbin[20];
+  char mname[50];
+  char mbin[50];
   char sub[61];
   char bin[61];
   char bin_sig[61];
@@ -252,12 +255,14 @@ void Rho1(){
       
     }
     
-    for(int i = 0;  i < 19; i++){
-    	double z = (i + 5) /100;
-    	sprintf(mname, "mxcut%d", i);
-    	sprintf(mbin, "signal for cut mxp - 780 > (%f)", z);
-    	mxpcuts[i] = new TH1F(mname, mbin, 100, -0.05, 0.05);
+    double z;
+    for(int i = 0;  i < 25; i++){
+    	z = .005 + double(i) /1000;
+    	sprintf(mname, "mxcut %d", i);
+    	sprintf(mbin, "signal for cut mxp - 780 > %f", z);
+    	mcuts[i] = new TH1F(mname, mbin, 100, -0.05, 0.05);
     }
+    
   
   
   for( Int_t i = 0; i <= nEvent; i++){//nEvent
@@ -361,7 +366,25 @@ void Rho1(){
 	}
 	
 
-	// loop to make mx_P, mx2_PPipPim_sb, and mx2_PPipPim_signal histograms
+	// loop to make mx_P, mx2_PPipPim_sb, and mx2_PPipPim_signal histograms\
+	
+	double z;
+	for(int i = 0; i < 25; i++){
+		z = 0.005+double(i) / 1000;
+		if(abs(mx_P-M_Rho)< 0.06 && Pgam > 0.1 && me_PPipPim > 0.1 && abs(mx2_PPipPimGam) < 0.001  && me_PPipPim - Pgam>-0.1 && me_PPipPim - Pgam < 0.1  && abs(mx_P - 0.780) > z){
+			mcuts[i]->Fill(mx2_PPipPim);
+		}
+	}
+	
+	if(abs(mx_P-.780)< 0.008 && Pgam > 0.1 && me_PPipPim > 0.1 && abs(mx2_PPipPimGam) < 0.0005  && me_PPipPim - Pgam>-0.1 && me_PPipPim - Pgam < 0.1){
+		omegaP->Fill(mx2_PPipPim);
+	}
+	
+	if(abs(mx_P-M_Rho)< 0.06 && Pgam > 0.1 && me_PPipPim > 0.1 && abs(mx2_PPipPimGam) < 0.0005  && me_PPipPim - Pgam>-0.1 && me_PPipPim - Pgam < 0.1){
+		rhoP->Fill(mx2_PPipPim);
+	}
+	
+	h_1->Add(rhoP,omegaP, 1, -1);
 
     Int_t k=0;
     double j=0.3;
@@ -369,12 +392,12 @@ void Rho1(){
     
     //h_mxP->Fill(mx_P);
     //h_mxP2->Fill(mxProton);
-/*
+
 
     for (int k=0; k<=60; k++)
       {
 	h=0.3+(double(k)/100.0); //relates histogram number (place in array) to bin of IM_PipPim
-	if ( Pgam > 0.1 && me_PPipPim > 0.1 && abs(mx2_PPipPimGam) < 0.0005  && Pgam > 0.1 && me_PPipPim - Pgam>-0.01 && me_PPipPim - Pgam < 0.3 && abs(mx2_PPipPim)<0.005)
+	if ( Pgam > 0.1 && me_PPipPim > 0.1 && abs(mx2_PPipPimGam) < 0.0005  && Pgam > 0.1 && me_PPipPim - Pgam>-0.1 && me_PPipPim - Pgam < 0.3 && abs(mx2_PPipPim)<0.005)
 	  {
 	    if (abs(IM_PipPim-h)<0.005) //selects bin of IM_PipPim
 	      {
@@ -384,7 +407,7 @@ void Rho1(){
 	  
 	
 	
-	if (abs(mx_P-M_Rho)<0.6  && me_PPipPim > 0.1 && abs(mx2_PPipPimGam) < 0.0005  && Pgam > 0.1 && me_PPipPim - Pgam>-0.01 && me_PPipPim - Pgam < 0.1 && abs(mx_P-0.782)>0.02)
+	if (abs(mx_P-M_Rho)<0.06  && me_PPipPim > 0.1 && abs(mx2_PPipPimGam) < 0.001  && Pgam > 0.1 && abs(me_PPipPim - Pgam) < 0.1 && abs(mx_P-0.782)>0.02)
 	  {
 	    if (abs(IM_PipPim-h)<0.005) //selects bin of IM_PipPim
 	      {
@@ -392,7 +415,8 @@ void Rho1(){
 	      }
 	  }
 	//remove this when doing sidebands  
-	  
+	/*
+  
 	if (me_PPipPim > 0.1  && abs(me_PPipPim - Pgam)<0.05 && abs(mx2_PPipPimGam)<0.002  && (abs(mx_P-0.625)<0.015 || abs(mx_P-0.915)<0.015) )
 	  {
 	    if (abs(IM_PipPim-h)<0.005)//Selects bin of IM_PipPim
@@ -402,10 +426,12 @@ void Rho1(){
 	  }
 	
 	subtract[k]->Add(mx2_sig[k],mx2_sb[k],1,-1); //used to subtract the sidebands from the signal region for each bin of IM_PipPim
+*/	
+	
 	}
       
    
-*/	
+
 
     
     

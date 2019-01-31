@@ -36,8 +36,9 @@ void mxp_samecanvas()
     char sideband[61];
 
     char mxp[61];
-
-    for (int k=0; k<=61; k++) //also change your for-loop to the number of histos you have
+    
+   
+/*    for (int k=0; k<=61; k++) //also change your for-loop to the number of histos you have
 
     {
 
@@ -91,5 +92,28 @@ void mxp_samecanvas()
     	    signal->Draw();
 		}
     }
+*/
 
+	for(int i = 0; i < 25; i++){
+		stringstream ss;
+		ss << i;
+		TString str = ss.str();
+		
+		sprintf(signal, "signal%d", i);
+		TH1F *mxpcut = (TH1F*)g->Get("mxcut "+str);
+		c1->cd(i+1);
+		mxpcut->Draw();
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
