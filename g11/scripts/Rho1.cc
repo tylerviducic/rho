@@ -210,6 +210,7 @@ void Rho1(){
   TH1F *mxp[61]; //array of histograms with mx_P in regio of eta
   TH1F *mx2_sig[61]; // array of mx2_PPipPim histograms with signal region of mx_P selected
   TH1F *mx2_sb[61]; // array of  mx2_PPipPim histograms with sideband regions of mx_P selected
+  TH1F *mxpcuts[20]; //array of mx2_PPipPim histograms to test signal for different cuts of mxp
   TH1F *h_mxP = new TH1F("h_mxP", "mxP", 200, .2, 1.1);
   TH1F *h_mxP2 = new TH1F("h_mxP2", "mxP2", 200, .2, 1.1);
   TH1F *subtract[61]; // array of histograms with sidebands subtracted;
@@ -221,6 +222,8 @@ void Rho1(){
   char hname[61];
   char cname[61];
   char sbname[61];
+  char mname[20];
+  char mbin[20];
   char sub[61];
   char bin[61];
   char bin_sig[61];
@@ -247,6 +250,13 @@ void Rho1(){
       sprintf(bin_sub, "subtracted, abs(IM_PipPim-%.2f) < 0.005",e);
       subtract[k] = new TH1F(sub, bin_sub, 80, -0.05,0.05);
       
+    }
+    
+    for(int i = 0;  i < 19; i++){
+    	double z = (i + 5) /100;
+    	sprintf(mname, "mxcut%d", i);
+    	sprintf(mbin, "signal for cut mxp - 780 > (%f)", z);
+    	mxpcuts[i] = new TH1F(mname, mbin, 100, -0.05, 0.05);
     }
   
   
@@ -357,8 +367,9 @@ void Rho1(){
     double j=0.3;
     double h;
     
-    h_mxP->Fill(mx_P);
+    //h_mxP->Fill(mx_P);
     //h_mxP2->Fill(mxProton);
+/*
 
     for (int k=0; k<=60; k++)
       {
@@ -394,7 +405,7 @@ void Rho1(){
 	}
       
    
-	
+*/	
 
     
     
