@@ -38,7 +38,7 @@ void mxp_samecanvas()
     char mxp[61];
     
    
-/*    for (int k=0; k<=61; k++) //also change your for-loop to the number of histos you have
+    for (int k=0; k<=50; k++) //also change your for-loop to the number of histos you have
 
     {
 
@@ -92,8 +92,8 @@ void mxp_samecanvas()
     	    signal->Draw();
 		}
     }
-*/
 
+/*
 	for(int i = 0; i < 25; i++){
 		stringstream ss;
 		ss << i;
@@ -104,6 +104,8 @@ void mxp_samecanvas()
 		c1->cd(i+1);
 		mxpcut->Draw();
 	}
+	
+	*/
 }
 
 

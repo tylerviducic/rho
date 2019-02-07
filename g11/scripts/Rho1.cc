@@ -207,13 +207,13 @@ void Rho1(){
 //-----------------------Make Histograms-----------------------------------
 
 
-  TH1F *mxp[61]; //array of histograms with mx_P in regio of eta
-  TH1F *mx2_sig[61]; // array of mx2_PPipPim histograms with signal region of mx_P selected
-  TH1F *mx2_sb[61]; // array of  mx2_PPipPim histograms with sideband regions of mx_P selected
+  TH1F *mxp[50]; //array of histograms with mx_P in regio of eta
+  TH1F *mx2_sig[50]; // array of mx2_PPipPim histograms with signal region of mx_P selected
+  TH1F *mx2_sb[50]; // array of  mx2_PPipPim histograms with sideband regions of mx_P selected
   TH1F *mcuts[25]; //array of mx2_PPipPim histograms to test signal for different cuts of mxp
   TH1F *h_mxP = new TH1F("h_mxP", "mxP", 200, .2, 1.1);
   TH1F *h_mxP2 = new TH1F("h_mxP2", "mxP2", 200, .2, 1.1);
-  TH1F *subtract[61]; // array of histograms with sidebands subtracted;
+  TH1F *subtract[50]; // array of histograms with sidebands subtracted;
   TH1F *h_imPipPim = new TH1F("h_imPipPim", "h_imPipPim", 150, 0, 1);
   TH1F *htMand = new TH1F("tMand", "tMand", 210, -2, 0.1);
   TH1F *h_neutral = new TH1F("neutral", "neutral", 3, 0,3);
@@ -233,7 +233,7 @@ void Rho1(){
   char bin_sb[61];
   char bin_sub[61];
   double e;
-  for (int k=0; k<=60; k++)
+  for (int k=0; k<=50; k++)
     {
       e=0.3+(double(k)/100.0); //connecting histogram number with bin number
       
@@ -371,16 +371,16 @@ void Rho1(){
 	double z;
 	for(int i = 0; i < 25; i++){
 		z = 0.005+double(i) / 1000;
-		if(abs(mx_P-M_Rho)< 0.06 && Pgam > 0.1 && me_PPipPim > 0.1 && abs(mx2_PPipPimGam) < 0.001  && me_PPipPim - Pgam>-0.1 && me_PPipPim - Pgam < 0.1  && abs(mx_P - 0.780) > z){
+		if(abs(mx_P-M_Rho)< 0.12 && Pgam > 0.1 && me_PPipPim > 0.1 && abs(mx2_PPipPimGam) < 0.001  && me_PPipPim - Pgam>-0.1 && me_PPipPim - Pgam < 0.1  && abs(mx_P - 0.780) > z){
 			mcuts[i]->Fill(mx2_PPipPim);
 		}
 	}
 	
-	if(abs(mx_P-.780)< 0.008 && Pgam > 0.1 && me_PPipPim > 0.1 && abs(mx2_PPipPimGam) < 0.0005  && me_PPipPim - Pgam>-0.1 && me_PPipPim - Pgam < 0.1){
+	if(abs(mx_P-.780)< 0.01 && Pgam > 0.1 && me_PPipPim > 0.1 && abs(mx2_PPipPimGam) < 0.001  && me_PPipPim - Pgam>-0.1 && me_PPipPim - Pgam < 0.1){
 		omegaP->Fill(mx2_PPipPim);
 	}
 	
-	if(abs(mx_P-M_Rho)< 0.06 && Pgam > 0.1 && me_PPipPim > 0.1 && abs(mx2_PPipPimGam) < 0.0005  && me_PPipPim - Pgam>-0.1 && me_PPipPim - Pgam < 0.1){
+	if(abs(mx_P-M_Rho)< 0.12 && Pgam > 0.1 && me_PPipPim > 0.1 && abs(mx2_PPipPimGam) < 0.001  && me_PPipPim - Pgam>-0.1 && me_PPipPim - Pgam < 0.1){
 		rhoP->Fill(mx2_PPipPim);
 	}
 	
@@ -394,10 +394,10 @@ void Rho1(){
     //h_mxP2->Fill(mxProton);
 
 
-    for (int k=0; k<=60; k++)
+    for (int k=0; k<=50; k++)
       {
 	h=0.3+(double(k)/100.0); //relates histogram number (place in array) to bin of IM_PipPim
-	if ( Pgam > 0.1 && me_PPipPim > 0.1 && abs(mx2_PPipPimGam) < 0.0005  && Pgam > 0.1 && me_PPipPim - Pgam>-0.1 && me_PPipPim - Pgam < 0.3 && abs(mx2_PPipPim)<0.005)
+	if ( Pgam > 0.1 && me_PPipPim > 0.1 && abs(mx2_PPipPimGam) < 0.001  && Pgam > 0.1 && me_PPipPim - Pgam>-0.1 && me_PPipPim - Pgam < 0.1 && abs(mx2_PPipPim)<0.005)
 	  {
 	    if (abs(IM_PipPim-h)<0.005) //selects bin of IM_PipPim
 	      {
@@ -405,7 +405,7 @@ void Rho1(){
 	      }
 	  }
 	  
-	
+	/*
 	
 	if (abs(mx_P-M_Rho)<0.06  && me_PPipPim > 0.1 && abs(mx2_PPipPimGam) < 0.001  && Pgam > 0.1 && abs(me_PPipPim - Pgam) < 0.1 && abs(mx_P-0.782)>0.02)
 	  {
@@ -414,10 +414,20 @@ void Rho1(){
 		mx2_sig[k]->Fill(mx2_PPipPim); //array of mx2 histograms from signal region of rho
 	      }
 	  }
+	  
+	  */
+	  
+	  	if (abs(mx_P-M_Rho)<0.12 && mx_P < .73  && me_PPipPim > 0.1 && abs(mx2_PPipPimGam) < 0.001  && Pgam > 0.1 && abs(me_PPipPim - Pgam) < 0.1 && abs(mx_P-0.782)>0.02)
+	  {
+	    if (abs(IM_PipPim-h)<0.005) //selects bin of IM_PipPim
+	      {
+		mx2_sig[k]->Fill(mx2_PPipPim); //array of mx2 histograms from signal region of rho
+	      }
+	  }
 	//remove this when doing sidebands  
-	/*
+	
   
-	if (me_PPipPim > 0.1  && abs(me_PPipPim - Pgam)<0.05 && abs(mx2_PPipPimGam)<0.002  && (abs(mx_P-0.625)<0.015 || abs(mx_P-0.915)<0.015) )
+	if (Pgam > .1 && me_PPipPim > 0.1  && abs(me_PPipPim - Pgam)<0.1 && abs(mx2_PPipPimGam)<0.001  && (abs(mx_P-0.680)<0.015 || abs(mx_P-0.850)<0.015) )
 	  {
 	    if (abs(IM_PipPim-h)<0.005)//Selects bin of IM_PipPim
 	      {
@@ -426,7 +436,7 @@ void Rho1(){
 	  }
 	
 	subtract[k]->Add(mx2_sig[k],mx2_sb[k],1,-1); //used to subtract the sidebands from the signal region for each bin of IM_PipPim
-*/	
+ 	
 	
 	}
       
