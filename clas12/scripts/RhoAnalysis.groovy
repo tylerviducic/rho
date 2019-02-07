@@ -7,6 +7,8 @@
 
 import org.jlab.groot.data.H1F
 import org.jlab.groot.data.TDirectory
+import org.jlab.groot.fitter.DataFitter
+import org.jlab.groot.math.F1D
 import org.jlab.groot.ui.TCanvas
 import org.jlab.jnp.hipo.data.HipoEvent
 import org.jlab.jnp.hipo.data.HipoGroup
@@ -15,6 +17,8 @@ import org.jlab.jnp.hipo.io.HipoReader
 import org.jlab.jnp.physics.EventFilter
 import org.jlab.jnp.physics.Particle
 import org.jlab.jnp.physics.PhysicsEvent
+
+import javax.xml.crypto.Data
 
 //String dataFile = "/home/tylerviducic/research/rho/clas12/data/run_43526_full_filtered.hipo";
 //String dataFile = "/home/tylerviducic/research/rho/clas12/data/run_43491_full_filtered.hipo";
@@ -29,7 +33,7 @@ mP = 0.938272;
 
 //Declare cut constants
 
-cutRhoRegion = 0.6;
+cutRhoRegion = 0.06;
 cutPGam = 0.1;
 cutMePPipPim = 0.1;
 cutMxPPipPimGam = 0.001;
@@ -84,7 +88,7 @@ dir.mkdir("/Signal");
 dir.mkdir("/Cuts");
 
 dir.cd("/Signal");
-
+dir.addDataSet(hMxPPipPim);
 for (int i = 0; i < 66; i++) {
     dir.addDataSet(hSignal.get(i));
 }
@@ -219,6 +223,17 @@ while (reader.hasNext()) {
 
 
 }
+
+F1D f1 = new F1D("f1", "[amp]*gaus(x,[mean],[sigma])", -0.19, 0.03);
+f1.setParameter(0, 400);
+f1.setParameter(1, 0.02);
+f1.setParameter(2,0.15);
+f1.setLineColor(42);
+
+DataFitter.fit(f1, hMePPipPimpGam, "N");
+c2.cd(2);
+c2.draw(f1, "same");
+f1.show();
 
 dir.cd("/Cuts");
 
