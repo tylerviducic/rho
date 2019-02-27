@@ -6,7 +6,7 @@ import org.jlab.groot.math.Func1D
 
 
 
-String dataFile = "myAnalysis.hipo";
+String dataFile = "/work/clas12/viducic/data/myAnalysis.hipo";
 
 TDirectory readDir = new TDirectory();
 
