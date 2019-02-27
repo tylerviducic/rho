@@ -48,3 +48,4 @@ f2.show();
 c1.draw(f1, "same");
 c1.draw(f2,"same");
 
+//write class to set parameters for the 2 gaus fit

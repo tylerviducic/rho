@@ -51,10 +51,10 @@ void plotSignal(){
 		G->GetEntry(i);
 		for(int k = 0; k < 50; k++){
 			e = 0.3 +(double(k)/100);
-			if(Pgam > Pgamcut && me_PPipPim > me_PPipPimcut && abs(me_PPipPim-Pgam) < me_PPipPimPGamcut && (mx_P-M_Rho) < mx_Pcut && abs(mx2_PPipPimGam)<mx2_PPipPimGamcut && abs(IM_PipPim - e) < 0.005){
+			if(Pgam > Pgamcut && me_PPipPim > me_PPipPimcut && abs(me_PPipPim-Pgam) < me_PPipPimPGamcut && abs(mx_P-M_Rho) < mx_Pcut && abs(mx2_PPipPimGam)<mx2_PPipPimGamcut && abs(IM_PipPim - e) < 0.005){
 			signal[k]->Fill(mx2_PPipPim);
 			}
-			if(Pgam > Pgamcut && me_PPipPim > me_PPipPimcut && abs(me_PPipPim-Pgam) < me_PPipPimPGamcut && (mx_P-M_Rho) < mx_Pcut && abs(mx2_PPipPimGam)<mx2_PPipPimGamcut && abs(IM_PipPim - e) < 0.005 && mx_P < wcut){
+			if(Pgam > Pgamcut && me_PPipPim > me_PPipPimcut && abs(me_PPipPim-Pgam) < me_PPipPimPGamcut && abs(mx_P-M_Rho) < mx_Pcut && abs(mx2_PPipPimGam)<mx2_PPipPimGamcut && abs(IM_PipPim - e) < 0.005 && mx_P < wcut){
 			signalcut[k]->Fill(mx2_PPipPim);
 			}
 		}

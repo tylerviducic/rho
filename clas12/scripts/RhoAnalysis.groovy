@@ -18,8 +18,6 @@ import org.jlab.jnp.physics.EventFilter
 import org.jlab.jnp.physics.Particle
 import org.jlab.jnp.physics.PhysicsEvent
 
-import javax.xml.crypto.Data
-
 //String dataFile = "/home/tylerviducic/research/rho/clas12/data/run_43526_full_filtered.hipo";
 //String dataFile = "/home/tylerviducic/research/rho/clas12/data/run_43491_full_filtered.hipo";
 //String dataFile = "/home/physics/research/rho/clas12/data/run_43526_full_filtered.hipo";
