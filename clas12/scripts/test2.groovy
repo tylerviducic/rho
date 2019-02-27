@@ -5,6 +5,7 @@ import org.jlab.groot.math.F1D
 import org.jlab.groot.math.Func1D
 
 
+
 String dataFile = "myAnalysis.hipo";
 
 TDirectory readDir = new TDirectory();
@@ -13,46 +14,38 @@ readDir.readFile(dataFile);
 readDir.cd("/Signal");
 
 H1F h1 = (H1F) readDir.getObject("/Signal/hMxPPipPim");
-h1.setFunction(null);
+//h1.setFunction(null);
 
 DoubleGaus f1 = new DoubleGaus("f1", -0.02, 0.05, -0.01, 0.01, 0.01, 0.03);
-f1.getFunction(0).show();
-f1.getFunction(1).show();
-f1.getFunction(2).show();
 
-println(f1.testEval());
+f1.setParameter(0, 0, 150);
+f1.setParameter(0, 1, 0.0);
+f1.setParameter(0, 2, 0.01);
+
+f1.setParameter(1, 0, 400);
+f1.setParameter(1, 1, 0.018);
+f1.setParameter(1, 2, 0.05);
+
+f1.setParameter(2, 0, 1);
+f1.setParameter(2, 1, 1);
+f1.setParameter(2, 2, 1);
+
 
 //TCanvas c1 = new TCanvas("c1", 500, 500);
 //c1.draw(h1);
-f1.show();
-
-
-
-
-
-
-
-
-
+DataFitter.fit(f1, h1, "V");
 
 
 public class CompositeFunction extends Func1D {
 
     List<F1D> functions = new ArrayList<F1D>();
+    ArrayList<Double> param = new ArrayList<Double>();
 
     public CompositeFunction addFunction(F1D f){
         functions.add(f);
         return this;
     }
 
-    public String testEval(){
-        String exp = "";
-        for (F1D func : functions){
-            exp += func.getExpression() + "+";
-        }
-        exp = exp.substring(0, exp.length()-1);
-        return exp;
-    }
 
     public double evaluate(double value){
         String exp = "";
@@ -61,6 +54,7 @@ public class CompositeFunction extends Func1D {
         }
         exp = exp.substring(0, exp.length()-1);
         F1D f1 = new F1D ("f1", exp, getMin(), getMax());
+        f1.setParameters(getParameters());
         return f1.evaluate(value);
     }
 
@@ -76,6 +70,21 @@ public class CompositeFunction extends Func1D {
 
     public void setParameter(int funcIndex, int paramIndex, double value){
         functions.get(funcIndex).setParameter(paramIndex, value);
+    }
+
+    private double[] getParameters(){
+        List<Double> pars = new ArrayList<Double>();
+        for(F1D f : functions){
+            for(int i = 0; i < f.getNPars(); i++){
+                pars.add(f.getParameter(i));
+            }
+        }
+        Double[] pars1 = (Double[]) pars.toArray();
+        double[] finalPars = new double[pars1.length];
+        for(int i = 0; i < finalPars.length; i++){
+            finalPars[i] = pars1[i].doubleValue();
+        }
+        return finalPars;
     }
 
 
@@ -103,6 +112,7 @@ public class DoubleGaus extends CompositeFunction{
     }
 
 
-
+//I can't figure out how to actually fit the function without actually declaring a F1D
+//I have a list of functions but DataFitter can't handle that.
 
 }
