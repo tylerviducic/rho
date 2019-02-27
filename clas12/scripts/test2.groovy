@@ -36,6 +36,7 @@ f1.setParameter(2, 2, 1);
 DataFitter.fit(f1, h1, "V");
 
 
+
 public class CompositeFunction extends Func1D {
 
     List<F1D> functions = new ArrayList<F1D>();
@@ -46,16 +47,19 @@ public class CompositeFunction extends Func1D {
         return this;
     }
 
-
-    public double evaluate(double value){
+    private F1D combineFunctions(){
         String exp = "";
-        for (F1D func : functions){
-            exp += func.getExpression() + "+";
+        for(F1D f : functions){
+            exp += f.getExpression() + "+";
         }
         exp = exp.substring(0, exp.length()-1);
-        F1D f1 = new F1D ("f1", exp, getMin(), getMax());
+        return new F1D("f1", exp, getMin(), getMax());
+    }
+
+    public double evaluate(double x){
+        F1D f1 = combineFunctions();
         f1.setParameters(getParameters());
-        return f1.evaluate(value);
+        return f1.evaluate(x);
     }
 
     public F1D getFunction(int index){
@@ -88,7 +92,6 @@ public class CompositeFunction extends Func1D {
     }
 
 
-
 }
 
 
@@ -107,7 +110,7 @@ public class DoubleGaus extends CompositeFunction{
 
         F1D f1 = new F1D("f1", "[amp1]*gaus(x,[mean1],[sigma1])", min1, max1);
         F1D f2 = new F1D("f2", "[amp2]*gaus(x,[mean2],[sigma2])", min2, max2);
-        F1D pol = new F1D("pol", "[p0]x * x + [p1]*x + [p2]", getMin(), getMax());
+        F1D pol = new F1D("pol", "([p0]x*x+[p1]*x+[p2])", getMin(), getMax());
         addFunction(f1).addFunction(f2).addFunction(pol);
     }
 
