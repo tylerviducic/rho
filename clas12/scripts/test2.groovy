@@ -40,7 +40,7 @@ DataFitter.fit(f1, h1, "V");
 public class CompositeFunction extends Func1D {
 
     List<F1D> functions = new ArrayList<F1D>();
-    ArrayList<Double> param = new ArrayList<Double>();
+    
 
     public CompositeFunction addFunction(F1D f){
         functions.add(f);
