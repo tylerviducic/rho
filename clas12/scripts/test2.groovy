@@ -3,7 +3,7 @@ import org.jlab.groot.data.TDirectory
 import org.jlab.groot.fitter.DataFitter
 import org.jlab.groot.math.F1D
 import org.jlab.groot.math.Func1D
-
+import org.jlab.groot.ui.TCanvas
 
 
 String dataFile = "/work/clas12/viducic/data/myAnalysis.hipo";
