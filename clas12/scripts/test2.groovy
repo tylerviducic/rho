@@ -31,9 +31,9 @@ f1.setParameter(2, 1, 1);
 f1.setParameter(2, 2, 1);
 
 
-//TCanvas c1 = new TCanvas("c1", 500, 500);
-//c1.draw(h1);
-DataFitter.fit(f1, h1, "V");
+TCanvas c1 = new TCanvas("c1", 500, 500);
+c1.draw(h1);
+//DataFitter.fit(f1, h1, "V");
 
 
 
