@@ -68,6 +68,7 @@ public class CompositeFunction extends Func1D {
         for(F1D f : functions){
             result+=f.evaluate(x);
         }
+        println(result);
         return result;
     }
 
