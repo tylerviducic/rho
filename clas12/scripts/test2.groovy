@@ -56,21 +56,21 @@ public class CompositeFunction extends Func1D {
         return new F1D("f1", exp, getMin(), getMax());
     }
 
-//    public double evaluate(double x){
-//        F1D f1 = combineFunctions();
-//        f1.setParameters(getParameters());
-//        println("trying eval");
-//        return f1.evaluate(x);
-//    }
-
     public double evaluate(double x){
-        double result=0;
-        for(F1D f : functions){
-            result+=f.evaluate(x);
-        }
-        println(result);
-        return result;
+        F1D f1 = combineFunctions();
+        f1.setParameters(getParameters());
+        println("trying eval");
+        println(f1.evaluate(x));
+        return f1.evaluate(x);
     }
+
+//    public double evaluate(double x){
+//        double result=0;
+//        for(F1D f : functions){
+//            result+=f.evaluate(x);
+//        }
+//        return result;
+//    }
 
     public F1D getFunction(int index){
         return functions.get(index);
