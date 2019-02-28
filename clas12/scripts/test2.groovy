@@ -31,9 +31,9 @@ f1.setParameter(2, 1, 1);
 f1.setParameter(2, 2, 1);
 
 
-TCanvas c1 = new TCanvas("c1", 500, 500);
-c1.draw(h1);
-//DataFitter.fit(f1, h1, "V");
+//TCanvas c1 = new TCanvas("c1", 500, 500);
+//c1.draw(h1);
+DataFitter.fit(f1, h1, "V");
 
 
 
@@ -56,10 +56,18 @@ public class CompositeFunction extends Func1D {
         return new F1D("f1", exp, getMin(), getMax());
     }
 
+//    public double evaluate(double x){
+//        F1D f1 = combineFunctions();
+//        f1.setParameters(getParameters());
+//        return f1.evaluate(x);
+//    }
+
     public double evaluate(double x){
-        F1D f1 = combineFunctions();
-        f1.setParameters(getParameters());
-        return f1.evaluate(x);
+        double result=0;
+        for(F1D f : functions){
+            result+=f.evaluate(x);
+        }
+        return result;
     }
 
     public F1D getFunction(int index){
