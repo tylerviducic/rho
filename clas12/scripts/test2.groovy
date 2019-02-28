@@ -3,7 +3,7 @@ import org.jlab.groot.data.TDirectory
 import org.jlab.groot.fitter.DataFitter
 import org.jlab.groot.math.F1D
 import org.jlab.groot.math.Func1D
-
+import org.jlab.groot.ui.TCanvas
 
 
 String dataFile = "/work/clas12/viducic/data/myAnalysis.hipo";
@@ -40,7 +40,7 @@ DataFitter.fit(f1, h1, "V");
 public class CompositeFunction extends Func1D {
 
     List<F1D> functions = new ArrayList<F1D>();
-    ArrayList<Double> param = new ArrayList<Double>();
+    
 
     public CompositeFunction addFunction(F1D f){
         functions.add(f);
@@ -56,10 +56,18 @@ public class CompositeFunction extends Func1D {
         return new F1D("f1", exp, getMin(), getMax());
     }
 
+//    public double evaluate(double x){
+//        F1D f1 = combineFunctions();
+//        f1.setParameters(getParameters());
+//        return f1.evaluate(x);
+//    }
+
     public double evaluate(double x){
-        F1D f1 = combineFunctions();
-        f1.setParameters(getParameters());
-        return f1.evaluate(x);
+        double result=0;
+        for(F1D f : functions){
+            result+=f.evaluate(x);
+        }
+        return result;
     }
 
     public F1D getFunction(int index){

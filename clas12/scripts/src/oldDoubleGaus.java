@@ -4,7 +4,7 @@ import org.jlab.groot.math.F1D;
 import org.jlab.groot.ui.TCanvas;
 
 
-public class DoubleGaus{
+public class oldDoubleGaus{
     String name;
     double min;
     double max;
@@ -15,7 +15,7 @@ public class DoubleGaus{
     H1F histo;
     F1D f4 = new F1D("f1", "[amp]*gaus(x,[mean],[sigma]) + [amp2]*gaus(x,[mean2],[sigma2]) + ([p1] + [p2]*x + [p3]* x * x)", min, max);
 
-    public DoubleGaus(String name, double min, double max, double peak1min, double peak1max, double peak2min, double peak2max, H1F histo) {
+    public oldDoubleGaus(String name, double min, double max, double peak1min, double peak1max, double peak2min, double peak2max, H1F histo) {
         this.name = name;
         this.min = min;
         this.max = max;
