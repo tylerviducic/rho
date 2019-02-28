@@ -87,7 +87,7 @@ public class CompositeFunction extends Func1D {
     private double[] getParameters(){
         List<Double> pars = new ArrayList<Double>();
         for(F1D f : functions){
-            println("For function: " + f.getName() + " - NPars = " + f.getNPars());
+            //println("For function: " + f.getName() + " - NPars = " + f.getNPars());
             for(int i = 0; i < f.getNPars(); i++){
                 pars.add(f.getParameter(i));
             }
