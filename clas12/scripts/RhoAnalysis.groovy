@@ -26,17 +26,17 @@ String dataFile = "/work/clas12/viducic/g11_data_filtered.hipo";
 
 //Declare constants
 
-mRho = 0.770;
-mP = 0.938272;
+double mRho = 0.770;
+double mP = 0.938272;
 
 //Declare cut constants
 
-cutRhoRegion = 0.06;
-cutPGam = 0.1;
-cutMePPipPim = 0.1;
-cutMxPPipPimGam = 0.001;
-cutMxPPipPim = 0.005;
-cutMePPipPimPgamSubtract = 0.1;
+double cutRhoRegion = 0.06;
+double cutPGam = 0.1;
+double cutMePPipPim = 0.1;
+double cutMxPPipPimGam = 0.001;
+double cutMxPPipPim = 0.005;
+double cutMePPipPimPgamSubtract = 0.1;
 
 //Declare Histograms
 H1F hMxpUncut = new H1F("hMxPUncut", 100, 0.4, 1.2);
