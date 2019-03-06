@@ -1,23 +1,34 @@
 void fitSignal(){
-	TFile *f = TFile::Open("/home/physics/research/rho/g11/scripts/signal_histos.root");
-	TFile *f1 = new TFile("/home/physics/research/rho/g11/scripts/fittedSignals.root", "UPDATE");
+
+	//red is pol3
+	//blue is pol2
+
+	//TFile *f = TFile::Open("/home/physics/research/rho/g11/scripts/signal_histos.root");
+	//TFile *f1 = new TFile("/home/physics/research/rho/g11/scripts/fittedSignals.root", "UPDATE");
+	//TFile *f1 = new TFile("/home/physics/research/rho/g11/scripts/fittedSignals.root", "RECREATE"); // uncomment if starting over for some reason
+	
+	TFile *f = TFile::Open("/media/tylerviducic/Elements/g11/signal_histos.root");
+	TFile *f1 = new TFile("/media/tylerviducic/Elements/g11/fittedSignals.root", "UPDATE");
 	//TFile *f1 = new TFile("/home/physics/research/rho/g11/scripts/fittedSignals.root", "RECREATE"); // uncomment if starting over for some reason
 	
 	TCanvas *c1 = new TCanvas;
 	
-	TH1F *h1 = (TH1F*)f->Get("signalcut37");
+	TH1F *h1 = (TH1F*)f->Get("signal49");
 	TH1F *h2 = new TH1F("h2", "h2", 50, -0.02, 0.03);
 	TH1F *h3 = new TH1F("h3", "h3", 50, -0.02, 0.03);
 	
-	Double_t min = -0.015;
-	Double_t max = 0.025;
+	Double_t min = -0.01;
+	Double_t max = 0.01;
+	
+	Double_t backMin = -0.01;
+	Double_t backMax = 0.01;
 	
 	h1->Sumw2();
     h1->SetLineColor(kBlue);
     h1->SetMarkerStyle(8);
     h1->SetLineWidth(1);
     h1->GetXaxis()->SetTitle("mx2_PPipPim [GeV^{2}]");
-    h1->SetTitle("abs(IM_PipPim - 0.67)<0.005 GeV w/ cut mxp < 0.730");
+    h1->SetTitle("abs(IM_PipPim - 0.79<0.005 GeV");
     h1->Draw();
     
     TF1 *g1 = new TF1("photon","gaus",-0.005,0.005);
@@ -26,10 +37,10 @@ void fitSignal(){
     TF1 *g2 = new TF1("pions","gaus",0.01,0.03);
     g2->SetLineColor(1);
     
-    TF1 *g3 = new TF1("background1","pol2",-0.02,0.04);
+    TF1 *g3 = new TF1("background1","pol2",backMin,backMax);
     g3->SetLineColor(1);
     
-    TF1 *g4 = new TF1("background2", "pol3", -0.02, 0.04);	
+    TF1 *g4 = new TF1("background2", "pol3", backMin, backMax);	
     g4->SetLineColor(1);
     
    //defining sum of 2 gaussians & quadratic background
