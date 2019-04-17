@@ -59,8 +59,7 @@ public class CompositeFunction extends Func1D {
     public double evaluate(double x){
         F1D f1 = combineFunctions();
         f1.setParameters(getParameters());
-        println("trying eval");
-        println(f1.evaluate(x));
+        //println(f1.evaluate(x));
         return f1.evaluate(x);
     }
 
@@ -95,6 +94,7 @@ public class CompositeFunction extends Func1D {
             }
         }
         Double[] pars1 = (Double[]) pars.toArray();
+
         double[] finalPars = new double[pars1.length];
         for(int i = 0; i < finalPars.length; i++){
             finalPars[i] = pars1[i].doubleValue();

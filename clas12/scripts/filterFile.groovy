@@ -6,12 +6,12 @@ import org.jlab.jnp.hipo.io.HipoReader
 import org.jlab.jnp.hipo.io.HipoWriter
 //String dataFile = "/home/tylerviducic/research/rho/clas12/data/run_43526_full.hipo";
 //String dataFile = "/home/physics/research/rho/clas12/data/run_43491_full.hipo";
-String dataFile = "/work/clas12/viducic/run_43800-9_full.hipo"
+String dataFile = "/work/clas12/viducic/run_437-43824_full.hipo"
 
 HipoReader reader = new HipoReader();
 reader.open(dataFile);
 HipoWriter writer = reader.createWriter();
-writer.open("/work/clas12/viducic/run_43800-9_full_filtered.hipo");
+writer.open("/work/clas12/viducic/run_run_437-43824_full_filtered.hipo");
 
 while (reader.hasNext()==true){
     HipoEvent event = reader.readNextEvent();
