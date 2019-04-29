@@ -3,6 +3,7 @@
 // Generator script for generating physics events
 // for rho decay to pion+,pion- and gamma
 //******************************************************
+import org.jlab.groot.data.H1F
 import org.jlab.jnp.hipo.io.HipoWriter
 import org.jlab.jnp.pdg.DistributionFunc
 import org.jlab.jnp.pdg.PDGDatabase
@@ -27,6 +28,8 @@ import java.util.logging.Logger;
 String outFile = "/home/physics/research/rho/clas12/data/conversionTest.gamp"
 GampWriter writer = new GampWriter(outFile);
 
+//H1F h1 = new H1F("h1")
+
 
 
 //--- Create a generator with photon beam
@@ -47,16 +50,19 @@ generator.addDecay(decay);
 //---
 // Loop 100 times and generate a random event. print out
 // the beam energy and the event particles
-for(int i = 0; i < 100; i++){
+for(int i = 0; i < 1000; i++){
     generator.generate(event);
     Particle rho = event.getParticle("[211]+[-211]+[22]");
+    Particle mxp = event.getParticle("[b]+[t]-[2212]");
     System.out.println("------> EVENT");
     System.out.println("     beam energy = " + event.beamParticle().e());
     System.out.println("invariant mass of pi pi gamma -> rho (mass) = " + rho.mass());
+    System.out.println("missing mass of the proton -> " + mxp.mass());
     System.out.println(event.toLundString());
     //System.out.println(event.toLundString() + "    5  0.    1     22  0  0    0.0000    0.0000    " + String.valueOf(event.beamParticle().e()) + "    " + String.valueOf(event.beamParticle().e()))
     //writer.writeEvent(event.toLundString() + "\n" + "    5  0.    1     22  0  0    0.0000    0.0000    " + String.valueOf(event.beamParticle().e()) + "    " + String.valueOf(event.beamParticle().e()));
     writer.writeEvent(event);
+
 }
 
 writer.close();
@@ -288,16 +294,177 @@ public class MyTwoBodyDecay{
         Vector3 vectBoost = vector.boostVector();
         vec[0].boost(vectBoost);
         vec[1].boost(vectBoost);
+        Particle r = new Particle();
+        r.initParticleWithMass(vec[1].mass(), vec[1].px(), vec[1].py(), vec[1].pz(),mother.vertex().x(), mother.vertex().y(), mother.vertex().z());
+        r.pid(p2.pid());
         this.decayProd1.copy(vec[0]);
         this.decayProd2.copy(vec[1]);
         int index = event.getParticleIndex(this.parentParticleID, 0);
         event.removeParticle(index);
         event.addParticle(new Particle(this.decayParticleID1, vec[0].px(), vec[0].py(), vec[0].pz(), mother.vertex().x(), mother.vertex().y(), mother.vertex().z()));
-        event.addParticle(new Particle(this.decayParticleID2, vec[1].px(), vec[1].py(), vec[1].pz(), mother.vertex().x(), mother.vertex().y(), mother.vertex().z()));
+        //event.addParticle(new Particle(this.decayParticleID2, vec[1].px(), vec[1].py(), vec[1].pz(), mother.vertex().x(), mother.vertex().y(), mother.vertex().z()));
+        event.addParticle(r);
+        System.out.println("***********" + event.toLundString());
         System.out.println("mass of event rho: " + event.getParticleByPid(113,0).mass());
         System.out.println("--------------------------------------------------------------");
     }
 }
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+public class MyThreeBodyDecay implements IDecay {
+    int decayParticleID;
+    int[] productParticleID;
+
+    public MyThreeBodyDecay() {
+        this.decayParticleID = 221;
+        this.productParticleID = new int[3];
+        this.productParticleID[0] = 211;
+        this.productParticleID[1] = -211;
+        this.productParticleID[2] = 22;
+    }
+
+    public MyThreeBodyDecay(String parent, String child1, String child2, String child3) {
+        this.productParticleID = new int[3];
+        this.setDecayParticle(parent);
+        this.setDecayProducts(child1, child2, child3);
+    }
+
+    public void init() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void setDecayParticle(int id) {
+        if (PDGDatabase.getParticleById(id) == null) {
+            System.out.println("ThreeBodyDecay:setDecayParticle ERROR ---> can not find  particle with pid=" + id);
+        } else {
+            this.decayParticleID = id;
+        }
+    }
+
+    public void setDecayProducts(int pid1, int pid2) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void setDecayProducts(int pid1, int pid2, int pid3) {
+        if (PDGDatabase.getParticleById(pid1) == null) {
+            System.out.println("ThreeBodyDecay: ERROR ---> unknown particle id " + pid1);
+        } else if (PDGDatabase.getParticleById(pid2) == null) {
+            System.out.println("ThreeBodyDecay: ERROR ---> unknown particle id " + pid2);
+        } else if (PDGDatabase.getParticleById(pid3) == null) {
+            System.out.println("ThreeBodyDecay: ERROR ---> unknown particle id " + pid3);
+        } else {
+            this.productParticleID[0] = pid1;
+            this.productParticleID[1] = pid2;
+            this.productParticleID[2] = pid3;
+        }
+    }
+
+    double getMassFunction(double mass, double m1, double m2, double m3) {
+        double mmin = m1 + m2;
+        double mmax = mass - m3;
+        if (mmax < mmin) {
+            System.out.println("---> error the particle m=" + mass + " can not decay to m = [" + m1 + " , " + m2 + " , " + m3 + " ]");
+            return 0.0D;
+        } else {
+            double randomMass = Math.random();
+            return mmin + Math.abs(mmax - mmin) * randomMass;
+        }
+    }
+
+    public void decayParticles(PhysicsEvent event) {
+        int index = event.getParticleIndex(this.decayParticleID, 0);
+        if (index < 0) {
+            System.out.println("----> particle with pid=" + this.decayParticleID + " does not exist in the event");
+        } else {
+            //PDGParticle parent = PDGDatabase.getParticleById(this.decayParticleID);
+            Particle decayPart = event.getParticle(index);
+            PDGParticle dp1 = PDGDatabase.getParticleById(this.productParticleID[0]);
+            PDGParticle dp2 = PDGDatabase.getParticleById(this.productParticleID[1]);
+            PDGParticle dp3 = PDGDatabase.getParticleById(this.productParticleID[2]);
+            double massDecayCombo = this.getMassFunction(decayPart.mass(), dp1.mass(), dp2.mass(), dp3.mass());
+            double decayCosThetaDL = Math.random() * 2.0D - 1.0D;
+            double decayPhiDL = Math.random() * 2.0D * 3.141592653589793D - 3.141592653589793D;
+            //Particle decayPart = event.getParticle(index);
+            LorentzVector[] decayGDiL = DecayKinematics.getDecayParticlesLab(decayPart.vector(), massDecayCombo, dp3.mass(), Math.acos(decayCosThetaDL), decayPhiDL);
+            double decayCosThetaStep2 = Math.random() * 2.0D - 1.0D;
+            double decayPhiStep2 = Math.random() * 2.0D * 3.141592653589793D - 3.141592653589793D;
+            LorentzVector[] decayGDStep2 = DecayKinematics.getDecayParticlesLab(decayGDiL[0], dp1.mass(), dp2.mass(), Math.cos(decayCosThetaStep2), decayPhiStep2);
+            event.addParticle(new Particle(dp1.pid(), decayGDStep2[0].px(), decayGDStep2[0].py(), decayGDStep2[0].pz(), decayPart.vertex().x(), decayPart.vertex().y(), decayPart.vertex().z()));
+            event.addParticle(new Particle(dp2.pid(), decayGDStep2[1].px(), decayGDStep2[1].py(), decayGDStep2[1].pz(), decayPart.vertex().x(), decayPart.vertex().y(), decayPart.vertex().z()));
+            event.addParticle(new Particle(dp3.pid(), decayGDiL[1].px(), decayGDiL[1].py(), decayGDiL[1].pz(), decayPart.vertex().x(), decayPart.vertex().y(), decayPart.vertex().z()));
+            index = event.getParticleIndex(this.decayParticleID, 0);
+            event.removeParticle(index);
+        }
+    }
+
+    public void setDecayParticle(String name) {
+        PDGParticle dp = PDGDatabase.getParticleByName(name);
+        if (dp == null) {
+            System.out.println("----> error. pdg does not contain name=[" + name + "]");
+        } else {
+            this.decayParticleID = dp.pid();
+        }
+    }
+
+    public void setDecayProducts(String name1, String name2) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void setDecayProducts(String name1, String name2, String name3) {
+        if (PDGDatabase.getParticleByName(name1) == null) {
+            System.out.println("ThreeBodyDecay: ERROR ---> unknown particle name " + name1);
+        } else if (PDGDatabase.getParticleByName(name2) == null) {
+            System.out.println("ThreeBodyDecay: ERROR ---> unknown particle name " + name2);
+        } else if (PDGDatabase.getParticleByName(name3) == null) {
+            System.out.println("ThreeBodyDecay: ERROR ---> unknown particle name " + name3);
+        } else {
+            this.productParticleID[0] = PDGDatabase.getParticleByName(name1).pid();
+            this.productParticleID[1] = PDGDatabase.getParticleByName(name2).pid();
+            this.productParticleID[2] = PDGDatabase.getParticleByName(name3).pid();
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

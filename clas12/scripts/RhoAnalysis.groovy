@@ -21,7 +21,8 @@ import org.jlab.jnp.physics.PhysicsEvent
 //String dataFile = "/home/tylerviducic/research/rho/clas12/data/run_43526_full_filtered.hipo";
 //String dataFile = "/home/tylerviducic/research/rho/clas12/data/run_43491_full_filtered.hipo";
 //String dataFile = "/home/physics/research/rho/clas12/data/run_43526_full_filtered.hipo";
-String dataFile = "/work/clas12/viducic/g11_data_filtered.hipo";
+//String dataFile = "/work/clas12/viducic/g11_data_filtered.hipo";
+//String dataFile = "/home/physics/research/rho/clas12/data/data_clas_006715.evio.00001.hipo"
 //String inputFile = args[0];
 
 //Declare constants
@@ -136,7 +137,7 @@ reader.open(dataFile);
 
 //Set event filter
 
-EventFilter filter = new EventFilter("2212:211:-211:22");
+EventFilter filter = new EventFilter("11:2212:211:-211:22");
 
 // Begin Particle Loop
 
@@ -144,7 +145,8 @@ while (reader.hasNext()) {
 
 
     HipoEvent event = reader.readNextEvent();
-    float beam = findBeamEnergy(event);
+    //float beam = findBeamEnergy(event);
+    float beam = 10.2;
 
 //get particle data
 
