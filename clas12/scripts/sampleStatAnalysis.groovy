@@ -25,7 +25,7 @@ import org.jlab.jnp.reader.DataManager
 //String dataFile = "/home/physics/research/rho/clas12/data/run_43526_full_filtered.hipo";
 //String dataFile = "/work/clas12/viducic/g11_data_filtered.hipo";
 //String dataFile = "/home/physics/research/rho/clas12/data/data_clas_006715.evio.00000.hipo";
-String inputFile = args[0];
+String dataFile = args[0];
 
 //Declare constants
 
