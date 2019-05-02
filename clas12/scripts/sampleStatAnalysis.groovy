@@ -167,7 +167,7 @@ while (reader.hasNext()) {
         if(nEvents%10000 == 0){
             System.out.println("done " + nEvents);
         }
-        System.out.println(physEvent.toLundString());
+        //System.out.println(physEvent.toLundString());
         Particle mx_P = physEvent.getParticle("[b] + [t] - [2212] - [11]");
         Particle im_PipPimgam = physEvent.getParticle("[211] + [-211] + [22]");
 //        Particle mx_PPipPim = physEvent.getParticle("[b] + [t] - [2212] -[211] - [-211]");
