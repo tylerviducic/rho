@@ -50,8 +50,8 @@ hMxpUncut.setTitle("mx_P");
 hMxpUncut.setFillColor(43);
 
 H1F himPipPimGamUncut = new H1F("himPipPimGamUncut", 300, 0.0, 3.0);
-hMxpUncut.setTitle("IM_PipPimGam");
-hMxpUncut.setFillColor(43);
+himPipPimGamUncut.setTitle("IM_PipPimGam");
+himPipPimGamUncut.setFillColor(43);
 
 //H1F hMxp = new H1F("hMxp", 100, 0.4, 1.2);
 //hMxp.setTitle("mx_P_cut");
@@ -169,7 +169,7 @@ while (reader.hasNext()) {
         }
         System.out.println(physEvent.toLundString());
         Particle mx_P = physEvent.getParticle("[b] + [t] - [2212] - [11]");
-        Particle im_PipPimgam = physEvent.getParticle("[211] + [-211]");
+        Particle im_PipPimgam = physEvent.getParticle("[211] + [-211] + [22]");
 //        Particle mx_PPipPim = physEvent.getParticle("[b] + [t] - [2212] -[211] - [-211]");
 //        Particle mx_PPipPimGam = physEvent.getParticle("[b] + [t] - [2212] -[211] - [-211]-[22]");
 //        Particle pgam = physEvent.getParticle("[22]");
