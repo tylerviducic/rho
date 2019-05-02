@@ -163,9 +163,9 @@ while (reader.hasNext()) {
     //PhysicsEvent physEvent = setPhysicsEvent(beam, event);
     PhysicsEvent physEvent = DataManager.getPhysicsEvent(beam, event);
     if (filter.isValid(physEvent)) {
-        nEvent++;
+        nEvents++;
         if(nEvents%10000 == 0){
-            System.out.println("done " + nEvent);
+            System.out.println("done " + nEvents);
         }
         System.out.println(physEvent.toLundString());
         Particle mx_P = physEvent.getParticle("[b] + [t] - [2212] - [11]");
