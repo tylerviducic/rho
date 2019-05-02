@@ -144,7 +144,7 @@ reader.open(dataFile);
 
 //Set event filter
 
-EventFilter filter = new EventFilter("11:2212:211:-211:22");
+EventFilter filter = new EventFilter("11:2212:211:-211");
 
 // Begin Particle Loop
 
@@ -168,8 +168,8 @@ while (reader.hasNext()) {
     }
     if (filter.isValid(physEvent)) {
         //System.out.println(physEvent.toLundString());
-        Particle mx_P = physEvent.getParticle("[b] + [t] - [2212] + [11]");
-        Particle im_PipPimgam = physEvent.getParticle("[211] + [-211] + [22]");
+        Particle mx_P = physEvent.getParticle("[b] + [t] - [2212] - [11]");
+        Particle im_PipPimgam = physEvent.getParticle("[211] + [-211]");
 //        Particle mx_PPipPim = physEvent.getParticle("[b] + [t] - [2212] -[211] - [-211]");
 //        Particle mx_PPipPimGam = physEvent.getParticle("[b] + [t] - [2212] -[211] - [-211]-[22]");
 //        Particle pgam = physEvent.getParticle("[22]");
