@@ -148,7 +148,7 @@ EventFilter filter = new EventFilter("11:2212:211:-211:22");
 
 // Begin Particle Loop
 
-int n = 0;
+int nEvents  = 0;
 
 while (reader.hasNext()) {
 
@@ -163,8 +163,10 @@ while (reader.hasNext()) {
     //PhysicsEvent physEvent = setPhysicsEvent(beam, event);
     PhysicsEvent physEvent = DataManager.getPhysicsEvent(beam, event);
     if (filter.isValid(physEvent)) {
-        n = n + 1;
-        System.out.println(n);
+        nEvent++;
+        if(nEvents%10000 == 0){
+            System.out.println("done " + nEvent);
+        }
         System.out.println(physEvent.toLundString());
         Particle mx_P = physEvent.getParticle("[b] + [t] - [2212] - [11]");
         Particle im_PipPimgam = physEvent.getParticle("[211] + [-211]");
