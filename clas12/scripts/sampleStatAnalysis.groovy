@@ -150,7 +150,7 @@ EventFilter filter = new EventFilter("11:2212:211:-211:22");
 
 int nEvents  = 0;
 
-while (reader.hasNext()) {
+while (reader.hasNext()) {s
 
 
     HipoEvent event = reader.readNextEvent();
