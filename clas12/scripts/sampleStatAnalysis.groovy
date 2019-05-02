@@ -148,6 +148,7 @@ reader.open(dataFile);
 EventFilter filter = new EventFilter("11:2212:211:-211:22");
 ReactionFilter tfilter = new ReactionFilter();
 tfilter.addFilter(DataManager.TAGGER, "11");
+tfilter.addFilter(DataManager.ANY, "2212:211:-211:22");
 
 
 
@@ -171,7 +172,8 @@ while (reader.hasNext()) {
     if(nEvents%10000 == 0){
         System.out.println("done " + nEvents);
     }
-    if (filter.isValid(physEvent) && tfilter.isValid(physEvent)) {
+    //if (filter.isValid(physEvent) && tfilter.isValid(physEvent)) {
+    if (tfilter.isValid(physEvent)) {
         //System.out.println(physEvent.toLundString());
         Particle mx_P = physEvent.getParticle("[b] + [t] - [11] - [2212]");
         Particle im_PipPimgam = physEvent.getParticle("[211] + [-211] + [22]");
