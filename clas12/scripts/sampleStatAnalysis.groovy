@@ -179,8 +179,8 @@ while (reader.hasNext()) {
 
 //Fill Histograms
 
-        System.out.println("Missing mass is: " + mx_P.mass());
-        System.out.println("Invariant mass is: " + im_PipPimgam.mass());
+        //System.out.println("Missing mass is: " + mx_P.mass());
+        //System.out.println("Invariant mass is: " + im_PipPimgam.mass());
         hMxpUncut.fill(mx_P.mass());
         himPipPimGamUncut.fill(im_PipPimgam.mass());
         c1.draw(hMxpUncut);
