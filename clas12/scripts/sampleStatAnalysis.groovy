@@ -18,6 +18,7 @@ import org.jlab.jnp.hipo.io.HipoReader
 import org.jlab.jnp.physics.EventFilter
 import org.jlab.jnp.physics.Particle
 import org.jlab.jnp.physics.PhysicsEvent
+import org.jlab.jnp.physics.ReactionFilter
 import org.jlab.jnp.reader.DataManager
 
 //String dataFile = "/home/tylerviducic/research/rho/clas12/data/run_43526_full_filtered.hipo";
@@ -144,7 +145,11 @@ reader.open(dataFile);
 
 //Set event filter
 
-EventFilter filter = new EventFilter("11:2212:211:-211");
+EventFilter filter = new EventFilter("11:2212:211:-211:22");
+ReactionFilter tfilter = new ReactionFilter();
+tfilter.addFilter(DataManager.TAGGER, "11");
+
+
 
 // Begin Particle Loop
 
@@ -166,10 +171,10 @@ while (reader.hasNext()) {
     if(nEvents%10000 == 0){
         System.out.println("done " + nEvents);
     }
-    if (filter.isValid(physEvent)) {
+    if (filter.isValid(physEvent) && tfilter.isValid(physEvent)) {
         //System.out.println(physEvent.toLundString());
-        Particle mx_P = physEvent.getParticle("[b] + [t] - [2212] - [11]");
-        Particle im_PipPimgam = physEvent.getParticle("[211] + [-211]");
+        Particle mx_P = physEvent.getParticle("[b] + [t] - [11] - [2212]");
+        Particle im_PipPimgam = physEvent.getParticle("[211] + [-211] + [22]");
 //        Particle mx_PPipPim = physEvent.getParticle("[b] + [t] - [2212] -[211] - [-211]");
 //        Particle mx_PPipPimGam = physEvent.getParticle("[b] + [t] - [2212] -[211] - [-211]-[22]");
 //        Particle pgam = physEvent.getParticle("[22]");
