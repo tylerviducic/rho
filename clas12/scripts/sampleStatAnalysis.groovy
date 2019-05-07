@@ -125,11 +125,14 @@ while (reader.hasNext()) {
 
         //System.out.println("Missing mass is: " + mx_P.mass());
         //System.out.println("Invariant mass is: " + im_PipPimgam.mass());
-        hMxpUncut.fill(mx_P.mass());
         himPipPimGamUncut.fill(im_PipPimgam.mass());
         hMx2_PePipPim.fill(mx_PePipPim.mass2());
         hMP_PePipPim.fill(mx_PePipPim.p());
 
+
+        if(Math.abs(mx_PePipPim.mass2())< 0.005 && mx_PePipPim.p() > 0){
+            hMxpUncut.fill(mx_P.mass());
+        }
 
     }
 
