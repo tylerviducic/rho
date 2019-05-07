@@ -54,7 +54,7 @@ H1F hMx2_PePipPim = new H1F("hMx2_PiPipPim", 210, -0.1, 2);
 hMx2_PePipPim.setTitle("Missing mass squared of pePipPim");
 
 H1F hMP_PePipPim = new H1F("hMP_PiPipPim", 210, -0.1, 2);
-hMx2_PePipPim.setTitle("Missing momentum of pePipPim");
+hMP_PePipPim.setTitle("Missing momentum of pePipPim");
 
 
 H1F himPipPimGamUncut = new H1F("himPipPimGamUncut", 300, 0.0, 3.0);
@@ -116,7 +116,7 @@ while (reader.hasNext()) {
     //if (tfilter.isValid(physEvent)) {
         //System.out.println(physEvent.toLundString());
         Particle mx_P = physEvent.getParticle("[b] + [t] - [11] - [2212]");
-        Particle im_PipPimgam = physEvent.getParticle("[211] + [-211] + [22]");
+        Particle im_PipPimgam = physEvent.getParticle("[211] + [-211]");
         Particle mx_PePipPim = physEvent.getParticle("[b] + [t] - [11] - [2212] - [211] - [-211]");
 
 
