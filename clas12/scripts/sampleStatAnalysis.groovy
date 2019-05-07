@@ -67,6 +67,9 @@ himPipPimGamUncut.setTitle("npart");
 himPipPimGamUncut.setFillColor(43);
 
 
+H1F hcos = new H1F("hcos", 60, -1.1, 1.1);
+himPipPimGamUncut.setTitle("hcos");
+
 
 //Declare Canvas
 
@@ -75,6 +78,7 @@ TCanvas c2 = new TCanvas("c2", 500, 600);
 TCanvas c3 = new TCanvas("c3", 500, 600);
 TCanvas c4 = new TCanvas("c4", 500, 600);
 TCanvas c5 = new TCanvas("c5", 500, 600);
+TCanvas c6 = new TCanvas("c5", 500, 600);
 
 
 c1.getCanvas().initTimer(1000);
@@ -82,6 +86,7 @@ c2.getCanvas().initTimer(1000);
 c3.getCanvas().initTimer(1000);
 c4.getCanvas().initTimer(1000);
 c5.getCanvas().initTimer(1000);
+c6.getCanvas().initTimer(1000);
 
 
 c1.draw(hMxpUncut);
@@ -89,6 +94,7 @@ c2.draw(himPipPimGamUncut);
 c3.draw(hMx2_PePipPim);
 c4.draw(hMP_PePipPim);
 c5.draw(hnPart);
+c6.draw(hcos);
 
 //Open File
 
@@ -131,10 +137,22 @@ while (reader.hasNext()) {
 
         nParts = physEvent.count();
 
+        int nNeutrals = physEvent.countByCharge(0);
+
+
+        //double cos2 = mx_PePipPim.vector().vect().dot(mx_P.vector().vect());
+        //double cos3 = mx_PePipPim.cosTheta(mx_P);
+        //plot the cos for all the neutrals and cut on the angle close to 1
+
 //Fill Histograms
 
         //System.out.println("Missing mass is: " + mx_P.mass());
         //System.out.println("Invariant mass is: " + im_PipPimgam.mass());
+
+        for(int i = 0; i < nNeutrals; i++){
+            hcos.fill(mx_PePipPim.cosTheta(physEvent.getParticleByCharge(0,i)));
+        }
+
         himPipPimGamUncut.fill(im_PipPimgam.mass());
         hMx2_PePipPim.fill(mx_PePipPim.mass2());
         hMP_PePipPim.fill(mx_PePipPim.p());
