@@ -90,10 +90,10 @@ c6.getCanvas().initTimer(1000);
 
 
 c1.draw(hMxpUncut);
-c2.draw(himPipPimGamUncut);
+//c2.draw(himPipPimGamUncut);
 c3.draw(hMx2_PePipPim);
 c4.draw(hMP_PePipPim);
-c5.draw(hnPart);
+//c5.draw(hnPart);
 c6.draw(hcos);
 
 //Open File
@@ -156,7 +156,7 @@ while (reader.hasNext()) {
         himPipPimGamUncut.fill(im_PipPimgam.mass());
         hMx2_PePipPim.fill(mx_PePipPim.mass2());
         hMP_PePipPim.fill(mx_PePipPim.p());
-        hnPart.fill(nParts);
+        //hnPart.fill(nParts);
 
 
         if(Math.abs(mx_PePipPim.mass2())< 0.005 && mx_PePipPim.p() > 0.1){
