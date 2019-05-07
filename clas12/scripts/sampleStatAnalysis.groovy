@@ -62,6 +62,10 @@ himPipPimGamUncut.setTitle("IM_PipPimGam");
 himPipPimGamUncut.setFillColor(43);
 
 
+H1F hnPart = new H1F("hnPart", 10, 0, 10);
+himPipPimGamUncut.setTitle("npart");
+himPipPimGamUncut.setFillColor(43);
+
 
 
 //Declare Canvas
@@ -70,17 +74,21 @@ TCanvas c1 = new TCanvas("c1", 500, 600);
 TCanvas c2 = new TCanvas("c2", 500, 600);
 TCanvas c3 = new TCanvas("c3", 500, 600);
 TCanvas c4 = new TCanvas("c4", 500, 600);
+TCanvas c5 = new TCanvas("c5", 500, 600);
+
 
 c1.getCanvas().initTimer(1000);
 c2.getCanvas().initTimer(1000);
 c3.getCanvas().initTimer(1000);
 c4.getCanvas().initTimer(1000);
+c5.getCanvas().initTimer(1000);
+
 
 c1.draw(hMxpUncut);
 c2.draw(himPipPimGamUncut);
 c3.draw(hMx2_PePipPim);
 c4.draw(hMP_PePipPim);
-
+c5.draw(hnPart);
 
 //Open File
 
@@ -95,6 +103,8 @@ EventFilter filter = new EventFilter("11:2212:211:-211:Xn");
 // Begin Particle Loop
 
 int nEvents  = 0;
+
+int nParts;
 
 while (reader.hasNext()) {
 
@@ -116,10 +126,10 @@ while (reader.hasNext()) {
     //if (tfilter.isValid(physEvent)) {
         //System.out.println(physEvent.toLundString());
         Particle mx_P = physEvent.getParticle("[b] + [t] - [11] - [2212]");
-        Particle im_PipPimgam = physEvent.getParticle("[211] + [-211]");
+        Particle im_PipPimgam = physEvent.getParticle("[211] + [-211] + [Xn]");
         Particle mx_PePipPim = physEvent.getParticle("[b] + [t] - [11] - [2212] - [211] - [-211]");
 
-
+        nParts = physEvent.count();
 
 //Fill Histograms
 
