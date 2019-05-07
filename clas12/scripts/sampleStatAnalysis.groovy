@@ -76,6 +76,11 @@ c2.getCanvas().initTimer(1000);
 c3.getCanvas().initTimer(1000);
 c4.getCanvas().initTimer(1000);
 
+c1.draw(hMxpUncut);
+c2.draw(himPipPimGamUncut);
+c3.draw(hMx2_PePipPim);
+c4.draw(hMP_PePipPim);
+
 
 //Open File
 
@@ -131,10 +136,6 @@ while (reader.hasNext()) {
 
 }
 
-c1.draw(hMxpUncut);
-c2.draw(himPipPimGamUncut);
-c3.draw(hMx2_PePipPim);
-c4.draw(hMP_PePipPim);
 
 
 reader.close();
