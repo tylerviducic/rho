@@ -130,7 +130,7 @@ while (reader.hasNext()) {
         hMP_PePipPim.fill(mx_PePipPim.p());
 
 
-        if(Math.abs(mx_PePipPim.mass2())< 0.005 && mx_PePipPim.p() > 0){
+        if(Math.abs(mx_PePipPim.mass2())< 0.005 && mx_PePipPim.p() > 0.1){
             hMxpUncut.fill(mx_P.mass());
         }
 
