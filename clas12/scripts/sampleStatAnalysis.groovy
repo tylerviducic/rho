@@ -46,7 +46,7 @@ double cutMePPipPimPgamSubtract = 0.1;
 
 
 //Declare Histograms
-H1F hMxpUncut = new H1F("hMxPUncut", 150, 0.0, 1.5);
+H1F hMxpUncut = new H1F("hMxPUncut", 120, 0.0, 1.2);
 hMxpUncut.setTitle("mx_P");
 hMxpUncut.setFillColor(43);
 
