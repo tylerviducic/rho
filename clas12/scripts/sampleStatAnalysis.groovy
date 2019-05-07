@@ -50,6 +50,10 @@ H1F hMxpUncut = new H1F("hMxPUncut", 150, 0.0, 1.5);
 hMxpUncut.setTitle("mx_P");
 hMxpUncut.setFillColor(43);
 
+H1F hMxpcut = new H1F("hMxPUncut", 150, 0.0, 1.5);
+hMxpUncut.setTitle("mx_P");
+hMxpUncut.setFillColor(43);
+
 H1F hMx2_PePipPim = new H1F("hMx2_PiPipPim", 210, -0.1, 2);
 hMx2_PePipPim.setTitle("Missing mass squared of pePipPim");
 
@@ -91,6 +95,7 @@ c6.getCanvas().initTimer(1000);
 
 c1.draw(hMxpUncut);
 //c2.draw(himPipPimGamUncut);
+c2.draw(hMxpcut);
 c3.draw(hMx2_PePipPim);
 c4.draw(hMP_PePipPim);
 //c5.draw(hnPart);
@@ -159,6 +164,9 @@ while (reader.hasNext()) {
             hMxpUncut.fill(mx_P.mass());
             for(int i = 0; i < nNeutrals; i++){
                 hcos.fill(mx_PePipPim.cosTheta(physEvent.getParticleByCharge(0,i)));
+                if(mx_PePipPim.cosTheta(physEvent.getParticleByCharge(0,i)) > 0.97){
+                    hMxpcut.fill(mx_P.mass());
+                }
             }
         }
 
