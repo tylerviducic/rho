@@ -166,7 +166,7 @@ while (reader.hasNext()) {
                 hcos.fill(mx_PePipPim.cosTheta(physEvent.getParticleByCharge(0,i)));
                 if(mx_PePipPim.cosTheta(physEvent.getParticleByCharge(0,i)) > 0.97){
                     hMxpcut.fill(mx_P.mass());
-                    continue;
+                    break;
                 }
             }
         }
