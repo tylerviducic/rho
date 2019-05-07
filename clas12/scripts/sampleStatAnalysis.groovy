@@ -149,10 +149,6 @@ while (reader.hasNext()) {
         //System.out.println("Missing mass is: " + mx_P.mass());
         //System.out.println("Invariant mass is: " + im_PipPimgam.mass());
 
-        for(int i = 0; i < nNeutrals; i++){
-            hcos.fill(mx_PePipPim.cosTheta(physEvent.getParticleByCharge(0,i)));
-        }
-
         himPipPimGamUncut.fill(im_PipPimgam.mass());
         hMx2_PePipPim.fill(mx_PePipPim.mass2());
         hMP_PePipPim.fill(mx_PePipPim.p());
@@ -161,6 +157,9 @@ while (reader.hasNext()) {
 
         if(Math.abs(mx_PePipPim.mass2())< 0.005 && mx_PePipPim.p() > 0.1){
             hMxpUncut.fill(mx_P.mass());
+            for(int i = 0; i < nNeutrals; i++){
+                hcos.fill(mx_PePipPim.cosTheta(physEvent.getParticleByCharge(0,i)));
+            }
         }
 
     }
