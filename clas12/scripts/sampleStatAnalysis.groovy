@@ -164,7 +164,7 @@ while (reader.hasNext()) {
             hMxpUncut.fill(mx_P.mass());
             for(int i = 0; i < nNeutrals; i++){
                 hcos.fill(mx_PePipPim.cosTheta(physEvent.getParticleByCharge(0,i)));
-                if(mx_PePipPim.cosTheta(physEvent.getParticleByCharge(0,i)) > 0.97){
+                if(mx_PePipPim.cosTheta(physEvent.getParticleByCharge(0,i)) > 0.997){
                     hMxpcut.fill(mx_P.mass());
                     break;
                 }
