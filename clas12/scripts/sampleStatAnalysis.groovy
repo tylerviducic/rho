@@ -98,7 +98,6 @@ c2.draw(himPipPimGamUncut);
 c5.draw(hMxpcut);
 c3.draw(hMx2_PePipPim);
 c4.draw(hMP_PePipPim);
-//c5.draw(hnPart);
 c6.draw(hcos);
 
 //Open File
@@ -167,14 +166,11 @@ while (reader.hasNext()) {
             for(int i = 0; i < nNeutrals; i++){
                 hcos.fill(mx_PePipPim.cosTheta(physEvent.getParticleByCharge(0,i)));
                 if(mx_PePipPim.cosTheta(physEvent.getParticleByCharge(0,i)) > 0.997){
-                    isClose = true;
+                    hMxpcut.fill(mx_P.mass());
+                    break;
                 }
             }
-            if(isClose) {
-                hMxpcut.fill(mx_P.mass());
-            }
         }
-
     }
 
 
