@@ -117,10 +117,10 @@ int nEvents  = 0;
 
 int nParts;
 
-boolean isClose;
 
 while (reader.hasNext()) {
 
+    boolean isClose = false;
 
     HipoEvent event = reader.readNextEvent();
     //float beam = findBeamEnergy(event);
@@ -170,7 +170,9 @@ while (reader.hasNext()) {
                     isClose = true;
                 }
             }
-            hMxpcut.fill(mx_P.mass());
+            if(isClose) {
+                hMxpcut.fill(mx_P.mass());
+            }
         }
 
     }
