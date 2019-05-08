@@ -95,7 +95,7 @@ c6.getCanvas().initTimer(1000);
 
 c1.draw(hMxpUncut);
 c2.draw(himPipPimGamUncut);
-c2.draw(hMxpcut);
+c5.draw(hMxpcut);
 c3.draw(hMx2_PePipPim);
 c4.draw(hMP_PePipPim);
 //c5.draw(hnPart);
