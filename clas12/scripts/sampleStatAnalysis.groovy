@@ -158,11 +158,11 @@ while (reader.hasNext()) {
 
         himPipPimGamUncut.fill(im_PipPimgam.mass());
         hMx2_PePipPim.fill(mx_PePipPim.mass2());
-        hMP_PePipPim.fill(mx_PePipPim.e());
+        hMP_PePipPim.fill(mx_PePipPim.p());
         //hnPart.fill(nParts);
 
 
-        if(Math.abs(mx_PePipPim.mass2())< 0.005 && mx_PePipPim.e() > 0.1){
+        if(Math.abs(mx_PePipPim.mass2())< 0.005 && mx_PePipPim.p() > 0.1){
             hMxpUncut.fill(mx_P.mass());
             for(int i = 0; i < nNeutrals; i++){
                 hcos.fill(mx_PePipPim.cosTheta(physEvent.getParticleByCharge(0,i)));
