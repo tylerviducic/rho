@@ -96,11 +96,10 @@ c6.getCanvas().initTimer(1000);
 
 
 c1.draw(hMxpUncut);
-//c2.draw(himPipPimGamUncut);
 c2.draw(hMxpcut);
 c3.draw(hMx2_PePipPim);
 c4.draw(hMP_PePipPim);
-//c5.draw(hnPart);
+c5.draw(himPipPimGamUncut);
 c6.draw(hcos);
 
 //Open File
@@ -158,22 +157,20 @@ while (reader.hasNext()) {
         //System.out.println("Missing mass is: " + mx_P.mass());
         //System.out.println("Invariant mass is: " + im_PipPimgam.mass());
 
-        himPipPimGamUncut.fill(im_PipPimgam.mass());
         hMx2_PePipPim.fill(mx_PePipPim.mass2());
-        hMP_PePipPim.fill(mx_PePipPim.p());
+        hMP_PePipPim.fill(mx_PePipPim.e());
         //hnPart.fill(nParts);
 
 
-        if(Math.abs(mx_PePipPim.mass2())< 0.005 && mx_PePipPim.p() > 0.1){
+        if(Math.abs(mx_PePipPim.mass2())< 0.005 && mx_PePipPim.e() > 0.1){
             hMxpUncut.fill(mx_P.mass());
+            himPipPimGamUncut.fill(im_PipPimgam.mass());
             for(int i = 0; i < nNeutrals; i++){
                 hcos.fill(mx_PePipPim.cosTheta(physEvent.getParticleByCharge(0,i)));
                 if(mx_PePipPim.cosTheta(physEvent.getParticleByCharge(0,i)) > 0.997){
-                    isClose = true;
+                    hMxpcut.fill(mx_P.mass());
+                    break;
                 }
-            }
-            if(isClose) {
-                hMxpcut.fill(mx_P.mass());
             }
         }
 
