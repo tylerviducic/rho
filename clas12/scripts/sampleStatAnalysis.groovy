@@ -28,6 +28,8 @@ import org.jlab.jnp.reader.DataManager
 //String dataFile = "/home/physics/research/rho/clas12/data/data_clas_006715.evio.00000.hipo";
 String dataFile = "/w/hallb-scifs17exp/clas12/viducic/rho/clas12/filtered_run_006715.hipo"
 //String dataFile = args[0];
+//Fuck Git
+
 
 //Declare constants
 
