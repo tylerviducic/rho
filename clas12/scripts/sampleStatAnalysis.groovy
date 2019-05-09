@@ -159,7 +159,7 @@ while (reader.hasNext()) {
         //hnPart.fill(nParts);
 
 
-        if(Math.abs(mx_PePipPim.mass2())< 0.01 && mx_PePipPim.p() > 0.1){
+        if(Math.abs(mx_PePipPim.mass2())< 0.01 && mx_PePipPim.p() > 0.1 && nNeutrals == 1){
             hMxpUncut.fill(mx_P.mass());
             himPipPimGamUncut.fill(im_PipPimgam.mass());
             for(int i = 0; i < nNeutrals; i++){
