@@ -54,8 +54,8 @@ hMxpUncut.setTitle("mx_P");
 hMxpUncut.setFillColor(43);
 
 H1F hMxpcut = new H1F("hMxPUncut", 150, 0.0, 1.5);
-hMxpUncut.setTitle("mx_P");
-hMxpUncut.setFillColor(43);
+hMxpcut.setTitle("mx_P");
+hMxpcut.setFillColor(43);
 
 H1F hMx2_PePipPim = new H1F("hMx2_PiPipPim", 210, -0.1, 0.1);
 hMx2_PePipPim.setTitle("Missing mass squared of pePipPim");
@@ -65,7 +65,7 @@ hMP_PePipPim.setTitle("Missing momentum of pePipPim");
 
 
 H1F himPipPimGamUncut = new H1F("himPipPimGamUncut", 300, 0.0, 3.0);
-himPipPimGamUncut.setTitle("IM_PipPimGam");
+himPipPimGamUncut.setTitle("IM_PipPimXn");
 himPipPimGamUncut.setFillColor(43);
 
 
