@@ -57,7 +57,7 @@ H1F hMxpcut = new H1F("hMxPUncut", 150, 0.0, 1.5);
 hMxpUncut.setTitle("mx_P");
 hMxpUncut.setFillColor(43);
 
-H1F hMx2_PePipPim = new H1F("hMx2_PiPipPim", 210, -0.1, 2);
+H1F hMx2_PePipPim = new H1F("hMx2_PiPipPim", 210, -0.1, 0.1);
 hMx2_PePipPim.setTitle("Missing mass squared of pePipPim");
 
 H1F hMP_PePipPim = new H1F("hMP_PiPipPim", 210, -0.1, 2);
@@ -74,7 +74,7 @@ himPipPimGamUncut.setTitle("npart");
 himPipPimGamUncut.setFillColor(43);
 
 
-H1F hcos = new H1F("hcos", 100, 0.5, 1);
+H1F hcos = new H1F("hcos", 100, 0.9, 1);
 himPipPimGamUncut.setTitle("hcos");
 
 
@@ -159,11 +159,11 @@ while (reader.hasNext()) {
         //System.out.println("Invariant mass is: " + im_PipPimgam.mass());
 
         hMx2_PePipPim.fill(mx_PePipPim.mass2());
-        hMP_PePipPim.fill(mx_PePipPim.e());
+        hMP_PePipPim.fill(mx_PePipPim.p());
         //hnPart.fill(nParts);
 
 
-        if(Math.abs(mx_PePipPim.mass2())< 0.005 && mx_PePipPim.e() > 0.1){
+        if(Math.abs(mx_PePipPim.mass2())< 0.005 && mx_PePipPim.p() > 0.1){
             hMxpUncut.fill(mx_P.mass());
             himPipPimGamUncut.fill(im_PipPimgam.mass());
             for(int i = 0; i < nNeutrals; i++){
