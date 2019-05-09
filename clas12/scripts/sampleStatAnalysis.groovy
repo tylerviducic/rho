@@ -29,7 +29,6 @@ import org.jlab.jnp.reader.DataManager
 //String dataFile = "/w/hallb-scifs17exp/clas12/viducic/rho/clas12/filtered_run_006715.hipo"
 String dataFile = "/w/hallb-scifs17exp/clas12/viducic/rho/clas12/skim4_55.hipo"
 //String dataFile = args[0];
-//Fuck Git
 
 
 //Declare constants
@@ -63,16 +62,13 @@ hMx2_PePipPim.setTitle("Missing mass squared of pePipPim");
 H1F hMP_PePipPim = new H1F("hMP_PiPipPim", 210, -0.1, 2);
 hMP_PePipPim.setTitle("Missing momentum of pePipPim");
 
-
 H1F himPipPimGamUncut = new H1F("himPipPimGamUncut", 300, 0.0, 3.0);
 himPipPimGamUncut.setTitle("IM_PipPimXn");
 himPipPimGamUncut.setFillColor(43);
 
-
-H1F hnPart = new H1F("hnPart", 10, 0, 10);
-himPipPimGamUncut.setTitle("npart");
-himPipPimGamUncut.setFillColor(43);
-
+//H1F hnPart = new H1F("hnPart", 10, 0, 10);
+//himPipPimGamUncut.setTitle("npart");
+//himPipPimGamUncut.setFillColor(43);
 
 H1F hcos = new H1F("hcos", 100, 0.9, 1);
 hcos.setTitle("hcos");
@@ -126,7 +122,7 @@ while (reader.hasNext()) {
 
     HipoEvent event = reader.readNextEvent();
     //float beam = findBeamEnergy(event);
-    float beam = 10.2;
+    float beam = 10.6;
 
 //get particle data
 
