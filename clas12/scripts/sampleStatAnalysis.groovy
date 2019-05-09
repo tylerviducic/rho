@@ -75,7 +75,7 @@ himPipPimGamUncut.setFillColor(43);
 
 
 H1F hcos = new H1F("hcos", 100, 0.9, 1);
-himPipPimGamUncut.setTitle("hcos");
+hcos.setTitle("hcos");
 
 
 //Declare Canvas
