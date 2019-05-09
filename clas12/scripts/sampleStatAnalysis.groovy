@@ -70,7 +70,7 @@ himPipPimGamUncut.setFillColor(43);
 //himPipPimGamUncut.setTitle("npart");
 //himPipPimGamUncut.setFillColor(43);
 
-H1F hcos = new H1F("hcos", 100, 0.9, 1);
+H1F hcos = new H1F("hcos", 20, 0.99, 1);
 hcos.setTitle("hcos");
 
 
