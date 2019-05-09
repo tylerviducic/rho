@@ -26,7 +26,8 @@ import org.jlab.jnp.reader.DataManager
 //String dataFile = "/home/physics/research/rho/clas12/data/run_43526_full_filtered.hipo";
 //String dataFile = "/work/clas12/viducic/g11_data_filtered.hipo";
 //String dataFile = "/home/physics/research/rho/clas12/data/data_clas_006715.evio.00000.hipo";
-String dataFile = "/w/hallb-scifs17exp/clas12/viducic/rho/clas12/filtered_run_006715.hipo"
+//String dataFile = "/w/hallb-scifs17exp/clas12/viducic/rho/clas12/filtered_run_006715.hipo"
+String dataFile = "/w/hallb-scifs17exp/clas12/viducic/rho/clas12/skim4_55.hipo"
 //String dataFile = args[0];
 //Fuck Git
 
