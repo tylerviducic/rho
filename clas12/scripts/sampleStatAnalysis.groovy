@@ -85,7 +85,7 @@ TCanvas c2 = new TCanvas("c2", 500, 600);
 TCanvas c3 = new TCanvas("c3", 500, 600);
 TCanvas c4 = new TCanvas("c4", 500, 600);
 TCanvas c5 = new TCanvas("c5", 500, 600);
-TCanvas c6 = new TCanvas("c5", 500, 600);
+TCanvas c6 = new TCanvas("c6", 500, 600);
 
 
 c1.getCanvas().initTimer(1000);
@@ -163,12 +163,12 @@ while (reader.hasNext()) {
         //hnPart.fill(nParts);
 
 
-        if(Math.abs(mx_PePipPim.mass2())< 0.005 && mx_PePipPim.p() > 0.1){
+        if(Math.abs(mx_PePipPim.mass2())< 0.05 && mx_PePipPim.p() > 0.2){
             hMxpUncut.fill(mx_P.mass());
             himPipPimGamUncut.fill(im_PipPimgam.mass());
             for(int i = 0; i < nNeutrals; i++){
                 hcos.fill(mx_PePipPim.cosTheta(physEvent.getParticleByCharge(0,i)));
-                if(mx_PePipPim.cosTheta(physEvent.getParticleByCharge(0,i)) > 0.997){
+                if(mx_PePipPim.cosTheta(physEvent.getParticleByCharge(0,i)) > 0.995){
                     hMxpcut.fill(mx_P.mass());
                     break;
                 }
