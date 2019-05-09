@@ -62,7 +62,7 @@ hMx2_PePipPim.setTitle("Missing mass squared of pePipPim");
 H1F hMP_PePipPim = new H1F("hMP_PiPipPim", 210, -0.1, 2);
 hMP_PePipPim.setTitle("Missing momentum of pePipPim");
 
-H1F himPipPimGamUncut = new H1F("himPipPimGamUncut", 300, 0.0, 3.0);
+H1F himPipPimGamUncut = new H1F("himPipPimGamUncut", 150, 0.0, 1.5);
 himPipPimGamUncut.setTitle("IM_PipPimXn");
 himPipPimGamUncut.setFillColor(43);
 
