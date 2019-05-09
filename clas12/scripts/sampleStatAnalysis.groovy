@@ -169,9 +169,11 @@ while (reader.hasNext()) {
             for(int i = 0; i < nNeutrals; i++){
                 hcos.fill(mx_PePipPim.cosTheta(physEvent.getParticleByCharge(0,i)));
                 if(mx_PePipPim.cosTheta(physEvent.getParticleByCharge(0,i)) > 0.995){
-                    hMxpcut.fill(mx_P.mass());
-                    break;
+                    isClose = true;
                 }
+            }
+            if (isClose){
+                hMxpcut.fill(mx_P.mass());
             }
         }
 
