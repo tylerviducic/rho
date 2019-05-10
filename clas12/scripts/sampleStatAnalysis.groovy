@@ -172,8 +172,9 @@ while (reader.hasNext()) {
             }
             if (isClose){
                 hMxpcut.fill(mx_P.mass());
+                himPipPimGamUncut.fill(im_PipPimgam.mass());
+
             }
-            himPipPimGamUncut.fill(im_PipPimgam.mass());
         }
 
     }
