@@ -106,7 +106,7 @@ reader.open(dataFile);
 
 //Set event filter
 
-EventFilter filter = new EventFilter("11:2212:211:-211:22:Xn");
+EventFilter filter = new EventFilter("11:2212:211:-211:Xn");
 
 
 // Begin Particle Loop
@@ -137,8 +137,9 @@ while (reader.hasNext()) {
     //if (tfilter.isValid(physEvent)) {
         //System.out.println(physEvent.toLundString());
         Particle mx_P = physEvent.getParticle("[b] + [t] - [11] - [2212]");
-        Particle im_PipPimgam = physEvent.getParticle("[211] + [-211] + [Xn]");
+        //Particle im_PipPimgam = physEvent.getParticle("[211] + [-211] + [Xn]");
         Particle mx_PePipPim = physEvent.getParticle("[b] + [t] - [11] - [2212] - [211] - [-211]");
+        Particle im_PipPimgam = physEvent.getParticle("[211] + [-211]");
 
         nParts = physEvent.count();
 
@@ -161,16 +162,18 @@ while (reader.hasNext()) {
 
         if(Math.abs(mx_PePipPim.mass2())< 0.01 && mx_PePipPim.p() > 0.1 && nNeutrals > 0){
             hMxpUncut.fill(mx_P.mass());
-            himPipPimGamUncut.fill(im_PipPimgam.mass());
+            //himPipPimGamUncut.fill(im_PipPimgam.mass());
             for(int i = 0; i < nNeutrals; i++){
                 hcos.fill(mx_PePipPim.cosTheta(physEvent.getParticleByCharge(0,i)));
                 if(mx_PePipPim.cosTheta(physEvent.getParticleByCharge(0,i)) > 0.995){
                     isClose = true;
+                    im_PipPimgam.combine(physEvent.getParticleByCharge(0,i));
                 }
             }
             if (isClose){
                 hMxpcut.fill(mx_P.mass());
             }
+            himPipPimGamUncut.fill(im_PipPimgam.mass());
         }
 
     }
