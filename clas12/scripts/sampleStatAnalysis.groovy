@@ -167,7 +167,7 @@ while (reader.hasNext()) {
                 hcos.fill(mx_PePipPim.cosTheta(physEvent.getParticleByCharge(0,i)));
                 if(mx_PePipPim.cosTheta(physEvent.getParticleByCharge(0,i)) > 0.995){
                     isClose = true;
-                    im_PipPimgam.combine(physEvent.getParticleByCharge(0,i));
+                    im_PipPimgam.combine(physEvent.getParticleByCharge(0,i),0);
                 }
             }
             if (isClose){
