@@ -165,7 +165,7 @@ while (reader.hasNext()) {
             //himPipPimGamUncut.fill(im_PipPimgam.mass());
             for(int i = 0; i < nNeutrals; i++){
                 hcos.fill(mx_PePipPim.cosTheta(physEvent.getParticleByCharge(0,i)));
-                if(mx_PePipPim.cosTheta(physEvent.getParticleByCharge(0,i)) > 0.995){
+                if(mx_PePipPim.cosTheta(physEvent.getParticleByCharge(0,i)) > 0.99){
                     isClose = true;
                     //im_PipPimgam.combine(physEvent.getParticleByCharge(0,i),0);
                 }
