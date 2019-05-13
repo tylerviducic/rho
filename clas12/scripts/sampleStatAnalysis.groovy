@@ -102,13 +102,15 @@ c6.draw(hcos);
 
 //Open File
 
-for(int k = 0; k < 31; k++) {
+for(int k = 5532; k < 5539; k++) {
 
-    if(k < 10){
-        dataFile = "/work/clas12/rg-a/production/recon/pass0/v1/mon/005038/monitor_clas_005038.evio.0000" + Integer.toString(k) +  ".hipo"
-    }else {
-        dataFile = "/work/clas12/rg-a/production/recon/pass0/v1/mon/005038/monitor_clas_005038.evio.000" + Integer.toString(k) + ".hipo"
-    }
+    dataFile = "/work/clas12/rg-a/trains/v2/skim4_inclusive/skim4_" + Integer.toString(k) +  ".hipo"
+
+//    if(k < 10){
+//        dataFile = "/work/clas12/rg-a/trains/v2/skim4_inclusive/skim4_" + Integer.toString(k) +  ".hipo"
+//    }else {
+//        dataFile = "/work/clas12/rg-a/production/recon/pass0/v1/mon/005038/monitor_clas_005038.evio.000" + Integer.toString(k) + ".hipo"
+//    }
 
     HipoReader reader = new HipoReader();
     reader.open(dataFile);
