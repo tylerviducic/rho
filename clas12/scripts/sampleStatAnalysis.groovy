@@ -118,7 +118,7 @@ for(int k = 5532; k < 5539; k++) {
 
 //Set event filter
 
-    EventFilter filter = new EventFilter("11:2212:211:-211:Xn");
+    EventFilter filter = new EventFilter("11:2212:211:-211:22:Xn");
 
 // Begin Particle Loop
 
