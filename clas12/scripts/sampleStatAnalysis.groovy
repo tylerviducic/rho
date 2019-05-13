@@ -1,4 +1,3 @@
-
 //-------------------------------------------------------------------------------
 //------------------------Created by Tyler Viducic-------------------------------
 //----------------------------August 29 2018-------------------------------------
@@ -32,8 +31,6 @@ import org.jlab.jnp.reader.DataManager
 //String dataFile;
 String dataFile = "/work/clas12/rg-a/trains/v2/skim4_inclusive/skim4*";
 
-
-
 //Declare constants
 
 double mRho = 0.770;
@@ -47,8 +44,6 @@ double cutMePPipPim = 0.1;
 double cutMxPPipPimGam = 0.001;
 double cutMxPPipPim = 0.005;
 double cutMePPipPimPgamSubtract = 0.1;
-
-
 
 //Declare Histograms
 H1F hMxpUncut = new H1F("hMxPUncut", 200, 0.4, 1);
@@ -75,7 +70,6 @@ himPipPimGamUncut.setFillColor(43);
 
 H1F hcos = new H1F("hcos", 20, 0.99, 1);
 hcos.setTitle("hcos");
-
 
 //Declare Canvas
 
@@ -106,102 +100,88 @@ c6.draw(hcos);
 
 HipoReader reader = new HipoReader();
 
-//for(int k = 5532; k < 5539; k++) {
-
-    //dataFile = "/work/clas12/rg-a/trains/v2/skim4_inclusive/skim4_" + Integer.toString(k) +  ".hipo"
-
-//    if(k < 10){
-//        dataFile = "/work/clas12/rg-a/trains/v2/skim4_inclusive/skim4_" + Integer.toString(k) +  ".hipo"
-//    }else {
-//        dataFile = "/work/clas12/rg-a/production/recon/pass0/v1/mon/005038/monitor_clas_005038.evio.000" + Integer.toString(k) + ".hipo"
-//    }
-
-    reader.open(dataFile);
+reader.open(dataFile);
 
 //Set event filter
 
-    EventFilter filter = new EventFilter("11:2212:211:-211:Xn");
+EventFilter filter = new EventFilter("11:2212:211:-211:Xn");
 
 // Begin Particle Loop
 
-    int nEvents = 0;
+int nEvents = 0;
 
-    int nParts;
+int nParts;
 
 
-    while (reader.hasNext()) {
+while (reader.hasNext()) {
 
-        boolean isClose = false;
+    boolean isClose = false;
 
-        HipoEvent event = reader.readNextEvent();
-        //float beam = findBeamEnergy(event);
-        float beam = 10.6;
+    HipoEvent event = reader.readNextEvent();
+    //float beam = findBeamEnergy(event);
+    float beam = 10.6;
 
 //get particle data
 
-        //PhysicsEvent physEvent = setPhysicsEvent(beam, event);
-        PhysicsEvent physEvent = DataManager.getPhysicsEvent(beam, event);
-        nEvents++;
-        if (nEvents % 10000 == 0) {
-            System.out.println("done " + nEvents);
-        }
-        if (filter.isValid(physEvent)) {
-            //if (tfilter.isValid(physEvent)) {
-            //System.out.println(physEvent.toLundString());
-            Particle mx_P = physEvent.getParticle("[b] + [t] - [11] - [2212]");
-            Particle im_PipPimgam = physEvent.getParticle("[211] + [-211] + [Xn]");
-            Particle mx_PePipPim = physEvent.getParticle("[b] + [t] - [11] - [2212] - [211] - [-211]");
-            //Particle im_PipPimgam = physEvent.getParticle("[211] + [-211]");
+    //PhysicsEvent physEvent = setPhysicsEvent(beam, event);
+    PhysicsEvent physEvent = DataManager.getPhysicsEvent(beam, event);
+    nEvents++;
+    if (nEvents % 10000 == 0) {
+        System.out.println("done " + nEvents);
+    }
+    if (filter.isValid(physEvent)) {
+        //if (tfilter.isValid(physEvent)) {
+        //System.out.println(physEvent.toLundString());
+        Particle mx_P = physEvent.getParticle("[b] + [t] - [11] - [2212]");
+        Particle im_PipPimgam = physEvent.getParticle("[211] + [-211] + [Xn]");
+        Particle mx_PePipPim = physEvent.getParticle("[b] + [t] - [11] - [2212] - [211] - [-211]");
+        //Particle im_PipPimgam = physEvent.getParticle("[211] + [-211]");
 
-            nParts = physEvent.count();
+        nParts = physEvent.count();
 
-            int nNeutrals = physEvent.countByCharge(0);
+        int nNeutrals = physEvent.countByCharge(0);
 
-            //double cos2 = mx_PePipPim.vector().vect().dot(mx_P.vector().vect());
-            //double cos3 = mx_PePipPim.cosTheta(mx_P);
-            //plot the cos for all the neutrals and cut on the angle close to 1
+        //double cos2 = mx_PePipPim.vector().vect().dot(mx_P.vector().vect());
+        //double cos3 = mx_PePipPim.cosTheta(mx_P);
+        //plot the cos for all the neutrals and cut on the angle close to 1
 
 //Fill Histograms
 
-            //System.out.println("Missing mass is: " + mx_P.mass());
-            //System.out.println("Invariant mass is: " + im_PipPimgam.mass());
+        //System.out.println("Missing mass is: " + mx_P.mass());
+        //System.out.println("Invariant mass is: " + im_PipPimgam.mass());
 
-            hMx2_PePipPim.fill(mx_PePipPim.mass2());
-            hMP_PePipPim.fill(mx_PePipPim.p());
-            //hnPart.fill(nParts);
+        hMx2_PePipPim.fill(mx_PePipPim.mass2());
+        hMP_PePipPim.fill(mx_PePipPim.p());
+        //hnPart.fill(nParts);
 
 
-            if (Math.abs(mx_PePipPim.mass2()) < 0.01 && mx_PePipPim.p() > 0.1 && nNeutrals > 0) {
-                hMxpUncut.fill(mx_P.mass());
-                //himPipPimGamUncut.fill(im_PipPimgam.mass());
-                for (int i = 0; i < nNeutrals; i++) {
-                    hcos.fill(mx_PePipPim.cosTheta(physEvent.getParticleByCharge(0, i)));
-                    if (mx_PePipPim.cosTheta(physEvent.getParticleByCharge(0, i)) > 0.99) {
-                        isClose = true;
-                        //im_PipPimgam.combine(physEvent.getParticleByCharge(0,i),0);
-                    }
-                }
-                if (isClose) {
-                    hMxpcut.fill(mx_P.mass());
-                    himPipPimGamUncut.fill(im_PipPimgam.mass());
+        if (Math.abs(mx_PePipPim.mass2()) < 0.01 && mx_PePipPim.p() > 0.1 && nNeutrals > 0) {
+            hMxpUncut.fill(mx_P.mass());
+            //himPipPimGamUncut.fill(im_PipPimgam.mass());
+            for (int i = 0; i < nNeutrals; i++) {
+                hcos.fill(mx_PePipPim.cosTheta(physEvent.getParticleByCharge(0, i)));
+                if (mx_PePipPim.cosTheta(physEvent.getParticleByCharge(0, i)) > 0.99) {
+                    isClose = true;
+                    //im_PipPimgam.combine(physEvent.getParticleByCharge(0,i),0);
                 }
             }
-
+            if (isClose) {
+                hMxpcut.fill(mx_P.mass());
+                himPipPimGamUncut.fill(im_PipPimgam.mass());
+            }
         }
-
 
     }
 
-    reader.close();
-//}
+
+}
+reader.close();
 
 println("done");
 
 //######################################################################################################################
 //######################################################################################################################
 //######################################################################################################################
-
-
 
 // defining method because getPhysicsEvent only works for one type of bank
 
