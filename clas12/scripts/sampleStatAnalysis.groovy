@@ -118,7 +118,7 @@ for(int k = 5532; k < 5539; k++) {
 
 //Set event filter
 
-    EventFilter filter = new EventFilter("11:2212:211:-211:22:Xn");
+    EventFilter filter = new EventFilter("11:2212:211:-211:Xn");
 
 // Begin Particle Loop
 
@@ -169,7 +169,7 @@ for(int k = 5532; k < 5539; k++) {
             //hnPart.fill(nParts);
 
 
-            if (Math.abs(mx_PePipPim.mass2()) < 0.01 && mx_PePipPim.p() > 0.1 && nNeutrals > 0) {
+            if (Math.abs(mx_PePipPim.mass2()) < 0.01 && mx_PePipPim.p() > 0.3 && nNeutrals > 0) {
                 hMxpUncut.fill(mx_P.mass());
                 //himPipPimGamUncut.fill(im_PipPimgam.mass());
                 for (int i = 0; i < nNeutrals; i++) {
