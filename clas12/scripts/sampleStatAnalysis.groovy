@@ -29,7 +29,9 @@ import org.jlab.jnp.reader.DataManager
 //String dataFile = "/w/hallb-scifs17exp/clas12/viducic/rho/clas12/filtered_run_006715.hipo"
 //String dataFile = "/w/hallb-scifs17exp/clas12/viducic/rho/clas12/skim4_55.hipo"
 //String dataFile = args[0];
-String dataFile;
+//String dataFile;
+String dataFile = "/work/clas12/rg-a/trains/v2/skim4_inclusive/skim4*";
+
 
 
 //Declare constants
