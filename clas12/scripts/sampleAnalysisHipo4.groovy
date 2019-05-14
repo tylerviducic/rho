@@ -4,6 +4,7 @@ import org.jlab.jnp.hipo4.data.Bank
 import org.jlab.jnp.hipo4.data.Event
 import org.jlab.jnp.hipo4.io.HipoReader
 import org.jlab.jnp.physics.EventFilter
+import org.jlab.jnp.physics.Particle
 import org.jlab.jnp.physics.PhysicsEvent
 import org.jlab.jnp.reader.DataManager
 
@@ -72,6 +73,35 @@ while (reader.hasNext()){
     event.read(particles);
 
     PhysicsEvent physEvent = DataManager.getPhysicsEvent(beamEnergy, particles);
+    int pid = particles.getInt("pid",0);
+
+    if(filter.isValid(physEvent) && pid == 11){
+        Particle mx_P = physEvent.getParticle("[b] + [t] - [11] - [2212]");
+        Particle im_PipPimgam = physEvent.getParticle("[211] + [-211] + [Xn]");
+        Particle mx_PePipPim = physEvent.getParticle("[b] + [t] - [11] - [2212] - [211] - [-211]");
+
+        int nNeutrals = physEvent.countByCharge(0);
 
 
+        hMx2_PePipPim.fill(mx_PePipPim.mass2());
+        hMP_PePipPim.fill(mx_PePipPim.p());
+
+        if (Math.abs(mx_PePipPim.mass2()) < 0.01 && mx_PePipPim.p() > 0.1 && nNeutrals > 0) {
+            hMxpUncut.fill(mx_P.mass());
+            //himPipPimGamUncut.fill(im_PipPimgam.mass());
+            for (int i = 0; i < nNeutrals; i++) {
+                hcos.fill(mx_PePipPim.cosTheta(physEvent.getParticleByCharge(0, i)));
+                if (mx_PePipPim.cosTheta(physEvent.getParticleByCharge(0, i)) > 0.99) {
+                    isClose = true;
+                    //im_PipPimgam.combine(physEvent.getParticleByCharge(0,i),0);
+                }
+            }
+            if (isClose) {
+                hMxpcut.fill(mx_P.mass());
+                himPipPimGamUncut.fill(im_PipPimgam.mass());
+            }
+        }
+    }
 }
+
+reader.close();
