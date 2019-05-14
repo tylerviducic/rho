@@ -61,7 +61,7 @@ c6.draw(hcos);
 double beamEnergy = 10.6
 
 HipoReader reader = new HipoReader();
-reader.open(inputFile);
+reader.open(dataFile);
 
 Bank particles = new Bank(reader.getSchemaFactory().getSchema("REC::Particle"));
 Event event = new Event();
