@@ -141,6 +141,7 @@ for(int k = 5532; k < 5539; k++) {
         boolean isClose = false;
 
         reader.nextEvent(event);
+        //event.show();
         event.read(particles);
         //float beam = findBeamEnergy(event);
 
