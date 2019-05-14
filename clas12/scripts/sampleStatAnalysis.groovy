@@ -14,6 +14,8 @@ import org.jlab.jnp.hipo.data.HipoEvent
 import org.jlab.jnp.hipo.data.HipoGroup
 import org.jlab.jnp.hipo.data.HipoNode
 import org.jlab.jnp.hipo.io.HipoReader
+import org.jlab.jnp.hipo4.data.Bank
+import org.jlab.jnp.hipo4.data.Event
 import org.jlab.jnp.physics.EventFilter
 import org.jlab.jnp.physics.Particle
 import org.jlab.jnp.physics.PhysicsEvent
@@ -101,6 +103,11 @@ c6.draw(hcos);
 
 HipoReader reader = new HipoReader();
 
+Bank particles = new Bank(reader.getSchemaFactory().getSchema("REC::Particle"));
+Event event = new Event();
+
+float beam = 10.6;
+
 //reader.open("/work/clas12/rg-a/trains/v2/skim4_inclusive/skim4_5*");
 
 for(int k = 5532; k < 5539; k++) {
@@ -112,6 +119,8 @@ for(int k = 5532; k < 5539; k++) {
 //    }else {
 //        dataFile = "/work/clas12/rg-a/production/recon/pass0/v1/mon/005038/monitor_clas_005038.evio.000" + Integer.toString(k) + ".hipo"
 //    }
+
+
 
 
     reader.open(dataFile);
@@ -131,14 +140,15 @@ for(int k = 5532; k < 5539; k++) {
 
         boolean isClose = false;
 
-        HipoEvent event = reader.readNextEvent();
+        reader.readNextEvent(event);
+        event.read(particles);
         //float beam = findBeamEnergy(event);
-        float beam = 10.6;
+
 
 //get particle data
 
         //PhysicsEvent physEvent = setPhysicsEvent(beam, event);
-        PhysicsEvent physEvent = DataManager.getPhysicsEvent(beam, event);
+        PhysicsEvent physEvent = DataManager.getPhysicsEvent(beam, particles);
         nEvents++;
         if (nEvents % 10000 == 0) {
             System.out.println("done " + nEvents);
