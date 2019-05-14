@@ -59,6 +59,7 @@ c6.draw(hcos);
 // Begin Analysis //
 
 double beamEnergy = 10.6
+int nEvents = 0;
 
 HipoReader reader = new HipoReader();
 reader.open(dataFile);
