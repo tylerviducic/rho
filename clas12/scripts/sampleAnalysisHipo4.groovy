@@ -77,6 +77,11 @@ while (reader.hasNext()){
     PhysicsEvent physEvent = DataManager.getPhysicsEvent(beamEnergy, particles);
     int pid = particles.getInt("pid",0);
 
+    nEvents++;
+    if (nEvents % 10000 == 0) {
+        System.out.println("done " + nEvents);
+    }
+
     if(filter.isValid(physEvent) && pid == 11){
         Particle mx_P = physEvent.getParticle("[b] + [t] - [11] - [2212]");
         Particle im_PipPimgam = physEvent.getParticle("[211] + [-211] + [Xn]");
