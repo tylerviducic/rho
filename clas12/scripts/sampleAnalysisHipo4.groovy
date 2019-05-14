@@ -72,6 +72,8 @@ while (reader.hasNext()){
     reader.nextEvent(event);
     event.read(particles);
 
+    boolean isClose = false;
+
     PhysicsEvent physEvent = DataManager.getPhysicsEvent(beamEnergy, particles);
     int pid = particles.getInt("pid",0);
 
