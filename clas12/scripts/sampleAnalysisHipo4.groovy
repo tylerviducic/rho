@@ -154,7 +154,6 @@ public class FileFinder {
         int start = fullPath.lastIndexOf("/");
         dirFile.add(0, fullPath.substring(0, start + 1));
         dirFile.add(1, fullPath.substring(start + 1));
-        println(dirFile);
         return dirFile;
     }
 
