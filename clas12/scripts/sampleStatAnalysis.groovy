@@ -140,7 +140,7 @@ for(int k = 5532; k < 5539; k++) {
 
         boolean isClose = false;
 
-        reader.nextEvent(event);
+        reader.readNextEvent();
         //event.show();
         event.read(particles);
         //float beam = findBeamEnergy(event);
@@ -149,7 +149,7 @@ for(int k = 5532; k < 5539; k++) {
 //get particle data
 
         //PhysicsEvent physEvent = setPhysicsEvent(beam, event);
-        PhysicsEvent physEvent = DataManager.getPhysicsEvent(beam, particles);
+        PhysicsEvent physEvent = DataManager3.getPhysicsEvent(beam, particles);
         nEvents++;
         if (nEvents % 10000 == 0) {
             System.out.println("done " + nEvents);

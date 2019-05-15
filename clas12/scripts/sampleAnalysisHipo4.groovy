@@ -7,9 +7,11 @@ import org.jlab.jnp.physics.EventFilter
 import org.jlab.jnp.physics.Particle
 import org.jlab.jnp.physics.PhysicsEvent
 import org.jlab.jnp.reader.DataManager
+import org.jlab.jnp.utils.file.FileUtils
 
-String dataFile = "/work/clas12/devita/ctofCalib/rec_004013.hipo";
+//String dataFile = "/work/clas12/devita/ctofCalib/rec_004013.hipo";
 
+List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/rg-a/production/recon/calib/v1/unfiltered/005038/*.hipo");
 
 H1F hMxpUncut = new H1F("hMxPUncut", 200, 0.4, 1);
 hMxpUncut.setTitle("mx_P");
@@ -62,55 +64,103 @@ double beamEnergy = 10.6
 int nEvents = 0;
 
 HipoReader reader = new HipoReader();
-reader.open(dataFile);
 
-Bank particles = new Bank(reader.getSchemaFactory().getSchema("REC::Particle"));
-Event event = new Event();
+for(String dataFile : dataFiles) {
+    reader.open(dataFile);
 
-EventFilter filter = new EventFilter("11:2212:211:-211:Xn");
+    Bank particles = new Bank(reader.getSchemaFactory().getSchema("REC::Particle"));
+    Event event = new Event();
 
-while (reader.hasNext()){
-    reader.nextEvent(event);
-    event.read(particles);
+    EventFilter filter = new EventFilter("11:2212:211:-211:Xn");
 
-    boolean isClose = false;
+    while (reader.hasNext()) {
+        reader.nextEvent(event);
+        event.read(particles);
 
-    PhysicsEvent physEvent = DataManager.getPhysicsEvent(beamEnergy, particles);
-    //int pid = particles.getInt("pid",0);
+        boolean isClose = false;
 
-    nEvents++;
-    if (nEvents % 10000 == 0) {
-        System.out.println("done " + nEvents);
-    }
+        PhysicsEvent physEvent = DataManager.getPhysicsEvent(beamEnergy, particles);
+        //int pid = particles.getInt("pid",0);
 
-    if(filter.isValid(physEvent) ){
-        Particle mx_P = physEvent.getParticle("[b] + [t] - [11] - [2212]");
-        Particle im_PipPimgam = physEvent.getParticle("[211] + [-211] + [Xn]");
-        Particle mx_PePipPim = physEvent.getParticle("[b] + [t] - [11] - [2212] - [211] - [-211]");
+        nEvents++;
+        if (nEvents % 10000 == 0) {
+            System.out.println("done " + nEvents);
+        }
 
-        int nNeutrals = physEvent.countByCharge(0);
+        if (filter.isValid(physEvent)) {
+            Particle mx_P = physEvent.getParticle("[b] + [t] - [11] - [2212]");
+            Particle im_PipPimgam = physEvent.getParticle("[211] + [-211] + [Xn]");
+            Particle mx_PePipPim = physEvent.getParticle("[b] + [t] - [11] - [2212] - [211] - [-211]");
+
+            int nNeutrals = physEvent.countByCharge(0);
 
 
-        hMx2_PePipPim.fill(mx_PePipPim.mass2());
-        hMP_PePipPim.fill(mx_PePipPim.p());
+            hMx2_PePipPim.fill(mx_PePipPim.mass2());
+            hMP_PePipPim.fill(mx_PePipPim.p());
 
-        if (Math.abs(mx_PePipPim.mass2()) < 0.01 && mx_PePipPim.p() > 0.1 && nNeutrals > 0) {
-            hMxpUncut.fill(mx_P.mass());
-            //himPipPimGamUncut.fill(im_PipPimgam.mass());
-            for (int i = 0; i < nNeutrals; i++) {
-                hcos.fill(mx_PePipPim.cosTheta(physEvent.getParticleByCharge(0, i)));
-                if (mx_PePipPim.cosTheta(physEvent.getParticleByCharge(0, i)) > 0.99) {
-                    isClose = true;
-                    //im_PipPimgam.combine(physEvent.getParticleByCharge(0,i),0);
+            if (Math.abs(mx_PePipPim.mass2()) < 0.01 && mx_PePipPim.p() > 0.1 && nNeutrals > 0) {
+                hMxpUncut.fill(mx_P.mass());
+                //himPipPimGamUncut.fill(im_PipPimgam.mass());
+                for (int i = 0; i < nNeutrals; i++) {
+                    hcos.fill(mx_PePipPim.cosTheta(physEvent.getParticleByCharge(0, i)));
+                    if (mx_PePipPim.cosTheta(physEvent.getParticleByCharge(0, i)) > 0.99) {
+                        isClose = true;
+                        //im_PipPimgam.combine(physEvent.getParticleByCharge(0,i),0);
+                    }
                 }
-            }
-            if (isClose) {
-                hMxpcut.fill(mx_P.mass());
-                himPipPimGamUncut.fill(im_PipPimgam.mass());
+                if (isClose) {
+                    hMxpcut.fill(mx_P.mass());
+                    himPipPimGamUncut.fill(im_PipPimgam.mass());
+                }
             }
         }
     }
-}
 
-reader.close();
+    reader.close();
+}
 println("done");
+
+
+public class FileFinder {
+
+    public static List<String> listOfFiles = new ArrayList<String>();
+    private static String newKeyWord = "";
+
+
+    public static List<String> getFiles(String directory, String wildcard) {
+        String newDir = "";
+        if (!directory[directory.length() - 1].equals("/")) {
+            newDir = directory + "/";
+        } else {
+            newDir = directory;
+        }
+        List<String> filesInDirectory = FileUtils.getFileListInDir(directory);
+
+        if (wildcard.contains("*")) {
+            newKeyWord = newDir + wildcard.replace("*", ".*");
+        } else {
+            newKeyWord = newDir + wildcard;
+        }
+        for (String f : filesInDirectory) {
+            if (f.matches(newKeyWord)) {
+                listOfFiles.add(f.toString());
+            }
+        }
+        return this.listOfFiles;
+    }
+
+    public static List<String> getDirectoryName(String fullPath) {
+        List<String> dirFile = new ArrayList<String>();
+        int start = fullPath.lastIndexOf("/");
+        dirFile.add(0, fullPath.substring(0, start + 1));
+        dirFile.add(1, fullPath.substring(start + 1));
+        println(dirFile);
+        return dirFile;
+    }
+
+    public static List<String> getFiles(String fullPath) {
+        List<String> dirCombo = getDirectoryName(fullPath);
+        return getFiles(dirCombo.get(0), dirCombo.get(1));
+    }
+
+}
