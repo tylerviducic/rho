@@ -10,6 +10,7 @@ import org.jlab.groot.data.TDirectory
 import org.jlab.groot.fitter.DataFitter
 import org.jlab.groot.math.F1D
 import org.jlab.groot.ui.TCanvas
+import org.jlab.groot.ui.TGCanvas
 import org.jlab.jnp.hipo.data.HipoEvent
 import org.jlab.jnp.hipo.data.HipoGroup
 import org.jlab.jnp.hipo.data.HipoNode
@@ -94,7 +95,9 @@ for (int i = 0; i < 66; i++) {
     dir.addDataSet(hSignal.get(i));
 }
 
+//Add TGCanvas here
 
+TGCanvas c = new TGCanvas("c", "myCanvas", 500, 600);
 //Declare Canvas
 
 TCanvas c1 = new TCanvas("c1", 500, 600);

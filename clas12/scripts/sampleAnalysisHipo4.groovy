@@ -1,5 +1,6 @@
 import org.jlab.groot.data.H1F
 import org.jlab.groot.ui.TCanvas
+import org.jlab.groot.ui.TGCanvas
 import org.jlab.jnp.hipo4.data.Bank
 import org.jlab.jnp.hipo4.data.Event
 import org.jlab.jnp.hipo4.io.HipoReader
@@ -34,26 +35,41 @@ himPipPimGamUncut.setFillColor(43);
 H1F hcos = new H1F("hcos", 20, 0.99, 1);
 hcos.setTitle("hcos");
 
+TGCanvas c = new TGCanvas("c", "myCanvas", 500, 600);
 
-TCanvas c1 = new TCanvas("c1", 500, 600);
-TCanvas c2 = new TCanvas("c2", 500, 600);
-TCanvas c3 = new TCanvas("c3", 500, 600);
+
+//TCanvas c1 = new TCanvas("c1", 500, 600);
+//TCanvas c2 = new TCanvas("c2", 500, 600);
+//TCanvas c3 = new TCanvas("c3", 500, 600);
 TCanvas c4 = new TCanvas("c4", 500, 600);
 TCanvas c5 = new TCanvas("c5", 500, 600);
 TCanvas c6 = new TCanvas("c6", 500, 600);
 
+c.addCanvas("c1").addCanvas("c2").addCanvas("c3");
+c.setCanvas("c1");
+c.getCanvas().initTimer(1000);
+c.setCanvas("c2");
+c.getCanvas().initTimer(1000);
+c.setCanvas("c3");
+c.getCanvas().initTimer(1000);
 
-c1.getCanvas().initTimer(1000);
-c2.getCanvas().initTimer(1000);
-c3.getCanvas().initTimer(1000);
+//c1.getCanvas().initTimer(1000);
+//c2.getCanvas().initTimer(1000);
+//c3.getCanvas().initTimer(1000);
 c4.getCanvas().initTimer(1000);
 c5.getCanvas().initTimer(1000);
 c6.getCanvas().initTimer(1000);
 
+c.setCanvas("c1");
+c.draw(hMxpUncut);
+c.setCanvas("c2");
+c.draw(hMxpcut);
+c.setCanvas("c3");
+c.draw(hMx2_PePipPim);
 
-c1.draw(hMxpUncut);
-c2.draw(hMxpcut);
-c3.draw(hMx2_PePipPim);
+//c1.draw(hMxpUncut);
+//c2.draw(hMxpcut);
+//c3.draw(hMx2_PePipPim);
 c4.draw(hMP_PePipPim);
 c5.draw(himPipPimGamUncut);
 c6.draw(hcos);
