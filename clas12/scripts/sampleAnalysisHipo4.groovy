@@ -1,4 +1,5 @@
 import org.jlab.groot.data.H1F
+import org.jlab.groot.data.TDirectory
 import org.jlab.groot.ui.TCanvas
 import org.jlab.groot.ui.TGCanvas
 import org.jlab.jnp.hipo4.data.Bank
@@ -47,32 +48,36 @@ TCanvas c6 = new TCanvas("c6", 500, 600);
 
 c.addCanvas("c1").addCanvas("c2").addCanvas("c3");
 c.setCanvas("c1");
-c.getCanvas().initTimer(1000);
+//c.getCanvas().initTimer(1000);
 c.setCanvas("c2");
-c.getCanvas().initTimer(1000);
+//c.getCanvas().initTimer(1000);
 c.setCanvas("c3");
-c.getCanvas().initTimer(1000);
+//c.getCanvas().initTimer(1000);
 
 //c1.getCanvas().initTimer(1000);
 //c2.getCanvas().initTimer(1000);
 //c3.getCanvas().initTimer(1000);
-c4.getCanvas().initTimer(1000);
-c5.getCanvas().initTimer(1000);
-c6.getCanvas().initTimer(1000);
+//c4.getCanvas().initTimer(1000);
+//c5.getCanvas().initTimer(1000);
+//c6.getCanvas().initTimer(1000);
 
 c.setCanvas("c1");
-c.draw(hMxpUncut);
+//c.draw(hMxpUncut);
 c.setCanvas("c2");
-c.draw(hMxpcut);
+//c.draw(hMxpcut);
 c.setCanvas("c3");
-c.draw(hMx2_PePipPim);
+//c.draw(hMx2_PePipPim);
 
 //c1.draw(hMxpUncut);
 //c2.draw(hMxpcut);
 //c3.draw(hMx2_PePipPim);
-c4.draw(hMP_PePipPim);
-c5.draw(himPipPimGamUncut);
-c6.draw(hcos);
+//c4.draw(hMP_PePipPim);
+//c5.draw(himPipPimGamUncut);
+//c6.draw(hcos);
+
+TDirectory dir = new TDirectory();
+dir.mkdir("/Plots");
+dir.cd("/Plots");
 
 // Begin Analysis //
 
@@ -134,6 +139,15 @@ for(String dataFile : dataFiles) {
 
     reader.close();
 }
+
+dir.addDataSet(hMxpcut);
+dir.addDataSet(hMx2_PePipPim);
+dir.addDataSet(hMxpUncut);
+dir.addDataSet(hcos);
+dir.addDataSet(hMP_PePipPim);
+dir.addDataSet(hMP_PePipPim);
+
+dir.writeFile("/work/clas12/viducic/rho/clas12/isThereARho.hipo");
 println("done");
 
 
