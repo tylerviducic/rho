@@ -13,7 +13,11 @@ import org.jlab.jnp.utils.file.FileUtils
 
 //String dataFile = "/work/clas12/devita/ctofCalib/rec_004013.hipo";
 
-List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/rg-a/production/recon/calib/v1/unfiltered/005038/*.hipo");
+
+//List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/rg-a/production/recon/calib/v1/unfiltered/005038/*.hipo");
+List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/rg-a/production/recon/pass0/v1/unfiltered/005036/*.hipo");
+
+
 
 H1F hMxpUncut = new H1F("hMxPUncut", 200, 0.4, 1);
 hMxpUncut.setTitle("mx_P");
@@ -36,22 +40,22 @@ himPipPimGamUncut.setFillColor(43);
 H1F hcos = new H1F("hcos", 20, 0.99, 1);
 hcos.setTitle("hcos");
 
-TGCanvas c = new TGCanvas("c", "myCanvas", 500, 600);
+//TGCanvas c = new TGCanvas("c", "myCanvas", 500, 600);
 
 
 //TCanvas c1 = new TCanvas("c1", 500, 600);
 //TCanvas c2 = new TCanvas("c2", 500, 600);
 //TCanvas c3 = new TCanvas("c3", 500, 600);
-TCanvas c4 = new TCanvas("c4", 500, 600);
-TCanvas c5 = new TCanvas("c5", 500, 600);
-TCanvas c6 = new TCanvas("c6", 500, 600);
+//TCanvas c4 = new TCanvas("c4", 500, 600);
+//TCanvas c5 = new TCanvas("c5", 500, 600);
+//TCanvas c6 = new TCanvas("c6", 500, 600);
 
-c.addCanvas("c1").addCanvas("c2").addCanvas("c3");
-c.setCanvas("c1");
+//c.addCanvas("c1").addCanvas("c2").addCanvas("c3");
+//c.setCanvas("c1");
 //c.getCanvas().initTimer(1000);
-c.setCanvas("c2");
+//c.setCanvas("c2");
 //c.getCanvas().initTimer(1000);
-c.setCanvas("c3");
+//c.setCanvas("c3");
 //c.getCanvas().initTimer(1000);
 
 //c1.getCanvas().initTimer(1000);
@@ -61,11 +65,11 @@ c.setCanvas("c3");
 //c5.getCanvas().initTimer(1000);
 //c6.getCanvas().initTimer(1000);
 
-c.setCanvas("c1");
+//c.setCanvas("c1");
 //c.draw(hMxpUncut);
-c.setCanvas("c2");
+//c.setCanvas("c2");
 //c.draw(hMxpcut);
-c.setCanvas("c3");
+//c.setCanvas("c3");
 //c.draw(hMx2_PePipPim);
 
 //c1.draw(hMxpUncut);
