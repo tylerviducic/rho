@@ -2,6 +2,7 @@ import org.jlab.groot.data.H1F
 import org.jlab.groot.data.TDirectory
 import org.jlab.groot.ui.TCanvas
 import org.jlab.groot.ui.TGCanvas
+import org.jlab.jnp.hipo.io.HipoWriter
 import org.jlab.jnp.hipo4.data.Bank
 import org.jlab.jnp.hipo4.data.Event
 import org.jlab.jnp.hipo4.io.HipoReader
@@ -14,8 +15,8 @@ import org.jlab.jnp.utils.file.FileUtils
 //String dataFile = "/work/clas12/devita/ctofCalib/rec_004013.hipo";
 
 
-//List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/rg-a/production/recon/calib/v1/unfiltered/005038/*.hipo");
-List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/rg-a/production/recon/pass0/v1/unfiltered/005036/*.hipo");
+List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/rg-a/production/recon/calib/v1/unfiltered/005038/*.hipo");
+//List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/rg-a/production/recon/pass0/v1/unfiltered/005036/*.hipo");
 
 
 
@@ -88,6 +89,8 @@ dir.cd("/Plots");
 double beamEnergy = 10.6
 int nEvents = 0;
 
+//HipoWriter writer = new HipoWriter();
+//writer.open("/work/clas12/viducic/data/run_005036");
 
 for(String dataFile : dataFiles) {
     HipoReader reader = new HipoReader();
@@ -97,6 +100,8 @@ for(String dataFile : dataFiles) {
     Event event = new Event();
 
     EventFilter filter = new EventFilter("11:2212:211:-211:Xn");
+
+    println("done " + dataFiles.indexOf(dataFile) + " out of " + dataFiles.size() + " events");
 
     while (reader.hasNext()) {
         reader.nextEvent(event);
@@ -138,13 +143,14 @@ for(String dataFile : dataFiles) {
                     himPipPimGamUncut.fill(im_PipPimgam.mass());
                 }
             }
+            //writer.writeEvent(event);
         }
     }
 
     reader.close();
 }
 
-dir.addDataSet(hMxpcut);
+//dir.addDataSet(hMxpcut);
 dir.addDataSet(hMx2_PePipPim);
 dir.addDataSet(hMxpUncut);
 dir.addDataSet(hcos);
