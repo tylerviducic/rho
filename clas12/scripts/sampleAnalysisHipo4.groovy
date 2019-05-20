@@ -24,7 +24,7 @@ hMxpUncut.setTitle("mx_P");
 hMxpUncut.setFillColor(43);
 
 H1F hMxpcut = new H1F("hMxPUncut", 200, 0.4, 1);
-hMxpcut.setTitle("mx_P");
+hMxpcut.setTitle("mx_P w/ cut");
 hMxpcut.setFillColor(43);
 
 H1F hMx2_PePipPim = new H1F("hMx2_PiPipPim", 210, -0.1, 0.1);
@@ -123,7 +123,7 @@ for(String dataFile : dataFiles) {
             hMx2_PePipPim.fill(mx_PePipPim.mass2());
             hMP_PePipPim.fill(mx_PePipPim.p());
 
-            if (Math.abs(mx_PePipPim.mass2()) < 0.01 && mx_PePipPim.p() > 0.1 && nNeutrals > 0) {
+            if (Math.abs(mx_PePipPim.mass2()) < 0.01 && mx_PePipPim.p() > 0.1 && Math.abs(mx_P.mass() - mx_PePipPim.p()) < 1.0) {
                 hMxpUncut.fill(mx_P.mass());
                 //himPipPimGamUncut.fill(im_PipPimgam.mass());
                 for (int i = 0; i < nNeutrals; i++) {
@@ -149,7 +149,7 @@ dir.addDataSet(hMx2_PePipPim);
 dir.addDataSet(hMxpUncut);
 dir.addDataSet(hcos);
 dir.addDataSet(hMP_PePipPim);
-dir.addDataSet(hMP_PePipPim);
+
 
 dir.writeFile("/work/clas12/viducic/rho/clas12/isThereARho.hipo");
 println("done");
