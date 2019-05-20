@@ -101,7 +101,7 @@ for(String dataFile : dataFiles) {
 
     EventFilter filter = new EventFilter("11:2212:211:-211:Xn");
 
-    println("done " + dataFiles.indexOf(dataFile) + " out of " + dataFiles.size() + " events");
+    println("done " + dataFiles.indexOf(dataFile) + " out of " + dataFiles.size() + " files");
 
     while (reader.hasNext()) {
         reader.nextEvent(event);
