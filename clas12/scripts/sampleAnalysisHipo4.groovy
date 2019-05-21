@@ -213,7 +213,7 @@ public class FileFinder {
         return this.listOfFiles;
     }
 
-    public List<String> getDirectoryName(String fullPath) {
+    public static List<String> getDirectoryName(String fullPath) {
         List<String> dirFile = new ArrayList<String>();
         int start = fullPath.lastIndexOf("/");
         dirFile.add(0, fullPath.substring(0, start + 1));
