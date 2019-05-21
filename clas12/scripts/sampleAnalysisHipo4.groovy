@@ -15,17 +15,17 @@ import org.jlab.jnp.utils.file.FileUtils
 //String dataFile = "/work/clas12/devita/ctofCalib/rec_004013.hipo";
 
 
-List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/rg-a/production/recon/calib/v1/unfiltered/005038/*.hipo");
+//List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/rg-a/production/recon/calib/v1/unfiltered/005038/*.hipo");
 //List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/rg-a/production/recon/pass0/v1/unfiltered/005036/*.hipo");
-
+List<String> dataFiles = FileFinder.getFilesFromSubdirs("/w/hallb-scifs17exp/clas12/rg-a/production/recon/calib/v1/unfiltered", "*.hipo");
 
 
 H1F hMxpUncut = new H1F("hMxPUncut", 200, 0.4, 1);
-hMxpUncut.setTitle("mx_P");
+hMxpUncut.setTitle("mx_P w/ |mx2_PePipPim| < 0.01 && mp_PePipPim > 0.1");
 hMxpUncut.setFillColor(43);
 
-H1F hMxpcut = new H1F("hMxPUncut", 200, 0.4, 1);
-hMxpcut.setTitle("mx_P w/ cut");
+H1F hCutMxp = new H1F("hCutMxp", 200, 0.4, 1);
+hMxpcut.setTitle("mx_P w/ cut|mx2_PePipPim| < 0.01 && mp_PePipPim > 0.1 && cosTheta > 0.99 && |mx_Pe - pgam| < 1.0");
 hMxpcut.setFillColor(43);
 
 H1F hMx2_PePipPim = new H1F("hMx2_PiPipPim", 210, -0.1, 0.1);
@@ -123,6 +123,8 @@ for(String dataFile : dataFiles) {
             Particle mx_PePipPim = physEvent.getParticle("[b] + [t] - [11] - [2212] - [211] - [-211]");
 
             int nNeutrals = physEvent.countByCharge(0);
+            double bestCos = -2.0;
+            double pgam;
 
 
             hMx2_PePipPim.fill(mx_PePipPim.mass2());
@@ -132,14 +134,20 @@ for(String dataFile : dataFiles) {
                 hMxpUncut.fill(mx_P.mass());
                 //himPipPimGamUncut.fill(im_PipPimgam.mass());
                 for (int i = 0; i < nNeutrals; i++) {
-                    hcos.fill(mx_PePipPim.cosTheta(physEvent.getParticleByCharge(0, i)));
-                    if (mx_PePipPim.cosTheta(physEvent.getParticleByCharge(0, i)) > 0.99) {
-                        isClose = true;
-                        //im_PipPimgam.combine(physEvent.getParticleByCharge(0,i),0);
+//                    hcos.fill(mx_PePipPim.cosTheta(physEvent.getParticleByCharge(0, i)));
+//                    if (mx_PePipPim.cosTheta(physEvent.getParticleByCharge(0, i)) > 0.99) {
+//                        isClose = true;
+//                        //im_PipPimgam.combine(physEvent.getParticleByCharge(0,i),0);
+//                    }
+                    Particle gam = physEvent.getParticleByCharge(0, i);
+                    if (mx_PePipPim.cosTheta(gam) > bestCos){
+                        bestCos = mx_PePipPim.cosTheta(gam);
+                        pgam = gam.p()
                     }
+
                 }
-                if (isClose) {
-                    hMxpcut.fill(mx_P.mass());
+                if (Math.abs(mx_P.mass() - pgam) && bestCos > 0.99) {
+                    hCutMxp.fill(mx_P.mass());
                     himPipPimGamUncut.fill(im_PipPimgam.mass());
                 }
             }
@@ -150,7 +158,7 @@ for(String dataFile : dataFiles) {
     reader.close();
 }
 
-//dir.addDataSet(hMxpcut);
+dir.addDataSet(hCutMxp);
 dir.addDataSet(hMx2_PePipPim);
 dir.addDataSet(hMxpUncut);
 dir.addDataSet(hcos);
@@ -163,13 +171,29 @@ println("done");
 
 public class FileFinder {
 
-    public static List<String> listOfFiles = new ArrayList<String>();
+    public FileFinder() {
+    }
+
+    private static List<String> listOfFiles = new ArrayList<String>();
     private static String newKeyWord = "";
+    public static int DEBUG_MODE = 0;
+
+    public List<String> getFiles(List<String> listOfDirs, String fileName){
+        for(String dir : listOfDirs){
+            getFiles(dir, fileName);
+        }
+        return listOfFiles;
+    }
+
+    public List<String> getFilesFromSubdirs(String directory, String wildcard){
+        List<String> listOfDirs = getSubdirs(directory);
+        return getFiles(listOfDirs, wildcard);
+    }
 
 
-    public static List<String> getFiles(String directory, String wildcard) {
+    public List<String> getFiles(String directory, String wildcard) {
         String newDir = "";
-        if (!directory[directory.length() - 1].equals("/")) {
+        if (!directory.endsWith("/")) {
             newDir = directory + "/";
         } else {
             newDir = directory;
@@ -189,7 +213,7 @@ public class FileFinder {
         return this.listOfFiles;
     }
 
-    public static List<String> getDirectoryName(String fullPath) {
+    public List<String> getDirectoryName(String fullPath) {
         List<String> dirFile = new ArrayList<String>();
         int start = fullPath.lastIndexOf("/");
         dirFile.add(0, fullPath.substring(0, start + 1));
@@ -197,9 +221,41 @@ public class FileFinder {
         return dirFile;
     }
 
-    public static List<String> getFiles(String fullPath) {
+    public List<String> getFiles(String fullPath) {
         List<String> dirCombo = getDirectoryName(fullPath);
         return getFiles(dirCombo.get(0), dirCombo.get(1));
     }
 
+    public static List<String> getSubdirs(String directory) {
+        if (DEBUG_MODE > 0) {
+            System.out.println(">>> scanning directory : " + directory);
+        }
+
+        List<String> dirList = new ArrayList();
+        File[] dirs = (new File(directory)).listFiles();
+        if (dirs == null) {
+            if (DEBUG_MODE > 0) {
+                System.out.println(">>> scanning directory : directory does not exist");
+            }
+
+            return dirList;
+        } else {
+            File[] var3 = dirs;
+            int var4 = dirs.length;
+
+            for(int var5 = 0; var5 < var4; ++var5) {
+                File dir = var3[var5];
+                if (dir.isDirectory()) {
+                    if (!dir.getName().startsWith(".") && !dir.getName().endsWith("~")) {
+                        dirList.add(dir.getAbsolutePath());
+                    } else if (DEBUG_MODE > 0) {
+                        System.out.println("[FileUtils] ----> skipping file : " + dir.getName());
+                    }
+                }
+            }
+
+            return dirList;
+        }
+    }
 }
+
