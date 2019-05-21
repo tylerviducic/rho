@@ -17,7 +17,7 @@ import org.jlab.jnp.utils.file.FileUtils
 
 //List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/rg-a/production/recon/calib/v1/unfiltered/005038/*.hipo");
 //List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/rg-a/production/recon/pass0/v1/unfiltered/005036/*.hipo");
-List<String> dataFiles = FileFinder.getFilesFromSubdirs("/w/hallb-scifs17exp/clas12/rg-a/production/recon/calib/v1/unfiltered", "*.hipo");
+List<String> dataFiles = FileFinder.getFilesFromSubdirs("/w/hallb-scifs17exp/clas12/rg-a/production/recon/calib/v1/unfiltered/", "*.hipo");
 
 
 H1F hMxpUncut = new H1F("hMxPUncut", 200, 0.4, 1);
