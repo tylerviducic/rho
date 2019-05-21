@@ -178,7 +178,7 @@ public class FileFinder {
     private static String newKeyWord = "";
     public static int DEBUG_MODE = 0;
 
-    public List<String> getFiles(List<String> listOfDirs, String fileName){
+    public static List<String> getFiles(List<String> listOfDirs, String fileName){
         for(String dir : listOfDirs){
             getFiles(dir, fileName);
         }
@@ -191,7 +191,7 @@ public class FileFinder {
     }
 
 
-    public List<String> getFiles(String directory, String wildcard) {
+    public static List<String> getFiles(String directory, String wildcard) {
         String newDir = "";
         if (!directory.endsWith("/")) {
             newDir = directory + "/";
@@ -213,7 +213,7 @@ public class FileFinder {
         return this.listOfFiles;
     }
 
-    public List<String> getDirectoryName(String fullPath) {
+    public static List<String> getDirectoryName(String fullPath) {
         List<String> dirFile = new ArrayList<String>();
         int start = fullPath.lastIndexOf("/");
         dirFile.add(0, fullPath.substring(0, start + 1));
@@ -221,7 +221,7 @@ public class FileFinder {
         return dirFile;
     }
 
-    public List<String> getFiles(String fullPath) {
+    public static List<String> getFiles(String fullPath) {
         List<String> dirCombo = getDirectoryName(fullPath);
         return getFiles(dirCombo.get(0), dirCombo.get(1));
     }
