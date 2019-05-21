@@ -185,7 +185,7 @@ public class FileFinder {
         return listOfFiles;
     }
 
-    public List<String> getFilesFromSubdirs(String directory, String wildcard){
+    public static List<String> getFilesFromSubdirs(String directory, String wildcard){
         List<String> listOfDirs = getSubdirs(directory);
         return getFiles(listOfDirs, wildcard);
     }
@@ -213,7 +213,7 @@ public class FileFinder {
         return this.listOfFiles;
     }
 
-    public static List<String> getDirectoryName(String fullPath) {
+    public List<String> getDirectoryName(String fullPath) {
         List<String> dirFile = new ArrayList<String>();
         int start = fullPath.lastIndexOf("/");
         dirFile.add(0, fullPath.substring(0, start + 1));
