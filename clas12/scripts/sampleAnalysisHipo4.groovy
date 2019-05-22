@@ -120,13 +120,13 @@ for(String dataFile : dataFiles) {
 
         if (filter.isValid(physEvent)&&pid!=11) {
             Particle mx_P = physEvent.getParticle("[b] + [t] - [11] - [2212]");
-            Particle im_PipPimgam = physEvent.getParticle("[211] + [-211] + [Xn]");
+            //Particle im_PipPimgam = physEvent.getParticle("[211] + [-211] + [Xn]");
             Particle mx_PePipPim = physEvent.getParticle("[b] + [t] - [11] - [2212] - [211] - [-211]");
 
             int nNeutrals = physEvent.countByCharge(0);
             double bestCos = -2.0;
             double pgam;
-
+            double im_PipPimGam;
 
             hMx2_PePipPim.fill(mx_PePipPim.mass2());
             hMP_PePipPim.fill(mx_PePipPim.p());
@@ -144,12 +144,16 @@ for(String dataFile : dataFiles) {
                     if (mx_PePipPim.cosTheta(gam) > bestCos){
                         bestCos = mx_PePipPim.cosTheta(gam);
                         pgam = gam.p()
+                        Particle im_ppg = physEvent.getParticleByCharge("[211] + [-211]");
+                        im_ppg.combine(gam);
+                        im_PipPimGam = im_ppg.mass();
                     }
 
                 }
                 if (Math.abs(mx_P.mass() - pgam) && bestCos > 0.99) {
                     hCutMxp.fill(mx_P.mass());
-                    himPipPimGamUncut.fill(im_PipPimgam.mass());
+                    //himPipPimGamUncut.fill(im_PipPimgam.mass());
+                    himPipPimGamUncut.fill(im_PipPimGam);
                 }
             }
             //writer.writeEvent(event);
@@ -166,7 +170,7 @@ dir.addDataSet(hcos);
 dir.addDataSet(hMP_PePipPim);
 
 
-dir.writeFile("/work/clas12/viducic/rho/clas12/isThereARho.hipo");
+dir.writeFile("/work/clas12/viducic/rho/clas12/sampleRhoAnalysis.hipo");
 println("done");
 
 
