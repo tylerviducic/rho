@@ -19,7 +19,7 @@ hPe_vz.setFillColor(45);
 HipoReader reader = new HipoReader();
 reader.open(dataFile);
 
-Bank particle = reader.getSchemaFactory().getSchema("REC::Particle");
+Bank particle = new Bank(reader.getSchemaFactory().getSchema("REC::Particle"));
 Event event = new Event();
 
 EventFilter filter = new EventFilter("11:2212:Xn:X+:X-");
