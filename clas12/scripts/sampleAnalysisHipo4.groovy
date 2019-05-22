@@ -132,7 +132,7 @@ for(String dataFile : dataFiles) {
             hMx2_PePipPim.fill(mx_PePipPim.mass2());
             hMP_PePipPim.fill(mx_PePipPim.p());
 
-            if (Math.abs(mx_PePipPim.mass2()) < 0.01 && mx_PePipPim.p() > 0.1 && Math.abs(mx_P.mass() - mx_PePipPim.p()) < 1.0) {
+            if (Math.abs(mx_PePipPim.mass2()) < 0.01 && mx_PePipPim.p() > 0.1) {
                 hMxpUncut.fill(mx_P.mass());
                 //himPipPimGamUncut.fill(im_PipPimgam.mass());
                 for (int i = 0; i < nNeutrals; i++) {
