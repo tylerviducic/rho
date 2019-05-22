@@ -17,7 +17,8 @@ import org.jlab.jnp.utils.file.FileUtils
 
 //List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/rg-a/production/recon/calib/v1/unfiltered/005038/*.hipo");
 //List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/rg-a/production/recon/pass0/v1/unfiltered/005036/*.hipo");
-List<String> dataFiles = FileFinder.getFilesFromSubdirs("/w/hallb-scifs17exp/clas12/rg-a/production/recon/calib/v1/unfiltered/", "*.hipo");
+//List<String> dataFiles = FileFinder.getFilesFromSubdirs("/w/hallb-scifs17exp/clas12/rg-a/production/recon/calib/v1/unfiltered/", "*.hipo");
+List<String> dataFiles = FileFinder.getFilesFromSubdirs("/w/hallb-scifs17exp/clas12/rg-a/production/recon/pass0/v2/unfiltered/", "*.hipo");
 
 
 H1F hMxpUncut = new H1F("hMxPUncut", 200, 0.4, 1);
@@ -101,7 +102,7 @@ for(String dataFile : dataFiles) {
 
     EventFilter filter = new EventFilter("11:2212:211:-211:Xn");
 
-    println("done " + dataFiles.indexOf(dataFile) + " out of " + dataFiles.size() + " files");
+    println("done " + (dataFiles.indexOf(dataFile)+1) + " out of " + dataFiles.size() + " files");
 
     while (reader.hasNext()) {
         reader.nextEvent(event);
