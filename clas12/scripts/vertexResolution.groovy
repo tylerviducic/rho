@@ -32,7 +32,7 @@ while (reader.hasNext()){
 
     if(filter.isValid(physEvent)){
         Particle p = physEvent.getParticle("[2212]");
-        particle e = physEvent.getParticle("[11]");
+        Particle e = physEvent.getParticle("[11]");
 
         hPe_vz.fill(p.vz()-e.vz());
     }
