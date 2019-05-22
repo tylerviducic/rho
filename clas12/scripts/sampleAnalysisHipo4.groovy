@@ -152,7 +152,7 @@ for(String dataFile : dataFiles) {
                     }
 
                 }
-                if (Math.abs(mx_P.mass() - pgam)) {
+                if (Math.abs(mx_P.mass() - pgam)<0.1) {
                     hCutMxp.fill(mx_P.mass());
                     //himPipPimGamUncut.fill(im_PipPimgam.mass());
                     himPipPimGamUncut.fill(im_PipPimGam);
