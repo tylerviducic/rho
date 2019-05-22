@@ -151,7 +151,7 @@ for(String dataFile : dataFiles) {
                     }
 
                 }
-                if (Math.abs(mx_P.mass() - pgam) && bestCos > 0.99) {
+                if (Math.abs(mx_P.mass() - pgam)) {
                     hCutMxp.fill(mx_P.mass());
                     //himPipPimGamUncut.fill(im_PipPimgam.mass());
                     himPipPimGamUncut.fill(im_PipPimGam);
@@ -165,6 +165,7 @@ for(String dataFile : dataFiles) {
 }
 
 dir.addDataSet(hCutMxp);
+dir.addDataSet(himPipPimGamUncut);
 dir.addDataSet(hMx2_PePipPim);
 dir.addDataSet(hMxpUncut);
 dir.addDataSet(hcos);
