@@ -146,7 +146,7 @@ for(String dataFile : dataFiles) {
                         bestCos = mx_PePipPim.cosTheta(gam);
                         pgam = gam.p()
                         Particle im_ppg = physEvent.getParticle("[211] + [-211]");
-                        im_ppg.combine(gam);
+                        im_ppg.combine(gam, 0);
                         im_PipPimGam = im_ppg.mass();
                     }
 
