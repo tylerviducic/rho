@@ -36,7 +36,7 @@ hMx2_PePipPim.setTitle("Missing mass squared of pePipPim");
 H1F hMP_PePipPim = new H1F("hMP_PiPipPim", 210, -0.1, 2);
 hMP_PePipPim.setTitle("Missing momentum of pePipPim");
 
-H1F himPipPimGamUncut = new H1F("himPipPimGamUncut", 150, 0.0, 1.5);
+H1F himPipPimGamUncut = new H1F("himPipPimGamUncut", 150, 0.4, 1.2);
 himPipPimGamUncut.setTitle("IM_PipPimXn");
 himPipPimGamUncut.setFillColor(43);
 
@@ -85,6 +85,7 @@ hcos.setTitle("hcos");
 TDirectory dir = new TDirectory();
 dir.mkdir("/Plots");
 dir.cd("/Plots");
+dir.mkdir("/CutPlots");
 
 // Begin Analysis //
 
@@ -164,13 +165,14 @@ for(String dataFile : dataFiles) {
     reader.close();
 }
 
-dir.addDataSet(hCutMxp);
-dir.addDataSet(himPipPimGamUncut);
 dir.addDataSet(hMx2_PePipPim);
 dir.addDataSet(hMxpUncut);
 dir.addDataSet(hcos);
 dir.addDataSet(hMP_PePipPim);
 
+dir.cd("/CutPlots");
+dir.addDataSet(hCutMxp);
+dir.addDataSet(himPipPimGamUncut);
 
 dir.writeFile("/work/clas12/viducic/rho/clas12/sampleRhoAnalysis_0.hipo");
 println("done");
