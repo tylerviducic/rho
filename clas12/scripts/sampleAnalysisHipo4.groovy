@@ -19,7 +19,7 @@ import org.jlab.jnp.utils.file.FileUtils
 //List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/rg-a/production/recon/pass0/v1/unfiltered/005036/*.hipo");
 //List<String> dataFiles = FileFinder.getFilesFromSubdirs("/w/hallb-scifs17exp/clas12/rg-a/production/recon/calib/v1/unfiltered/", "*.hipo");
 //List<String> dataFiles = FileFinder.getFilesFromSubdirs("/w/hallb-scifs17exp/clas12/rg-a/production/recon/pass0/v2/unfiltered/", "*.hipo");
-List<String> dataFiles = FileFinder.getFiles("/w/hallb-scif17exp/clas12/devita/ctofCalib/rec_*");
+List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/devita/ctofCalib/rec_*");
 
 
 H1F hMxpUncut = new H1F("hMxPUncut", 200, 0.4, 1);
@@ -95,7 +95,6 @@ int nEvents = 0;
 //writer.open("/work/clas12/viducic/data/run_005036");
 
 for(String dataFile : dataFiles) {
-    println(dataFile);
     HipoReader reader = new HipoReader();
     reader.open(dataFile);
 
