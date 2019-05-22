@@ -18,7 +18,8 @@ import org.jlab.jnp.utils.file.FileUtils
 //List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/rg-a/production/recon/calib/v1/unfiltered/005038/*.hipo");
 //List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/rg-a/production/recon/pass0/v1/unfiltered/005036/*.hipo");
 //List<String> dataFiles = FileFinder.getFilesFromSubdirs("/w/hallb-scifs17exp/clas12/rg-a/production/recon/calib/v1/unfiltered/", "*.hipo");
-List<String> dataFiles = FileFinder.getFilesFromSubdirs("/w/hallb-scifs17exp/clas12/rg-a/production/recon/pass0/v2/unfiltered/", "*.hipo");
+//List<String> dataFiles = FileFinder.getFilesFromSubdirs("/w/hallb-scifs17exp/clas12/rg-a/production/recon/pass0/v2/unfiltered/", "*.hipo");
+List<String> dataFiles = FileFinder.getFilesFromSubdirs("/work/clas12/devita/ctofCalib/", "rec_*.hipo");
 
 
 H1F hMxpUncut = new H1F("hMxPUncut", 200, 0.4, 1);
@@ -170,7 +171,7 @@ dir.addDataSet(hcos);
 dir.addDataSet(hMP_PePipPim);
 
 
-dir.writeFile("/work/clas12/viducic/rho/clas12/sampleRhoAnalysis.hipo");
+dir.writeFile("/work/clas12/viducic/rho/clas12/sampleRhoAnalysis_0.hipo");
 println("done");
 
 
