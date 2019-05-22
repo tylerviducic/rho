@@ -95,6 +95,7 @@ int nEvents = 0;
 //writer.open("/work/clas12/viducic/data/run_005036");
 
 for(String dataFile : dataFiles) {
+    println(dataFile);
     HipoReader reader = new HipoReader();
     reader.open(dataFile);
 
