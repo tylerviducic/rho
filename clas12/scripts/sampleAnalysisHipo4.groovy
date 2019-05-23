@@ -118,6 +118,7 @@ for(String dataFile : dataFiles) {
         nEvents++;
         if (nEvents % 10000 == 0) {
             System.out.println("done " + nEvents);
+            System.out.println("done " + nEvents);
         }
 
         if (filter.isValid(physEvent)&&pid!=11) {

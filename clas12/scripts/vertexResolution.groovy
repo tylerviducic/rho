@@ -34,7 +34,9 @@ while (reader.hasNext()){
         Particle p = physEvent.getParticle("[2212]");
         Particle e = physEvent.getParticle("[11]");
 
-        hPe_vz.fill(p.vz()-e.vz());
+        if(p.p()> 1 && e.p() > 3) {
+            hPe_vz.fill(p.vz() - e.vz());
+        }
     }
 }
 
