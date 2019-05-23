@@ -16,7 +16,7 @@ H1F hPe_vz = new H1F("hPe_vz", 100, -10, 10);
 hPe_vz.setTitle("Difference between proton and electron z-vertex");
 hPe_vz.setFillColor(45);
 
-HF1 he_vz = new H1F("he_vz", 200, -40, 40);
+H1F he_vz = new H1F("he_vz", 200, -40, 40);
 hPe_vz.setTitle("electron z-vertex");
 hPe_vz.setFillColor(44);
 
