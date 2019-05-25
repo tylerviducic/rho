@@ -20,6 +20,10 @@ H1F he_vz = new H1F("he_vz", 200, -40, 40);
 hPe_vz.setTitle("electron z-vertex");
 hPe_vz.setFillColor(44);
 
+H1F hp_vz = new H1F("hp_vz", 200, -40,40);
+hp_vz.setTitle("proton z-vertex");
+hPe_vz.setFillColor(44);
+
 TDirectory dir = new TDirectory();
 dir.mkdir("/Vertex");
 dir.cd("/Vertex");
@@ -46,6 +50,7 @@ while (reader.hasNext()){
         if(p.p()> 1 && e.p() > 3) {
             hPe_vz.fill(p.vz() - e.vz());\
             he_vz.fill(e.vz());
+            hp_vz.fill(p.vz());
         }
     }
 }
@@ -55,6 +60,7 @@ while (reader.hasNext()){
 
 dir.addDataSet(hPe_vz);
 dir.addDataSet(he_vz);
+dir.add(hp_vz);
 dir.writeFile("/work/clas12/viducic/rho/clas12/vertexAnalysis.hipo");
 
 println("done");
