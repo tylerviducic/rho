@@ -60,7 +60,7 @@ while (reader.hasNext()){
 
 dir.addDataSet(hPe_vz);
 dir.addDataSet(he_vz);
-dir.add(hp_vz);
+dir.addDataSet(hp_vz);
 dir.writeFile("/work/clas12/viducic/rho/clas12/vertexAnalysis.hipo");
 
 println("done");
