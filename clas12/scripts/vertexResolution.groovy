@@ -49,9 +49,9 @@ while (reader.hasNext()){
 
         if(p.p()> 1 && e.p() > 3) {
             hPe_vz.fill(p.vz() - e.vz());\
-            he_vz.fill(e.vz());
-            hp_vz.fill(p.vz());
         }
+        he_vz.fill(e.vz());
+        hp_vz.fill(p.vz());
     }
 }
 
