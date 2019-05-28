@@ -33,7 +33,7 @@ dir.cd("/Vertex");
 HipoReader reader = new HipoReader();
 reader.open(dataFile);
 
-Bank particle = new Bank(reader.getSchemaFactory().getSchema("REC::Particle"));
+Bank particle = new Bank(reader.getSchemaFactory().getSchema("REC::particle"));
 Event event = new Event();
 
 EventFilter filter = new EventFilter("11:2212:Xn:X+:X-");
