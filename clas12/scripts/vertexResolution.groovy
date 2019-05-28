@@ -10,15 +10,16 @@ import org.jlab.jnp.physics.PhysicsEvent
 import org.jlab.jnp.reader.DataManager
 
 
-String dataFile = "/work/clas12/devita/ctofCalib/rec_004013.hipo";
+//String dataFile = "/work/clas12/devita/ctofCalib/rec_004013.hipo";
+String dataFile = "/w/hallb-scifs17exp/clas12/viducic/datarun_5038_filtered.hipo/"
 
-H1F hPe_vz = new H1F("hPe_vz", 100, -10, 10);
+H1F hPe_vz = new H1F("hPe_vz", 200, -40, 40);
 hPe_vz.setTitle("Difference between proton and electron z-vertex");
 hPe_vz.setFillColor(45);
 
 H1F he_vz = new H1F("he_vz", 200, -40, 40);
 hPe_vz.setTitle("electron z-vertex");
-hPe_vz.setFillColor(44);
+hPe_vz.setFillColor(42);
 
 H1F hp_vz = new H1F("hp_vz", 200, -40,40);
 hp_vz.setTitle("proton z-vertex");
