@@ -11,7 +11,7 @@ import org.jlab.jnp.reader.DataManager
 
 
 //String dataFile = "/work/clas12/devita/ctofCalib/rec_004013.hipo";
-String dataFile = "/w/hallb-scifs17exp/clas12/viducic/datarun_5038_filtered.hipo/"
+String dataFile = "/w/hallb-scifs17exp/clas12/viducic/run_5038_filtered.hipo/"
 
 H1F hPe_vz = new H1F("hPe_vz", 200, -40, 40);
 hPe_vz.setTitle("Difference between proton and electron z-vertex");
