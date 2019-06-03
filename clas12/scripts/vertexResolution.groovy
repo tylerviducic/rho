@@ -10,7 +10,7 @@ import org.jlab.jnp.physics.PhysicsEvent
 import org.jlab.jnp.reader.DataManager
 import org.jlab.jnp.utils.file.FileUtils
 
-
+//Written by Tyler Viducic
 //String dataFile = "/work/clas12/devita/ctofCalib/rec_004013.hipo";
 //String dataFile = "/w/hallb-scifs17exp/clas12/viducic/data/run_5038_filtered.hipo/"
 
