@@ -21,12 +21,12 @@ hPe_vz.setTitle("Difference between proton and electron z-vertex");
 hPe_vz.setFillColor(45);
 
 H1F he_vz = new H1F("he_vz", 200, -40, 40);
-hPe_vz.setTitle("electron z-vertex");
-hPe_vz.setFillColor(42);
+he_vz.setTitle("electron z-vertex");
+he_vz.setFillColor(42);
 
 H1F hp_vz = new H1F("hp_vz", 200, -40,40);
 hp_vz.setTitle("proton z-vertex");
-hPe_vz.setFillColor(44);
+hp_vz.setFillColor(44);
 
 TDirectory dir = new TDirectory();
 dir.mkdir("/Vertex");
