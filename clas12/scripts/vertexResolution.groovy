@@ -16,15 +16,15 @@ import org.jlab.jnp.utils.file.FileUtils
 
 List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/rg-a/trains/calibration/v4/skim4_inclusive/*");
 
-H1F hPe_vz = new H1F("hPe_vz", 200, -40, 40);
+H1F hPe_vz = new H1F("hPe_vz", 200, -20, 20);
 hPe_vz.setTitle("Difference between proton and electron z-vertex");
 hPe_vz.setFillColor(45);
 
-H1F he_vz = new H1F("he_vz", 200, -40, 40);
+H1F he_vz = new H1F("he_vz", 200, -20, 20);
 he_vz.setTitle("electron z-vertex");
 he_vz.setFillColor(42);
 
-H1F hp_vz = new H1F("hp_vz", 200, -40,40);
+H1F hp_vz = new H1F("hp_vz", 200, -20,20);
 hp_vz.setTitle("proton z-vertex");
 hp_vz.setFillColor(44);
 
@@ -53,7 +53,10 @@ for(String dataFile : dataFiles) {
             Particle e = physEvent.getParticle("[11]");
 
             if (p.p() > 1 && e.p() > 3) {
-                hPe_vz.fill(p.vz() - e.vz());
+
+                if(p.vz() < 15 && e.vz() < 15) {
+                    hPe_vz.fill(p.vz() - e.vz());
+                }
                 he_vz.fill(e.vz());
                 hp_vz.fill(p.vz());
             }
