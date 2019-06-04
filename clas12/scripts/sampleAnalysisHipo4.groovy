@@ -23,11 +23,11 @@ import org.jlab.jnp.utils.file.FileUtils
 List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/rg-a/trains/calibration/v4/skim4_inclusive/*.hipo");
 
 
-H1F hMxpUncut = new H1F("hMxPUncut", 200, 0.4, 1);
+H1F hMxpUncut = new H1F("hMxPUncut", 200, 0.4, 1.4);
 hMxpUncut.setTitle("mx_P w/ |mx2_PePipPim| < 0.01 && mp_PePipPim > 0.1");
 hMxpUncut.setFillColor(43);
 
-H1F hCutMxp = new H1F("hCutMxp", 200, 0.4, 1);
+H1F hCutMxp = new H1F("hCutMxp", 200, 0.4, 1.4);
 hCutMxp.setTitle("mx_P w/ cut|mx2_PePipPim| < 0.01 && mp_PePipPim > 0.1 && cosTheta > 0.99 && |mx_Pe - pgam| < 1.0");
 hCutMxp.setFillColor(43);
 
