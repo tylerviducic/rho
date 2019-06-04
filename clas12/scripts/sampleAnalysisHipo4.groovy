@@ -100,7 +100,7 @@ for(String dataFile : dataFiles) {
     HipoReader reader = new HipoReader();
     reader.open(dataFile);
 
-    Bank particles = new Bank(reader.getSchemaFactory().getSchema("REC::particle"));
+    Bank particles = new Bank(reader.getSchemaFactory().getSchema("REC::Particle"));
     Event event = new Event();
 
     EventFilter filter = new EventFilter("11:2212:211:-211:Xn");
