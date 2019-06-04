@@ -100,7 +100,7 @@ for(String dataFile : dataFiles) {
     HipoReader reader = new HipoReader();
     reader.open(dataFile);
 
-    Bank particles = new Bank(reader.getSchemaFactory().getSchema("REC::Particle"));
+    Bank particles = new Bank(reader.getSchemaFactory().getSchema("REC::particle"));
     Event event = new Event();
 
     EventFilter filter = new EventFilter("11:2212:211:-211:Xn");
@@ -119,10 +119,9 @@ for(String dataFile : dataFiles) {
         nEvents++;
         if (nEvents % 10000 == 0) {
             System.out.println("done " + nEvents);
-            System.out.println("done " + nEvents);
         }
 
-        if (filter.isValid(physEvent)&&pid!=11) {
+        if (filter.isValid(physEvent)) {
             Particle mx_P = physEvent.getParticle("[b] + [t] - [11] - [2212]");
             //Particle im_PipPimgam = physEvent.getParticle("[211] + [-211] + [Xn]");
             Particle mx_PePipPim = physEvent.getParticle("[b] + [t] - [11] - [2212] - [211] - [-211]");
