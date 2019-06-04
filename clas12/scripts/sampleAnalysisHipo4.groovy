@@ -135,7 +135,7 @@ for(String dataFile : dataFiles) {
             hMP_PePipPim.fill(mx_PePipPim.p());
 
             if (Math.abs(mx_PePipPim.mass2()) < 0.01 && mx_PePipPim.p() > 0.1) {
-                hMxpUncut.fill(mx_P.mass());
+//                hMxpUncut.fill(mx_P.mass());
                 //himPipPimGamUncut.fill(im_PipPimgam.mass());
                 for (int i = 0; i < nNeutrals; i++) {
 //                    hcos.fill(mx_PePipPim.cosTheta(physEvent.getParticleByCharge(0, i)));
@@ -153,8 +153,11 @@ for(String dataFile : dataFiles) {
                     }
 
                 }
-                if (Math.abs(mx_P.mass() - pgam)<1.0 && bestCos > 0.99) {
-                    hCutMxp.fill(mx_P.mass());
+                if (Math.abs(mx_P.mass() - pgam)<1.0) {
+                    hMxpUncut.fill(mx_P.mass());
+                    if(bestCos > 0.99) {
+                        hCutMxp.fill(mx_P.mass());
+                    }
                     //himPipPimGamUncut.fill(im_PipPimgam.mass());
                     himPipPimGamUncut.fill(im_PipPimGam);
                 }
