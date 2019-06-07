@@ -14,7 +14,7 @@ List<String> dataFiles = FileFinder.getFilesFromSubdirs("/w/hallb-scifs17exp/cla
 EventFilter filter = new EventFilter("11:2212:211:-211:Xn");
 
 HipoWriter writer = new HipoWriter();
-writer.open("/w/hallb-scifs17exp/clas12/viducic/data/clas12/testDataFile_filtered.hipo");
+writer.open("/w/hallb-scifs17exp/clas12/viducic/data/clas12/testDataFile_filtered_1.hipo");
 
 
 for(String dataFile : dataFiles){
