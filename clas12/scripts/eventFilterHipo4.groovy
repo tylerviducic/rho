@@ -9,7 +9,7 @@ import org.jlab.jnp.reader.DataManager
 import org.jlab.jnp.utils.file.FileUtils
 
 
-List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/rg-a/production/recon/pass0/v5/mon/005030/*");
+List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/rg-a/production/recon/pass0/v5/mon/005031/*");
 
 EventFilter filter = new EventFilter("11:2212:211:-211:Xn");
 
@@ -22,7 +22,7 @@ for(String dataFile : dataFiles){
     Event event = new Event();
 
     HipoWriter writer = new HipoWriter(factory);
-    writer.open("/w/hallb-scifs17exp/clas12/viducic/data/clas12/run_005030_filtered.hipo");
+    writer.open("/w/hallb-scifs17exp/clas12/viducic/data/clas12/run_005031_filtered.hipo");
 
     while(reader.hasNext()){
         reader.nextEvent(event);
