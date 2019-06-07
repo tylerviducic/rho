@@ -9,7 +9,7 @@ import org.jlab.jnp.reader.DataManager
 import org.jlab.jnp.utils.file.FileUtils
 
 
-List<String> dataFiles = FileFinder.getFilesFromSubdirs("/w/hallb-scifs17exp/clas12/rg-a/production/recon/pass0/v5/mon/", "*");
+List<String> dataFiles = FileFinder.getFilesFromSubdirs("/w/hallb-scifs17exp/clas12/rg-a/production/recon/pass0/v5/mon", "*");
 
 EventFilter filter = new EventFilter("11:2212:211:-211:Xn");
 
