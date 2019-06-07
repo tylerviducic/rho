@@ -1,3 +1,5 @@
+import org.jlab.jnp.hipo4.data.Bank
+import org.jlab.jnp.hipo4.data.Event
 import org.jlab.jnp.hipo4.data.SchemaFactory
 import org.jlab.jnp.hipo4.io.HipoReader
 import org.jlab.jnp.hipo4.io.HipoWriter
@@ -16,7 +18,7 @@ for(String dataFile : dataFiles){
     reader.open(dataFile);
 
     SchemaFactory factory = reader.getSchemaFactory();
-    Bank particles = new Bank(factory.getSchema("REC::Particle"));
+    Bank particles = new Bank(reader.getSchemaFactory().getSchema("REC::Particle"));
     Event event = new Event();
 
     HipoWriter writer = new HipoWriter(factory);
