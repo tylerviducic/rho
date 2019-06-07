@@ -20,7 +20,7 @@ import org.jlab.jnp.utils.file.FileUtils
 //List<String> dataFiles = FileFinder.getFilesFromSubdirs("/w/hallb-scifs17exp/clas12/rg-a/production/recon/calib/v1/unfiltered/", "*.hipo");
 //List<String> dataFiles = FileFinder.getFilesFromSubdirs("/w/hallb-scifs17exp/clas12/rg-a/production/recon/pass0/v2/unfiltered/", "*.hipo");
 //List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/devita/ctofCalib/rec_*");
-List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/rg-a/trains/calibration/v4/skim4_inclusive/*.hipo");
+List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/rg-a/trains/v2/skim4_inclusive/*.hipo");
 
 
 H1F hMxpUncut = new H1F("hMxPUncut", 120, 0.4, 1.2);

@@ -1,8 +1,5 @@
 import org.jlab.groot.data.H1F
 import org.jlab.groot.data.TDirectory
-import org.jlab.groot.ui.TCanvas
-import org.jlab.groot.ui.TGCanvas
-import org.jlab.jnp.hipo.io.HipoWriter
 import org.jlab.jnp.hipo4.data.Bank
 import org.jlab.jnp.hipo4.data.Event
 import org.jlab.jnp.hipo4.io.HipoReader
