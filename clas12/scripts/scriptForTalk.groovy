@@ -9,13 +9,13 @@ import org.jlab.jnp.physics.PhysicsEvent
 import org.jlab.jnp.reader.DataManager
 import org.jlab.jnp.utils.file.FileUtils
 
-//String dataFile = "/work/clas12/devita/ctofCalib/rec_004013.hipo";
+//This line returns a list of files in a given directory matching the search pattern after the *.  In this case, it
+//returns all of the .hipo files in the skim4_inclusive directory
 List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/rg-a/trains/calibration/v4/skim4_inclusive/*.hipo");
 
-
-H1F hMxpUncut = new H1F("hMxPUncut", 120, 0.4, 1.2);
-hMxpUncut.setTitle("mx_P w/ |mx2_PePipPim| < 0.01 && mp_PePipPim > 0.1");
-hMxpUncut.setFillColor(43);
+//Here I declare all of my histograms that I will be using.  For this portion of the talk, I am only looking at
+//invariant mass of the two pions and the missing mass of the proton, so I only need two.
+//The histogram class has many methods associated with it. Shown here are "setTitle" and "setFillColor"
 
 H1F hCutMxp = new H1F("hCutMxp", 120, 0.4, 1.2);
 hCutMxp.setTitle("mx_P w/ cut|mx2_PePipPim| < 0.01 && mp_PePipPim > 0.1 && cosTheta > 0.99 && |mx_Pe - pgam| < 1.0");
@@ -25,57 +25,100 @@ H1F himPipPimGamUncut = new H1F("himPipPimGamUncut", 150, 0.4, 1.2);
 himPipPimGamUncut.setTitle("IM_PipPimXn");
 himPipPimGamUncut.setFillColor(42);
 
+//Here I set up a TDirectory that I can use to save the histograms that I make.  I personally prefer this to drawing
+//histograms on multiple canvases
 TDirectory dir = new TDirectory();
+
+//Within the TDirectory We can have sub directories.  For example, if I apply two different sets of cuts to the same
+//dataset, I can save them to different directories to keep them separate.
 dir.mkdir("/Plots");
 dir.cd("/Plots");
 dir.mkdir("/CutPlots");
 
 // Begin Analysis //
 
-double beamEnergy = 10.6
+//Declare the beam evergy in a variable. I am currently writing a class that can be used to return the beam energy as a
+//function of run number and hope to have that done soon for anyone who is working with multiple runs across varying
+//beam energies
+double beamEnergy = 10.6;
+
+//Start event counter because I'm impatient and like to know what my progress/file is
 int nEvents = 0;
 
+//Begid looping over the files that I collected in a list in line 1. Gagik hopes to include this functionality in the
+//software package soon with similar functionality to TChain
 for(String dataFile : dataFiles) {
+
+    //Declare the reader needed to open and read hipo files and read it.
     HipoReader reader = new HipoReader();
     reader.open(dataFile);
 
+    //Declare bank that we will reference using the reader.getSchemaFactory method.  This is physics analysis so we are
+    //only interested in "REC::Particle"
     Bank particles = new Bank(reader.getSchemaFactory().getSchema("REC::Particle"));
+
+    //Declare our event. This will be more clear in a second.
     Event event = new Event();
 
+    //Declare our eventFilter.  We are only interested in events with an electron, proton, pi+, and pi-, exclusive.
     EventFilter filter = new EventFilter("11:2212:211:-211");
 
+    //Update on how many files from our file list have been opened.
     println("done " + (dataFiles.indexOf(dataFile)+1) + " out of " + dataFiles.size() + " files");
 
+    //Loop over all events in the file
     while (reader.hasNext()) {
+
+        //Fill our empty event object using the reader.nextEvent method.  This is why we needed to declare it before
         reader.nextEvent(event);
+        //Fill the event with the information from the given bank, in this case "REC::Particle"
         event.read(particles);
 
+        //Use the DataManager class to extract physics events from the REC::Particle bank.
+        //PhysicsEvent is a very powerful class that I hope will be on display soon
         PhysicsEvent physEvent = DataManager.getPhysicsEvent(beamEnergy, particles);
 
+        //iterate the event counter and update on every 10000 events. Should probably change to a percentage counter but
+        //I'm lazy and it works well enough if you know how many events you have.
         nEvents++;
         if (nEvents % 10000 == 0) {
             System.out.println("done " + nEvents);
         }
 
+        //Here is the meat and potatoes of the code.  This is where the magic (physics) happens. In this example, that
+        //physics is kinda lame but it's just an example.
         if (filter.isValid(physEvent)) {
+
+            //Declare a particle.  This particle will be the beam + the target - the electron and proton and the
+            //pi+ + pi-
+            //This essentially returns a 4 vector for that quantity. so (b_E + t_E - e_E - p_E, b_px + e_px...etc
             Particle mx_P = physEvent.getParticle("[b] + [t] - [11] - [2212]");
             Particle im_PipPim = physEvent.getParticle("[211] + [-211]");
 
+            //I fill the missing mass histogram with the mass of that 4-vector, which is the missing mass of the proton
+            //and electron.  What we hope, in this case, is that we see a rho resonance peak at 770 MeV/c
             hMxpUncut.fill(mx_P.mass());
+            //Same here but with the 4-vector of the two pions.  We hope to see a rho.
             himPipPimGamUncut.fill(im_PipPim.mass());
 
         }
     }
 
+    //Close the reader. Clean code or something.
     reader.close();
 }
 
+//Now we must add our histograms to our TDirectory
 dir.addDataSet(hMxpUncut);
 
+//To switch between directories, we use the TDirectory.cd() method.
 dir.cd("/CutPlots");
 dir.addDataSet(himPipPimGamUncut);
 
+//Now that we have our histograms in the TDirectory, we must write the directory to a file.
 dir.writeFile("/work/clas12/viducic/rho/clas12/sampleRhoAnalysis_PipPim_0.hipo");
+
+//Tells me when the code has finished executing.
 println("done");
 
 
