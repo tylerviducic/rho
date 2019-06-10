@@ -14,7 +14,7 @@ List<String> dataFiles = FileFinder.getFilesFromSubdirs("/w/hallb-scifs17exp/cla
 EventFilter filter = new EventFilter("11:2212:211:-211:Xn");
 
 HipoReader firstReader = new HipoReader();
-
+firstReader.open(dataFiles[1]);
 HipoWriter writer = new HipoWriter(firstReader.getSchemaFactory().getSchema("REC::Particle"));
 firstReader.close();
 
