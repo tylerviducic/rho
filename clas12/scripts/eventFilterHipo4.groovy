@@ -13,7 +13,11 @@ List<String> dataFiles = FileFinder.getFilesFromSubdirs("/w/hallb-scifs17exp/cla
 
 EventFilter filter = new EventFilter("11:2212:211:-211:Xn");
 
-HipoWriter writer = new HipoWriter();
+HipoReader firstReader = new HipoReader();
+
+HipoWriter writer = new HipoWriter(firstReader.getSchemaFactory().getSchema("REC::Particle"));
+firstReader.close();
+
 writer.open("/w/hallb-scifs17exp/clas12/viducic/data/clas12/testDataFile_filtered_1.hipo");
 
 
@@ -21,7 +25,6 @@ for(String dataFile : dataFiles){
     HipoReader reader = new HipoReader();
     reader.open(dataFile);
 
-    writer.getSchemaFactory().getSchema("REC::Particle")
     Bank particles = new Bank(reader.getSchemaFactory().getSchema("REC::Particle"));
     Event event = new Event();
 
