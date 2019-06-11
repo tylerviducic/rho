@@ -110,7 +110,7 @@ for(String dataFile : dataFiles) {
 }
 
 //Now we must add our histograms to our TDirectory
-dir.addDataSet(hMxpUncut);
+dir.addDataSet(hCutMxp);
 
 //To switch between directories, we use the TDirectory.cd() method.
 dir.cd("/CutPlots");
