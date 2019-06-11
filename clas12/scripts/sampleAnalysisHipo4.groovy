@@ -17,7 +17,7 @@ import java.util.Map;
 //String dataFile = "/work/clas12/devita/ctofCalib/rec_004013.hipo";
 
 //List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/rg-a/trains/v2/skim4_inclusive/*");
-List <String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/viducic/data/clas12/testDataFile_filtered_1.hipo");
+List <String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/viducic/data/clas12/testDataFile_filtered_skimmed_0.hipo");
 
 
 
@@ -42,45 +42,6 @@ himPipPimGamUncut.setFillColor(43);
 H1F hcos = new H1F("hcos", 20, 0.99, 1);
 hcos.setTitle("hcos");
 
-//TGCanvas c = new TGCanvas("c", "myCanvas", 500, 600);
-
-
-//TCanvas c1 = new TCanvas("c1", 500, 600);
-//TCanvas c2 = new TCanvas("c2", 500, 600);
-//TCanvas c3 = new TCanvas("c3", 500, 600);
-//TCanvas c4 = new TCanvas("c4", 500, 600);
-//TCanvas c5 = new TCanvas("c5", 500, 600);
-//TCanvas c6 = new TCanvas("c6", 500, 600);
-
-//c.addCanvas("c1").addCanvas("c2").addCanvas("c3");
-//c.setCanvas("c1");
-//c.getCanvas().initTimer(1000);
-//c.setCanvas("c2");
-//c.getCanvas().initTimer(1000);
-//c.setCanvas("c3");
-//c.getCanvas().initTimer(1000);
-
-//c1.getCanvas().initTimer(1000);
-//c2.getCanvas().initTimer(1000);
-//c3.getCanvas().initTimer(1000);
-//c4.getCanvas().initTimer(1000);
-//c5.getCanvas().initTimer(1000);
-//c6.getCanvas().initTimer(1000);
-
-//c.setCanvas("c1");
-//c.draw(hMxpUncut);
-//c.setCanvas("c2");
-//c.draw(hMxpcut);
-//c.setCanvas("c3");
-//c.draw(hMx2_PePipPim);
-
-//c1.draw(hMxpUncut);
-//c2.draw(hMxpcut);
-//c3.draw(hMx2_PePipPim);
-//c4.draw(hMP_PePipPim);
-//c5.draw(himPipPimGamUncut);
-//c6.draw(hcos);
-
 TDirectory dir = new TDirectory();
 dir.mkdir("/Plots");
 dir.cd("/Plots");
@@ -90,9 +51,6 @@ dir.mkdir("/CutPlots");
 
 double beamEnergy = 10.6
 int nEvents = 0;
-
-//HipoWriter writer = new HipoWriter();
-//writer.open("/work/clas12/viducic/data/run_005036");
 
 for(String dataFile : dataFiles) {
     HipoReader reader = new HipoReader();
@@ -119,9 +77,8 @@ for(String dataFile : dataFiles) {
             System.out.println("done " + nEvents);
         }
 
-        if (filter.isValid(physEvent)) {
+        if (filter.isValid(physEvent) && pid != 11) {
             Particle mx_P = physEvent.getParticle("[b] + [t] - [11] - [2212]");
-            //Particle im_PipPimgam = physEvent.getParticle("[211] + [-211] + [Xn]");
             Particle mx_PePipPim = physEvent.getParticle("[b] + [t] - [11] - [2212] - [211] - [-211]");
 
             int nNeutrals = physEvent.countByCharge(0);
@@ -133,14 +90,7 @@ for(String dataFile : dataFiles) {
             hMP_PePipPim.fill(mx_PePipPim.p());
 
             if (Math.abs(mx_PePipPim.mass2()) < 0.01 && mx_PePipPim.p() > 0.1) {
-//                hMxpUncut.fill(mx_P.mass());
-                //himPipPimGamUncut.fill(im_PipPimgam.mass());
                 for (int i = 0; i < nNeutrals; i++) {
-//                    hcos.fill(mx_PePipPim.cosTheta(physEvent.getParticleByCharge(0, i)));
-//                    if (mx_PePipPim.cosTheta(physEvent.getParticleByCharge(0, i)) > 0.99) {
-//                        isClose = true;
-//                        //im_PipPimgam.combine(physEvent.getParticleByCharge(0,i),0);
-//                    }
                     Particle gam = physEvent.getParticleByCharge(0, i);
                     if (mx_PePipPim.cosTheta(gam) > bestCos){
                         bestCos = mx_PePipPim.cosTheta(gam);
@@ -156,11 +106,9 @@ for(String dataFile : dataFiles) {
                     if(bestCos > 0.99) {
                         hCutMxp.fill(mx_P.mass());
                     }
-                    //himPipPimGamUncut.fill(im_PipPimgam.mass());
                     himPipPimGamUncut.fill(im_PipPimGam);
                 }
             }
-            //writer.writeEvent(event);
         }
     }
 
