@@ -88,7 +88,7 @@ for(String dataFile : dataFiles) {
             System.out.println("done " + nEvents);
         }
 
-        if (filter.isValid(physEvent) && pid == !11) {
+        if (filter.isValid(physEvent) && pid != 11) {
             Particle mx_P = physEvent.getParticle("[b] + [t] - [11] - [2212]");
             Particle mx_PePipPim = physEvent.getParticle("[b] + [t] - [11] - [2212] - [211] - [-211]");
 

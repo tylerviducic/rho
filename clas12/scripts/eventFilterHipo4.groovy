@@ -14,7 +14,7 @@ List<String> dataFiles = FileFinder.getFilesFromSubdirs("/w/hallb-scifs17exp/cla
 
 //Declare an event filter using lundPID.
 //In this case, 11(e), 2212(p), 211(pi+), -211(pi-), Xn(any other neutrals)
-EventFilter filter = new EventFilter("11:2212:211:-211:Xn");
+EventFilter filter = new EventFilter("11:2212:211:-211:Xn:X+:X-");
 
 //Here I skim ~60 runs and write them to a single file. In order to do that, the writer must be declared
 //outside of the event loop.  This shows how to do it.  It must have the same SchemaFactory as the the input files
