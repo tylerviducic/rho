@@ -97,10 +97,11 @@ for(String dataFile : dataFiles) {
             Particle im_PipPim = physEvent.getParticle("[211] + [-211] + [22]");
             Particle mx_PePipPim = physEvent.getParticle("[b] + [t] - [11] - [2212] - [211] - [-211]");
             Particle mx_PePipPimGam = physEvent.getParticle("[b] + [t] - [11] - [2212] - [211] - [-211] - [22]");
+            Particle gam = physEvent.getParticle("[22]");
 
             //I fill the missing mass histogram with the mass of that 4-vector, which is the missing mass of the proton
             //and electron.  What we hope, in this case, is that we see a rho resonance peak at 770 MeV/c
-            if (Math.abs(mx_PePipPim.mass2()) < 0.01 && mx_PePipPimGam.mass2() < 0.008 && mx_PePipPim.e() > 0.1) {
+            if (Math.abs(mx_PePipPim.mass2()) < 0.01 && mx_PePipPim.e() > 0.1 && gam.p() > 0.1) {
                 hCutMxp.fill(mx_P.mass());
             }
             //Same here but with the 4-vector of the two pions.  We hope to see a rho.
