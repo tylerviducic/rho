@@ -147,19 +147,23 @@ for(String dataFile : dataFiles) {
 
                 }
                 //if (Math.abs(mx_P.mass() - pgam)<1.0) {
-                    hMxpUncut.fill(mx_P.mass());
-                    if(bestCos > 0.99) {
-                        hCutMxp.fill(mx_P.mass());
-                    }
+                //For comparison's sake, I fill a histogram with the missing mass of the pe system without any cuts on
+                //cos theta
+                hMxpUncut.fill(mx_P.mass());
+                //Then I fill the invariant mass histogram and missing mass histogram is the best costheta was > .99
+                if(bestCos > 0.99) {
+                    hCutMxp.fill(mx_P.mass());
                     himPipPimGamUncut.fill(im_PipPimGam);
+                }
                 //}
             }
         }
     }
-
+    //close the reader
     reader.close();
 }
 
+//here we add out histograms to the subdirectories in our Tdirectory we want them in
 dir.addDataSet(hMx2_PePipPim);
 dir.addDataSet(hMxpUncut);
 dir.addDataSet(hMP_PePipPim);
@@ -168,10 +172,13 @@ dir.cd("/CutPlots");
 dir.addDataSet(hCutMxp);
 dir.addDataSet(himPipPimGamUncut);
 
+
+//Very important step.  Be sure to actually write your directory to a file, or else it's useless
 dir.writeFile("/work/clas12/viducic/rho/clas12/sampleRhoAnalysis_0.hipo");
+//Tell me the script is finishes executing
 println("done");
 
-
+////////////////////////// FIN //////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
