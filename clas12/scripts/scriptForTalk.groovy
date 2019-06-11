@@ -45,8 +45,8 @@ double beamEnergy = 10.6;
 //Start event counter because I'm impatient and like to know what my progress/file is
 int nEvents = 0;
 
-//Begid looping over the files that I collected in a list in line 1. Gagik hopes to include this functionality in the
-//software package soon with similar functionality to TChain
+//Begin looping over the files that I collected in a list in line 1. Gagik hopes to include this functionality in the
+//software package soon with similar functionality to TChain in ROOT
 for(String dataFile : dataFiles) {
 
     //Declare the reader needed to open and read hipo files and read it.
