@@ -8,37 +8,54 @@ import org.jlab.jnp.physics.PhysicsEvent
 import org.jlab.jnp.reader.DataManager
 import org.jlab.jnp.utils.file.FileUtils
 
-
+//Get list of files from subdirectories.  Class to be implemented in the main software package soon. If this functionality
+//is useful for you, let me know and I will send you the FileFinder class
 List<String> dataFiles = FileFinder.getFilesFromSubdirs("/w/hallb-scifs17exp/clas12/rg-a/production/recon/pass0/v5/mon", "*");
 
+//Declare an event filter using lundPID.
+//In this case, 11(e), 2212(p), 211(pi+), -211(pi-), Xn(any other neutrals)
 EventFilter filter = new EventFilter("11:2212:211:-211:Xn");
 
+//Here I skim ~60 runs and write them to a single file. In order to do that, the writer must be declared
+//outside of the event loop.  This shows how to do it.  It must have the same SchemaFactory as the the input files
+//So below is how to set it up properly
+//Open first file in file list and declare a writer with the schema factory that the reader returns. Close that reader.
 HipoReader firstReader = new HipoReader();
 firstReader.open(dataFiles[0]);
 HipoWriter writer = new HipoWriter(firstReader.getSchemaFactory());
 firstReader.close();
 
+//Open file you want to write to.  It will overwrite if the file already exists
 writer.open("/w/hallb-scifs17exp/clas12/viducic/data/clas12/testDataFile_filtered_1.hipo");
 
-
+//Begin looping over the files in our datafile list
 for(String dataFile : dataFiles){
+    //Open a hipowriter to open and read the datafile.  !!This is NOT the same reader we used before!!
     HipoReader reader = new HipoReader();
     reader.open(dataFile);
 
+    //The new hipo4 format makes use of the Bank class and an empty Event to read the information in from the file.
+    //Hopefully this makes sense in a few lines
     Bank particles = new Bank(reader.getSchemaFactory().getSchema("REC::Particle"));
     Event event = new Event();
 
+    //Loop over events in the data file and fill the event/bank
     while(reader.hasNext()){
+        //This fills our empty event object with the event
         reader.nextEvent(event);
+        //this gets the relevant bank information and fills it
         event.read(particles);
 
+        //Construct a physics event. We will look at how powerful this class is a little later
         PhysicsEvent physEvent = DataManager.getPhysicsEvent(10.6, particles);
 
+        //If the physics event passes the filter, write it to a file
         if(filter.isValid(physEvent)){
             writer.addEvent(event);
         }
     }
 }
+//Close the writer
 writer.close();
 
 

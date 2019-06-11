@@ -16,11 +16,13 @@ import java.util.Map;
 
 //String dataFile = "/work/clas12/devita/ctofCalib/rec_004013.hipo";
 
+//Same as before, get a list of files in a directory that matches a search pattern.  If you want this Class, ask me :)
 //List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/rg-a/trains/v2/skim4_inclusive/*");
 List <String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/viducic/data/clas12/testDataFile_filtered_skimmed_0.hipo");
 
 
-
+//Step one is declaring histograms.  The histogram class in the JAVA framework is robust with a lot of familiar function
+//Here we see the constructor and setTitle/setFillColor methods but there are many more
 H1F hMxpUncut = new H1F("hMxPUncut", 120, 0.4, 1.2);
 hMxpUncut.setTitle("mx_P w/ |mx2_PePipPim| < 0.01 && mp_PePipPim > 0.1");
 hMxpUncut.setFillColor(43);
@@ -39,20 +41,29 @@ H1F himPipPimGamUncut = new H1F("himPipPimGamUncut", 150, 0.4, 1.2);
 himPipPimGamUncut.setTitle("IM_PipPimXn");
 himPipPimGamUncut.setFillColor(43);
 
-H1F hcos = new H1F("hcos", 20, 0.99, 1);
-hcos.setTitle("hcos");
-
+//I personally don't like to write draw plots to my screen unless I am debugging.  I prefer to save the histograms I make
+//to a TDirectory.  A TDirectory can be opened with a TBrowser, just like in ROOT.
+//Below i initiate a TDirectory and add some sub directories.  One for the plots I am going to show and one for the cuts
+//I am going to make
 TDirectory dir = new TDirectory();
+//above the directory is initiated, below the subdir is initiated
 dir.mkdir("/Plots");
+//Just like in a terminal, you must cd into the directory you want to work with - TDirectory.cd(String dirName)
 dir.cd("/Plots");
 dir.mkdir("/CutPlots");
 
 // Begin Analysis //
 
+//Declare the beam energy and event counter.  Two things I am working on is a class that takes run number as an argument
+//and returns the beam energy.  This is be very useful for people using the entire spread of RGA runs as it covers
+//several beam energies.
+//I am also working on a little visual progress bar. Like "[====>   ] x% done" or something along those lines.
 double beamEnergy = 10.6
 int nEvents = 0;
 
+//Loop over files in list, same as before
 for(String dataFile : dataFiles) {
+    //decalre reader and open current file
     HipoReader reader = new HipoReader();
     reader.open(dataFile);
 
@@ -77,7 +88,7 @@ for(String dataFile : dataFiles) {
             System.out.println("done " + nEvents);
         }
 
-        if (filter.isValid(physEvent) && pid == 11) {
+        if (filter.isValid(physEvent) && pid == !11) {
             Particle mx_P = physEvent.getParticle("[b] + [t] - [11] - [2212]");
             Particle mx_PePipPim = physEvent.getParticle("[b] + [t] - [11] - [2212] - [211] - [-211]");
 
@@ -117,7 +128,6 @@ for(String dataFile : dataFiles) {
 
 dir.addDataSet(hMx2_PePipPim);
 dir.addDataSet(hMxpUncut);
-dir.addDataSet(hcos);
 dir.addDataSet(hMP_PePipPim);
 
 dir.cd("/CutPlots");
