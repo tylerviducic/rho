@@ -101,7 +101,7 @@ for(String dataFile : dataFiles) {
 
             //I fill the missing mass histogram with the mass of that 4-vector, which is the missing mass of the proton
             //and electron.  What we hope, in this case, is that we see a rho resonance peak at 770 MeV/c
-            if (Math.abs(mx_PePipPim.mass2()) < 0.01 && mx_PePipPim.e() > 0.1 && gam.p() > 0.1) {
+            if (Math.abs(mx_PePipPim.mass2()) < 0.01 && mx_PePipPim.e() > 0.1) {
                 hCutMxp.fill(mx_P.mass());
             }
             //Same here but with the 4-vector of the two pions.  We hope to see a rho.
