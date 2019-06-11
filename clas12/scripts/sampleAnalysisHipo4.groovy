@@ -14,6 +14,8 @@ import org.jlab.jnp.utils.file.FileUtils
 import java.util.HashMap;
 import java.util.Map;
 
+//X+:X- e theta < 8
+//pPipPim theta < 40
 //String dataFile = "/work/clas12/devita/ctofCalib/rec_004013.hipo";
 
 //Same as before, get a list of files in a directory that matches a search pattern.  If you want this Class, ask me :)
@@ -88,7 +90,7 @@ for(String dataFile : dataFiles) {
             System.out.println("done " + nEvents);
         }
 
-        if (filter.isValid(physEvent) && pid != 11) {
+        if (filter.isValid(physEvent)) {
             Particle mx_P = physEvent.getParticle("[b] + [t] - [11] - [2212]");
             Particle mx_PePipPim = physEvent.getParticle("[b] + [t] - [11] - [2212] - [211] - [-211]");
 
@@ -99,6 +101,8 @@ for(String dataFile : dataFiles) {
 
             hMx2_PePipPim.fill(mx_PePipPim.mass2());
             hMP_PePipPim.fill(mx_PePipPim.p());
+
+            //try best match method
 
             if (Math.abs(mx_PePipPim.mass2()) < 0.01 && mx_PePipPim.p() > 0.1) {
                 for (int i = 0; i < nNeutrals; i++) {
