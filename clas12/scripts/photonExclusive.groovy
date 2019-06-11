@@ -19,7 +19,7 @@ List <String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/viduci
 //The histogram class has many methods associated with it. Shown here are "setTitle" and "setFillColor"
 
 H1F hCutMxp = new H1F("hCutMxp", 120, 0.4, 1.2);
-hCutMxp.setTitle("mx_P w/ cut|mx2_PePipPim| < 0.01 && mp_PePipPim > 0.1 && cosTheta > 0.99 && |mx_Pe - pgam| < 1.0");
+hCutMxp.setTitle("mx_P w/ cut|mx2_PePipPimGam| < 0.01 && mp_PePipPim > 0.1");
 hCutMxp.setFillColor(44);
 
 H1F himPipPimGamUncut = new H1F("himPipPimGamUncut", 150, 0.4, 1.2);
