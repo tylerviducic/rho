@@ -28,11 +28,16 @@ firstReader.close();
 //Open file you want to write to.  It will overwrite if the file already exists
 writer.open("/w/hallb-scifs17exp/clas12/viducic/data/clas12/testDataFile_filtered_2.hipo");
 
+int numFile = 0;
+
 //Begin looping over the files in our datafile list
 for(String dataFile : dataFiles){
     //Open a hipowriter to open and read the datafile.  !!This is NOT the same reader we used before!!
     HipoReader reader = new HipoReader();
     reader.open(dataFile);
+
+    numFile++;
+    println("done " + numFile + "out of " + dataFiles.size());
 
     //The new hipo4 format makes use of the Bank class and an empty Event to read the information in from the file.
     //Hopefully this makes sense in a few lines

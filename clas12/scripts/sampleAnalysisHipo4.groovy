@@ -69,31 +69,43 @@ for(String dataFile : dataFiles) {
     HipoReader reader = new HipoReader();
     reader.open(dataFile);
 
+    //Same as before, define bank and event for reader to fill
     Bank particles = new Bank(reader.getSchemaFactory().getSchema("REC::Particle"));
     Event event = new Event();
 
+    //Filter is probably redundant but it's here anyway. w/e
     EventFilter filter = new EventFilter("11:2212:211:-211:Xn");
 
+    //Update on how many files have been done so far
     println("done " + (dataFiles.indexOf(dataFile)+1) + " out of " + dataFiles.size() + " files");
 
+    //Event loop
     while (reader.hasNext()) {
         reader.nextEvent(event);
         event.read(particles);
 
-        boolean isClose = false;
-
+        //Initiate physics event like before.  We will see how it is used shortly
         PhysicsEvent physEvent = DataManager.getPhysicsEvent(beamEnergy, particles);
+        //Figure out whether electron is in first row. Useful to see difference when it is and isn't
         int pid = particles.getInt("pid",0);
 
+        //Poor-mans progress bar
         nEvents++;
         if (nEvents % 10000 == 0) {
             System.out.println("done " + nEvents);
         }
 
+        //Time to do some physics if an event passes our filter
+        //Spoiler alert, they all will.
         if (filter.isValid(physEvent)) {
+
+            //Define quantities I will use.
+            //The two below are missing mass of the proton and electron and the missing "particle" of proton, electron,
+            //pi+, pi-
             Particle mx_P = physEvent.getParticle("[b] + [t] - [11] - [2212]");
             Particle mx_PePipPim = physEvent.getParticle("[b] + [t] - [11] - [2212] - [211] - [-211]");
 
+            //Becuase I am trying to find
             int nNeutrals = physEvent.countByCharge(0);
             double bestCos = -2.0;
             double pgam;
