@@ -37,7 +37,7 @@ for(String dataFile : dataFiles){
     reader.open(dataFile);
 
     numFile++;
-    println("done " + numFile + "out of " + dataFiles.size());
+    println("done " + numFile + " out of " + dataFiles.size());
 
     //The new hipo4 format makes use of the Bank class and an empty Event to read the information in from the file.
     //Hopefully this makes sense in a few lines

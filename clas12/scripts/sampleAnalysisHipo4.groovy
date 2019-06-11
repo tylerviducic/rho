@@ -99,42 +99,60 @@ for(String dataFile : dataFiles) {
         //Spoiler alert, they all will.
         if (filter.isValid(physEvent)) {
 
-            //Define quantities I will use.
+            //Define the "Particles" I will use.  These are basically lorentz vectors with a vertex and other quantities
             //The two below are missing mass of the proton and electron and the missing "particle" of proton, electron,
             //pi+, pi-
             Particle mx_P = physEvent.getParticle("[b] + [t] - [11] - [2212]");
             Particle mx_PePipPim = physEvent.getParticle("[b] + [t] - [11] - [2212] - [211] - [-211]");
 
-            //Becuase I am trying to find
+            //fill histograms with the missing mass squared of pepi+pi- to find a 2 sigma cut around zero. If the mm2 is
+            //close to zero and the missing momentum of pepi+pi- is >0, it could be a photon event.
+            hMx2_PePipPim.fill(mx_PePipPim.mass2());
+            hMP_PePipPim.fill(mx_PePipPim.p());
+
+            //Because I am skimming for events semi-inclusively, I need to identify which particles could be photons
+            //In order to do this, I loop over all the neutral events in an event and test the angle between the neutral
+            //and the missing mass of the pepi+pi-.
+            //here I declare the variables I'll need to do this testing.  We can see another use of PhysicsEvent below
             int nNeutrals = physEvent.countByCharge(0);
             double bestCos = -2.0;
             double pgam;
             double im_PipPimGam;
 
-            hMx2_PePipPim.fill(mx_PePipPim.mass2());
-            hMP_PePipPim.fill(mx_PePipPim.p());
-
             //try best match method
 
+            //Here is where we do the actual testing. Our first cuts are on the missing momentum and mass2 of pepi+pi-
+            //if the missing mass2 of pepi+pi- is < 0.01 and > -0.01, and the missing momentum is > 0.1, the neutral loop
+            //executes
             if (Math.abs(mx_PePipPim.mass2()) < 0.01 && mx_PePipPim.p() > 0.1) {
+                //here i loop over the neutral particles.  I define a particle gam.  I test the angle between this
+                //particle and the missing vector, like i said before
                 for (int i = 0; i < nNeutrals; i++) {
                     Particle gam = physEvent.getParticleByCharge(0, i);
+                    //The Particle class has a cosTheta method that returns the cos of the angle between two particles
+                    //we keep track of the best cosTheta
                     if (mx_PePipPim.cosTheta(gam) > bestCos){
+                        //if we find a particle with a better costheta, we store all the information from that particle
+                        //such as the costheta, momentum of the neutral and the invariant mass of the pi+pi-neutral
                         bestCos = mx_PePipPim.cosTheta(gam);
                         pgam = gam.p()
                         Particle im_ppg = physEvent.getParticle("[211] + [-211]");
+                        //Here I declare a particle of pi+ pi- and i combine it with the gam particle if it has a better
+                        //costheta.  I store the invariant mass in a variable becuase this Particle is not initialized
+                        //outside of the loop. For people new to programming, if you define an object inside of a loop,
+                        //you cannot use it outside of that loop in Java (python can.)
                         im_ppg.combine(gam, 0);
                         im_PipPimGam = im_ppg.mass();
                     }
 
                 }
-                if (Math.abs(mx_P.mass() - pgam)<1.0) {
+                //if (Math.abs(mx_P.mass() - pgam)<1.0) {
                     hMxpUncut.fill(mx_P.mass());
                     if(bestCos > 0.97) {
                         hCutMxp.fill(mx_P.mass());
                     }
                     himPipPimGamUncut.fill(im_PipPimGam);
-                }
+                //}
             }
         }
     }
