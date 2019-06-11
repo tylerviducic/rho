@@ -28,7 +28,6 @@ for(String dataFile : dataFiles){
     Bank particles = new Bank(reader.getSchemaFactory().getSchema("REC::Particle"));
     Event event = new Event();
 
-
     while(reader.hasNext()){
         reader.nextEvent(event);
         event.read(particles);

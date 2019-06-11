@@ -11,7 +11,8 @@ import org.jlab.jnp.utils.file.FileUtils
 
 //This line returns a list of files in a given directory matching the search pattern after the *.  In this case, it
 //returns all of the .hipo files in the skim4_inclusive directory
-List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/rg-a/trains/calibration/v4/skim4_inclusive/*.hipo");
+//List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/rg-a/trains/calibration/v4/skim4_inclusive/*.hipo");
+List <String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/viducic/data/clas12/testDataFile_filtered_skimmed_0.hipo");
 
 //Here I declare all of my histograms that I will be using.  For this portion of the talk, I am only looking at
 //invariant mass of the two pions and the missing mass of the proton, so I only need two.
@@ -60,8 +61,8 @@ for(String dataFile : dataFiles) {
     //Declare our event. This will be more clear in a second.
     Event event = new Event();
 
-    //Declare our eventFilter.  We are only interested in events with an electron, proton, pi+, and pi-, exclusive.
-    EventFilter filter = new EventFilter("11:2212:211:-211");
+    //Declare our eventFilter.  We are only interested in events with an electron, proton, pi+, and pi- exclusive.
+    EventFilter filter = new EventFilter("11:2212:211:-211:22");
 
     //Update on how many files from our file list have been opened.
     println("done " + (dataFiles.indexOf(dataFile)+1) + " out of " + dataFiles.size() + " files");
@@ -93,7 +94,7 @@ for(String dataFile : dataFiles) {
             //pi+ + pi-
             //This essentially returns a 4 vector for that quantity. so (b_E + t_E - e_E - p_E, b_px + e_px...etc
             Particle mx_P = physEvent.getParticle("[b] + [t] - [11] - [2212]");
-            Particle im_PipPim = physEvent.getParticle("[211] + [-211]");
+            Particle im_PipPim = physEvent.getParticle("[211] + [-211] + [22]");
 
             //I fill the missing mass histogram with the mass of that 4-vector, which is the missing mass of the proton
             //and electron.  What we hope, in this case, is that we see a rho resonance peak at 770 MeV/c
