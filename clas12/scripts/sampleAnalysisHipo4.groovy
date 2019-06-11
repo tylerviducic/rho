@@ -103,7 +103,7 @@ for(String dataFile : dataFiles) {
                 }
                 if (Math.abs(mx_P.mass() - pgam)<1.0) {
                     hMxpUncut.fill(mx_P.mass());
-                    if(bestCos > 0.99) {
+                    if(bestCos > 0.97) {
                         hCutMxp.fill(mx_P.mass());
                     }
                     himPipPimGamUncut.fill(im_PipPimGam);
