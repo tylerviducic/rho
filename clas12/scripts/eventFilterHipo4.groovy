@@ -10,8 +10,8 @@ import org.jlab.jnp.utils.file.FileUtils
 
 //Get list of files from subdirectories.  Class to be implemented in the main software package soon. If this functionality
 //is useful for you, let me know and I will send you the FileFinder class
-List<String> dataFiles = FileFinder.getFilesFromSubdirs("/w/hallb-scifs17exp/clas12/rg-a/production/recon/pass0/v5/mon", "*");
-
+//List<String> dataFiles = FileFinder.getFilesFromSubdirs("/w/hallb-scifs17exp/clas12/rg-a/production/recon/pass0/v5/mon", "*");
+List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/jnp/dataspace/rec_004013_FULL.hipo");
 //Declare an event filter using lundPID.
 //In this case, 11(e), 2212(p), 211(pi+), -211(pi-), Xn(any other neutrals)
 EventFilter filter = new EventFilter("11:2212:211:-211:Xn:X+:X-");

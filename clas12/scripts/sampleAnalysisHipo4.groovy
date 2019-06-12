@@ -10,6 +10,7 @@ import org.jlab.jnp.physics.EventFilter
 import org.jlab.jnp.physics.Particle
 import org.jlab.jnp.physics.PhysicsEvent
 import org.jlab.jnp.reader.DataManager
+import org.jlab.jnp.utils.benchmark.ProgressPrintout
 import org.jlab.jnp.utils.file.FileUtils
 import java.util.HashMap;
 import java.util.Map;
@@ -61,6 +62,7 @@ dir.mkdir("/Plots");
 //I am also working on a little visual progress bar. Like "[====>   ] x% done" or something along those lines.
 double beamEnergy = 10.6
 int nEvents = 0;
+ProgressPrintout progress = new ProgressPrintout();
 
 //Loop over files in list, same as before
 for(String dataFile : dataFiles) {
@@ -82,7 +84,7 @@ for(String dataFile : dataFiles) {
     while (reader.hasNext()) {
         reader.nextEvent(event);
         event.read(particles);
-
+        progress.updateStatus();
         //Initiate physics event like before.  We will see how it is used shortly
         PhysicsEvent physEvent = DataManager.getPhysicsEvent(beamEnergy, particles);
         //Figure out whether electron is in first row. Useful to see difference when it is and isn't
@@ -140,6 +142,8 @@ for(String dataFile : dataFiles) {
                         //costheta.  I store the invariant mass in a variable becuase this Particle is not initialized
                         //outside of the loop. For people new to programming, if you define an object inside of a loop,
                         //you cannot use it outside of that loop in Java (python can.)
+                        //Particle gamma = new Particle();
+                        //gamma.copy(gam);
                         im_ppg.combine(gam, 0);
                         im_PipPimGam = im_ppg.mass();
                     }
