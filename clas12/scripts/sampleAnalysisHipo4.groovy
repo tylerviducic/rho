@@ -73,7 +73,7 @@ for(String dataFile : dataFiles) {
     Event event = new Event();
 
     //Filter is probably redundant but it's here anyway. w/e
-    EventFilter filter = new EventFilter("11:2212:211:-211:Xn");
+    EventFilter filter = new EventFilter("11:2212:211:-211:Xn:X+:X-");
 
     //Update on how many files have been done so far
     println("done " + (dataFiles.indexOf(dataFile)+1) + " out of " + dataFiles.size() + " files");
