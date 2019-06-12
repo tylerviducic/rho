@@ -96,7 +96,7 @@ for (String dataFile : dataFiles) {
         }
 
         //Time to do some physics if an event passes our filter
-        //Spoiler alert, they all will.
+        //also require electron in forward tagger becuasuse then our meson event will be in the FD, not the CD
         if (filter.isValid(physEvent) && pid!= 11) {
 
             //Define the "Particles" I will use.  These are basically lorentz vectors with a vertex and other quantities
@@ -124,8 +124,7 @@ for (String dataFile : dataFiles) {
             //Here is where we do the actual testing. Our first cuts are on the missing momentum and mass2 of pepi+pi-
             //if the missing mass2 of pepi+pi- is < 0.01 and > -0.01, and the missing momentum is > 0.1, the neutral loop
             //executes
-            //if (Math.abs(mx_PePipPim.mass2()) < 0.01 && mx_PePipPim.p() > 0.1) {
-            if(mx_PePipPim.mass2() > -0.01 && mx_PePipPim.mass2() < 0.005 && mx_PePipPim.p() > 0.2){
+            if (Math.abs(mx_PePipPim.mass2()) < 0.01 && mx_PePipPim.p() > 0.1) {
                 //here i loop over the neutral particles.  I define a particle gam.  I test the angle between this
                 //particle and the missing vector, like i said before
                 for (int i = 0; i < nNeutrals; i++) {
@@ -149,11 +148,10 @@ for (String dataFile : dataFiles) {
                     }
 
                 }
-            hMxpUncut.fill(mx_P.mass());
             if (Math.abs(mx_P.mass() - pgam) < 1.0) {
                     //For comparison's sake, I fill a histogram with the missing mass of the pe system without any cuts on
                     //cos theta
-                    //hMxpUncut.fill(mx_P.mass());
+                    hMxpUncut.fill(mx_P.mass());
                     //Then I fill the invariant mass histogram and missing mass histogram is the best costheta was > .99
                     if (bestCos > 0.99) {
                         hCutMxp.fill(mx_P.mass());
