@@ -20,8 +20,7 @@ import java.util.Map;
 
 //Same as before, get a list of files in a directory that matches a search pattern.  If you want this Class, ask me :)
 //List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/rg-a/trains/v2/skim4_inclusive/*");
-List <String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/viducic/data/clas12/testDataFile_filtered_skimmed_3.hipo");
-
+List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/viducic/data/clas12/testDataFile_filtered_skimmed_3.hipo");
 
 //Step one is declaring histograms.  The histogram class in the JAVA framework is robust with a lot of familiar function
 //Here we see the constructor and setTitle/setFillColor methods but there are many more
@@ -65,7 +64,7 @@ int nEvents = 0;
 ProgressPrintout progress = new ProgressPrintout();
 
 //Loop over files in list, same as before
-for(String dataFile : dataFiles) {
+for (String dataFile : dataFiles) {
     //decalre reader and open current file
     HipoReader reader = new HipoReader();
     reader.open(dataFile);
@@ -78,7 +77,7 @@ for(String dataFile : dataFiles) {
     EventFilter filter = new EventFilter("11:2212:211:-211:Xn:X+:X-");
 
     //Update on how many files have been done so far
-    println("done " + (dataFiles.indexOf(dataFile)+1) + " out of " + dataFiles.size() + " files");
+    println("done " + (dataFiles.indexOf(dataFile) + 1) + " out of " + dataFiles.size() + " files");
 
     //Event loop
     while (reader.hasNext()) {
@@ -88,7 +87,7 @@ for(String dataFile : dataFiles) {
         //Initiate physics event like before.  We will see how it is used shortly
         PhysicsEvent physEvent = DataManager.getPhysicsEvent(beamEnergy, particles);
         //Figure out whether electron is in first row. Useful to see difference when it is and isn't
-        int pid = particles.getInt("pid",0);
+        int pid = particles.getInt("pid", 0);
 
         //Poor-mans progress bar
         nEvents++;
@@ -132,7 +131,7 @@ for(String dataFile : dataFiles) {
                     Particle gam = physEvent.getParticleByCharge(0, i);
                     //The Particle class has a cosTheta method that returns the cos of the angle between two particles
                     //we keep track of the best cosTheta
-                    if (mx_PePipPim.cosTheta(gam) > bestCos){
+                    if (mx_PePipPim.cosTheta(gam) > bestCos) {
                         //if we find a particle with a better costheta, we store all the information from that particle
                         //such as the costheta, momentum of the neutral and the invariant mass of the pi+pi-neutral
                         bestCos = mx_PePipPim.cosTheta(gam);
@@ -149,16 +148,16 @@ for(String dataFile : dataFiles) {
                     }
 
                 }
-                //if (Math.abs(mx_P.mass() - pgam)<1.0) {
-                //For comparison's sake, I fill a histogram with the missing mass of the pe system without any cuts on
-                //cos theta
-                hMxpUncut.fill(mx_P.mass());
-                //Then I fill the invariant mass histogram and missing mass histogram is the best costheta was > .99
-                if(bestCos > 0.99) {
-                    hCutMxp.fill(mx_P.mass());
-                    himPipPimGamUncut.fill(im_PipPimGam);
+                if (Math.abs(mx_P.mass() - pgam) < 1.0) {
+                    //For comparison's sake, I fill a histogram with the missing mass of the pe system without any cuts on
+                    //cos theta
+                    hMxpUncut.fill(mx_P.mass());
+                    //Then I fill the invariant mass histogram and missing mass histogram is the best costheta was > .99
+                    if (bestCos > 0.99) {
+                        hCutMxp.fill(mx_P.mass());
+                        himPipPimGamUncut.fill(im_PipPimGam);
+                    }
                 }
-                //}
             }
         }
     }
@@ -174,7 +173,6 @@ dir.cd("/Plots");
 dir.addDataSet(hMxpUncut);
 dir.addDataSet(hCutMxp);
 dir.addDataSet(himPipPimGamUncut);
-
 
 //Very important step.  Be sure to actually write your directory to a file, or else it's useless
 dir.writeFile("/work/clas12/viducic/rho/clas12/sampleRhoAnalysis_1.hipo");
@@ -197,14 +195,14 @@ public class FileFinder {
     private static String newKeyWord = "";
     public static int DEBUG_MODE = 0;
 
-    public static List<String> getFiles(List<String> listOfDirs, String fileName){
-        for(String dir : listOfDirs){
+    public static List<String> getFiles(List<String> listOfDirs, String fileName) {
+        for (String dir : listOfDirs) {
             getFiles(dir, fileName);
         }
         return listOfFiles;
     }
 
-    public static List<String> getFilesFromSubdirs(String directory, String wildcard){
+    public static List<String> getFilesFromSubdirs(String directory, String wildcard) {
         List<String> listOfDirs = getSubdirs(directory);
         return getFiles(listOfDirs, wildcard);
     }
@@ -262,7 +260,7 @@ public class FileFinder {
             File[] var3 = dirs;
             int var4 = dirs.length;
 
-            for(int var5 = 0; var5 < var4; ++var5) {
+            for (int var5 = 0; var5 < var4; ++var5) {
                 File dir = var3[var5];
                 if (dir.isDirectory()) {
                     if (!dir.getName().startsWith(".") && !dir.getName().endsWith("~")) {
