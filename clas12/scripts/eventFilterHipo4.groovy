@@ -26,7 +26,7 @@ HipoWriter writer = new HipoWriter(firstReader.getSchemaFactory());
 firstReader.close();
 
 //Open file you want to write to.  It will overwrite if the file already exists
-writer.open("/w/hallb-scifs17exp/clas12/viducic/data/clas12/testDataFile_filtered_3.hipo");
+writer.open("/w/hallb-scifs17exp/clas12/viducic/data/clas12/testDataFile_filtered_4.hipo");
 
 int numFile = 0;
 
