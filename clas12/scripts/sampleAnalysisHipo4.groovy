@@ -20,7 +20,7 @@ import java.util.Map;
 
 //Same as before, get a list of files in a directory that matches a search pattern.  If you want this Class, ask me :)
 //List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/rg-a/trains/v2/skim4_inclusive/*");
-List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/viducic/data/clas12/testDataFile_filtered_skimmed_4.hipo");
+List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/viducic/data/clas12/testDataFile_filtered_skimmed_2.hipo");
 
 //Step one is declaring histograms.  The histogram class in the JAVA framework is robust with a lot of familiar function
 //Here we see the constructor and setTitle/setFillColor methods but there are many more
@@ -61,7 +61,7 @@ dir.mkdir("/Plots");
 //I am also working on a little visual progress bar. Like "[====>   ] x% done" or something along those lines.
 double beamEnergy = 10.6
 int nEvents = 0;
-ProgressPrintout progress = new ProgressPrintout();
+//ProgressPrintout progress = new ProgressPrintout();
 
 //Loop over files in list, same as before
 for (String dataFile : dataFiles) {
@@ -83,7 +83,7 @@ for (String dataFile : dataFiles) {
     while (reader.hasNext()) {
         reader.nextEvent(event);
         event.read(particles);
-        progress.updateStatus();
+        //progress.updateStatus();
         //Initiate physics event like before.  We will see how it is used shortly
         PhysicsEvent physEvent = DataManager.getPhysicsEvent(beamEnergy, particles);
         //Figure out whether electron is in first row. Useful to see difference when it is and isn't
@@ -175,7 +175,7 @@ dir.addDataSet(hCutMxp);
 dir.addDataSet(himPipPimGamUncut);
 
 //Very important step.  Be sure to actually write your directory to a file, or else it's useless
-dir.writeFile("/work/clas12/viducic/rho/clas12/sampleRhoAnalysis_1.hipo");
+dir.writeFile("/work/clas12/viducic/rho/clas12/sampleRhoAnalysis_0.hipo");
 //Tell me the script is finishes executing
 println("done");
 
