@@ -24,11 +24,11 @@ List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/viducic
 
 //Step one is declaring histograms.  The histogram class in the JAVA framework is robust with a lot of familiar function
 //Here we see the constructor and setTitle/setFillColor methods but there are many more
-H1F hMxpUncut = new H1F("hMxPUncut", 140, 0.4, 1.6);
+H1F hMxpUncut = new H1F("hMxPUncut", 140, 0.4, 1.4);
 hMxpUncut.setTitle("mx_P w/ |mx2_PePipPim| < 0.01 && mp_PePipPim > 0.1");
 hMxpUncut.setFillColor(43);
 
-H1F hCutMxp = new H1F("hCutMxp", 140, 0.4, 1.6);
+H1F hCutMxp = new H1F("hCutMxp", 140, 0.4, 1.4);
 hCutMxp.setTitle("mx_P w/ cut|mx2_PePipPim| < 0.01 && mp_PePipPim > 0.1 && cosTheta > 0.99 && |mx_Pe - pgam| < 1.0");
 hCutMxp.setFillColor(43);
 
@@ -38,7 +38,7 @@ hMx2_PePipPim.setTitle("Missing mass squared of pePipPim");
 H1F hMP_PePipPim = new H1F("hMP_PiPipPim", 210, -0.1, 2);
 hMP_PePipPim.setTitle("Missing momentum of pePipPim");
 
-H1F himPipPimGamUncut = new H1F("himPipPimGamUncut", 140, 0.4, 1.6);
+H1F himPipPimGamUncut = new H1F("himPipPimGamUncut", 140, 0.4, 1.4);
 himPipPimGamUncut.setTitle("IM_PipPimXn");
 himPipPimGamUncut.setFillColor(43);
 
@@ -124,7 +124,7 @@ for (String dataFile : dataFiles) {
             //Here is where we do the actual testing. Our first cuts are on the missing momentum and mass2 of pepi+pi-
             //if the missing mass2 of pepi+pi- is < 0.01 and > -0.01, and the missing momentum is > 0.1, the neutral loop
             //executes
-            if (Math.abs(mx_PePipPim.mass2()) < 0.02 && mx_PePipPim.p() > 0.2) {
+            if (Math.abs(mx_PePipPim.mass2()) < 0.015 && mx_PePipPim.p() > 0.2) {
                 //here i loop over the neutral particles.  I define a particle gam.  I test the angle between this
                 //particle and the missing vector, like i said before
                 for (int i = 0; i < nNeutrals; i++) {
@@ -153,7 +153,7 @@ for (String dataFile : dataFiles) {
                     //cos theta
                     hMxpUncut.fill(mx_P.mass());
                     //Then I fill the invariant mass histogram and missing mass histogram is the best costheta was > .99
-                    if (bestCos > 0.99) {
+                    if (bestCos > 0.98) {
                         hCutMxp.fill(mx_P.mass());
                         himPipPimGamUncut.fill(im_PipPimGam);
                     }
