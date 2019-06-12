@@ -153,7 +153,7 @@ for (String dataFile : dataFiles) {
                     //cos theta
                     hMxpUncut.fill(mx_P.mass());
                     //Then I fill the invariant mass histogram and missing mass histogram is the best costheta was > .99
-                    if (bestCos > 0.98) {
+                    if (bestCos > 0.99) {
                         hCutMxp.fill(mx_P.mass());
                         himPipPimGamUncut.fill(im_PipPimGam);
                     }
