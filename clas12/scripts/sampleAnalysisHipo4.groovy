@@ -42,16 +42,16 @@ H1F himPipPimGamUncut = new H1F("himPipPimGamUncut", 150, 0.4, 1.2);
 himPipPimGamUncut.setTitle("IM_PipPimXn");
 himPipPimGamUncut.setFillColor(43);
 
-//I personally don't like to write draw plots to my screen unless I am debugging.  I prefer to save the histograms I make
+//I personally don't like to draw plots to my screen unless I am debugging.  I prefer to save the histograms I make
 //to a TDirectory.  A TDirectory can be opened with a TBrowser, just like in ROOT.
 //Below i initiate a TDirectory and add some sub directories.  One for the plots I am going to show and one for the cuts
 //I am going to make
 TDirectory dir = new TDirectory();
 //above the directory is initiated, below the subdir is initiated
-dir.mkdir("/Plots");
-//Just like in a terminal, you must cd into the directory you want to work with - TDirectory.cd(String dirName)
-dir.cd("/Plots");
 dir.mkdir("/CutPlots");
+//Just like in a terminal, you must cd into the directory you want to work with - TDirectory.cd(String dirName)
+dir.cd("/CutPlots");
+dir.mkdir("/Plots");
 
 // Begin Analysis //
 
@@ -164,10 +164,10 @@ for(String dataFile : dataFiles) {
 
 //here we add out histograms to the subdirectories in our Tdirectory we want them in
 dir.addDataSet(hMx2_PePipPim);
-dir.addDataSet(hMxpUncut);
 dir.addDataSet(hMP_PePipPim);
 
-dir.cd("/CutPlots");
+dir.cd("/Plots");
+dir.addDataSet(hMxpUncut);
 dir.addDataSet(hCutMxp);
 dir.addDataSet(himPipPimGamUncut);
 
