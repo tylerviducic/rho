@@ -97,7 +97,7 @@ for (String dataFile : dataFiles) {
 
         //Time to do some physics if an event passes our filter
         //Spoiler alert, they all will.
-        if (filter.isValid(physEvent)) {
+        if (filter.isValid(physEvent) && pid != 11) {
 
             //Define the "Particles" I will use.  These are basically lorentz vectors with a vertex and other quantities
             //The two below are missing mass of the proton and electron and the missing "particle" of proton, electron,
