@@ -124,7 +124,7 @@ for (String dataFile : dataFiles) {
             //Here is where we do the actual testing. Our first cuts are on the missing momentum and mass2 of pepi+pi-
             //if the missing mass2 of pepi+pi- is < 0.01 and > -0.01, and the missing momentum is > 0.1, the neutral loop
             //executes
-            if (Math.abs(mx_PePipPim.mass2()) < 0.01 && mx_PePipPim.p() > 0.1) {
+            if (Math.abs(mx_PePipPim.mass2()) < 0.015 && mx_PePipPim.p() > 0.1) {
                 //here i loop over the neutral particles.  I define a particle gam.  I test the angle between this
                 //particle and the missing vector, like i said before
                 for (int i = 0; i < nNeutrals; i++) {
