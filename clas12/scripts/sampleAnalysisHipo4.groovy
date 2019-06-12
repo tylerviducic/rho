@@ -20,7 +20,7 @@ import java.util.Map;
 
 //Same as before, get a list of files in a directory that matches a search pattern.  If you want this Class, ask me :)
 //List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/rg-a/trains/v2/skim4_inclusive/*");
-List <String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/viducic/data/clas12/testDataFile_filtered_skimmed_2.hipo");
+List <String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/viducic/data/clas12/testDataFile_filtered_skimmed_3.hipo");
 
 
 //Step one is declaring histograms.  The histogram class in the JAVA framework is robust with a lot of familiar function
@@ -177,7 +177,7 @@ dir.addDataSet(himPipPimGamUncut);
 
 
 //Very important step.  Be sure to actually write your directory to a file, or else it's useless
-dir.writeFile("/work/clas12/viducic/rho/clas12/sampleRhoAnalysis_0.hipo");
+dir.writeFile("/work/clas12/viducic/rho/clas12/sampleRhoAnalysis_1.hipo");
 //Tell me the script is finishes executing
 println("done");
 
