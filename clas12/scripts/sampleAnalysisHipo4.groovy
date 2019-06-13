@@ -116,7 +116,7 @@ for (String dataFile : dataFiles) {
             //here I declare the variables I'll need to do this testing.  We can see another use of PhysicsEvent below
             int nNeutrals = physEvent.countByCharge(0);
             double bestCos = -2.0;
-            double pgam;
+            //double pgam;
             double im_PipPimGam;
 
             //try best match method
@@ -135,29 +135,27 @@ for (String dataFile : dataFiles) {
                         //if we find a particle with a better costheta, we store all the information from that particle
                         //such as the costheta, momentum of the neutral and the invariant mass of the pi+pi-neutral
                         bestCos = mx_PePipPim.cosTheta(gam);
-                        pgam = gam.p()
+                        //pgam = gam.p()
                         Particle im_ppg = physEvent.getParticle("[211] + [-211]");
                         //Here I declare a particle of pi+ pi- and i combine it with the gam particle if it has a better
                         //costheta.  I store the invariant mass in a variable becuase this Particle is not initialized
                         //outside of the loop. For people new to programming, if you define an object inside of a loop,
                         //you cannot use it outside of that loop in Java (python can.)
-                        //Particle gamma = new Particle();
-                        //gamma.copy(gam);
                         im_ppg.combine(gam, 0);
                         im_PipPimGam = im_ppg.mass();
                     }
 
                 }
-            if (Math.abs(mx_P.mass() - pgam) < 1.0) {
+            //if (Math.abs(mx_P.mass() - pgam) < 1.0) {
                     //For comparison's sake, I fill a histogram with the missing mass of the pe system without any cuts on
                     //cos theta
                     hMxpUncut.fill(mx_P.mass());
                     //Then I fill the invariant mass histogram and missing mass histogram is the best costheta was > .99
-                    if (bestCos > 0.99) {
+                    if (bestCos > 0.98) {
                         hCutMxp.fill(mx_P.mass());
                         himPipPimGamUncut.fill(im_PipPimGam);
                     }
-                }
+             //   }
             }
         }
     }
