@@ -92,27 +92,27 @@ for (String dataFile : dataFiles) {
         event.read(particles);
         //Initiate physics event like before.  We will see how it is used shortly
         PhysicsEvent physEvent = DataManager.getPhysicsEvent(beamEnergy, particles);
-        //Figure out whether electron is in first row. Useful to see difference when it is and isn't
+        //Figure out whether electron is in first row (FT/FD)
         int pid = particles.getInt("pid", 0);
 
         //Time to do some physics if an event passes our filter
-        //also require electron in forward tagger becuasuse then our meson event will be in the FD, not the CD
+        //also require electron in forward tagger because then our decay products will be in the FD, not the CD
         if (filter.isValid(physEvent) && pid != 11) {
 
-            //Define the "Particles" I will use.  These are basically lorentz vectors with a vertex and other quantities
+            //Define the "Particles" I will use.  These are basically lorentz vectors on steroids
             //The two below are missing mass of the proton and electron and the missing "particle" of proton, electron,
             //pi+, pi-
             Particle mx_P = physEvent.getParticle("[b] + [t] - [11] - [2212]");
             Particle mx_PePipPim = physEvent.getParticle("[b] + [t] - [11] - [2212] - [211] - [-211]");
 
-            //fill histograms with the missing mass squared of pepi+pi- to find a 2 sigma cut around zero. If the mm2 is
-            //close to zero and the missing momentum of pepi+pi- is >0, it could be a photon event.
+            //fill histograms with the missing mass squared of pepi+pi- to find an appropriate cut around zero. If the
+            //mm2 is close to zero and the missing momentum of pepi+pi- is >0, it could be a photon event.
             hMx2_PePipPim.fill(mx_PePipPim.mass2());
             hMP_PePipPim.fill(mx_PePipPim.p());
 
             //Because I am skimming for events semi-inclusively, I need to identify which particles could be photons
-            //In order to do this, I loop over all the neutral events in an event and test the angle between the neutral
-            //and the missing mass of the pepi+pi-.
+            //In order to do this, I loop over all the neutral particles in an event and test the angle between the
+            //neutral and the "missing" particle of pepi+pi-.
             //here I declare the variables I'll need to do this testing.  We can see another use of PhysicsEvent below
             int nNeutrals = physEvent.countByCharge(0);
             double bestCos = -2.0;
@@ -132,13 +132,13 @@ for (String dataFile : dataFiles) {
                     //The Particle class has a cosTheta method that returns the cos of the angle between two particles
                     //we keep track of the best cosTheta
                     if (mx_PePipPim.cosTheta(gam) > bestCos) {
-                        //if we find a particle with a better costheta, we store all the information from that particle
-                        //such as the costheta, momentum of the neutral and the invariant mass of the pi+pi-neutral
+                        //if we find a particle with a better costheta, we storeinformation from that particle
+                        //such as the costheta and the invariant mass of the pi+pi-neutral
                         bestCos = mx_PePipPim.cosTheta(gam);
                         //pgam = gam.p()
                         Particle im_ppg = physEvent.getParticle("[211] + [-211]");
                         //Here I declare a particle of pi+ pi- and i combine it with the gam particle if it has a better
-                        //costheta.  I store the invariant mass in a variable becuase this Particle is not initialized
+                        //costheta.  I store the invariant mass in a variable because this Particle is not initialized
                         //outside of the loop. For people new to programming, if you define an object inside of a loop,
                         //you cannot use it outside of that loop in Java (python can.)
                         im_ppg.combine(gam, 0);
@@ -150,7 +150,7 @@ for (String dataFile : dataFiles) {
                     //For comparison's sake, I fill a histogram with the missing mass of the pe system without any cuts
                     //on cos theta
                     hMxpUncut.fill(mx_P.mass());
-                    //Then I fill the invariant mass histogram and missing mass histogram is the best costheta was > .98
+                    //Then I fill the invariant mass histogram and missing mass histogram if the best costheta was > .98
                     if (bestCos > 0.98) {
                         hCutMxp.fill(mx_P.mass());
                         himPipPimGamUncut.fill(im_PipPimGam);
@@ -162,7 +162,6 @@ for (String dataFile : dataFiles) {
     //close the reader
     reader.close();
 }
-
 //here we add out histograms to the subdirectories in our Tdirectory we want them in
 dir.addDataSet(hMx2_PePipPim);
 dir.addDataSet(hMP_PePipPim);
