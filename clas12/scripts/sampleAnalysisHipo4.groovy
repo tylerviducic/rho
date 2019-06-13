@@ -29,7 +29,7 @@ hMxpUncut.setTitle("mx_P w/ |mx2_PePipPim| < 0.01 && mp_PePipPim > 0.1");
 hMxpUncut.setFillColor(43);
 
 H1F hCutMxp = new H1F("hCutMxp", 140, 0.4, 1.4);
-hCutMxp.setTitle("mx_P w/ cut|mx2_PePipPim| < 0.01 && mp_PePipPim > 0.1 && cosTheta > 0.99 && |mx_Pe - pgam| < 1.0");
+hCutMxp.setTitle("mx_P w/ cut|mx2_PePipPim| < 0.01 && mp_PePipPim > 0.1 && cosTheta > 0.98");
 hCutMxp.setFillColor(43);
 
 H1F hMx2_PePipPim = new H1F("hMx2_PiPipPim", 210, -0.1, 0.1);
@@ -50,8 +50,8 @@ TDirectory dir = new TDirectory();
 //above the directory is initiated, below the subdir is initiated
 dir.mkdir("/CutPlots");
 //Just like in a terminal, you must cd into the directory you want to work with - TDirectory.cd(String dirName)
-dir.cd("/CutPlots");
 dir.mkdir("/Plots");
+dir.cd("/CutPlots");
 
 // Begin Analysis //
 
@@ -65,7 +65,10 @@ int nEvents = 0;
 
 //Loop over files in list, same as before
 for (String dataFile : dataFiles) {
-    //decalre reader and open current file
+    //Update on how many files have been done so far
+    println("done " + (dataFiles.indexOf(dataFile) + 1) + " out of " + dataFiles.size() + " files");
+
+    //declare reader and open current file
     HipoReader reader = new HipoReader();
     reader.open(dataFile);
 
@@ -73,27 +76,24 @@ for (String dataFile : dataFiles) {
     Bank particles = new Bank(reader.getSchemaFactory().getSchema("REC::Particle"));
     Event event = new Event();
 
-    //Filter is probably redundant but it's here anyway. w/e
+    //Filter is probably redundant but it's here anyway.
     EventFilter filter = new EventFilter("11:2212:211:-211:Xn:X+:X-");
-
-    //Update on how many files have been done so far
-    println("done " + (dataFiles.indexOf(dataFile) + 1) + " out of " + dataFiles.size() + " files");
 
     //Event loop
     while (reader.hasNext()) {
-        reader.nextEvent(event);
-        event.read(particles);
-        //progress.updateStatus();
-        //Initiate physics event like before.  We will see how it is used shortly
-        PhysicsEvent physEvent = DataManager.getPhysicsEvent(beamEnergy, particles);
-        //Figure out whether electron is in first row. Useful to see difference when it is and isn't
-        int pid = particles.getInt("pid", 0);
 
         //Poor-mans progress bar
         nEvents++;
         if (nEvents % 10000 == 0) {
             System.out.println("done " + nEvents);
         }
+
+        reader.nextEvent(event);
+        event.read(particles);
+        //Initiate physics event like before.  We will see how it is used shortly
+        PhysicsEvent physEvent = DataManager.getPhysicsEvent(beamEnergy, particles);
+        //Figure out whether electron is in first row. Useful to see difference when it is and isn't
+        int pid = particles.getInt("pid", 0);
 
         //Time to do some physics if an event passes our filter
         //also require electron in forward tagger becuasuse then our meson event will be in the FD, not the CD
@@ -147,10 +147,10 @@ for (String dataFile : dataFiles) {
 
                 }
             //if (Math.abs(mx_P.mass() - pgam) < 1.0) {
-                    //For comparison's sake, I fill a histogram with the missing mass of the pe system without any cuts on
-                    //cos theta
+                    //For comparison's sake, I fill a histogram with the missing mass of the pe system without any cuts
+                    //on cos theta
                     hMxpUncut.fill(mx_P.mass());
-                    //Then I fill the invariant mass histogram and missing mass histogram is the best costheta was > .99
+                    //Then I fill the invariant mass histogram and missing mass histogram is the best costheta was > .98
                     if (bestCos > 0.98) {
                         hCutMxp.fill(mx_P.mass());
                         himPipPimGamUncut.fill(im_PipPimGam);
