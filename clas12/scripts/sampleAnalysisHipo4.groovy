@@ -19,8 +19,8 @@ import java.util.Map;
 //pPipPim theta < 40
 
 //Same as before, get a list of files in a directory that matches a search pattern.  If you want this Class, ask me :)
-//List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/rg-a/trains/v2/skim4_inclusive/*");
-List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/viducic/data/clas12/testDataFile_filtered_skimmed_2.hipo");
+List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/rg-k/trains/v7/skim8_ep/*");
+//List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/viducic/data/clas12/testDataFile_filtered_skimmed_2.hipo");
 
 //Step one is declaring histograms.  The histogram class in the JAVA framework is robust with a lot of familiar function
 //Here we see the constructor and setTitle/setFillColor methods but there are many more
@@ -39,7 +39,7 @@ H1F hMP_PePipPim = new H1F("hMP_PiPipPim", 210, -0.1, 2);
 hMP_PePipPim.setTitle("Missing momentum of pePipPim");
 
 H1F himPipPimGamUncut = new H1F("himPipPimGamUncut", 140, 0.4, 1.4);
-himPipPimGamUncut.setTitle("IM_PipPimXn");
+himPipPimGamUncut.setTitle("IM_PipPimGam");
 himPipPimGamUncut.setFillColor(43);
 
 //I personally don't like to draw plots to my screen unless I am debugging.  I prefer to save the histograms I make
@@ -135,7 +135,7 @@ for (String dataFile : dataFiles) {
                         //if we find a particle with a better costheta, we storeinformation from that particle
                         //such as the costheta and the invariant mass of the pi+pi-neutral
                         bestCos = mx_PePipPim.cosTheta(gam);
-                        //pgam = gam.p()
+                        //pgam = gam.p();
                         Particle im_ppg = physEvent.getParticle("[211] + [-211]");
                         //Here I declare a particle of pi+ pi- and i combine it with the gam particle if it has a better
                         //costheta.  I store the invariant mass in a variable because this Particle is not initialized
