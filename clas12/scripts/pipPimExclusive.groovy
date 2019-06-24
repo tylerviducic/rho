@@ -113,6 +113,7 @@ for (String dataFile : dataFiles) {
             //pi+, pi-
             Particle mx_P = physEvent.getParticle("[b] + [t] - [11] - [2212]");
             Particle mx_PePipPim = physEvent.getParticle("[b] + [t] - [11] - [2212] - [211] - [-211]");
+            Particle im_PipPim = physEvent.getParticle("[211] + [-211]");
 
             //fill histograms with the missing mass squared of pepi+pi- to find an appropriate cut around zero. If the
             //mm2 is close to zero and the missing momentum of pepi+pi- is >0, it could be a photon event.
@@ -123,10 +124,6 @@ for (String dataFile : dataFiles) {
             //In order to do this, I loop over all the neutral particles in an event and test the angle between the
             //neutral and the "missing" particle of pepi+pi-.
             //here I declare the variables I'll need to do this testing.  We can see another use of PhysicsEvent below
-            int nNeutrals = physEvent.countByCharge(0);
-            double bestCos = -2.0;
-            //double pgam;
-            double im_PipPimGam;
 
             //try best match method
 
@@ -134,37 +131,14 @@ for (String dataFile : dataFiles) {
             //if the missing mass2 of pepi+pi- is < 0.01 and > -0.01, and the missing momentum is > 0.1, the neutral loop
             //executes
             if (Math.abs(mx_PePipPim.mass2()) < 0.01 && mx_PePipPim.p() > 0.25) {
+                hCutMxp.fill(mx_P.mass());
+                himPipPimGamUncut.fill(im_PipPim.mass())
                 //here i loop over the neutral particles.  I define a particle gam.  I test the angle between this
                 //particle and the missing vector, like i said before
-                for (int i = 0; i < nNeutrals; i++) {
-                    Particle gam = physEvent.getParticleByCharge(0, i);
-                    //The Particle class has a cosTheta method that returns the cos of the angle between two particles
-                    //we keep track of the best cosTheta
-                    if (mx_PePipPim.cosTheta(gam) > bestCos) {
-                        //if we find a particle with a better costheta, we storeinformation from that particle
-                        //such as the costheta and the invariant mass of the pi+pi-neutral
-                        bestCos = mx_PePipPim.cosTheta(gam);
-                        //pgam = gam.p();
-                        Particle im_ppg = physEvent.getParticle("[211] + [-211]");
-                        //Here I declare a particle of pi+ pi- and i combine it with the gam particle if it has a better
-                        //costheta.  I store the invariant mass in a variable because this Particle is not initialized
-                        //outside of the loop. For people new to programming, if you define an object inside of a loop,
-                        //you cannot use it outside of that loop in Java (python can.)
-                        im_ppg.combine(gam, 0);
-                        im_PipPimGam = im_ppg.mass();
-                    }
-
-                }
-            //if (Math.abs(mx_P.mass() - pgam) < 1.0) {
-                    //For comparison's sake, I fill a histogram with the missing mass of the pe system without any cuts
-                    //on cos theta
-                    hMxpUncut.fill(mx_P.mass());
-                    //Then I fill the invariant mass histogram and missing mass histogram if the best costheta was > .98
-                    if (bestCos > 0.997) {
-                        hCutMxp.fill(mx_P.mass());
-                        himPipPimGamUncut.fill(im_PipPimGam);
-                    }
-             //   }
+                //if (Math.abs(mx_P.mass() - pgam) < 1.0) {
+                //For comparison's sake, I fill a histogram with the missing mass of the pe system without any cuts
+                //on cos theta
+                //   }
             }
         }
     }
@@ -181,7 +155,7 @@ dir.addDataSet(hCutMxp);
 dir.addDataSet(himPipPimGamUncut);
 
 //Very important step.  Be sure to actually write your directory to a file, or else it's useless
-dir.writeFile("/work/clas12/viducic/rho/clas12/sampleRhoAnalysis_0.hipo");
+dir.writeFile("/work/clas12/viducic/rho/clas12/sampleRhoAnalysis_5700.hipo");
 //Tell me the script is finishes executing
 println("done");
 
@@ -281,4 +255,3 @@ public class FileFinder {
         }
     }
 }
-
