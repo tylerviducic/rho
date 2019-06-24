@@ -74,7 +74,7 @@ for (String dataFile : dataFiles) {
 
     //Same as before, define bank and event for reader to fill
     Bank particles = new Bank(reader.getSchemaFactory().getSchema("REC::Particle"));
-    Bank conf = new Bank(reader.getSchemaFactory().getSchema("REX::config"));
+    Bank conf = new Bank(reader.getSchemaFactory().getSchema("REC::config"));
     Event event = new Event();
 
     //Filter is probably redundant but it's here anyway.
