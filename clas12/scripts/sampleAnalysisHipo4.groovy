@@ -59,7 +59,7 @@ dir.cd("/CutPlots");
 //and returns the beam energy.  This is be very useful for people using the entire spread of RGA runs as it covers
 //several beam energies.
 //I am also working on a little visual progress bar. Like "[====>   ] x% done" or something along those lines.
-double beamEnergy = 7.5
+double beamEnergy = 7.5;
 int nEvents = 0;
 //ProgressPrintout progress = new ProgressPrintout();
 
@@ -74,6 +74,7 @@ for (String dataFile : dataFiles) {
 
     //Same as before, define bank and event for reader to fill
     Bank particles = new Bank(reader.getSchemaFactory().getSchema("REC::Particle"));
+    Bank conf = new Bank(reader.getSchemaFactory().getSchema("REX::config"));
     Event event = new Event();
 
     //Filter is probably redundant but it's here anyway.
@@ -90,6 +91,10 @@ for (String dataFile : dataFiles) {
 
         reader.nextEvent(event);
         event.read(particles);
+        event.read(conf);
+
+        int runNum = conf.getInt("run", 0);
+        println(runNum);
         //Initiate physics event like before.  We will see how it is used shortly
         PhysicsEvent physEvent = DataManager.getPhysicsEvent(beamEnergy, particles);
         //Figure out whether electron is in first row (FT/FD)
