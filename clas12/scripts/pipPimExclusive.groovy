@@ -24,11 +24,11 @@ List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/rg-k/tr
 
 //Step one is declaring histograms.  The histogram class in the JAVA framework is robust with a lot of familiar function
 //Here we see the constructor and setTitle/setFillColor methods but there are many more
-H1F hMxpUncut = new H1F("hMxPUncut", 140, 0.4, 1.4);
+H1F hMxpUncut = new H1F("hMxPUncut", 160, 0.2, 1.8);
 hMxpUncut.setTitle("mx_P w/ |mx2_PePipPim| < 0.01 && mp_PePipPim > 0.1");
 hMxpUncut.setFillColor(43);
 
-H1F hCutMxp = new H1F("hCutMxp", 140, 0.4, 1.4);
+H1F hCutMxp = new H1F("hCutMxp", 160, 0.2, 1.8);
 hCutMxp.setTitle("mx_P w/ cut|mx2_PePipPim| < 0.01 && mp_PePipPim > 0.1 && cosTheta > 0.98");
 hCutMxp.setFillColor(43);
 
@@ -38,7 +38,7 @@ hMx2_PePipPim.setTitle("Missing mass squared of pePipPim");
 H1F hMP_PePipPim = new H1F("hMP_PiPipPim", 210, -0.1, 2);
 hMP_PePipPim.setTitle("Missing momentum of pePipPim");
 
-H1F himPipPimGamUncut = new H1F("himPipPimGamUncut", 140, 0.4, 1.4);
+H1F himPipPimGamUncut = new H1F("himPipPimGamUncut", 160, 0.2, 1.8);
 himPipPimGamUncut.setTitle("IM_PipPimGam");
 himPipPimGamUncut.setFillColor(43);
 
