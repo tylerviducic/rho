@@ -157,7 +157,7 @@ for (String dataFile : dataFiles) {
                     }
 
                 }
-            if (Math.abs(mx_PePipPim.p() - pgam) < 0.25) {
+            if (Math.abs(mx_PePipPim.p() - pgam) < 0.1) {
                     //For comparison's sake, I fill a histogram with the missing mass of the pe system without any cuts
                     //on cos theta
                     hMxpUncut.fill(mx_P.mass());
