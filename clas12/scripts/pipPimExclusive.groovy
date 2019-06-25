@@ -19,7 +19,7 @@ import java.util.Map;
 //pPipPim theta < 40
 
 //Same as before, get a list of files in a directory that matches a search pattern.  If you want this Class, ask me :)
-List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/rg-k/trains/v7/skim4_inclusive/skim4_57*");
+List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/viducic/data/clas12/rgk_filtered_skimmed_0.hipo");
 //List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/viducic/data/clas12/testDataFile_filtered_skimmed_2.hipo");
 
 //Step one is declaring histograms.  The histogram class in the JAVA framework is robust with a lot of familiar function
