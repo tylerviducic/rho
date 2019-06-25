@@ -10,9 +10,11 @@ import org.jlab.jnp.utils.file.FileUtils
 
 //Get list of files from subdirectories.  Class to be implemented in the main software package soon. If this
 //functionality is useful for you, let me know and I will send you the FileFinder class
-List<String> dataFiles = FileFinder.getFilesFromSubdirs("/w/hallb-scifs17exp/clas12/rg-a/production/recon/" +
-        "pass0/v5/mon", "*");
+//List<String> dataFiles = FileFinder.getFilesFromSubdirs("/w/hallb-scifs17exp/clas12/rg-a/production/recon/" +
+//        "pass0/v5/mon", "*");
 //List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/jnp/dataspace/rec_004013_FULL.hipo");
+List<String> dataFiles = FileFinder.getFilesFromSubdirs("/w/hallb-scifs17exp/clas12/rg-k/production/recon/pass0/v3/" +
+        "calibration/", "*");
 
 //Declare an event filter using lundPID.
 //In this case, 11(e), 2212(p), 211(pi+), -211(pi-), Xn(any other neutrals)
@@ -28,7 +30,7 @@ HipoWriter writer = new HipoWriter(firstReader.getSchemaFactory());
 firstReader.close();
 
 //Open file you want to write to.  It will overwrite if the file already exists
-writer.open("/w/hallb-scifs17exp/clas12/viducic/data/clas12/testDataFile_filtered_4.hipo");
+writer.open("/w/hallb-scifs17exp/clas12/viducic/data/clas12/rgk_filtered_4.hipo");
 
 int numFile = 0;
 
@@ -44,6 +46,9 @@ for (String dataFile : dataFiles) {
     //The new hipo4 format makes use of the Bank class and an empty Event to read the information in from the file.
     //Hopefully this makes sense in a few lines
     Bank particles = new Bank(reader.getSchemaFactory().getSchema("REC::Particle"));
+    Bank rce = new Bank(reader.getSchemaFactory().getSchema("REC::Event"));
+    Bank config = new Bank(reader.getSchemaFactory().getSchema("RUN::config"));
+
     Event event = new Event();
 
     //Loop over events in the data file and fill the event/bank
@@ -52,9 +57,11 @@ for (String dataFile : dataFiles) {
         reader.nextEvent(event);
         //this gets the relevant bank information and fills it
         event.read(particles);
+        event.read(rce);
+        event.read(config);
 
         //Construct a physics event. We will look at how powerful this class is a little later
-        PhysicsEvent physEvent = DataManager.getPhysicsEvent(10.6, particles);
+        PhysicsEvent physEvent = DataManager.getPhysicsEvent(6.5, particles);
 
         //If the physics event passes the filter, write it to a file
         if (filter.isValid(physEvent)) {
