@@ -127,7 +127,7 @@ for (String dataFile : dataFiles) {
             //here I declare the variables I'll need to do this testing.  We can see another use of PhysicsEvent below
             int nNeutrals = physEvent.countByCharge(0);
             double bestCos = -2.0;
-            //double pgam;
+            double pgam;
             double im_PipPimGam;
 
             //try best match method
@@ -146,7 +146,7 @@ for (String dataFile : dataFiles) {
                         //if we find a particle with a better costheta, we storeinformation from that particle
                         //such as the costheta and the invariant mass of the pi+pi-neutral
                         bestCos = mx_PePipPim.cosTheta(gam);
-                        //pgam = gam.p();
+                        pgam = gam.p();
                         Particle im_ppg = physEvent.getParticle("[211] + [-211]");
                         //Here I declare a particle of pi+ pi- and i combine it with the gam particle if it has a better
                         //costheta.  I store the invariant mass in a variable because this Particle is not initialized
