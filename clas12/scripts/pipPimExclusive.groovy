@@ -155,7 +155,7 @@ dir.addDataSet(hCutMxp);
 dir.addDataSet(himPipPimGamUncut);
 
 //Very important step.  Be sure to actually write your directory to a file, or else it's useless
-dir.writeFile("/work/clas12/viducic/rho/clas12/sampleRhoAnalysis_5700.hipo");
+dir.writeFile("/work/clas12/viducic/rho/clas12/sampleRhoAnalysis_PipPim.hipo");
 //Tell me the script is finishes executing
 println("done");
 
