@@ -119,7 +119,10 @@ for (String dataFile : dataFiles) {
             //fill histograms with the missing mass squared of pepi+pi- to find an appropriate cut around zero. If the
             //mm2 is close to zero and the missing momentum of pepi+pi- is >0, it could be a photon event.
             hMx2_PePipPim.fill(mx_PePipPim.mass2());
-            hMP_PePipPim.fill(mx_PePipPim.p());
+
+            if(Math.abs(mx_PePipPim.mass2())<0.01) {
+                hMP_PePipPim.fill(mx_PePipPim.p());
+            }
 
             //Because I am skimming for events semi-inclusively, I need to identify which particles could be photons
             //In order to do this, I loop over all the neutral particles in an event and test the angle between the
