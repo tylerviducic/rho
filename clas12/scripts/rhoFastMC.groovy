@@ -1,4 +1,4 @@
-import org.jlab.clas.fastmc.Clas12FastMC
+//import org.jlab.clas.fastmc.Clas12FastMC
 import org.jlab.jnp.physics.PhysicsEvent
 import org.jlab.jnp.reader.LundReader
 
