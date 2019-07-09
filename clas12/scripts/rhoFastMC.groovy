@@ -5,7 +5,9 @@ import org.jlab.jnp.reader.LundReader
 String dataFile = "/u/group/clas12/mcdata/generated/lund/ppippim/clasdispr.00.e11.000.emn0.75tmn.09.xs65.61nb.113.0001.dat ";
 
 //Clas12FastMC fmc = new Clas12FastMC(-1, -1);
-LundReader reader = new LundReader(dataFile);
+LundReader reader = new LundReader();
+reader.addFile(dataFile);
+reader.open();
 
 PhysicsEvent event = new PhysicsEvent();
 
