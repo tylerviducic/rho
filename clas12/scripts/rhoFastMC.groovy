@@ -23,7 +23,7 @@ while(reader.nextEvent(event)){
     ParticleList particles = event.getParticleList();
     for(int i = 0; i < particles.count(); i++){
         Particle particle = particles.get(i);
-        particle.show();
+        println(particle.toLundString());
     }
 
 }
