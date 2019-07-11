@@ -23,7 +23,11 @@ while(reader.nextEvent(event)){
     ParticleList particles = event.getParticleList();
     for(int i = 0; i < particles.count(); i++){
         Particle particle = particles.get(i);
-        println(particle.toLundString());
+        StraightLine line = new StraightLine(particle);
+        Path3D ppath = line.getPath();
+        boolean intersect = box.hasIntersection(ppath.getLine(1));
+        println(intersect);
+
     }
 
 }
