@@ -17,7 +17,7 @@ box.moveTo(0,0,7000);
 
 String dataFile = "/u/group/clas12/mcdata/generated/lund/ppippim/clasdispr.00.e11.000.emn0.75tmn.09.xs65.61nb.113.0001.dat";
 
-H2F hSquare = new H2F("hSquare", "hSquare",100, -3000, 3000, 100, -3000, 3000);
+H2F hSquare = new H2F("hSquare", "hSquare",100, -500, 500, 100, -500, 500);
 TCanvas c1 = new TCanvas("c1", 600, 600);
 
 
