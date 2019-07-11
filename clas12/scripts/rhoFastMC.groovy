@@ -39,7 +39,7 @@ while(reader.nextEvent(event)){
         ArrayList<Point3D> inters = new ArrayList<Point3D>();
         int count = box.intersection(ppath.getLine(0), inters);
         if(intersect){
-            for(Point3D point : Point3D){
+            for(Point3D point : inters){
                 hSquare.fill(point.x(), point.y());
             }
         }
