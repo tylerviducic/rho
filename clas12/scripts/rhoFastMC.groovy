@@ -25,7 +25,7 @@ while(reader.nextEvent(event)){
         Particle particle = particles.get(i);
         StraightLine line = new StraightLine(particle);
         Path3D ppath = line.getPath();
-        boolean intersect = box.hasIntersection(ppath.getLine(1));
+        boolean intersect = box.hasIntersection(ppath.getLine(0));
         println(intersect);
 
     }
