@@ -16,7 +16,7 @@ import org.jlab.jnp.reader.LundReader
 
 Calorimeter cal = new Calorimeter();
 Shape3D box = Shape3D.box(350, 350, 50);
-box.show();
+println(box.toString());
 
 String dataFile = "/u/group/clas12/mcdata/generated/lund/ppippim/clasdispr.00.e11.000.emn0.75tmn.09.xs65.61nb.113.0001.dat";
 
