@@ -15,8 +15,7 @@ import org.jlab.jnp.physics.PhysicsEvent
 import org.jlab.jnp.reader.LundReader
 
 Calorimeter cal = new Calorimeter();
-Shape3D box = Shape3D.box(350, 350, 50);
-println(box.getMeshFXML());
+
 
 String dataFile = "/u/group/clas12/mcdata/generated/lund/ppippim/clasdispr.00.e11.000.emn0.75tmn.09.xs65.61nb.113.0001.dat";
 
@@ -83,12 +82,13 @@ public class Calorimeter {
 
     private Shape3D initCal(){
         Shape3D newDetector = new Shape3D();
-        Triangle3D slice = new Triangle3D(0.0, 0.0 , 750.0, 197.1, 385.2, 750.0, -197.1,
-                385.2, 750.0);
+        Triangle3D slice = new Triangle3D(0.0, 0.0 , 50.0, 197.1, 385.2, 50.0, -197.1,
+                385.2, 50.0);
         for( int i = 0; i < 6; i ++){
             newDetector.addFace(slice);
             slice.rotateZ(i * 60);
         }
+        newDetector.moveTo(0, 0, 750);
         return newDetector;
     }
 
