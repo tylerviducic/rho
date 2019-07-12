@@ -88,7 +88,7 @@ public class Calorimeter {
         for( int i = 0; i < 6; i ++){
             Shape3D dslice = new Shape3D();
             dslice.addFace(new Triangle3D(slice));
-            dslice.moveTo(0,0,150);
+            dslice.moveTo(0,0,100);
             slice.rotateZ(i * 60);
             newDetector.add(dslice);
         }
