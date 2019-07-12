@@ -48,7 +48,7 @@ while(reader.nextEvent(event)){
     }
 }
 
-//c1.draw(hSquare);
+c1.draw(hSquare);
 
 
 public class StraightLine {
@@ -78,17 +78,19 @@ public class StraightLine {
 
 public class Calorimeter {
 
-    Shape3D detector = initCal();
+    ArrayList<Shape3D> detector = initCal();
 
-    private Shape3D initCal(){
-        Shape3D newDetector = new Shape3D();
+    private ArrayList<Shape3D> initCal(){
+
+        ArrayList<Shape3D> newDetector = new ArrayList<Shape3D>();
         Triangle3D slice = new Triangle3D(0.0, 0.0 , 50.0, 197.1, 385.2, 50.0, -197.1,
                 385.2, 50.0);
         for( int i = 0; i < 6; i ++){
-            newDetector.addFace(slice);
+            Shape3D dslice = new Shape3D();
+            dslice.addFace(new Triangle3D(slice));
             slice.rotateZ(i * 60);
+            newDetector.add(dslice);
         }
-        newDetector.moveTo(0, 0, 750);
         return newDetector;
     }
 
@@ -96,10 +98,19 @@ public class Calorimeter {
     }
 
     public boolean hasIntersection(Line3D line){
-        return detector.hasIntersection(line);
+        for (int i = 0; i < this.detector.size(); i ++){
+            if(this.detector.get(i).hasIntersection(line)){
+                return true;
+            }
+        }
+        return false;
     }
 
     public int intersection(Line3D line, List<Point3D> intersections){
-        return detector.intersection(line, intersections);
+        int count = 0;
+        for(int i = 0; i < this.detector.size(); i++){
+            count += detector.get(i).intersection(line, intersections);
+        }
+        return count;
     }
 }
