@@ -2,9 +2,11 @@
 
 
 import org.jetbrains.annotations.NotNull
+import org.jlab.geom.prim.Line3D
 import org.jlab.geom.prim.Path3D
 import org.jlab.geom.prim.Point3D
 import org.jlab.geom.prim.Shape3D
+import org.jlab.geom.prim.Triangle3D
 import org.jlab.groot.data.H2F
 import org.jlab.groot.ui.TCanvas
 import org.jlab.jnp.physics.Particle
@@ -12,8 +14,7 @@ import org.jlab.jnp.physics.ParticleList
 import org.jlab.jnp.physics.PhysicsEvent
 import org.jlab.jnp.reader.LundReader
 
-Shape3D box = Shape3D.box(380, 380, 50);
-box.moveTo(0,0,7000);
+Calorimeter cal = new Calorimeter();
 
 String dataFile = "/u/group/clas12/mcdata/generated/lund/ppippim/clasdispr.00.e11.000.emn0.75tmn.09.xs65.61nb.113.0001.dat";
 
@@ -34,10 +35,10 @@ while(reader.nextEvent(event)){
         Particle particle = particles.get(i);
         StraightLine line = new StraightLine(particle);
         Path3D ppath = line.getPath();
-        boolean intersect = box.hasIntersection(ppath.getLine(0));
+        boolean intersect = cal.hasIntersection(ppath.getLine(0));
         println(intersect);
         ArrayList<Point3D> inters = new ArrayList<Point3D>();
-        int count = box.intersection(ppath.getLine(0), inters);
+        int count = cal.intersection(ppath.getLine(0), inters);
         if(intersect){
             for(Point3D point : inters){
                 hSquare.fill(point.x(), point.y());
@@ -71,5 +72,32 @@ public class StraightLine {
     public Path3D getPath(){
         makePath();
         return this.path;
+    }
+}
+
+public class Calorimeter {
+
+    Shape3D detector = initCal();
+
+    private Shape3D initCal(){
+        Shape3D newDetector = new Shape3D();
+        Triangle3D slice = new Triangle3D(0.0, 0.0 , 750.0, 197.1, 385.2, 750.0, -197.1,
+                385.2, 750.0);
+        for( int i = 0; i < 6; i ++){
+            newDetector.addFace(slice);
+            slice.rotateZ(i * 60);
+        }
+        return newDetector;
+    }
+
+    public Calorimeter() {
+    }
+
+    public boolean hasIntersection(Line3D line){
+        return detector.hasIntersection(line);
+    }
+
+    public int intersection(Line3D line, List<Point3D> intersections){
+        return detector.intersection(line, intersections);
     }
 }
