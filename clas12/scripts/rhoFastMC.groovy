@@ -38,7 +38,7 @@ while(reader.nextEvent(event)){
         StraightLine line = new StraightLine(particle);
         Path3D ppath = line.getPath();
         boolean intersect = cal.hasIntersection(ppath.getLine(0));
-        println(intersect);
+        //println(intersect);
         ArrayList<Point3D> inters = new ArrayList<Point3D>();
         int count = cal.intersection(ppath.getLine(0), inters);
         if(intersect){
@@ -49,7 +49,7 @@ while(reader.nextEvent(event)){
     }
 }
 
-c1.draw(hSquare);
+//c1.draw(hSquare);
 
 
 public class StraightLine {
