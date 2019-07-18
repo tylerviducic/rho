@@ -38,10 +38,10 @@ PhysicsEvent event = new PhysicsEvent();
 while(reader.nextEvent(event)){
     ParticleList particles = event.getParticleList();
 
-    Particle p = event.getParticleByPid(2212);
-    Particle e = event.getParticleByPid(11);
-    Particle pip = event.getParticleByPid(211);
-    Particle pim = event.getParticleByPid(-211)
+    Particle p = event.getParticleByPid(2212,0);
+    Particle e = event.getParticleByPid(11,0);
+    Particle pip = event.getParticleByPid(211,0);
+    Particle pim = event.getParticleByPid(-211,0);
 
     Particle mxp = event.getParticle('[b] + [t] - [2212');
 
