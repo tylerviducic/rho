@@ -41,12 +41,11 @@ while(reader.nextEvent(event)){
     ParticleList particles = event.getParticleList();
 
     Particle p = event.getParticleByPid(2212,1);
-    p.show();
     Particle e = event.getParticleByPid(11,1);
     Particle pip = event.getParticleByPid(211,0);
     Particle pim = event.getParticleByPid(-211,0);
 
-    Particle mxp = event.getParticle("[b] + [t] - [11] - [2212]");
+    Particle mxp = event.getParticle("[b] + [t] - [11,1] - [2212,1]");
 
 //    for(int i = 0; i < particles.count(); i++){
 //
