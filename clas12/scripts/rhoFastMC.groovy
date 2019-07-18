@@ -39,6 +39,7 @@ while(reader.nextEvent(event)){
     ParticleList particles = event.getParticleList();
 
     Particle p = event.getParticleByPid(2212,0);
+    p.show();
     Particle e = event.getParticleByPid(11,0);
     Particle pip = event.getParticleByPid(211,0);
     Particle pim = event.getParticleByPid(-211,0);
