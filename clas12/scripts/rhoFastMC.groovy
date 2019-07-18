@@ -133,7 +133,19 @@ public class Calorimeter extends Detector {
 
     public Calorimeter() {
         this.name = "Cal";
-        this.initCal();
+
+        ArrayList<Shape3D> list = new ArrayList<>();
+        Triangle3D slice = new Triangle3D(0.0, 0.0 , 50.0, 197.1, 385.2, 50.0, -197.1,
+                385.2, 50.0);
+        slice.rotateZ(30 * 0.0174533);
+        slice.rotateY(25 * 0.0174533);
+        for(int i = 0; i < 6; i++){
+            Shape3D calSlice = new Shape3D();
+            calSlice.addFace(new Triangle3D(slice));
+            calSlice.moveTo(0,0,700);
+            this.components.add(calSlice);
+            slice.rotateZ(60 * 0.0174533);
+        }
     }
 
     //rotate 25 deg in y
