@@ -15,6 +15,8 @@ import org.jlab.jnp.physics.ParticleList
 import org.jlab.jnp.physics.PhysicsEvent
 import org.jlab.jnp.reader.LundReader
 
+import java.lang.reflect.Array
+
 Calorimeter cal = new Calorimeter();
 cal.initCal();
 
@@ -30,7 +32,7 @@ H1F hMxpWithHits = new H1F("hMxpWithHits", "hMxpWithHits", 150, 0 , 1.5);
 
 //Clas12FastMC fmc = new Clas12FastMC(-1, -1);
 LundReader reader = new LundReader();
-int[] particleFlags = {1};
+Array particleFlags = [1];
 reader.acceptStatus(particleFlags);
 reader.addFile(dataFile);
 reader.open();
