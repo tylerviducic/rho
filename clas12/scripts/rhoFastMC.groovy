@@ -116,7 +116,7 @@ public class Detector {
         return false;
     }
 
-    public ArrayList<Point3D> intersection(Line3D line, ArrayList<Point3D> point) {
+    public int intersection(Line3D line, ArrayList<Point3D> point) {
         Iterator<Shape3D> iter = components.iterator();
         int count = 0;
         while (iter.hasNext()) {
