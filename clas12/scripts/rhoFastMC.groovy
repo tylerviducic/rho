@@ -133,28 +133,56 @@ public class Detector {
 
 public class Calorimeter extends Detector {
 
+    double distance = 721.7;
+    double tilt     = 25.0;
+
     public Calorimeter() {
         this.name = "Cal";
-
-
     }
 
+    //b = 305.013
+    //a = 86.179
+    //translate to 721.723
     //rotate 25 deg in y
+    //rotate
     //convert deg to rad
 
-    public void initCal(){
+    private void initCal(){
+
         ArrayList<Shape3D> list = new ArrayList<>();
-        Triangle3D slice = new Triangle3D(0.0, 0.0 , 50.0, 197.1, 385.2, 50.0, -197.1,
-                385.2, 50.0);
-        slice.rotateZ(30 * 0.0174533);
-        slice.rotateY(25 * 0.0174533);
+
         for(int i = 0; i < 6; i++){
-            Shape3D calSlice = new Shape3D();
-            calSlice.addFace(new Triangle3D(slice));
-            calSlice.moveTo(0,0,700);
-            this.components.add(calSlice);
-            slice.rotateZ(60 * 0.0174533);
+            Triangle3D tri = createSector();
+            tri.translateXYZ(0.0,0.0,distance);
+            tri.rotateY(Math.toRadians(tilt));
+            tri.rotateZ(Math.toRadians(60*i));
+            Shape3D  shape = new Shape3D();
+            shape.addFace(tri);
         }
+        /* Triangle3D slice = new Triangle3D(
+                      0.0,   0.0, 50.0,
+                    197.1, 385.2, 50.0,
+                   -197.1, 385.2, 50.0);
+
+           slice.rotateZ(30 * 0.0174533);
+           slice.rotateY(25 * 0.0174533);
+           for(int i = 0; i < 6; i++){
+               Shape3D calSlice = new Shape3D();
+               calSlice.addFace(new Triangle3D(slice));
+               calSlice.moveTo(0,0,700);
+               this.components.add(calSlice);
+               slice.rotateZ(60 * 0.0174533);
+           }*/
+    }
+
+
+    public Triangle3D createSector(){
+        double a = 86.179;
+        double b = 305.013;
+        return new Triangle3D(
+                a,   -394.2/2, 0.0,
+                a, 394.2/2, 0.0,
+                -b, 0.0, 0.0);
     }
 
 }
