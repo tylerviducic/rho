@@ -121,8 +121,9 @@ public class Detector {
         Iterator<Shape3D> iter = components.iterator();
         int count = 0;
         while (iter.hasNext()) {
-            if (iter.next().hasIntersection(line)) {
-                count += iter.next().intersection(line, point);
+            Shape3D detectorComponent = iter.next();
+            if (detectorComponent.hasIntersection(line)) {
+                count += detectorComponent.intersection(line, point);
             }
         }
         return count;
