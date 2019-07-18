@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="jaw-0.9">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../../jaw-0.9/lib/jaw-0.9.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

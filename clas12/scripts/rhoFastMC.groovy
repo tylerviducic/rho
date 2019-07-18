@@ -1,7 +1,3 @@
-//import org.jlab.clas.fastmc.Clas12FastMC
-
-
-import org.jetbrains.annotations.NotNull
 import org.jlab.geom.prim.Line3D
 import org.jlab.geom.prim.Path3D
 import org.jlab.geom.prim.Point3D
@@ -44,9 +40,9 @@ while(reader.nextEvent(event)){
 
     ParticleList particles = event.getParticleList();
 
-    Particle p = event.getParticleByPid(2212,0);
+    Particle p = event.getParticleByPid(2212,1);
     p.show();
-    Particle e = event.getParticleByPid(11,0);
+    Particle e = event.getParticleByPid(11,1);
     Particle pip = event.getParticleByPid(211,0);
     Particle pim = event.getParticleByPid(-211,0);
 
