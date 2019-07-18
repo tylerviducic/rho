@@ -76,42 +76,81 @@ public class StraightLine {
     }
 }
 
-public class Calorimeter {
+public class Detector {
+    String name;
+    ArrayList<Shape3D> components = new ArrayList<>();
 
-    ArrayList<Shape3D> detector = initCal();
+    public Detector(){}
 
-    private ArrayList<Shape3D> initCal(){
-
-        ArrayList<Shape3D> newDetector = new ArrayList<Shape3D>();
-        Triangle3D slice = new Triangle3D(0.0, 0.0 , 50.0, 197.1, 385.2, 50.0, -197.1,
-                385.2, 50.0);
-        for( int i = 0; i < 6; i ++){
-            Shape3D dslice = new Shape3D();
-            dslice.addFace(new Triangle3D(slice));
-            dslice.moveTo(0,0,700);
-            slice.rotateZ(i * 60);
-            newDetector.add(dslice);
-        }
-        return newDetector;
+    public Detector(String name){
+        this.name = name;
     }
 
-    public Calorimeter() {
+    public Detector(String name, ArrayList<Shape3D> components) {
+        this.components = components;
+    }
+
+    public void addComponent(Shape3D shape){
+        this.components.add(shape);
+    }
+
+    public void removeComponent(int sector){
+        this.components.remove(sector);
+    }
+
+    public void removeComponent(Shape3D shape){
+        this.components.remove(shape);
+    }
+
+    public Shape3D getComponent(int sector){
+        return this.components.get(sector);
     }
 
     public boolean hasIntersection(Line3D line){
-        for (int i = 0; i < this.detector.size(); i ++){
-            if(this.detector.get(i).hasIntersection(line)){
+        Iterator<Shape3D> iter = components.iterator();
+        while (iter.hasNext()){
+            if (iter.next().hasIntersection(line)){
                 return true;
             }
         }
         return false;
     }
 
-    public int intersection(Line3D line, List<Point3D> intersections){
-        int count = 0;
-        for(int i = 0; i < this.detector.size(); i++){
-            count += detector.get(i).intersection(line, intersections);
+    public ArrayList<Point3D> intersection(Line3D line, ArrayList<Point3D> point) {
+        Iterator<Shape3D> iter = components.iterator();
+        while (iter.hasNext()) {
+            if (iter.next().hasIntersection(line)) {
+                iter.next().intersection(line, point);
+            }
         }
-        return count;
+        return point;
     }
+
+}
+
+public class Calorimeter extends Detector {
+
+    public Calorimeter() {
+        this.name = "Cal";
+        initCal();
+    }
+
+    //rotate 25 deg in y
+    //convert deg to rad
+
+    private void initCal(){
+        ArrayList<Shape3D> list = new ArrayList<>();
+        Triangle3D slice = new Triangle3D(0.0, 0.0 , 50.0, 197.1, 385.2, 50.0, -197.1,
+                385.2, 50.0);
+        slice.rotateZ(30 * 0.0174533);
+        slice.rotateY(25 * 0.0174533);
+        for(int i = 0; i < 6; i++){
+            Shape3D calSlice = new Shape3D();
+            calSlice.addFace(new Triangle3D(slice));
+            calSlice.moveTo(0,0,700);
+            this.components.add(calSlice);
+            slice.rotateZ(60 * 0.0174533);
+        }
+    }
+
 }
