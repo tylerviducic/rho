@@ -153,11 +153,12 @@ public class Calorimeter extends Detector {
 
         for(int i = 0; i < 6; i++){
             Triangle3D tri = createSector();
-            tri.translateXYZ(0.0,0.0,distance);
+            //tri.translateXYZ(0.0,0.0,distance);
             tri.rotateY(Math.toRadians(tilt));
             tri.rotateZ(Math.toRadians(60*i));
             Shape3D  shape = new Shape3D();
             shape.addFace(tri);
+            shape.moveTo(0,0,distance);
         }
         /* Triangle3D slice = new Triangle3D(
                       0.0,   0.0, 50.0,
@@ -180,9 +181,9 @@ public class Calorimeter extends Detector {
         double a = 86.179;
         double b = 305.013;
         return new Triangle3D(
-                a,   -394.2/2, 0.0,
-                a, 394.2/2, 0.0,
-                -b, 0.0, 0.0);
+                 a,   -394.2/2, 0.0,
+                 a,    394.2/2, 0.0,
+                -b,   0.0, 0.0);
     }
 
 }
