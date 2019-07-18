@@ -74,7 +74,7 @@ while(reader.nextEvent(event)){
     hMxp.fill(mxp.mass());
 
     if(cal.hasIntersection(pPath.getLine(0)) && cal.hasIntersection(ePath.getLine(0)) &&
-            (cal.hasIntersection(pipLine.getPath(0)) || cal.hasIntersection(pimLine.getPath(0)))){
+            (cal.hasIntersection(pipPath.getLine(0)) || cal.hasIntersection(pimPath.getLine(0)))){
         hMxpWithHits.fill(mxp.mass());
     }
 
