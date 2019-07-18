@@ -30,7 +30,8 @@ H1F hMxpWithHits = new H1F("hMxpWithHits", "hMxpWithHits", 150, 0 , 1.5);
 
 //Clas12FastMC fmc = new Clas12FastMC(-1, -1);
 LundReader reader = new LundReader();
-reader.acceptStatus({1});
+int[] particleFlags = {1};
+reader.acceptStatus(particleFlags);
 reader.addFile(dataFile);
 reader.open();
 
