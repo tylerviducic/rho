@@ -118,7 +118,7 @@ public class Detector {
 
     public ArrayList<Point3D> intersection(Line3D line, ArrayList<Point3D> point) {
         Iterator<Shape3D> iter = components.iterator();
-        count = 0;
+        int count = 0;
         while (iter.hasNext()) {
             if (iter.next().hasIntersection(line)) {
                 count += iter.next().intersection(line, point);
