@@ -133,7 +133,7 @@ public class Calorimeter extends Detector {
 
     public Calorimeter() {
         this.name = "Cal";
-        initCal();
+        this.initCal();
     }
 
     //rotate 25 deg in y
