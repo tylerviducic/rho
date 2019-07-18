@@ -30,17 +30,21 @@ H1F hMxpWithHits = new H1F("hMxpWithHits", "hMxpWithHits", 150, 0 , 1.5);
 
 //Clas12FastMC fmc = new Clas12FastMC(-1, -1);
 LundReader reader = new LundReader();
+reader.acceptStatus(11);
 reader.addFile(dataFile);
 reader.open();
 
 PhysicsEvent event = new PhysicsEvent();
 
 while(reader.nextEvent(event)){
+    event.setBeamParticle(new Particle(11, 0, 0, 11));
+    event.setTargetParticle(new Particle(2212, 0, 0, 0));
+
     ParticleList particles = event.getParticleList();
 
-    Particle p = event.getParticleByPid(2212,1);
+    Particle p = event.getParticleByPid(2212,0);
     p.show();
-    Particle e = event.getParticleByPid(11,1);
+    Particle e = event.getParticleByPid(11,0);
     Particle pip = event.getParticleByPid(211,0);
     Particle pim = event.getParticleByPid(-211,0);
 
