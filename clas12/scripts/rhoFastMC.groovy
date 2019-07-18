@@ -73,7 +73,7 @@ while(reader.nextEvent(event)){
     Path3D pipPath = pipLine.getPath();
     Path3D pimPath = pimLine.getPath();
 
-    hMxp.fill(p.p());
+    hMxp.fill(mxp.mass());
 
     if(cal.hasIntersection(pPath.getLine(0)) && cal.hasIntersection(ePath.getLine(0)) &&
             (cal.hasIntersection(pipPath.getLine(0)) || cal.hasIntersection(pimPath.getLine(0)))){
