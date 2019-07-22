@@ -87,7 +87,7 @@ H1F acceptance = H1F.divide(hMxpWithHits, hMxp);
 
 c1.draw(hMxp);
 c2.draw(hMxpWithHits);
-c3.draw(acceptance);
+c3.draw(acceptance.getGraph());
 
 
 public class StraightLine {
