@@ -265,7 +265,7 @@ public class DriftChamberSuperlayer extends Detector {
     }
 
     private double distanceBelowX(){
-        return this.distanceToTarget/(Math.tan(Math.toRadians(25 - this.thetaMin)));
+        return this.distanceToTarget*(Math.tan(Math.toRadians(25 - this.thetaMin)));
     }
 
     public Triangle3D createSector(){
