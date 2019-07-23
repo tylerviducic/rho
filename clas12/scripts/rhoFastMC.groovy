@@ -269,9 +269,9 @@ public class DriftChamberSuperlayer extends Detector {
     }
 
     public Triangle3D createSector(){
-        return new Triangle3D(-height() + distanceBelowX(), -height()/Math.cos(Math.toRadians(30)), 0,
-                              -height() + distanceBelowX(), height()/Math.cos(Math.toRadians(30)),  0,
-                              distanceBelowX(),              0,                      0);
+        return new Triangle3D(height() - distanceBelowX(), -height()/Math.cos(Math.toRadians(30)), 0,
+                              height() - distanceBelowX(), height()/Math.cos(Math.toRadians(30)),  0,
+                              -distanceBelowX(),              0,                      0);
     }
 
 
