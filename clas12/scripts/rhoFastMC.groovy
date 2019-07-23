@@ -297,29 +297,17 @@ public class SuperLayerParams {
 
     private Map initMap(){
         HashMap<Integer, Map<String, Double>> paramMap = new HashMap<>();
-        paramMap.put(1,  Map.of("wpdist", 0.3861,
-                "thmin", 4.694,
-                "dist2tgt", 228.078));
+        paramMap.put(1,  Map.of("wpdist", 0.3861, "thmin", 4.694, "dist2tgt", 228.078));
 
-        paramMap.put(2,  Map.of("wpdist", 0.4042,
-                "thmin", 4.495,
-                "dist2tgt", 238.687));
+        paramMap.put(2,  Map.of("wpdist", 0.4042, "thmin", 4.495, "dist2tgt", 238.687));
 
-        paramMap.put(3,  Map.of("wpdist", 0.6219,
-                "thmin", 4.812,
-                "dist2tgt", 351.544));
+        paramMap.put(3,  Map.of("wpdist", 0.6219, "thmin", 4.812, "dist2tgt", 351.544));
 
-        paramMap.put(4,  Map.of("wpdist", 0.6586,
-                "thmin", 4.771,
-                "dist2tgt", 371.773));
+        paramMap.put(4,  Map.of("wpdist", 0.6586, "thmin", 4.771, "dist2tgt", 371.773));
 
-        paramMap.put(5,  Map.of("wpdist", 0.9351,
-                "thmin", 4.333,
-                "dist2tgt", 489.099));
+        paramMap.put(5,  Map.of("wpdist", 0.9351, "thmin", 4.333, "dist2tgt", 489.099));
 
-        paramMap.put(6,  Map.of("wpdist", 0.9780,
-                "thmin", 4.333,
-                "dist2tgt", 511.236));
+        paramMap.put(6,  Map.of("wpdist", 0.9780, "thmin", 4.333, "dist2tgt", 511.236));
 
         return paramMap;
     }
