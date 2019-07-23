@@ -257,7 +257,7 @@ public class DriftChamberSector extends Detector {
     public Triangle3D createSector(){
         return new Triangle3D(height() - distanceBelowX(), -height()/Math.cos(Math.toRadians(30)), 0,
                               height() - distanceBelowX(), height()/Math.cos(Math.toRadians(30)),  0,
-                                        distanceBelowX(), 0,                                  0);
+                                        -distanceBelowX(), 0,                                  0);
     }
 
 
@@ -266,6 +266,7 @@ public class DriftChamberSector extends Detector {
         for(int i = 0; i < 6; i++){
             Triangle3D sector = createSector();
             sector.translateXYZ(0,0,distanceToTarget);
+            sector.rotateX(Math.toRadians(180));
 //            sector.rotateY(Math.toRadians(tilt));
 //            sector.rotateZ(Math.toRadians(60*i));
             Shape3D shape = new Shape3D();
