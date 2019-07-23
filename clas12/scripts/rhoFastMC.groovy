@@ -19,7 +19,7 @@ cal.initCal();
 //DriftChamberSuperlayer dcSector = new DriftChamberSuperlayer(0.3861, 4.694, 228.078);
 //dcSector.initDCSector();
 
-DriftChamberSuperlayer dcSector = new DriftChamberSuperlayer(6);
+DriftChamberSuperlayer dcSector = new DriftChamberSuperlayer(3);
 dcSector.initDCSector();
 
 
@@ -269,9 +269,9 @@ public class DriftChamberSuperlayer extends Detector {
     }
 
     public Triangle3D createSector(){
-        return new Triangle3D(distanceBelowX(), -height()/Math.cos(Math.toRadians(30)), 0,
-                              distanceBelowX(), height()/Math.cos(Math.toRadians(30)),  0,
-                              -height() + distanceBelowX(),              0,                      0);
+        return new Triangle3D(-height() + distanceBelowX(), -height()/Math.cos(Math.toRadians(30)), 0,
+                              -height() + distanceBelowX(), height()/Math.cos(Math.toRadians(30)),  0,
+                              distanceBelowX(),              0,                      0);
     }
 
 
@@ -283,7 +283,7 @@ public class DriftChamberSuperlayer extends Detector {
             Triangle3D sector = createSector();
             sector.translateXYZ(0,0, this.distanceToTarget);
 //            sector.rotateY(Math.toRadians(tilt));
-            sector.rotateZ(Math.toRadians(i * 60));
+//            sector.rotateZ(Math.toRadians(i * 60));
             Shape3D shape = new Shape3D();
             shape.addFace(sector);
             this.addComponent(shape);
