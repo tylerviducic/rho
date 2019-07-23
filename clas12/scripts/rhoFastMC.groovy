@@ -269,6 +269,8 @@ public class DriftChamberSuperlayer extends Detector {
     }
 
     public Triangle3D createSector(){
+        System.out.println("height = " + height());
+        System.out.println("distance = " + distanceBelowX());
         return new Triangle3D(height() - distanceBelowX(), -height()/Math.cos(Math.toRadians(30)), 0,
                               height() - distanceBelowX(), height()/Math.cos(Math.toRadians(30)),  0,
                               -distanceBelowX(),              0,                      0);
