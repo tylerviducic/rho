@@ -30,9 +30,9 @@ TCanvas c1 = new TCanvas("c1", 600, 600);
 TCanvas c2 = new TCanvas("c2", 600, 600);
 TCanvas c3 = new TCanvas("c3", 600, 600);
 
-H1F hMxp = new H1F("hMxp", "hMxp", 150, 0 , 1.5);
 H1F hMxpWithHits = new H1F("hMxpWithHits", "hMxpWithHits", 150, 0 , 1.5);
 
+H1F hMxp = new H1F("hMxp", "hMxp", 150, 0 , 1.5);
 //Clas12FastMC fmc = new Clas12FastMC(-1, -1);
 LundReader reader = new LundReader();
 reader.acceptStatus((int)(1));
@@ -282,6 +282,7 @@ public class DriftChamberSuperlayer extends Detector {
             sector.translateXYZ(0,0,distanceToTarget);
             sector.rotateY(Math.toRadians(tilt));
             sector.rotateZ(Math.toRadians(60*i));
+            sector.rotateX(Math.toRadians(180));
             Shape3D shape = new Shape3D();
             shape.addFace(sector);
             this.addComponent(shape);
