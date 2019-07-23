@@ -245,7 +245,7 @@ public class DriftChamberSuperlayer extends Detector {
     double tilt = 25;
 
     public DriftChamberSuperlayer(int superLayerNumber, double wirePlaneDistance, double thetaMin, double distanceToTarget) {
-        super.name = "driftChamber";
+        this.name = "driftChamber";
         this.superLayerNumber = superLayerNumber;
         this.thetaMin = thetaMin;
         this.wirePlaneDistance = wirePlaneDistance;
