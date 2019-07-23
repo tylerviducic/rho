@@ -16,7 +16,7 @@ import java.lang.reflect.Array
 Calorimeter cal = new Calorimeter();
 cal.initCal();
 
-DriftChamberSector dcSector = new DriftChamberSector(0.3861, 4.696, 228.078);
+DriftChamberSector dcSector = new DriftChamberSector(0.3861, 4.694, 228.078);
 dcSector.initDCSector();
 
 
@@ -254,17 +254,12 @@ public class DriftChamberSector extends Detector {
         return this.distanceToTarget/(Math.tan(Math.toRadians(25 - this.thetaMin)));
     }
 
-//    public Triangle3D createSector(){
-//        return new Triangle3D(height() - distanceBelowX(), -height()/Math.cos(Math.toRadians(30)), 0,
-//                              height() - distanceBelowX(), height()/Math.cos(Math.toRadians(30)),  0,
-//                                        -distanceBelowX(), 0,                                  0);
-//    }
-
     public Triangle3D createSector(){
-        return new Triangle3D( -height()/Math.cos(Math.toRadians(30)),height() - distanceBelowX(), 0,
-                 height()/Math.cos(Math.toRadians(30)), height() - distanceBelowX(), 0,
-                 0, -distanceBelowX(),                                 0);
+        return new Triangle3D(height() - distanceBelowX(), -height()/Math.cos(Math.toRadians(30)), 0,
+                              height() - distanceBelowX(), height()/Math.cos(Math.toRadians(30)),  0,
+                                        -distanceBelowX(), 0,                                  0);
     }
+
 
     public void initDCSector(){
 
@@ -272,7 +267,7 @@ public class DriftChamberSector extends Detector {
             Triangle3D sector = createSector();
             sector.translateXYZ(0,0,distanceToTarget);
             sector.rotateY(Math.toRadians(tilt));
-            sector.rotateZ(Math.toRadians(i * 60));
+            sector.rotateZ(Math.toRadians(60*i));
             Shape3D shape = new Shape3D();
             shape.addFace(sector);
             this.addComponent(shape);
