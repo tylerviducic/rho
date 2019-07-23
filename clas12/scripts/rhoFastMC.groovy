@@ -254,10 +254,16 @@ public class DriftChamberSector extends Detector {
         return this.distanceToTarget/(Math.tan(Math.toRadians(25 - this.thetaMin)));
     }
 
+//    public Triangle3D createSector(){
+//        return new Triangle3D(height() - distanceBelowX(), -height()/Math.cos(Math.toRadians(30)), 0,
+//                              height() - distanceBelowX(), height()/Math.cos(Math.toRadians(30)),  0,
+//                                        -distanceBelowX(), 0,                                  0);
+//    }
+
     public Triangle3D createSector(){
-        return new Triangle3D(height() - distanceBelowX(), -height()/Math.cos(Math.toRadians(30)), 0,
-                              height() - distanceBelowX(), height()/Math.cos(Math.toRadians(30)),  0,
-                                        -distanceBelowX(), 0,                                  0);
+        return new Triangle3D( -height()/Math.cos(Math.toRadians(30)),height() - distanceBelowX(), 0,
+                 height()/Math.cos(Math.toRadians(30)), height() - distanceBelowX(), 0,
+                 0, -distanceBelowX(),                                 0);
     }
 
     public void initDCSector(){
