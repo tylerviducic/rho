@@ -56,10 +56,10 @@ while(reader.nextEvent(event)){
         Particle particle = particles.get(i);
         StraightLine line = new StraightLine(particle);
         Path3D ppath = line.getPath();
-        boolean intersect = cal.hasIntersection(ppath.getLine(0));
+        boolean intersect = dcSector.hasIntersection(ppath.getLine(0));
         println(intersect);
         ArrayList<Point3D> inters = new ArrayList<Point3D>();
-        int count = cal.intersection(ppath.getLine(0), inters);
+        int count = dcSector.intersection(ppath.getLine(0), inters);
         if(intersect){
             for(Point3D point : inters){
                 hSquare.fill(point.x(), point.y());
