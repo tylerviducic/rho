@@ -19,7 +19,7 @@ cal.initCal();
 //DriftChamberSuperlayer dcSector = new DriftChamberSuperlayer(0.3861, 4.694, 228.078);
 //dcSector.initDCSector();
 
-DriftChamberSuperlayer dcSector = new DriftChamberSuperlayer(6);
+DriftChamberSuperlayer dcSector = new DriftChamberSuperlayer(1);
 dcSector.initDCSector();
 
 
@@ -280,8 +280,8 @@ public class DriftChamberSuperlayer extends Detector {
         for(int i = 0; i < 6; i++){
             Triangle3D sector = createSector();
             sector.translateXYZ(0,0, this.distanceToTarget);
-            sector.rotateY(Math.toRadians(tilt));
-            sector.rotateZ(Math.toRadians(i * 60));
+//            sector.rotateY(Math.toRadians(tilt));
+//            sector.rotateZ(Math.toRadians(i * 60));
             Shape3D shape = new Shape3D();
             shape.addFace(sector);
             this.addComponent(shape);
