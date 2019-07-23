@@ -16,6 +16,9 @@ import java.lang.reflect.Array
 Calorimeter cal = new Calorimeter();
 cal.initCal();
 
+DriftChamberSector dcSector = new DriftChamberSector(0.3861, 4.696, 228.078);
+dcSector.initDCSector();
+
 
 String dataFile = "/u/group/clas12/mcdata/generated/lund/ppippim/clasdispr.00.e11.000.emn0.75tmn.09.xs65.61nb.113.0001.dat";
 
@@ -48,21 +51,21 @@ while(reader.nextEvent(event)){
 
     Particle mxp = event.getParticle("[b] + [t] - [11,1] - [2212,1]");
 
-//    for(int i = 0; i < particles.count(); i++){
-//
-//        Particle particle = particles.get(i);
-//        StraightLine line = new StraightLine(particle);
-//        Path3D ppath = line.getPath();
-//        boolean intersect = cal.hasIntersection(ppath.getLine(0));
-//        println(intersect);
-//        ArrayList<Point3D> inters = new ArrayList<Point3D>();
-//        int count = cal.intersection(ppath.getLine(0), inters);
-//        if(intersect){
-//            for(Point3D point : inters){
-//                hSquare.fill(point.x(), point.y());
-//            }
-//        }
-//    }
+    for(int i = 0; i < particles.count(); i++){
+
+        Particle particle = particles.get(i);
+        StraightLine line = new StraightLine(particle);
+        Path3D ppath = line.getPath();
+        boolean intersect = dcSector.hasIntersection(ppath.getLine(0));
+        println(intersect);
+        ArrayList<Point3D> inters = new ArrayList<Point3D>();
+        int count = dcSector.intersection(ppath.getLine(0), inters);
+        if(intersect){
+            for(Point3D point : inters){
+                hSquare.fill(point.x(), point.y());
+            }
+        }
+    }
 
     StraightLine pLine = new StraightLine(p);
     StraightLine eLine = new StraightLine(e);
@@ -88,6 +91,9 @@ H1F acceptance = H1F.divide(hMxpWithHits, hMxp);
 c1.draw(hMxp);
 c2.draw(hMxpWithHits);
 c3.draw(acceptance.getGraph());
+
+// ################################################################################################################## //
+// ################################################################################################################## //
 
 
 public class StraightLine {
@@ -222,6 +228,49 @@ public class Calorimeter extends Detector {
                  a,   -394.2/2, 0.0,
                  a,    394.2/2, 0.0,
                 -b,    0.0,  0.0);
+    }
+
+}
+
+public class DriftChamberSector extends Detector {
+
+    double wirePlaneDistance;
+    double thetaMin;
+    double distanceToTarget;
+    double tilt = 25;
+
+    public DriftChamberSector(double wirePlaneDistance, double thetaMin, double distanceToTarget) {
+        this.thetaMin = thetaMin;
+        this.wirePlaneDistance = wirePlaneDistance;
+        this.distanceToTarget = distanceToTarget;
+    }
+
+    private double height(){
+        return 111 * 4 * this.wirePlaneDistance * Math.cos(Math.toRadians(30));
+    }
+
+    private double distanceBelowX(){
+        return this.distanceToTarget/(Math.tan(Math.toRadians(25 - this.thetaMin)));
+    }
+
+    public Triangle3D createSector(){
+        return new Triangle3D(height() - distanceBelowX(), -height()/Math.cos(Math.toRadians(30)), 0,
+                height() - distanceBelowX(), height()/Math.cos(Math.toRadians(30)),  0,
+                -distanceBelowX(), 0,                                      0);
+    }
+
+    public void initDCSector(){
+
+        for(int i = 0; i < 6; i++){
+            Triangle3D sector = createSector();
+            sector.translateXYZ(0,0,distanceToTarget);
+            sector.rotateY(Math.toRadians(tilt));
+            sector.rotateZ(i * 60);
+            Shape3D shape = new Shape3D();
+            shape.addFace(sector);
+            this.addComponent(shape);
+
+        }
     }
 
 }
