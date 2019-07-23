@@ -65,7 +65,7 @@ while(reader.nextEvent(event)){
         int count = dcSector.intersection(ppath.getLine(0), inters);
         if(intersect){
             for(Point3D point : inters){
-                hSquare.fill(point.x(), point.y());
+                hSquare.fill( point.y(), point.x());
             }
         }
     }
@@ -270,8 +270,8 @@ public class DriftChamberSuperlayer extends Detector {
 
     public Triangle3D createSector(){
         return new Triangle3D(height() - distanceBelowX(), -height()/Math.cos(Math.toRadians(30)), 0,
-                height() - distanceBelowX(), height()/Math.cos(Math.toRadians(30)),  0,
-                -distanceBelowX(),                                          0,    0);
+                              height() - distanceBelowX(), height()/Math.cos(Math.toRadians(30)),  0,
+                                        -distanceBelowX(),              0,                      0);
     }
 
 
