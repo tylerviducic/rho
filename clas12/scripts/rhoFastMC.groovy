@@ -19,7 +19,7 @@ cal.initCal();
 //DriftChamberSuperlayer dcSector = new DriftChamberSuperlayer(0.3861, 4.694, 228.078);
 //dcSector.initDCSector();
 
-DriftChamberSuperlayer dcSector = new DriftChamberSuperlayer(6);
+DriftChamberSuperlayer dcSector = new DriftChamberSuperlayer(1);
 dcSector.initDCSector();
 
 
