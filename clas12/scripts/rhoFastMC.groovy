@@ -281,8 +281,7 @@ public class DriftChamberSuperlayer extends Detector {
             Triangle3D sector = createSector();
             sector.translateXYZ(0,0,distanceToTarget);
             sector.rotateY(Math.toRadians(tilt));
-            sector.rotateZ(Math.toRadians(60*i));
-            sector.rotateY(Math.toRadians(180));
+//            sector.rotateZ(Math.toRadians(60*i));
             Shape3D shape = new Shape3D();
             shape.addFace(sector);
             this.addComponent(shape);
