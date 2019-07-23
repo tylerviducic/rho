@@ -16,7 +16,10 @@ import java.lang.reflect.Array
 Calorimeter cal = new Calorimeter();
 cal.initCal();
 
-DriftChamberSector dcSector = new DriftChamberSector(0.3861, 4.694, 228.078);
+//DriftChamberSuperlayer dcSector = new DriftChamberSuperlayer(0.3861, 4.694, 228.078);
+//dcSector.initDCSector();
+
+DriftChamberSuperlayer dcSector = new DriftChamberSuperlayer(1);
 dcSector.initDCSector();
 
 
@@ -233,17 +236,28 @@ public class Calorimeter extends Detector {
 
 }
 
-public class DriftChamberSector extends Detector {
+public class DriftChamberSuperlayer extends Detector {
 
+    int superLayerNumber;
     double wirePlaneDistance;
     double thetaMin;
     double distanceToTarget;
     double tilt = 25;
 
-    public DriftChamberSector(double wirePlaneDistance, double thetaMin, double distanceToTarget) {
+    public DriftChamberSuperlayer(int superLayerNumber, double wirePlaneDistance, double thetaMin, double distanceToTarget) {
+        super.name = "driftChamber";
+        this.superLayerNumber = superLayerNumber;
         this.thetaMin = thetaMin;
         this.wirePlaneDistance = wirePlaneDistance;
         this.distanceToTarget = distanceToTarget;
+    }
+
+    public DriftChamberSuperlayer(int superLayerNumber){
+        this.superLayerNumber = superLayerNumber;
+        SuperLayerParams params = new SuperLayerParams();
+        this.thetaMin = params.getTHMin(superLayerNumber);
+        this.distanceToTarget = params.getDist2Targ(superLayerNumber);
+        this.wirePlaneDistance = params.getWPD(superLayerNumber);
     }
 
     private double height(){
@@ -256,8 +270,8 @@ public class DriftChamberSector extends Detector {
 
     public Triangle3D createSector(){
         return new Triangle3D(height() - distanceBelowX(), -height()/Math.cos(Math.toRadians(30)), 0,
-                              height() - distanceBelowX(), height()/Math.cos(Math.toRadians(30)),  0,
-                               -height(), 0,                                  0);
+                height() - distanceBelowX(), height()/Math.cos(Math.toRadians(30)),  0,
+                -height(), 0,                                  0);
     }
 
 
@@ -273,6 +287,60 @@ public class DriftChamberSector extends Detector {
             this.addComponent(shape);
 
         }
+    }
+
+}
+
+public class SuperLayerParams {
+
+    Map<Integer, HashMap<String, Double>> superLayerParamMap = this.initMap();
+
+    private Map initMap(){
+        HashMap<Integer, Map<String, Double>> paramMap = new HashMap<>();
+        paramMap.put(1,  Map.of("wpdist", 0.3861,
+                "thmin", 4.694,
+                "dist2tgt", 228.078));
+
+        paramMap.put(2,  Map.of("wpdist", 0.4042,
+                "thmin", 4.495,
+                "dist2tgt", 238.687));
+
+        paramMap.put(3,  Map.of("wpdist", 0.6219,
+                "thmin", 4.812,
+                "dist2tgt", 351.544));
+
+        paramMap.put(4,  Map.of("wpdist", 0.6586,
+                "thmin", 4.771,
+                "dist2tgt", 371.773));
+
+        paramMap.put(5,  Map.of("wpdist", 0.9351,
+                "thmin", 4.333,
+                "dist2tgt", 489.099));
+
+        paramMap.put(6,  Map.of("wpdist", 0.9780,
+                "thmin", 4.333,
+                "dist2tgt", 511.236));
+
+        return paramMap;
+    }
+
+    public SuperLayerParams() {
+    }
+
+    public HashMap<String, Double> getParams(int superLayer){
+        return this.superLayerParamMap.get(superLayer);
+    }
+
+    public double getTHMin(int superLayer){
+        return this.getParams(superLayer).get("thmin");
+    }
+
+    public double getWPD(int superLayer){
+        return getParams(superLayer).get("wpdist");
+    }
+
+    public double getDist2Targ(int superLayer){
+        return getParams(superLayer).get("dist2tgt");
     }
 
 }
