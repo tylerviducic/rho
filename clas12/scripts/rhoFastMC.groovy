@@ -65,7 +65,7 @@ while(reader.nextEvent(event)){
         int count = dcSector.intersection(ppath.getLine(0), inters);
         if(intersect){
             for(Point3D point : inters){
-                hSquare.fill( point.y(), point.x());
+                hSquare.fill( point.x(), point.y());
             }
         }
     }
