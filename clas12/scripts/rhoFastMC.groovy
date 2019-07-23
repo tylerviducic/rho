@@ -25,7 +25,7 @@ dcSector.initDCSector();
 
 String dataFile = "/u/group/clas12/mcdata/generated/lund/ppippim/clasdispr.00.e11.000.emn0.75tmn.09.xs65.61nb.113.0001.dat";
 
-H2F hSquare = new H2F("hSquare", "hSquare",100, -1000, 1000, 100, -1000, 1000);
+H2F hSquare = new H2F("hSquare", "hSquare",1000, -1000, 1000, 1000, -1000, 1000);
 TCanvas c1 = new TCanvas("c1", 600, 600);
 TCanvas c2 = new TCanvas("c2", 600, 600);
 TCanvas c3 = new TCanvas("c3", 600, 600);
