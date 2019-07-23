@@ -88,9 +88,10 @@ while(reader.nextEvent(event)){
 
 H1F acceptance = H1F.divide(hMxpWithHits, hMxp);
 
-c1.draw(hMxp);
-c2.draw(hMxpWithHits);
-c3.draw(acceptance.getGraph());
+//c1.draw(hMxp);
+//c2.draw(hMxpWithHits);
+//c3.draw(acceptance.getGraph());
+c1.draw(hSquare);
 
 // ################################################################################################################## //
 // ################################################################################################################## //
