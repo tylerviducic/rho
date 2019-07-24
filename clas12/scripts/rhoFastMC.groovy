@@ -29,6 +29,7 @@ H2F hSquare = new H2F("hSquare", "hSquare",500, -1000, 1000, 500, -1000, 1000);
 TCanvas c1 = new TCanvas("c1", 600, 600);
 TCanvas c2 = new TCanvas("c2", 600, 600);
 TCanvas c3 = new TCanvas("c3", 600, 600);
+TCanvas c4 = new TCanvas("c4", 600, 600);
 
 H1F hMxpWithHits = new H1F("hMxpWithHits", "hMxpWithHits", 150, 0 , 1.5);
 
@@ -91,10 +92,10 @@ while(reader.nextEvent(event)){
 
 H1F acceptance = H1F.divide(hMxpWithHits, hMxp);
 
-//c1.draw(hMxp);
-//c2.draw(hMxpWithHits);
-//c3.draw(acceptance.getGraph());
-c1.draw(hSquare);
+c1.draw(hMxp);
+c2.draw(hMxpWithHits);
+c3.draw(acceptance.getGraph());
+c4.draw(hSquare);
 
 // ################################################################################################################## //
 // ################################################################################################################## //
