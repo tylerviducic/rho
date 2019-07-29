@@ -8,10 +8,9 @@ import org.jlab.groot.data.H2F
 import org.jlab.groot.ui.TCanvas
 import org.jlab.jnp.physics.Particle
 import org.jlab.jnp.physics.ParticleList
-import org.jlab.jnp.physics.PhysicsEvent
 import org.jlab.jnp.reader.LundReader
+import org.jlab.jnp.physics.PhysicsEvent
 
-import java.lang.reflect.Array
 
 Calorimeter cal = new Calorimeter();
 cal.initCal();
@@ -19,24 +18,26 @@ cal.initCal();
 //DriftChamberSuperlayer dcSector = new DriftChamberSuperlayer(0.3861, 4.694, 228.078);
 //dcSector.initDCSector();
 
-DriftChamberSuperlayer dcSector = new DriftChamberSuperlayer(3);
+DriftChamberSuperlayer dcSector = new DriftChamberSuperlayer(1);
 dcSector.initDCSector();
 
+DriftChamber driftChamber = new DriftChamber();
 
-String dataFile = "/u/group/clas12/mcdata/generated/lund/ppippim/clasdispr.00.e11.000.emn0.75tmn.09.xs65.61nb.113.0001.dat";
+//String dataFile = "/u/group/clas12/mcdata/generated/lund/ppippim/clasdispr.00.e11.000.emn0.75tmn.09.xs65.61nb.113.0001.dat";
+String dataFile = "/media/tylerviducic/Elements/clas12/mcdata/clasdispr.00.e11.000.emn0.75tmn.09.xs65.61nb.113.0002.dat";
 
 H2F hSquare = new H2F("hSquare", "hSquare",500, -1000, 1000, 500, -1000, 1000);
 TCanvas c1 = new TCanvas("c1", 600, 600);
 TCanvas c2 = new TCanvas("c2", 600, 600);
 TCanvas c3 = new TCanvas("c3", 600, 600);
-TCanvas c4 = new TCanvas("c4", 600, 600);
+//TCanvas c4 = new TCanvas("c4", 600, 600);
 
 H1F hMxpWithHits = new H1F("hMxpWithHits", "hMxpWithHits", 150, 0 , 1.5);
 
 H1F hMxp = new H1F("hMxp", "hMxp", 150, 0 , 1.5);
 //Clas12FastMC fmc = new Clas12FastMC(-1, -1);
 LundReader reader = new LundReader();
-reader.acceptStatus((int)(1));
+reader.acceptStatus(1);
 reader.addFile(dataFile);
 reader.open();
 
@@ -55,21 +56,22 @@ while(reader.nextEvent(event)){
 
     Particle mxp = event.getParticle("[b] + [t] - [11,1] - [2212,1]");
 
-    for(int i = 0; i < particles.count(); i++){
-
-        Particle particle = particles.get(i);
-        StraightLine line = new StraightLine(particle);
-        Path3D ppath = line.getPath();
-        boolean intersect = dcSector.hasIntersection(ppath.getLine(0));
-        //println(intersect);
-        ArrayList<Point3D> inters = new ArrayList<Point3D>();
-        int count = dcSector.intersection(ppath.getLine(0), inters);
-        if(intersect){
-            for(Point3D point : inters){
-                hSquare.fill( point.x(), point.y());
-            }
-        }
-    }
+//    for(int i = 0; i < particles.count(); i++){
+//
+//        Particle particle = particles.get(i);
+//        StraightLine line = new StraightLine(particle);
+//        Path3D ppath = line.getPath();
+//        //boolean intersect = dcSector.hasIntersection(ppath.getLine(0));
+//        boolean intersect = driftChamber.hasHitsInAllLayers(ppath.getLine(0));
+//        println(intersect);
+//        ArrayList<Point3D> inters = new ArrayList<Point3D>();
+//        int count = dcSector.intersection(ppath.getLine(0), inters);
+//        if(intersect){
+//            for(Point3D point : inters){
+//                hSquare.fill( point.x(), point.y());
+//            }
+//        }
+//    }
 
     StraightLine pLine = new StraightLine(p);
     StraightLine eLine = new StraightLine(e);
@@ -84,7 +86,10 @@ while(reader.nextEvent(event)){
     hMxp.fill(mxp.mass());
 
     if(cal.hasIntersection(pPath.getLine(0)) && cal.hasIntersection(ePath.getLine(0)) &&
-            (cal.hasIntersection(pipPath.getLine(0)) || cal.hasIntersection(pimPath.getLine(0)))){
+            (cal.hasIntersection(pipPath.getLine(0)) || cal.hasIntersection(pimPath.getLine(0)))
+    && driftChamber.hasHitsInAllLayers(pPath.getLine(0)) && driftChamber.hasHitsInAllLayers(ePath.getLine(0))
+        &&(driftChamber.hasHitsInAllLayers(pipPath.getLine(0)) || driftChamber.hasHitsInAllLayers(pimPath.getLine(0)))
+    ){
         hMxpWithHits.fill(mxp.mass());
     }
 
@@ -95,7 +100,7 @@ H1F acceptance = H1F.divide(hMxpWithHits, hMxp);
 c1.draw(hMxp);
 c2.draw(hMxpWithHits);
 c3.draw(acceptance.getGraph());
-c4.draw(hSquare);
+//c4.draw(hSquare);
 
 // ################################################################################################################## //
 // ################################################################################################################## //
@@ -270,8 +275,6 @@ public class DriftChamberSuperlayer extends Detector {
     }
 
     public Triangle3D createSector(){
-        System.out.println("height = " + height());
-        System.out.println("distance = " + distanceBelowX());
         return new Triangle3D(height() - distanceBelowX(), -height()*Math.tan(Math.toRadians(30)), 0,
                               height() - distanceBelowX(), height()*Math.tan(Math.toRadians(30)),  0,
                               -distanceBelowX(),              0,                      0);
@@ -284,7 +287,6 @@ public class DriftChamberSuperlayer extends Detector {
 
         for(int i = 0; i < 6; i++){
             Triangle3D sector = createSector();
-            sector.show();
             sector.translateXYZ(0,0, this.distanceToTarget);
             sector.rotateY(Math.toRadians(tilt));
             sector.rotateZ(Math.toRadians(i * 60));
@@ -349,4 +351,35 @@ public class SuperLayerParams {
         return getParams(superLayer).get("dist2tgt");
     }
 
+}
+
+public class DriftChamber {
+    ArrayList<DriftChamberSuperlayer> superLayers = new ArrayList<>();
+
+    public DriftChamber() {
+        this.superLayers = initDriftChamber();
+    }
+
+    public DriftChamberSuperlayer getLayer(int superlayerNumber){
+        return this.superLayers.get(superlayerNumber -1);
+    }
+
+    private ArrayList<DriftChamberSuperlayer> initDriftChamber(){
+        ArrayList<DriftChamberSuperlayer> superLayers = new ArrayList<>();
+        for (int i = 0; i < 6; i++) {
+            DriftChamberSuperlayer superLayer = new DriftChamberSuperlayer(i + 1);
+            superLayer.initDCSector();
+            superLayers.add(superLayer);
+        }
+        return superLayers;
+    }
+
+    public boolean hasHitsInAllLayers(Line3D line){
+        for(DriftChamberSuperlayer layer : this.superLayers){
+            if(!layer.hasIntersection(line)){
+                return false;
+            }
+        }
+        return true;
+    }
 }
