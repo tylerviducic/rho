@@ -21,7 +21,8 @@ import java.util.Map;
 //Same as before, get a list of files in a directory that matches a search pattern.  If you want this Class, ask me :)
 //List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/rg-k/trains/v7/skim4_inclusive/skim4_57*");
 //List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/viducic/data/clas12/testDataFile_filtered_skimmed_2.hipo");
-List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/viducic/data/clas12/rgk_filtered_skimmed_0.hipo");
+//List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/viducic/data/clas12/rgk_filtered_skimmed_0.hipo");
+List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/rg-a/trains/v8/skim4_inclusive/*");
 
 
 //Step one is declaring histograms.  The histogram class in the JAVA framework is robust with a lot of familiar function
@@ -61,7 +62,7 @@ dir.cd("/CutPlots");
 //and returns the beam energy.  This is be very useful for people using the entire spread of RGA runs as it covers
 //several beam energies.
 //I am also working on a little visual progress bar. Like "[====>   ] x% done" or something along those lines.
-double beamEnergy = 0;
+double beamEnergy = 10.6;
 int nEvents = 0;
 //ProgressPrintout progress = new ProgressPrintout();
 
@@ -95,12 +96,13 @@ for (String dataFile : dataFiles) {
         event.read(particles);
         event.read(conf);
 
-        int runNum = conf.getInt("run", 0);
-        if(runNum == 5700){
-            beamEnergy = 7.5;
-        }else if(runNum == 5893){
-            beamEnergy = 6.5;
-        }
+
+//        int runNum = conf.getInt("run", 0);
+//        if(runNum == 5700){
+//            beamEnergy = 7.5;
+//        }else if(runNum == 5893){
+//            beamEnergy = 6.5;
+//        }
         //Initiate physics event like before.  We will see how it is used shortly
         PhysicsEvent physEvent = DataManager.getPhysicsEvent(beamEnergy, particles);
         //Figure out whether electron is in first row (FT/FD)
@@ -108,7 +110,8 @@ for (String dataFile : dataFiles) {
 
         //Time to do some physics if an event passes our filter
         //also require electron in forward tagger because then our decay products will be in the FD, not the CD
-        if (filter.isValid(physEvent) && pid == 11) {
+//        if (filter.isValid(physEvent) && pid == 11) {
+        if (filter.isValid(physEvent) ) {
 
             //Define the "Particles" I will use.  These are basically lorentz vectors on steroids
             //The two below are missing mass of the proton and electron and the missing "particle" of proton, electron,
@@ -186,7 +189,7 @@ dir.addDataSet(hCutMxp);
 dir.addDataSet(himPipPimGamUncut);
 
 //Very important step.  Be sure to actually write your directory to a file, or else it's useless
-dir.writeFile("/work/clas12/viducic/rho/clas12/sampleRhoAnalysis_5893.hipo");
+dir.writeFile("/work/clas12/viducic/rho/clas12/sampleRhoAnalysis_5038.hipo");
 //Tell me the script is finishes executing
 println("done");
 
