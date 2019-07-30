@@ -124,7 +124,7 @@ for (String dataFile : dataFiles) {
             hMx2_PePipPim.fill(mx_PePipPim.mass2());
 
             if(Math.abs(mx_PePipPim.mass2())<0.01) {
-                hMP_PePipPim.fill(mx_PePipPim.e());
+                hMP_PePipPim.fill(mx_PePipPim.p());
             }
 
             //Because I am skimming for events semi-inclusively, I need to identify which particles could be photons
@@ -163,7 +163,7 @@ for (String dataFile : dataFiles) {
                     }
 
                 }
-            if (Math.abs(mx_PePipPim.e() - pgam) < 0.2) {
+            if (Math.abs(mx_PePipPim.p() - pgam) < 0.1) {
                     //For comparison's sake, I fill a histogram with the missing mass of the pe system without any cuts
                     //on cos theta
                     hMxpUncut.fill(mx_P.mass());

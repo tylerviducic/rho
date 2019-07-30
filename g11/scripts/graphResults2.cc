@@ -51,7 +51,7 @@ void graphResults2(){
     	double da=e0;
     	
         double pi=4.0*atan(1.0);
-    	double b=0.00125;
+    	double b=0.00125; //is this binsize
     	integral = (sqrt(2*pi)*s*a) / b ;
     	
     	double error;
