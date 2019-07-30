@@ -22,7 +22,7 @@ import java.util.Map;
 //List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/rg-k/trains/v13/skim4_inclusive/*");
 //List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/viducic/data/clas12/testDataFile_filtered_skimmed_2.hipo");
 //List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/viducic/data/clas12/rgk_filtered_skimmed_0.hipo");
-List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/rg-a/trains/v14/skim3_mesonx_vs/*");
+List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/rg-a/trains/v14/skim4_inclusive/*");
 
 
 //Step one is declaring histograms.  The histogram class in the JAVA framework is robust with a lot of familiar function
@@ -189,7 +189,7 @@ dir.addDataSet(hCutMxp);
 dir.addDataSet(himPipPimGamUncut);
 
 //Very important step.  Be sure to actually write your directory to a file, or else it's useless
-dir.writeFile("/work/clas12/viducic/rho/clas12/sampleRhoAnalysis_RGK.hipo");
+dir.writeFile("/work/clas12/viducic/rho/clas12/sampleRhoAnalysis_RGA.hipo");
 //Tell me the script is finishes executing
 println("done");
 
