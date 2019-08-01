@@ -64,7 +64,7 @@ dir.cd("/CutPlots");
 //and returns the beam energy.  This is be very useful for people using the entire spread of RGA runs as it covers
 //several beam energies.
 //I am also working on a little visual progress bar. Like "[====>   ] x% done" or something along those lines.
-double beamEnergy = 0;
+double beamEnergy = 10.6;
 int nEvents = 0;
 //ProgressPrintout progress = new ProgressPrintout();
 
@@ -99,12 +99,12 @@ for (String dataFile : dataFiles) {
         event.read(conf);
 
 
-        int runNum = conf.getInt("run", 0);
-        if(runNum == 5700){
-            beamEnergy = 7.5;
-        }else if(runNum == 5893){
-            beamEnergy = 6.5;
-        }
+//        int runNum = conf.getInt("run", 0);
+//        if(runNum == 5700){
+//            beamEnergy = 7.5;
+//        }else if(runNum == 5893){
+//            beamEnergy = 6.5;
+//        }
         //Initiate physics event like before.  We will see how it is used shortly
         PhysicsEvent physEvent = DataManager.getPhysicsEvent(beamEnergy, particles);
         //Figure out whether electron is in first row (FT/FD)
