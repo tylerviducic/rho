@@ -28,21 +28,23 @@ List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/rg-k/tr
 //Step one is declaring histograms.  The histogram class in the JAVA framework is robust with a lot of familiar function
 //Here we see the constructor and setTitle/setFillColor methods but there are many more
 H1F hMxpUncut = new H1F("hMxPUncut", 140, 0.4, 1.4);
-hMxpUncut.setTitle("mx_P w/ |mx2_PePipPim| < 0.01 && mp_PePipPim > 0.1");
+hMxpUncut.setTitle("mx_P w/ |mx2_PePipPim| < 0.01 && mp_PePipPim > 0.1 && |mx_PePipPim.p() - pgam| < 0.1");
 hMxpUncut.setFillColor(43);
 
 H1F hCutMxp = new H1F("hCutMxp", 140, 0.4, 1.4);
-hCutMxp.setTitle("mx_P w/ cut|mx2_PePipPim| < 0.01 && mp_PePipPim > 0.1 && cosTheta > 0.98");
+hCutMxp.setTitle("mx_P w/ cut|mx2_PePipPim| < 0.01 && mp_PePipPim > 0.1 && |mx_PePipPim.p() - pgam| < 0.1 && osTheta > 0.99");
 hCutMxp.setFillColor(43);
 
 H1F hMx2_PePipPim = new H1F("hMx2_PiPipPim", 210, -0.1, 0.1);
 hMx2_PePipPim.setTitle("Missing mass squared of pePipPim");
+hMx2_PePipPim.setFillColor(43);
 
 H1F hMP_PePipPim = new H1F("hMP_PiPipPim", 210, -0.1, 2);
-hMP_PePipPim.setTitle("Missing momentum of pePipPim");
+hMP_PePipPim.setTitle("Missing momentum of pePipPim w/ |mx2_PePipPim| < 0.01");
+hMP_PePipPim.setFillColor(43);
 
 H1F himPipPimGamUncut = new H1F("himPipPimGamUncut", 140, 0.4, 1.4);
-himPipPimGamUncut.setTitle("IM_PipPimGam");
+himPipPimGamUncut.setTitle("IM_PipPimGam w/ cut|mx2_PePipPim| < 0.01 && mp_PePipPim > 0.1 && |mx_PePipPim.p() - pgam| < 0.1 && osTheta > 0.99");
 himPipPimGamUncut.setFillColor(43);
 
 //I personally don't like to draw plots to my screen unless I am debugging.  I prefer to save the histograms I make
