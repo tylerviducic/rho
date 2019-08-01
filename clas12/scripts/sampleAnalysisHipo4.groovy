@@ -19,33 +19,33 @@ import java.util.Map;
 //pPipPim theta < 40
 
 //Same as before, get a list of files in a directory that matches a search pattern.  If you want this Class, ask me :)
-List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/rg-k/trains/v13/skim4_inclusive/*");
+//List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/rg-k/trains/v13/skim4_inclusive/*");
 //List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/viducic/data/clas12/testDataFile_filtered_skimmed_2.hipo");
 //List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/viducic/data/clas12/rgk_filtered_skimmed_0.hipo");
-//List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/rg-a/trains/v14/skim4_inclusive/*");
+List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/rg-a/trains/v14/skim4_inclusive/*");
 
 
 //Step one is declaring histograms.  The histogram class in the JAVA framework is robust with a lot of familiar function
 //Here we see the constructor and setTitle/setFillColor methods but there are many more
 H1F hMxpUncut = new H1F("hMxPUncut", 140, 0.4, 1.4);
 hMxpUncut.setTitle("mx_P w/ |mx2_PePipPim| < 0.01 && mp_PePipPim > 0.1 && |mx_PePipPim.p() - pgam| < 0.1");
-hMxpUncut.setFillColor(43);
+hMxpUncut.setFillColor(44);
 
 H1F hCutMxp = new H1F("hCutMxp", 140, 0.4, 1.4);
 hCutMxp.setTitle("mx_P w/ cut|mx2_PePipPim| < 0.01 && mp_PePipPim > 0.1 && |mx_PePipPim.p() - pgam| < 0.1 && osTheta > 0.99");
-hCutMxp.setFillColor(43);
+hCutMxp.setFillColor(44);
 
 H1F hMx2_PePipPim = new H1F("hMx2_PiPipPim", 210, -0.1, 0.1);
 hMx2_PePipPim.setTitle("Missing mass squared of pePipPim");
-hMx2_PePipPim.setFillColor(43);
+hMx2_PePipPim.setFillColor(44);
 
 H1F hMP_PePipPim = new H1F("hMP_PiPipPim", 210, -0.1, 2);
 hMP_PePipPim.setTitle("Missing momentum of pePipPim w/ |mx2_PePipPim| < 0.01");
-hMP_PePipPim.setFillColor(43);
+hMP_PePipPim.setFillColor(44);
 
 H1F himPipPimGamUncut = new H1F("himPipPimGamUncut", 140, 0.4, 1.4);
 himPipPimGamUncut.setTitle("IM_PipPimGam w/ cut|mx2_PePipPim| < 0.01 && mp_PePipPim > 0.1 && |mx_PePipPim.p() - pgam| < 0.1 && osTheta > 0.99");
-himPipPimGamUncut.setFillColor(43);
+himPipPimGamUncut.setFillColor(44);
 
 //I personally don't like to draw plots to my screen unless I am debugging.  I prefer to save the histograms I make
 //to a TDirectory.  A TDirectory can be opened with a TBrowser, just like in ROOT.
@@ -191,7 +191,7 @@ dir.addDataSet(hCutMxp);
 dir.addDataSet(himPipPimGamUncut);
 
 //Very important step.  Be sure to actually write your directory to a file, or else it's useless
-dir.writeFile("/work/clas12/viducic/rho/clas12/sampleRhoAnalysis_RGK.hipo");
+dir.writeFile("/work/clas12/viducic/rho/clas12/sampleRhoAnalysis_RGA.hipo");
 //Tell me the script is finishes executing
 println("done");
 
