@@ -13,8 +13,10 @@ import org.jlab.jnp.utils.file.FileUtils
 //List<String> dataFiles = FileFinder.getFilesFromSubdirs("/w/hallb-scifs17exp/clas12/rg-a/production/recon/" +
 //        "pass0/v5/mon", "*");
 //List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/jnp/dataspace/rec_004013_FULL.hipo");
-List<String> dataFiles = FileFinder.getFilesFromSubdirs("/w/hallb-scifs17exp/clas12/rg-k/production/recon/pass0/v3/" +
-        "calibration/", "*");
+//List<String> dataFiles = FileFinder.getFilesFromSubdirs("/w/hallb-scifs17exp/clas12/rg-k/production/recon/pass0/v3/" +
+//        "calibration/", "*");
+List<String> dataFiles = FileFinder.getFilesFromSubdirs("/lustre/expphy/volatile/clas12/rg-a/production/recon/pass1/dst/v2", "*");
+
 
 //Declare an event filter using lundPID.
 //In this case, 11(e), 2212(p), 211(pi+), -211(pi-), Xn(any other neutrals)
@@ -30,7 +32,7 @@ HipoWriter writer = new HipoWriter(firstReader.getSchemaFactory());
 firstReader.close();
 
 //Open file you want to write to.  It will overwrite if the file already exists
-writer.open("/w/hallb-scifs17exp/clas12/viducic/data/clas12/rgk_filtered_4.hipo");
+//writer.open("/w/hallb-scifs17exp/clas12/viducic/data/clas12/rga/rgk_filtered_4.hipo");
 
 int numFile = 0;
 
@@ -39,6 +41,9 @@ for (String dataFile : dataFiles) {
     //Open a hipowriter to open and read the datafile.  !!This is NOT the same reader we used before!!
     HipoReader reader = new HipoReader();
     reader.open(dataFile);
+    dataFileNoPath = dataFile.substring(dataFile.lastIndexOf("/"));
+    outputFileName = String.format("/w/hallb-scifs17exp/clas12/viducic/data/rga/%s", dataFileNoPath);
+    writer.open(outputFileName);
 
     numFile++;
     println("done " + numFile + " out of " + dataFiles.size());
@@ -61,16 +66,17 @@ for (String dataFile : dataFiles) {
         event.read(config);
 
         //Construct a physics event. We will look at how powerful this class is a little later
-        PhysicsEvent physEvent = DataManager.getPhysicsEvent(6.5, particles);
+        PhysicsEvent physEvent = DataManager.getPhysicsEvent(10.6, particles);
 
         //If the physics event passes the filter, write it to a file
         if (filter.isValid(physEvent)) {
             writer.addEvent(event);
         }
     }
+    writer.close();
 }
 //Close the writer
-writer.close();
+//writer.close();
 
 
 
