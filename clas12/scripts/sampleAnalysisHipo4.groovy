@@ -112,7 +112,7 @@ for (String dataFile : dataFiles) {
 
         //Time to do some physics if an event passes our filter
         //also require electron in forward tagger because then our decay products will be in the FD, not the CD
-        if (filter.isValid(physEvent) && pid == !11) {
+        if (filter.isValid(physEvent) && pid != 11) {
         //if (filter.isValid(physEvent) ) {
 
             //Define the "Particles" I will use.  These are basically lorentz vectors on steroids
