@@ -112,12 +112,16 @@ for (String dataFile : dataFiles) {
 
         //Time to do some physics if an event passes our filter
         //also require electron in forward tagger because then our decay products will be in the FD, not the CD
-        if (filter.isValid(physEvent) && pid == 11) {
+        if (filter.isValid(physEvent)) {
         //if (filter.isValid(physEvent) ) {
 
             //Define the "Particles" I will use.  These are basically lorentz vectors on steroids
             //The two below are missing mass of the proton and electron and the missing "particle" of proton, electron,
             //pi+, pi-
+            Particle p = physEvent.getParticle("[2212]");
+            Particle e = physEvent.getParticle("[11]");
+            Particle pip = physEvent.getParticle("[211]");
+            Particle pim = physEvent.getParticle("[-211]");
             Particle mx_P = physEvent.getParticle("[b] + [t] - [11] - [2212]");
             Particle mx_PePipPim = physEvent.getParticle("[b] + [t] - [11] - [2212] - [211] - [-211]");
 
