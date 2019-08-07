@@ -47,13 +47,18 @@ H1F himPipPimCD = new H1F("himPipPimFD", 230, 0.2, 2.5);
 himPipPimCD.setTitle("IM_PipPim w/ cut|mx2_PePipPim| < 0.01 && me_PePipPim < 0.1");
 himPipPimCD.setFillColor(44);
 
+double eThetaCut = Math.toRadians(5);
+double pPipPimThetaCut = Math.toRadians(35);
+double mx2PePipPimCut = 0.01;
+double mePePipPimCut = 0.01;
+
+
 
 TDirectory dir = new TDirectory();
 dir.mkdir("/ForwardCuts");
 dir.mkdir("/ForwardPlots");
 dir.mkdir("/CentralCuts");
 dir.mkdir("/CentralPlots");
-dir.cd("/CentralCuts");
 
 double beamEnergy = 10.6;
 int nEvents = 0;
@@ -91,25 +96,26 @@ for (String dataFile : dataFiles) {
             Particle mx_PePipPim = physEvent.getParticle("[b] + [t] - [11] - [2212] - [211] - [-211]");
             Particle im_PipPim = physEvent.getParticle(('[211] + [-211]'))
 
-            if(Math.abs(Math.toDegrees(e.theta())) < 5 && Math.abs(Math.toDegrees(pip.theta())) < 35 && Math.abs(Math.toDegrees(pim.theta())) < 35 && Math.abs(Math.toDegrees(p.theta())) < 35) {
+            //if(Math.abs(Math.toDegrees(e.theta())) < 5 && Math.abs(Math.toDegrees(pip.theta())) < 35 && Math.abs(Math.toDegrees(pim.theta())) < 35 && Math.abs(Math.toDegrees(p.theta())) < 35) {
+            if(Math.abs(e.theta()) < eThetaCut && Math.abs(p.theta()) < pPipPimThetaCut && Math.abs(pip.theta()) < pPipPimThetaCut && Math.abs(pim.theta()) < pPipPimThetaCut){
                 hMx2_PePipPimFD.fill(mx_PePipPim.mass2());
-                if (Math.abs(mx_PePipPim.mass2()) < 0.01) {
+                if (Math.abs(mx_PePipPim.mass2()) < mx2PePipPimCut) {
                     hMe_PePipPimFD.fill(mx_PePipPim.e());
                 }
 
-                if(Math.abs(mx_PePipPim.mass2()) < 0.01 && mx_PePipPim.e() < 0.1){
+                if(Math.abs(mx_PePipPim.mass2()) < mx2PePipPimCut && mx_PePipPim.e() < mePePipPimCut){
                     hMxpFD.fill(mx_P.mass());
                     himPipPimFD.fill(im_PipPim.mass());
                 }
 
             }
-            else if(Math.abs(Math.toDegrees(e.theta())) > 5){//central
+            else if(Math.abs(e.theta()) > eThetaCut){//central
                 hMx2_PePipPimFD.fill(mx_PePipPim.mass2());
-                if (Math.abs(mx_PePipPim.mass2()) < 0.01) {
+                if (Math.abs(mx_PePipPim.mass2()) < mx2PePipPimCut) {
                     hMe_PePipPimFD.fill(mx_PePipPim.e());
                 }
 
-                if(Math.abs(mx_PePipPim.mass2()) < 0.01 && mx_PePipPim.e() < 0.1){
+                if(Math.abs(mx_PePipPim.mass2()) < mx2PePipPimCut && mx_PePipPim.e() < mePePipPimCut){
                     hMxpFD.fill(mx_P.mass());
                     himPipPimFD.fill(im_PipPim.mass());
                 }
@@ -120,6 +126,7 @@ for (String dataFile : dataFiles) {
     reader.close();
 }
 
+dir.cd("/CentralCuts");
 dir.addDataSet(hMx2_PePipPimCD);
 dir.addDataSet(hMe_PePipPimCD);
 dir.cd("/CentralPlots");
