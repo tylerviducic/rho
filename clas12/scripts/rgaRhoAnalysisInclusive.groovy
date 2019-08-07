@@ -27,7 +27,7 @@ H1F hMe_PePipPim = new H1F("hMe_PiPipPim", 210, -0.1, 2);
 hMe_PePipPim.setTitle("Missing momentum of pePipPim w/ |mx2_PePipPim| < 0.01");
 hMe_PePipPim.setFillColor(42);
 
-H1F himPipPim = new H1F("himPipPim", 140, 0.4, 1.4);434342.pts-16.ifarm1801
+H1F himPipPim = new H1F("himPipPim", 140, 0.4, 1.4);
 himPipPim.setTitle("IM_PipPim w/ cut|mx2_PePipPim| < 0.01 && me_PePipPim < 0.1");
 himPipPim.setFillColor(42);
 
