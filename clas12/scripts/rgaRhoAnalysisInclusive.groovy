@@ -75,6 +75,9 @@ for (String dataFile : dataFiles) {
         if (nEvents % 10000 == 0) {
             System.out.println("done " + nEvents);
         }
+        if (nEvents > 10000){
+            break;
+        }
 
         reader.nextEvent(event);
         event.read(particles);
@@ -83,9 +86,6 @@ for (String dataFile : dataFiles) {
         PhysicsEvent physEvent = DataManager.getPhysicsEvent(beamEnergy, particles);
 
         if(filter.isValid(physEvent)){
-            if (nEvents > 10000){
-                break;
-            }
             Particle p = physEvent.getParticle("[2212]");
             Particle e = physEvent.getParticle("[11]");
             Particle pip = physEvent.getParticle("[211]");
