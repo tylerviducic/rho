@@ -82,7 +82,6 @@ for (String dataFile : dataFiles) {
         }
 
         writer.close();
-        reader.close();
     }
     else{
         println("File already converted");
