@@ -45,12 +45,13 @@ int numFile = 0;
 //Begin looping over the files in our datafile list
 for (String dataFile : dataFiles) {
     //Open a hipowriter to open and read the datafile.  !!This is NOT the same reader we used before!!
-    HipoReader reader = new HipoReader();
-    reader.open(dataFile);
     dataFileNoPath = dataFile.substring(dataFile.lastIndexOf("/"));
     if(completedFilesNoPath.contains(dataFileNoPath)){
+        println("File already skimmed");
         continue;
     }
+    HipoReader reader = new HipoReader();
+    reader.open(dataFile);
     outputFileName = String.format("/w/hallb-scifs17exp/clas12/viducic/data/rga/%s", dataFileNoPath);
     writer.open(outputFileName);
 
@@ -83,6 +84,7 @@ for (String dataFile : dataFiles) {
         }
     }
     writer.close();
+    reader.close();
 }
 //Close the writer
 //writer.close();

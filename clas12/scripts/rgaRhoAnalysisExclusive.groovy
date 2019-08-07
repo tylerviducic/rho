@@ -96,7 +96,6 @@ for (String dataFile : dataFiles) {
             Particle mx_PePipPim = physEvent.getParticle("[b] + [t] - [11] - [2212] - [211] - [-211]");
             Particle im_PipPim = physEvent.getParticle(('[211] + [-211]'))
 
-            //if(Math.abs(Math.toDegrees(e.theta())) < 5 && Math.abs(Math.toDegrees(pip.theta())) < 35 && Math.abs(Math.toDegrees(pim.theta())) < 35 && Math.abs(Math.toDegrees(p.theta())) < 35) {
             if(Math.abs(e.theta()) < eThetaCut && Math.abs(p.theta()) < pPipPimThetaCut && Math.abs(pip.theta()) < pPipPimThetaCut && Math.abs(pim.theta()) < pPipPimThetaCut){
                 hMx2_PePipPimFD.fill(mx_PePipPim.mass2());
                 if (Math.abs(mx_PePipPim.mass2()) < mx2PePipPimCut) {
