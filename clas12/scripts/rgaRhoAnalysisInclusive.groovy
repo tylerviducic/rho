@@ -83,6 +83,9 @@ for (String dataFile : dataFiles) {
         PhysicsEvent physEvent = DataManager.getPhysicsEvent(beamEnergy, particles);
 
         if(filter.isValid(physEvent)){
+            if (nEvents > 10000){
+                break;
+            }
             Particle p = physEvent.getParticle("[2212]");
             Particle e = physEvent.getParticle("[11]");
             Particle pip = physEvent.getParticle("[211]");
@@ -91,6 +94,7 @@ for (String dataFile : dataFiles) {
             Particle mx_PePipPim = physEvent.getParticle("[b] + [t] - [11] - [2212] - [211] - [-211]");
             Particle im_PipPim = physEvent.getParticle("[211] + [-211]");
 
+            println(e.theta());
             if(Math.abs(e.theta()) < 5 && Math.abs(pip.theta()) < 35 && Math.abs(pim.theta()) < 35 && Math.abs(p.theta()) < 35) {//forward
                 hMx2_PePipPimFD.fill(mx_PePipPim.mass2());
                 if (Math.abs(mx_PePipPim.mass2()) < 0.01) {
