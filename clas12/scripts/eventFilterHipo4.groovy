@@ -16,6 +16,12 @@ import org.jlab.jnp.utils.file.FileUtils
 //List<String> dataFiles = FileFinder.getFilesFromSubdirs("/w/hallb-scifs17exp/clas12/rg-k/production/recon/pass0/v3/" +
 //        "calibration/", "*");
 List<String> dataFiles = FileFinder.getFilesFromSubdirs("/lustre/expphy/volatile/clas12/rg-a/production/recon/pass1/dst/v2", "*");
+List<String> completedFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/viducic/data/rga/*");
+List<String> completedFilesNoPath = new ArrayList<String>();
+for(String file: completedFiles){
+    fileNoPath = file.substring(file.lastIndexOf("/"));
+    completedFilesNoPath.add(fileNoPath);
+}
 
 
 //Declare an event filter using lundPID.
@@ -42,6 +48,9 @@ for (String dataFile : dataFiles) {
     HipoReader reader = new HipoReader();
     reader.open(dataFile);
     dataFileNoPath = dataFile.substring(dataFile.lastIndexOf("/"));
+    if(completedFilesNoPath.contains(dataFileNoPath)){
+        continue;
+    }
     outputFileName = String.format("/w/hallb-scifs17exp/clas12/viducic/data/rga/%s", dataFileNoPath);
     writer.open(outputFileName);
 
