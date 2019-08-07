@@ -73,6 +73,7 @@ for (String dataFile : dataFiles) {
             writer.addEvent(event);
         }
     }
+    reader.close();
     writer.close();
 }
 //Close the writer
