@@ -80,7 +80,7 @@ for (String dataFile : dataFiles) {
                     hMe_PePipPim.fill(mx_PePipPim.e());
                 }
 
-                if(Math.abs(mx_PePipPim.mass2()) < 0.01 && mx_PePipPim.e() > 0.1){
+                if(Math.abs(mx_PePipPim.mass2()) < 0.01 && mx_PePipPim.e() < 0.1){
                     hMxp.fill(mx_P.mass());
                     himPipPim.fill(im_PipPim.mass());
                 }
