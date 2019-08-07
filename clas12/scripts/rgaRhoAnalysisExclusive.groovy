@@ -11,11 +11,11 @@ import org.jlab.jnp.utils.file.FileUtils
 
 List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/viducic/data/rga/*");
 
-H1F hMxp = new H1F("hMxP", 140, 0.4, 1.4);
+H1F hMxp = new H1F("hMxP", 230, 0.2, 2.5);
 hMxp.setTitle("mx_P w/ |mx2_PePipPim| < 0.01 && me_PePipPim < 0.1");
 hMxp.setFillColor(44);
 
-H1F hCutMxp = new H1F("hCutMxp", 140, 0.4, 1.4);
+H1F hCutMxp = new H1F("hCutMxp", 230, 0.2, 2.5);
 hCutMxp.setTitle("mx_P w/ cut|mx2_PePipPim| < 0.01 && mp_PePipPim > 0.1 && |mx_PePipPim.p() - pgam| < 0.1 && osTheta > 0.99");
 hCutMxp.setFillColor(44);
 
@@ -27,7 +27,7 @@ H1F hMe_PePipPim = new H1F("hMe_PiPipPim", 210, -0.1, 2);
 hMe_PePipPim.setTitle("Missing momentum of pePipPim w/ |mx2_PePipPim| < 0.01");
 hMe_PePipPim.setFillColor(44);
 
-H1F himPipPim = new H1F("himPipPim", 140, 0.4, 1.4);
+H1F himPipPim = new H1F("himPipPim", 230, 0.2, 2.5);
 himPipPim.setTitle("IM_PipPim w/ cut|mx2_PePipPim| < 0.01 && me_PePipPim < 0.1");
 himPipPim.setFillColor(44);
 
