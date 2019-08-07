@@ -91,7 +91,7 @@ for (String dataFile : dataFiles) {
             Particle mx_PePipPim = physEvent.getParticle("[b] + [t] - [11] - [2212] - [211] - [-211]");
             Particle im_PipPim = physEvent.getParticle(('[211] + [-211]'))
 
-            if(Math.abs(e.theta()) < 5 && Math.abs(pip.theta()) < 35 && Math.abs(pim.theta()) < 35 && Math.abs(p.theta()) < 35) {
+            if(Math.abs(Math.toDegrees(e.theta())) < 5 && Math.abs(Math.toDegrees(pip.theta())) < 35 && Math.abs(Math.toDegrees(pim.theta())) < 35 && Math.abs(Math.toDegrees(p.theta())) < 35) {
                 hMx2_PePipPimFD.fill(mx_PePipPim.mass2());
                 if (Math.abs(mx_PePipPim.mass2()) < 0.01) {
                     hMe_PePipPimFD.fill(mx_PePipPim.e());
@@ -103,7 +103,7 @@ for (String dataFile : dataFiles) {
                 }
 
             }
-            else if(Math.abs(e.theta()) > 5){//central
+            else if(Math.abs(Math.toDegrees(e.theta())) > 5){//central
                 hMx2_PePipPimFD.fill(mx_PePipPim.mass2());
                 if (Math.abs(mx_PePipPim.mass2()) < 0.01) {
                     hMe_PePipPimFD.fill(mx_PePipPim.e());
