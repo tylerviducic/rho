@@ -46,45 +46,44 @@ int numFile = 0;
 for (String dataFile : dataFiles) {
     //Open a hipowriter to open and read the datafile.  !!This is NOT the same reader we used before!!
     dataFileNoPath = dataFile.substring(dataFile.lastIndexOf("/"));
-    if(completedFilesNoPath.contains(dataFileNoPath)){
-        println("File already skimmed");
-        continue;
-    }
-    HipoReader reader = new HipoReader();
-    reader.open(dataFile);
-    outputFileName = String.format("/w/hallb-scifs17exp/clas12/viducic/data/rga/%s", dataFileNoPath);
-    writer.open(outputFileName);
+    if(!completedFilesNoPath.contains(dataFileNoPath)) {
+        HipoReader reader = new HipoReader();
+        reader.open(dataFile);
+        outputFileName = String.format("/w/hallb-scifs17exp/clas12/viducic/data/rga/%s", dataFileNoPath);
+        writer.open(outputFileName);
 
-    numFile++;
-    println("done " + numFile + " out of " + dataFiles.size());
+        numFile++;
+        println("done " + numFile + " out of " + dataFiles.size());
 
-    //The new hipo4 format makes use of the Bank class and an empty Event to read the information in from the file.
-    //Hopefully this makes sense in a few lines
-    Bank particles = new Bank(reader.getSchemaFactory().getSchema("REC::Particle"));
-    Bank rce = new Bank(reader.getSchemaFactory().getSchema("REC::Event"));
-    Bank config = new Bank(reader.getSchemaFactory().getSchema("RUN::config"));
+        //The new hipo4 format makes use of the Bank class and an empty Event to read the information in from the file.
+        //Hopefully this makes sense in a few lines
+        Bank particles = new Bank(reader.getSchemaFactory().getSchema("REC::Particle"));
+        Bank rce = new Bank(reader.getSchemaFactory().getSchema("REC::Event"));
+        Bank config = new Bank(reader.getSchemaFactory().getSchema("RUN::config"));
 
-    Event event = new Event();
+        Event event = new Event();
 
-    //Loop over events in the data file and fill the event/bank
-    while (reader.hasNext()) {
-        //This fills our empty event object with the event
-        reader.nextEvent(event);
-        //this gets the relevant bank information and fills it
-        event.read(particles);
-        event.read(rce);
-        event.read(config);
+        //Loop over events in the data file and fill the event/bank
+        while (reader.hasNext()) {
+            //This fills our empty event object with the event
+            reader.nextEvent(event);
+            //this gets the relevant bank information and fills it
+            event.read(particles);
+            event.read(rce);
+            event.read(config);
 
-        //Construct a physics event. We will look at how powerful this class is a little later
-        PhysicsEvent physEvent = DataManager.getPhysicsEvent(10.6, particles);
+            //Construct a physics event. We will look at how powerful this class is a little later
+            PhysicsEvent physEvent = DataManager.getPhysicsEvent(10.6, particles);
 
-        //If the physics event passes the filter, write it to a file
-        if (filter.isValid(physEvent)) {
-            writer.addEvent(event);
+            //If the physics event passes the filter, write it to a file
+            if (filter.isValid(physEvent)) {
+                writer.addEvent(event);
+            }
         }
+
+        writer.close();
+        reader.close();
     }
-    writer.close();
-    reader.close();
 }
 //Close the writer
 //writer.close();
