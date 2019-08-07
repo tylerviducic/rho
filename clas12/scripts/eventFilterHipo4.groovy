@@ -42,7 +42,7 @@ for (String dataFile : dataFiles) {
     HipoReader reader = new HipoReader();
     reader.open(dataFile);
     dataFileNoPath = dataFile.substring(dataFile.lastIndexOf("/"));
-    outputFileName = String.format("/w/hallb-scifs17exp/clas12/viducic/data/rga/%s", dataFileNoPath);
+    outputFileName = String.format("/w/hallb-scifs17exp/clas12/viducic/data/rga/v2/%s", dataFileNoPath);
     writer.open(outputFileName);
 
     numFile++;
