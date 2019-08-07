@@ -75,9 +75,7 @@ for (String dataFile : dataFiles) {
         if (nEvents % 10000 == 0) {
             System.out.println("done " + nEvents);
         }
-        if (nEvents > 10000){
-            break;
-        }
+
 
         reader.nextEvent(event);
         event.read(particles);
@@ -94,8 +92,8 @@ for (String dataFile : dataFiles) {
             Particle mx_PePipPim = physEvent.getParticle("[b] + [t] - [11] - [2212] - [211] - [-211]");
             Particle im_PipPim = physEvent.getParticle("[211] + [-211]");
 
-            println(e.theta());
-            if(Math.abs(e.theta()) < 5 && Math.abs(pip.theta()) < 35 && Math.abs(pim.theta()) < 35 && Math.abs(p.theta()) < 35) {//forward
+
+            if(Math.abs(Math.toDegrees(e.theta())) < 5 && Math.abs(Math.toDegrees(pip.theta())) < 35 && Math.abs(Math.toDegrees(pim.theta())) < 35 && Math.abs(Math.toDegrees(p.theta())) < 35) {//forward
                 hMx2_PePipPimFD.fill(mx_PePipPim.mass2());
                 if (Math.abs(mx_PePipPim.mass2()) < 0.01) {
                     hMe_PePipPimFD.fill(mx_PePipPim.e());
@@ -106,7 +104,7 @@ for (String dataFile : dataFiles) {
                     himPipPimFD.fill(im_PipPim.mass());
                 }
 
-            }else if(Math.abs(e.theta())>5){//central
+            }else if(Math.abs(Math.toDegrees(e.theta()))>5){//central
                 hMx2_PePipPimCD.fill(mx_PePipPim.mass2());
                 if (Math.abs(mx_PePipPim.mass2()) < 0.01) {
                     hMe_PePipPimCD.fill(mx_PePipPim.e());
