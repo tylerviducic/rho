@@ -80,11 +80,6 @@ for (String dataFile : dataFiles) {
 //writer.close();
 
 
-
-
-
-
-
 public class FileFinder {
 
     public FileFinder() {

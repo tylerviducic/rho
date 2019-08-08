@@ -107,16 +107,15 @@ for (String dataFile : dataFiles) {
                     himPipPimFD.fill(im_PipPim.mass());
                 }
 
-            }
-            else if(e.theta() > eThetaCut){//central
-                hMx2_PePipPimFD.fill(mx_PePipPim.mass2());
+            } else if(e.theta() > eThetaCut){//central
+                hMx2_PePipPimCD.fill(mx_PePipPim.mass2());
                 if (Math.abs(mx_PePipPim.mass2()) < mx2PePipPimCut) {
-                    hMe_PePipPimFD.fill(mx_PePipPim.e());
+                    hMe_PePipPimCD.fill(mx_PePipPim.e());
                 }
 
                 if(Math.abs(mx_PePipPim.mass2()) < mx2PePipPimCut && mx_PePipPim.e() < mePePipPimCut){
-                    hMxpFD.fill(mx_P.mass());
-                    himPipPimFD.fill(im_PipPim.mass());
+                    hMxpCD.fill(mx_P.mass());
+                    himPipPimCD.fill(im_PipPim.mass());
                 }
             }
 
