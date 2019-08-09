@@ -14,4 +14,4 @@ for f in files:
         run_numbers.append(run_num)
 
 for num in run_numbers:
-    os.mkdir("//w/hallb-scifs17exp/clas12/viducic/data/rga/v1/{}".format(num))
+    os.mkdir("/w/hallb-scifs17exp/clas12/viducic/data/rga/v1/{}".format(num))
