@@ -94,6 +94,7 @@ for (String dataFile : dataFiles) {
             Particle pim = physEvent.getParticle("[-211]");
             Particle mx_P = physEvent.getParticle("[b] + [t] - [11] - [2212]");
             Particle mx_PePipPim = physEvent.getParticle("[b] + [t] - [11] - [2212] - [211] - [-211]");
+            Particle mx_PePipPimGam = physEvent.getParticle("[b] + [t] - [11] - [2212] - [211] - [-211] - [22]");
             Particle im_PipPim = physEvent.getParticle("[211] + [-211] + [22]");
 
 
@@ -114,12 +115,11 @@ for (String dataFile : dataFiles) {
                     hMe_PePipPimCD.fill(mx_PePipPim.e());
                 }
 
-                if (Math.abs(mx_PePipPim.mass2()) < mx2PePipPimCut && mx_PePipPim.e() > mePePipPimCut) {
+                if (Math.abs(mx_PePipPim.mass2()) < mx2PePipPimCut && mx_PePipPim.e() > mePePipPimCut && Math.abs(mx_PePipPimGam.mass2()) < 0.01) {
                     hMxpCD.fill(mx_P.mass());
                     himPipPimCD.fill(im_PipPim.mass());
                 }
             }
-
         }
     }
     reader.close();
