@@ -20,4 +20,5 @@ files = glob.glob("/w/hallb-scifs17exp/clas12/viducic/data/rga/v2/*.hipo")
 
 for f in files:
     run_num = f[56:62]
-    os.system('mv {} /w/hallb-scifs17exp/clas12/viducic/data/rga/v1/{}'.format(f, run_num))
+    print('mv {} /w/hallb-scifs17exp/clas12/viducic/data/rga/v1/{}'.format(f, run_num))
+    # os.system('mv {} /w/hallb-scifs17exp/clas12/viducic/data/rga/v1/{}'.format(f, run_num))
