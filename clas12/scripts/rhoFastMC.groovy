@@ -10,6 +10,7 @@ import org.jlab.jnp.physics.Particle
 import org.jlab.jnp.physics.ParticleList
 import org.jlab.jnp.reader.LundReader
 import org.jlab.jnp.physics.PhysicsEvent
+import org.jlab.jnp.utils.file.FileUtils
 
 
 Calorimeter cal = new Calorimeter();
@@ -24,7 +25,8 @@ dcSector.initDCSector();
 DriftChamber driftChamber = new DriftChamber();
 
 //String dataFile = "/u/group/clas12/mcdata/generated/lund/ppippim/clasdispr.00.e11.000.emn0.75tmn.09.xs65.61nb.113.0001.dat";
-String dataFile = "/media/tylerviducic/Elements/clas12/mcdata/clasdispr.00.e11.000.emn0.75tmn.09.xs65.61nb.113.0002.dat";
+//String dataFile = "/media/tylerviducic/Elements/clas12/mcdata/clasdispr.00.e11.000.emn0.75tmn.09.xs65.61nb.113.0002.dat";
+List<String> dataFiles = FileFinder.getFiles("/media/tylerviducic/Elements/clas12/mcdata/*.dat");
 
 H2F hSquare = new H2F("hSquare", "hSquare",500, -1000, 1000, 500, -1000, 1000);
 TCanvas c1 = new TCanvas("c1", 600, 600);
@@ -36,25 +38,28 @@ H1F hMxpWithHits = new H1F("hMxpWithHits", "hMxpWithHits", 150, 0 , 1.5);
 
 H1F hMxp = new H1F("hMxp", "hMxp", 150, 0 , 1.5);
 //Clas12FastMC fmc = new Clas12FastMC(-1, -1);
-LundReader reader = new LundReader();
-reader.acceptStatus(1);
-reader.addFile(dataFile);
-reader.open();
 
-PhysicsEvent event = new PhysicsEvent();
+for(String dataFile: dataFiles) {
 
-while(reader.nextEvent(event)){
-    event.setBeamParticle(new Particle(11, 0, 0, 11));
-    event.setTargetParticle(new Particle(2212, 0, 0, 0));
+    LundReader reader = new LundReader();
+    reader.acceptStatus(1);
+    reader.addFile(dataFile);
+    reader.open();
 
-    ParticleList particles = event.getParticleList();
+    PhysicsEvent event = new PhysicsEvent();
 
-    Particle p = event.getParticleByPid(2212,1);
-    Particle e = event.getParticleByPid(11,1);
-    Particle pip = event.getParticleByPid(211,0);
-    Particle pim = event.getParticleByPid(-211,0);
+    while (reader.nextEvent(event)) {
+        event.setBeamParticle(new Particle(11, 0, 0, 11));
+        event.setTargetParticle(new Particle(2212, 0, 0, 0));
 
-    Particle mxp = event.getParticle("[b] + [t] - [11,1] - [2212,1]");
+        ParticleList particles = event.getParticleList();
+
+        Particle p = event.getParticleByPid(2212, 1);
+        Particle e = event.getParticleByPid(11, 1);
+        Particle pip = event.getParticleByPid(211, 0);
+        Particle pim = event.getParticleByPid(-211, 0);
+
+        Particle mxp = event.getParticle("[b] + [t] - [11,1] - [2212,1]");
 
 //    for(int i = 0; i < particles.count(); i++){
 //
@@ -73,28 +78,28 @@ while(reader.nextEvent(event)){
 //        }
 //    }
 
-    StraightLine pLine = new StraightLine(p);
-    StraightLine eLine = new StraightLine(e);
-    StraightLine pipLine = new StraightLine(pip);
-    StraightLine pimLine = new StraightLine(pim);
+        StraightLine pLine = new StraightLine(p);
+        StraightLine eLine = new StraightLine(e);
+        StraightLine pipLine = new StraightLine(pip);
+        StraightLine pimLine = new StraightLine(pim);
 
-    Path3D pPath = pLine.getPath();
-    Path3D ePath = eLine.getPath();
-    Path3D pipPath = pipLine.getPath();
-    Path3D pimPath = pimLine.getPath();
+        Path3D pPath = pLine.getPath();
+        Path3D ePath = eLine.getPath();
+        Path3D pipPath = pipLine.getPath();
+        Path3D pimPath = pimLine.getPath();
 
-    hMxp.fill(mxp.mass());
+        hMxp.fill(mxp.mass());
 
-    if(cal.hasIntersection(pPath.getLine(0)) && cal.hasIntersection(ePath.getLine(0)) &&
-            (cal.hasIntersection(pipPath.getLine(0)) || cal.hasIntersection(pimPath.getLine(0)))
-    && driftChamber.hasHitsInAllLayers(pPath.getLine(0)) && driftChamber.hasHitsInAllLayers(ePath.getLine(0))
-        &&(driftChamber.hasHitsInAllLayers(pipPath.getLine(0)) || driftChamber.hasHitsInAllLayers(pimPath.getLine(0)))
-    ){
-        hMxpWithHits.fill(mxp.mass());
+        if (cal.hasIntersection(pPath.getLine(0)) && cal.hasIntersection(ePath.getLine(0)) &&
+                (cal.hasIntersection(pipPath.getLine(0)) || cal.hasIntersection(pimPath.getLine(0)))
+                && driftChamber.hasHitsInAllLayers(pPath.getLine(0)) && driftChamber.hasHitsInAllLayers(ePath.getLine(0))
+                && (driftChamber.hasHitsInAllLayers(pipPath.getLine(0)) || driftChamber.hasHitsInAllLayers(pimPath.getLine(0)))
+        ) {
+            hMxpWithHits.fill(mxp.mass());
+        }
+
     }
-
 }
-
 H1F acceptance = H1F.divide(hMxpWithHits, hMxp);
 
 c1.draw(hMxp);
@@ -381,5 +386,95 @@ public class DriftChamber {
             }
         }
         return true;
+    }
+}
+
+public class FileFinder {
+
+    public FileFinder() {
+    }
+
+    private static List<String> listOfFiles = new ArrayList<String>();
+    private static String newKeyWord = "";
+    public static int DEBUG_MODE = 0;
+
+    public static List<String> getFiles(List<String> listOfDirs, String fileName) {
+        for (String dir : listOfDirs) {
+            getFiles(dir, fileName);
+        }
+        return listOfFiles;
+    }
+
+    public static List<String> getFilesFromSubdirs(String directory, String wildcard) {
+        List<String> listOfDirs = getSubdirs(directory);
+        return getFiles(listOfDirs, wildcard);
+    }
+
+
+    public static List<String> getFiles(String directory, String wildcard) {
+        String newDir = "";
+        if (!directory.endsWith("/")) {
+            newDir = directory + "/";
+        } else {
+            newDir = directory;
+        }
+        List<String> filesInDirectory = FileUtils.getFileListInDir(directory);
+
+        if (wildcard.contains("*")) {
+            newKeyWord = newDir + wildcard.replace("*", ".*");
+        } else {
+            newKeyWord = newDir + wildcard;
+        }
+        for (String f : filesInDirectory) {
+            if (f.matches(newKeyWord)) {
+                listOfFiles.add(f.toString());
+            }
+        }
+        return this.listOfFiles;
+    }
+
+    public static List<String> getDirectoryName(String fullPath) {
+        List<String> dirFile = new ArrayList<String>();
+        int start = fullPath.lastIndexOf("/");
+        dirFile.add(0, fullPath.substring(0, start + 1));
+        dirFile.add(1, fullPath.substring(start + 1));
+        return dirFile;
+    }
+
+    public static List<String> getFiles(String fullPath) {
+        List<String> dirCombo = getDirectoryName(fullPath);
+        return getFiles(dirCombo.get(0), dirCombo.get(1));
+    }
+
+    public static List<String> getSubdirs(String directory) {
+        if (DEBUG_MODE > 0) {
+            System.out.println(">>> scanning directory : " + directory);
+        }
+
+        List<String> dirList = new ArrayList();
+        File[] dirs = (new File(directory)).listFiles();
+        if (dirs == null) {
+            if (DEBUG_MODE > 0) {
+                System.out.println(">>> scanning directory : directory does not exist");
+            }
+
+            return dirList;
+        } else {
+            File[] var3 = dirs;
+            int var4 = dirs.length;
+
+            for (int var5 = 0; var5 < var4; ++var5) {
+                File dir = var3[var5];
+                if (dir.isDirectory()) {
+                    if (!dir.getName().startsWith(".") && !dir.getName().endsWith("~")) {
+                        dirList.add(dir.getAbsolutePath());
+                    } else if (DEBUG_MODE > 0) {
+                        System.out.println("[FileUtils] ----> skipping file : " + dir.getName());
+                    }
+                }
+            }
+
+            return dirList;
+        }
     }
 }
