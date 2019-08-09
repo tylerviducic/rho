@@ -123,7 +123,7 @@ for (String dataFile : dataFiles) {
                 }
 
                 if (Math.abs(mx_PePipPim.mass2()) < mx2PePipPimCut && mx_PePipPim.e() > mePePipPimCut
-                        && Math.abs(mx_PePipPimGam.mass2()) < 0.01 && Math.abs(mx_PePipPim.e() - gam.e()) < 0.2) {
+                        && Math.abs(mx_PePipPimGam.mass2()) < 0.01 && Math.abs(mx_PePipPim.e() - gam.e()) < 0.1 && gam.e() > 0.1) {
                     hMxpCD.fill(mx_P.mass());
                     himPipPimCD.fill(im_PipPim.mass());
                 }
@@ -136,6 +136,7 @@ for (String dataFile : dataFiles) {
 dir.cd("/CentralCuts");
 dir.addDataSet(hMx2_PePipPimCD);
 dir.addDataSet(hMe_PePipPimCD);
+dir.addDataSet(hMx2_PePipPimGamCD);
 dir.cd("/CentralPlots");
 dir.addDataSet(hMxpCD);
 dir.addDataSet(himPipPimCD);
