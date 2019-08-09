@@ -6,12 +6,10 @@ import glob
 run_numbers = []
 
 files = glob.glob("/w/hallb-scifs17exp/clas12/viducic/data/rga/v1/*.hipo")
-print(len('/w/hallb-scifs17exp/clas12/viducic/data/rga/v1/*.hipo'))
-print(files)
 
 for f in files:
     # '/w/hallb-scifs17exp/clas12/viducic/data/rga/v1/dst_clas_005181.evio.00210-00214.hipo'
-    run_num = f[9:15]
+    run_num = f[56:62]
     if run_num not in run_numbers:
         run_numbers.append(run_num)
 
