@@ -6,6 +6,7 @@ import glob
 run_numbers = []
 
 files = glob.glob("/w/hallb-scifs17exp/clas12/viducic/data/rga/v1/*.hipo")
+print(files)
 
 for f in files:
     # dst_clas_005165.evio.00580-00584.hipo
