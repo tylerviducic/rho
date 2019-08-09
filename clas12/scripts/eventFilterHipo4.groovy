@@ -42,7 +42,7 @@ for (String dataFile : dataFiles) {
     HipoReader reader = new HipoReader();
     try {
         reader.open(dataFile);
-    } catch (Exception e){
+    } catch (FileNotFoundException e){
         continue;
     }
     dataFileNoPath = dataFile.substring(dataFile.lastIndexOf("/"));
