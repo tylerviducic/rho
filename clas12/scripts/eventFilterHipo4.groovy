@@ -40,7 +40,11 @@ int numFile = 0;
 for (String dataFile : dataFiles) {
     //Open a hipowriter to open and read the datafile.  !!This is NOT the same reader we used before!!
     HipoReader reader = new HipoReader();
-    reader.open(dataFile);
+    try {
+        reader.open(dataFile);
+    } catch (Exception e){
+        continue;
+    }
     dataFileNoPath = dataFile.substring(dataFile.lastIndexOf("/"));
     outputFileName = String.format("/w/hallb-scifs17exp/clas12/viducic/data/rga/v2/%s", dataFileNoPath);
     writer.open(outputFileName);
