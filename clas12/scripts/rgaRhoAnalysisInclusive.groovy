@@ -72,7 +72,7 @@ for (String dataFile : dataFiles) {
     Bank conf = new Bank(reader.getSchemaFactory().getSchema("RUN::config"));
     Event event = new Event();
 
-    EventFilter filter = new EventFilter("11:2212:211:-211:Xn:X+:X-");
+    EventFilter filter = new EventFilter("11:2212:211:-211:22:Xn:X+:X-");
 
     while (reader.hasNext()){
         nEvents++;
@@ -94,7 +94,7 @@ for (String dataFile : dataFiles) {
             Particle pim = physEvent.getParticle("[-211]");
             Particle mx_P = physEvent.getParticle("[b] + [t] - [11] - [2212]");
             Particle mx_PePipPim = physEvent.getParticle("[b] + [t] - [11] - [2212] - [211] - [-211]");
-            Particle im_PipPim = physEvent.getParticle("[211] + [-211]");
+            Particle im_PipPim = physEvent.getParticle("[211] + [-211] + [22]");
 
 
             if(e.theta() < eThetaCut && p.theta() < pPipPimThetaCut && pip.theta() < pPipPimThetaCut && pim.theta() < pPipPimThetaCut){
