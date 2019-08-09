@@ -39,6 +39,10 @@ H1F hMx2_PePipPimCD = new H1F("hMx2_PiPipPim", 210, -0.1, 0.1);
 hMx2_PePipPimCD.setTitle("Missing mass squared of pePipPim");
 hMx2_PePipPimCD.setFillColor(42);
 
+H1F hMx2_PePipPimGamCD = new H1F("hMx2_PiPipPim", 210, -0.1, 0.1);
+hMx2_PePipPimGamCD.setTitle("Missing mass squared of pePipPim");
+hMx2_PePipPimGamCD.setFillColor(42);
+
 H1F hMe_PePipPimCD = new H1F("hMe_PiPipPim", 210, -0.1, 2);
 hMe_PePipPimCD.setTitle("Missing momentum of pePipPim w/ |mx2_PePipPim| < 0.01");
 hMe_PePipPimCD.setFillColor(42);
@@ -81,6 +85,7 @@ for (String dataFile : dataFiles) {
         }
 
 
+
         reader.nextEvent(event);
         event.read(particles);
         event.read(conf);
@@ -92,6 +97,7 @@ for (String dataFile : dataFiles) {
             Particle e = physEvent.getParticle("[11]");
             Particle pip = physEvent.getParticle("[211]");
             Particle pim = physEvent.getParticle("[-211]");
+            Particle gam = physEvent.getParticle("[22]");
             Particle mx_P = physEvent.getParticle("[b] + [t] - [11] - [2212]");
             Particle mx_PePipPim = physEvent.getParticle("[b] + [t] - [11] - [2212] - [211] - [-211]");
             Particle mx_PePipPimGam = physEvent.getParticle("[b] + [t] - [11] - [2212] - [211] - [-211] - [22]");
@@ -100,6 +106,7 @@ for (String dataFile : dataFiles) {
 
             if(e.theta() < eThetaCut && p.theta() < pPipPimThetaCut && pip.theta() < pPipPimThetaCut && pim.theta() < pPipPimThetaCut){
                 hMx2_PePipPimFD.fill(mx_PePipPim.mass2());
+                hMx2_PePipPimGamCD.fill(mx_PePipPimGam.mass2());
                 if (Math.abs(mx_PePipPim.mass2()) < mx2PePipPimCut) {
                     hMe_PePipPimFD.fill(mx_PePipPim.e());
                 }
@@ -115,7 +122,8 @@ for (String dataFile : dataFiles) {
                     hMe_PePipPimCD.fill(mx_PePipPim.e());
                 }
 
-                if (Math.abs(mx_PePipPim.mass2()) < mx2PePipPimCut && mx_PePipPim.e() > mePePipPimCut && Math.abs(mx_PePipPimGam.mass2()) < 0.01) {
+                if (Math.abs(mx_PePipPim.mass2()) < mx2PePipPimCut && mx_PePipPim.e() > mePePipPimCut
+                        && Math.abs(mx_PePipPimGam.mass2()) < 0.01 && Math.abs(mx_PePipPim.e() - gam.e()) < 0.2) {
                     hMxpCD.fill(mx_P.mass());
                     himPipPimCD.fill(im_PipPim.mass());
                 }
