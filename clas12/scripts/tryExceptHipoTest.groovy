@@ -9,3 +9,7 @@ try {
 } catch (FileNotFoundException e){
     println("Exception caught.");
 }
+
+for(int i =0; i< 10; i++){
+    println(i);
+}
