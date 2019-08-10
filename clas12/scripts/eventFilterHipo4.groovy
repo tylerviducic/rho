@@ -42,9 +42,7 @@ for (String dataFile : dataFiles) {
     HipoReader reader = new HipoReader();
     try {
         reader.open(dataFile);
-    } catch (FileNotFoundException e){
-        continue;
-    }
+
     dataFileNoPath = dataFile.substring(dataFile.lastIndexOf("/"));
     outputFileName = String.format("/w/hallb-scifs17exp/clas12/viducic/data/rga/v2/%s", dataFileNoPath);
     writer.open(outputFileName);
@@ -79,6 +77,9 @@ for (String dataFile : dataFiles) {
     }
     reader.close();
     writer.close();
+    } catch (FileNotFoundException e){
+        continue;
+    }
 }
 //Close the writer
 //writer.close();
