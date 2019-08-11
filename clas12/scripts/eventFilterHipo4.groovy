@@ -77,7 +77,7 @@ for (String dataFile : dataFiles) {
     }
     reader.close();
     writer.close();
-    } catch (FileNotFoundException e){
+    } catch (Exception e){
         continue;
     }
 }
