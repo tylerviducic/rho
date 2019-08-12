@@ -77,58 +77,61 @@ for (String dataFile : dataFiles) {
     Event event = new Event();
 
     EventFilter filter = new EventFilter("11:2212:211:-211:22:Xn:X+:X-");
+    try {
+        while (reader.hasNext()) {
+            nEvents++;
+            if (nEvents % 10000 == 0) {
+                System.out.println("done " + nEvents);
+            }
 
-    while (reader.hasNext()){
-        nEvents++;
-        if (nEvents % 10000 == 0) {
-            System.out.println("done " + nEvents);
-        }
+            reader.nextEvent(event);
+            event.read(particles);
+            event.read(conf);
 
-        reader.nextEvent(event);
-        event.read(particles);
-        event.read(conf);
+            PhysicsEvent physEvent = DataManager.getPhysicsEvent(beamEnergy, particles);
 
-        PhysicsEvent physEvent = DataManager.getPhysicsEvent(beamEnergy, particles);
-
-        if(filter.isValid(physEvent)){
-            Particle p = physEvent.getParticle("[2212]");
-            Particle e = physEvent.getParticle("[11]");
-            Particle pip = physEvent.getParticle("[211]");
-            Particle pim = physEvent.getParticle("[-211]");
-            Particle gam = physEvent.getParticle("[22]");
-            Particle mx_P = physEvent.getParticle("[b] + [t] - [11] - [2212]");
-            Particle mx_PePipPim = physEvent.getParticle("[b] + [t] - [11] - [2212] - [211] - [-211]");
-            Particle mx_PePipPimGam = physEvent.getParticle("[b] + [t] - [11] - [2212] - [211] - [-211] - [22]");
-            Particle im_PipPim = physEvent.getParticle("[211] + [-211] + [22]");
+            if (filter.isValid(physEvent)) {
+                Particle p = physEvent.getParticle("[2212]");
+                Particle e = physEvent.getParticle("[11]");
+                Particle pip = physEvent.getParticle("[211]");
+                Particle pim = physEvent.getParticle("[-211]");
+                Particle gam = physEvent.getParticle("[22]");
+                Particle mx_P = physEvent.getParticle("[b] + [t] - [11] - [2212]");
+                Particle mx_PePipPim = physEvent.getParticle("[b] + [t] - [11] - [2212] - [211] - [-211]");
+                Particle mx_PePipPimGam = physEvent.getParticle("[b] + [t] - [11] - [2212] - [211] - [-211] - [22]");
+                Particle im_PipPim = physEvent.getParticle("[211] + [-211] + [22]");
 
 
-            if(e.theta() < eThetaCut && p.theta() < pPipPimThetaCut && pip.theta() < pPipPimThetaCut && pim.theta() < pPipPimThetaCut){
-                hMx2_PePipPimFD.fill(mx_PePipPim.mass2());
-                hMx2_PePipPimGamCD.fill(mx_PePipPimGam.mass2());
-                if (Math.abs(mx_PePipPim.mass2()) < mx2PePipPimCut) {
-                    hMe_PePipPimFD.fill(mx_PePipPim.e());
-                }
+                if (e.theta() < eThetaCut && p.theta() < pPipPimThetaCut && pip.theta() < pPipPimThetaCut && pim.theta() < pPipPimThetaCut) {
+                    hMx2_PePipPimFD.fill(mx_PePipPim.mass2());
+                    hMx2_PePipPimGamCD.fill(mx_PePipPimGam.mass2());
+                    if (Math.abs(mx_PePipPim.mass2()) < mx2PePipPimCut) {
+                        hMe_PePipPimFD.fill(mx_PePipPim.e());
+                    }
 
-                if (Math.abs(mx_PePipPim.mass2()) < mx2PePipPimCut && mx_PePipPim.e() > mePePipPimCut) {
-                    hMxpFD.fill(mx_P.mass());
-                    himPipPimFD.fill(im_PipPim.mass());
-                }
+                    if (Math.abs(mx_PePipPim.mass2()) < mx2PePipPimCut && mx_PePipPim.e() > mePePipPimCut) {
+                        hMxpFD.fill(mx_P.mass());
+                        himPipPimFD.fill(im_PipPim.mass());
+                    }
 
-            }else if(e.theta()>eThetaCut){//central
-                hMx2_PePipPimCD.fill(mx_PePipPim.mass2());
-                if (Math.abs(mx_PePipPim.mass2()) < mx2PePipPimCut) {
-                    hMe_PePipPimCD.fill(mx_PePipPim.e());
-                }
+                } else if (e.theta() > eThetaCut) {//central
+                    hMx2_PePipPimCD.fill(mx_PePipPim.mass2());
+                    if (Math.abs(mx_PePipPim.mass2()) < mx2PePipPimCut) {
+                        hMe_PePipPimCD.fill(mx_PePipPim.e());
+                    }
 
-                if (Math.abs(mx_PePipPim.mass2()) < mx2PePipPimCut && mx_PePipPim.e() > mePePipPimCut
-                        && Math.abs(mx_PePipPimGam.mass2()) < 0.01 && Math.abs(mx_PePipPim.e() - gam.e()) < 0.1 && gam.e() > 0.1) {
-                    hMxpCD.fill(mx_P.mass());
-                    himPipPimCD.fill(im_PipPim.mass());
+                    if (Math.abs(mx_PePipPim.mass2()) < mx2PePipPimCut && mx_PePipPim.e() > mePePipPimCut
+                            && Math.abs(mx_PePipPimGam.mass2()) < 0.01 && Math.abs(mx_PePipPim.e() - gam.e()) < 0.1 && gam.e() > 0.1) {
+                        hMxpCD.fill(mx_P.mass());
+                        himPipPimCD.fill(im_PipPim.mass());
+                    }
                 }
             }
         }
+        reader.close();
+    }catch(Exception e){
+        continue;
     }
-    reader.close();
 }
 
 dir.cd("/CentralCuts");
