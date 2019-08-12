@@ -9,7 +9,7 @@ import org.jlab.jnp.physics.PhysicsEvent
 import org.jlab.jnp.reader.DataManager
 import org.jlab.jnp.utils.file.FileUtils
 
-List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/viducic/data/rga/v1/*");
+List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/viducic/data/rga/v2/*");
 
 H1F hMxpFD = new H1F("hMxP", 230, 0.2, 2.5);
 hMxpFD.setTitle("mx_P w/ |mx2_PePipPim| < 0.01 && me_PePipPim < 0.1");
@@ -54,7 +54,7 @@ himPipPimCD.setFillColor(42);
 double eThetaCut = Math.toRadians(5);
 double pPipPimThetaCut = Math.toRadians(35);
 double mx2PePipPimCut = 0.01;
-double mePePipPimCut = 0.02;
+double mePePipPimCut = 0.2;
 
 
 TDirectory dir = new TDirectory();
@@ -83,8 +83,6 @@ for (String dataFile : dataFiles) {
         if (nEvents % 10000 == 0) {
             System.out.println("done " + nEvents);
         }
-
-
 
         reader.nextEvent(event);
         event.read(particles);
