@@ -76,7 +76,11 @@ for (String dataFile : dataFiles) {
 
     //declare reader and open current file
     HipoReader reader = new HipoReader();
-    reader.open(dataFile);
+    try{
+        reader.open(dataFile);
+    }catch(IndexOutOfBoundsException e){
+        continue;
+    }
 
     //Same as before, define bank and event for reader to fill
     Bank particles = new Bank(reader.getSchemaFactory().getSchema("REC::Particle"));
