@@ -70,14 +70,16 @@ for (String dataFile : dataFiles) {
     println("done " + (dataFiles.indexOf(dataFile) + 1) + " out of " + dataFiles.size() + " files");
 
     HipoReader reader = new HipoReader();
-    reader.open(dataFile);
-
+    try {
+        reader.open(dataFile);
+    }catch(IndexOutOfBoundsException e){
+        continue;
+    }
     Bank particles = new Bank(reader.getSchemaFactory().getSchema("REC::Particle"));
     Bank conf = new Bank(reader.getSchemaFactory().getSchema("RUN::config"));
     Event event = new Event();
 
     EventFilter filter = new EventFilter("11:2212:211:-211:22:Xn:X+:X-");
-    try {
         while (reader.hasNext()) {
             nEvents++;
             if (nEvents % 10000 == 0) {
@@ -129,9 +131,6 @@ for (String dataFile : dataFiles) {
             }
         }
         reader.close();
-    }catch(Exception e){
-        continue;
-    }
 }
 
 dir.cd("/CentralCuts");
