@@ -124,7 +124,7 @@ for (String dataFile : dataFiles) {
                     }
 
                     if (Math.abs(mx_PePipPim.mass2()) < mx2PePipPimCut && mx_PePipPim.e() > mePePipPimCut
-                            && Math.abs(mx_PePipPimGam.mass2()) < 0.01 && Math.abs(mx_PePipPim.e() - gam.e()) < 0.1 && gam.e() > 0.1) {
+                            && Math.abs(mx_PePipPimGam.mass2()) < 0.01 && Math.abs(mx_PePipPim.e() - gam.e()) < 0.1 && gam.e() > 0.2) {
                         hMxpCD.fill(mx_P.mass());
                         himPipPimCD.fill(im_PipPim.mass());
                     }
