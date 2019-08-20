@@ -116,7 +116,7 @@ dir.cd("/Cuts");
 dir.addDataSet(hMx2_PePipPim);
 dir.addDataSet(hMx2_PePipPimGam);
 dir.addDataSet(hMe_PePipPim);
-dir.add(hpGam);
+dir.addDataSet(hpGam);
 dir.cd("/Plots");
 dir.addDataSet(hMxp);
 dir.addDataSet(himPipPim);
