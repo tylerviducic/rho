@@ -83,7 +83,6 @@ for (String dataFile : dataFiles) {
             hMx2_PePipPim.fill(mx_PePipPim.mass2());
 
             if(Math.abs(mx_PePipPim.mass2()) < mx2PePipPimCut){
-                hMx2_PePipPimGam.fill(mx_PePipPimGam.mass2());
                 hMe_PePipPim.fill(mx_PePipPim.e());
             }
 
