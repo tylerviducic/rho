@@ -9,37 +9,56 @@ import org.jlab.jnp.physics.PhysicsEvent
 import org.jlab.jnp.reader.DataManager
 import org.jlab.jnp.utils.file.FileUtils
 
+List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/viducic/data/rga/*");
 
-//List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/viducic/data/rga/v2/*");
-//List<String> dataFiles = FileFinder.getFilesFromSubdirs("/w/hallb-scifs17exp/clas12/viducic/data/rga/v1", "*");
-List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/rg-a/trains/v16_v2/skim8_ep/*");
-
-H1F hMxp = new H1F("hMxP", 230, 0.2, 2.5);
-hMxp.setTitle("mx_P w/ |mx2_PePipPim| < 0.01 && me_PePipPim < 0.1");
-hMxp.setFillColor(42);
+H1F hMxpFD = new H1F("hMxP", 230, 0.2, 2.5);
+hMxpFD.setTitle("mx_P w/ |mx2_PePipPim| < 0.01 && me_PePipPim < 0.1");
+hMxpFD.setFillColor(44);
 
 H1F hCutMxp = new H1F("hCutMxp", 230, 0.2, 2.5);
 hCutMxp.setTitle("mx_P w/ cut|mx2_PePipPim| < 0.01 && mp_PePipPim > 0.1 && |mx_PePipPim.p() - pgam| < 0.1 && osTheta > 0.99");
-hCutMxp.setFillColor(42);
+hCutMxp.setFillColor(44);
 
-H1F hMx2_PePipPim = new H1F("hMx2_PiPipPim", 210, -0.1, 0.1);
-hMx2_PePipPim.setTitle("Missing mass squared of pePipPim");
-hMx2_PePipPim.setFillColor(42);
+H1F hMx2_PePipPimFD = new H1F("hMx2_PiPipPim", 210, -0.1, 0.1);
+hMx2_PePipPimFD.setTitle("Missing mass squared of pePipPim");
+hMx2_PePipPimFD.setFillColor(44);
 
-H1F hMe_PePipPim = new H1F("hMe_PiPipPim", 210, -0.1, 2);
-hMe_PePipPim.setTitle("Missing momentum of pePipPim w/ |mx2_PePipPim| < 0.01");
-hMe_PePipPim.setFillColor(42);
+H1F hMe_PePipPimFD = new H1F("hMe_PiPipPim", 210, -0.1, 2);
+hMe_PePipPimFD.setTitle("Missing momentum of pePipPim w/ |mx2_PePipPim| < 0.01");
+hMe_PePipPimFD.setFillColor(44);
 
-H1F himPipPim = new H1F("himPipPim", 230, 0.2, 2.5);
-himPipPim.setTitle("IM_PipPim w/ cut|mx2_PePipPim| < 0.01 && me_PePipPim < 0.1");
-himPipPim.setFillColor(42);
+H1F himPipPimFD = new H1F("himPipPimFD", 230, 0.2, 2.5);
+himPipPimFD.setTitle("IM_PipPim w/ cut|mx2_PePipPim| < 0.01 && me_PePipPim < 0.1");
+himPipPimFD.setFillColor(44);
 
+H1F hMxpCD = new H1F("hMxP", 230, 0.2, 2.5);
+hMxpCD.setTitle("mx_P w/ |mx2_PePipPim| < 0.01 && me_PePipPim < 0.1");
+hMxpCD.setFillColor(44);
+
+H1F hMx2_PePipPimCD = new H1F("hMx2_PiPipPim", 210, -0.1, 0.1);
+hMx2_PePipPimCD.setTitle("Missing mass squared of pePipPim");
+hMx2_PePipPimCD.setFillColor(44);
+
+H1F hMe_PePipPimCD = new H1F("hMe_PiPipPim", 210, -0.1, 2);
+hMe_PePipPimCD.setTitle("Missing momentum of pePipPim w/ |mx2_PePipPim| < 0.01");
+hMe_PePipPimCD.setFillColor(44);
+
+H1F himPipPimCD = new H1F("himPipPimFD", 230, 0.2, 2.5);
+himPipPimCD.setTitle("IM_PipPim w/ cut|mx2_PePipPim| < 0.01 && me_PePipPim < 0.1");
+himPipPimCD.setFillColor(44);
+
+double eThetaCut = Math.toRadians(5);
+double pPipPimThetaCut = Math.toRadians(35);
 double mx2PePipPimCut = 0.01;
-double mePePipPimCut = 0.2;
+double mePePipPimCut = 0.01;
+
+
 
 TDirectory dir = new TDirectory();
-dir.mkdir("/Cuts");
-dir.mkdir("/Plots");
+dir.mkdir("/ForwardCuts");
+dir.mkdir("/ForwardPlots");
+dir.mkdir("/CentralCuts");
+dir.mkdir("/CentralPlots");
 
 double beamEnergy = 10.6;
 int nEvents = 0;
@@ -48,17 +67,15 @@ for (String dataFile : dataFiles) {
     println("done " + (dataFiles.indexOf(dataFile) + 1) + " out of " + dataFiles.size() + " files");
 
     HipoReader reader = new HipoReader();
-    try {
-        reader.open(dataFile);
-    }catch(IndexOutOfBoundsException e){
-        continue;
-    }
+    reader.open(dataFile);
+
     Bank particles = new Bank(reader.getSchemaFactory().getSchema("REC::Particle"));
     Bank conf = new Bank(reader.getSchemaFactory().getSchema("RUN::config"));
     Event event = new Event();
 
     EventFilter filter = new EventFilter("11:2212:211:-211:Xn:X+:X-");
-    while (reader.hasNext()) {
+
+    while (reader.hasNext()){
         nEvents++;
         if (nEvents % 10000 == 0) {
             System.out.println("done " + nEvents);
@@ -70,26 +87,36 @@ for (String dataFile : dataFiles) {
 
         PhysicsEvent physEvent = DataManager.getPhysicsEvent(beamEnergy, particles);
 
-        if (filter.isValid(physEvent)) {
+        if(filter.isValid(physEvent)){//forward
             Particle p = physEvent.getParticle("[2212]");
             Particle e = physEvent.getParticle("[11]");
             Particle pip = physEvent.getParticle("[211]");
             Particle pim = physEvent.getParticle("[-211]");
             Particle mx_P = physEvent.getParticle("[b] + [t] - [11] - [2212]");
             Particle mx_PePipPim = physEvent.getParticle("[b] + [t] - [11] - [2212] - [211] - [-211]");
-            Particle im_PipPim = physEvent.getParticle("[211] + [-211]");
+            Particle im_PipPim = physEvent.getParticle(('[211] + [-211]'))
 
+            if(e.theta() < eThetaCut && p.theta() < pPipPimThetaCut && pip.theta() < pPipPimThetaCut && pim.theta() < pPipPimThetaCut){
+                hMx2_PePipPimFD.fill(mx_PePipPim.mass2());
+                if (Math.abs(mx_PePipPim.mass2()) < mx2PePipPimCut) {
+                    hMe_PePipPimFD.fill(mx_PePipPim.e());
+                }
 
-            hMx2_PePipPim.fill(mx_PePipPim.mass2());
+                if(Math.abs(mx_PePipPim.mass2()) < mx2PePipPimCut && mx_PePipPim.e() < mePePipPimCut){
+                    hMxpFD.fill(mx_P.mass());
+                    himPipPimFD.fill(im_PipPim.mass());
+                }
 
-            if(Math.abs(mx_PePipPim.mass2()) < mx2PePipPimCut){
-                hMx2_PePipPimGam.fill(mx_PePipPimGam.mass2());
-                hMe_PePipPim.fill(mx_PePipPim.e());
-            }
+            } else if(e.theta() > eThetaCut){//central
+                hMx2_PePipPimCD.fill(mx_PePipPim.mass2());
+                if (Math.abs(mx_PePipPim.mass2()) < mx2PePipPimCut) {
+                    hMe_PePipPimCD.fill(mx_PePipPim.e());
+                }
 
-            if(Math.abs(mx_PePipPim.mass2()) < mx2PePipPimCut && mx_PePipPim.e() < mePePipPimCut){
-                hMxp.fill(mx_P.mass());
-                himPipPim.fill(im_PipPim.mass());
+                if(Math.abs(mx_PePipPim.mass2()) < mx2PePipPimCut && mx_PePipPim.e() < mePePipPimCut){
+                    hMxpCD.fill(mx_P.mass());
+                    himPipPimCD.fill(im_PipPim.mass());
+                }
             }
 
         }
@@ -97,14 +124,20 @@ for (String dataFile : dataFiles) {
     reader.close();
 }
 
-dir.cd("/Cuts");
-dir.addDataSet(hMx2_PePipPim);
-dir.addDataSet(hMe_PePipPim);
-dir.cd("/Plots");
-dir.addDataSet(hMxp);
-dir.addDataSet(himPipPim);
+dir.cd("/CentralCuts");
+dir.addDataSet(hMx2_PePipPimCD);
+dir.addDataSet(hMe_PePipPimCD);
+dir.cd("/CentralPlots");
+dir.addDataSet(hMxpCD);
+dir.addDataSet(himPipPimCD);
+dir.cd("/ForwardCuts");
+dir.addDataSet(hMx2_PePipPimFD);
+dir.addDataSet(hMe_PePipPimFD);
+dir.cd("/ForwardPlots");
+dir.addDataSet(hMxpFD);
+dir.addDataSet(himPipPimFD);
 
-dir.writeFile("/work/clas12/viducic/rho/clas12/results/exclusiveRhoAnalysis_RGA_2.hipo");
+dir.writeFile("/work/clas12/viducic/rho/clas12/results/exclusiveRhoAnalysis_RGA.hipo");
 println("done");
 
 
