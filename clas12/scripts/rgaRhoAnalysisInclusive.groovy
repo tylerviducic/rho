@@ -12,7 +12,7 @@ import org.jlab.jnp.utils.file.FileUtils
 
 //List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/viducic/data/rga/v2/*");
 //List<String> dataFiles = FileFinder.getFilesFromSubdirs("/w/hallb-scifs17exp/clas12/viducic/data/rga/v1", "*");
-List<String> dataFiles = FileFinder.getFilesFromSubdirs("/w/hallb-scifs17exp/clas12/rg-a/trains/v16_v2/skim8_ep", "*");
+List<String> dataFiles = FileFinder.getFilesFromSubdirs("/w/hallb-scifs17exp/clas12/rg-a/trains/v16_v2/skim8_ep/", "*");
 
 H1F hMxpFD = new H1F("hMxP", 230, 0.2, 2.5);
 hMxpFD.setTitle("mx_P w/ |mx2_PePipPim| < 0.01 && me_PePipPim < 0.1");
