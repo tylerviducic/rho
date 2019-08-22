@@ -57,7 +57,8 @@ for (String dataFile : dataFiles) {
     Bank conf = new Bank(reader.getSchemaFactory().getSchema("RUN::config"));
     Event event = new Event();
 
-    EventFilter filter = new EventFilter("11:2212:211:-211:Xn:X+:X-");
+//    EventFilter filter = new EventFilter("11:2212:211:-211:Xn:X+:X-");
+    EventFilter filter = new EventFilter("11:2212:211:-211");
     while (reader.hasNext()) {
         nEvents++;
         if (nEvents % 10000 == 0) {
