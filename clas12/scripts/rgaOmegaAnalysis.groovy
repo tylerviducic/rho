@@ -42,7 +42,7 @@ for(String dataFile : dataFiles){
             Particle imPipPimPi0 = physEvent.getParticle("[211] + [-211] + [22,0] + [22, 1]");
 
             hMxp.fill(mxp.mass());
-            hIMPipPimPi0.fill(imPipPimPi0);
+            hIMPipPimPi0.fill(imPipPimPi0.mass());
         }
     }
     reader.close();
