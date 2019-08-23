@@ -52,7 +52,7 @@ for(String dataFile : dataFiles){
 }
 
 dir.cd("/Cuts");
-dir.add(hIMGamGam);
+dir.addDataSet(hIMGamGam);
 dir.cd("/Plots");
 dir.addDataSet(hMxp);
 dir.addDataSet(hIMPipPimPi0);
