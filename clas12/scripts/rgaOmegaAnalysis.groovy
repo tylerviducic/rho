@@ -13,6 +13,7 @@ List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/rg-a/tr
 
 H1F hMxp = new H1F("hMxp", 200, 0, 2);
 H1F hIMPipPimPi0 = new H1F("hIMPipPimPi0", 200, 0, 2);
+H1F hIMGamGam = new H1F("hIMGamGam", 100, -0.1, 0.5);
 
 TDirectory dir = new TDirectory();
 dir.mkdir("/Cuts");
@@ -40,20 +41,46 @@ for(String dataFile : dataFiles){
         if(filter.isValid(physEvent)){
             Particle mxp = physEvent.getParticle("[b] + [t] - [2212] - [11]");
             Particle imPipPimPi0 = physEvent.getParticle("[211] + [-211] + [22,0] + [22,1]");
+            Particle imGamGam = physEvent.getParticle("[22,0] + [22,1]");
 
             hMxp.fill(mxp.mass());
             hIMPipPimPi0.fill(imPipPimPi0.mass());
+            hIMGamGam.fill(imGamGam.mass());
         }
     }
     reader.close();
 }
 
+dir.cd("/Cuts");
+dir.add(hIMGamGam);
 dir.cd("/Plots");
 dir.addDataSet(hMxp);
 dir.addDataSet(hIMPipPimPi0);
 
 dir.writeFile("/work/clas12/viducic/rho/clas12/results/exclusiveOmegaAnalysis_RGA.hipo");
 println("done");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 public class FileFinder {
