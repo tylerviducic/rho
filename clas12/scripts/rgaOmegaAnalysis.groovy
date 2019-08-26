@@ -1,3 +1,4 @@
+import com.sun.xml.internal.ws.model.ParameterImpl
 import org.jlab.groot.data.H1F
 import org.jlab.groot.data.TDirectory
 import org.jlab.jnp.hipo4.data.Bank
@@ -15,6 +16,13 @@ H1F hMxp = new H1F("hMxp", 200, 0, 2);
 H1F hIMPipPimPi0 = new H1F("hIMPipPimPi0", 200, 0, 2);
 H1F hIMGamGam = new H1F("hIMGamGam", 100, -0.1, 0.5);
 
+H1F hPCone = new H1F("hPCone", 90, 0, 90);
+H1F hPipCone = new H1F("hPipCone", 90, 0, 90);
+H1F hPimCone = new H1F("hPimCone", 90, 0, 90);
+H1F hGam1Cone = new H1F("hGam1Cone", 90, 0, 90);
+H1F hGam2Cone = new H1F("hGam2Cone", 90, 0, 90);
+
+
 TDirectory dir = new TDirectory();
 dir.mkdir("/Cuts");
 dir.mkdir("/Plots");
@@ -22,6 +30,7 @@ dir.mkdir("/Plots");
 EventFilter filter = new EventFilter("11:2212:211:-211:22:22");
 
 double beamEnergy = 10.6;
+coneAngleCut = Math.toRadians(10);
 
 for(String dataFile : dataFiles){
     HipoReader reader = new HipoReader();
@@ -39,12 +48,35 @@ for(String dataFile : dataFiles){
         PhysicsEvent physEvent = DataManager.getPhysicsEvent(beamEnergy, particles);
 
         if(filter.isValid(physEvent)){
+
+            // Setting up cone angle variables
+            Particle p = physEvent.getParticle("[2212]");
+            Particle pim = physEvent.getParticle("[-211]");
+            Particle pip = physEvent.getParticle("[211]");
+            Particle gam1 = physEvent.getParticle("[22, 0]");
+            Particle gam2 = physEvent.getParticle("[22, 1]");
+
+            Particle mxPipPimGamGam = physEvent.getParticle("[b] + [t] - [211] - [-211] - [22, 0] - [22, 1]");
+            Particle mxPPimGamGam = physEvent.getParticle("[b] + [t] - [2212] - [-211] - [22, 0] - [22, 1]");
+            Particle mxPPipGamGam = physEvent.getParticle("[b] + [t] - [2212] - [211] - [22, 0] - [22, 1]");
+            Particle mxPPipPimGam1 = physEvent.getParticle("[b] + [t] - [2212] - [211] - [-211] - [22, 0]");
+            Particle mxPPipPimGam2 = physEvent.getParticle("[b] + [t] - [2212] - [211] - [-211] - [22, 1]");
+
+
             Particle mxp = physEvent.getParticle("[b] + [t] - [2212] - [11]");
             Particle imPipPimPi0 = physEvent.getParticle("[211] + [-211] + [22,0] + [22,1]");
             Particle imGamGam = physEvent.getParticle("[22,0] + [22,1]");
 
-            if(Math.abs(imGamGam.mass() - 0.134) < 0.03) {
-                hIMGamGam.fill(imGamGam.mass());
+            hIMGamGam.fill(imGamGam.mass());
+            hPCone.fill(Math.toDegrees(p.cosTheta(mxPipPimGamGam)));
+            hPimCone.fill(Math.toDegrees(pim.cosTheta(mxPPipGamGam)));
+            hPipCone.fill(Math.toDegrees(pip.cosTheta(mxPPimGamGam)));
+            hGam1Cone.fill(Math.toDegrees(gam1.cosTheta(mxPPipPimGam2)));
+            hGam2Cone.fill(Math.toDegrees(gam2.cosTheta(mxPPipPimGam1)));
+
+            if(Math.abs(imGamGam.mass() - 0.134) < 0.03 && p.cosTheta(mxPipPimGamGam) < coneAngleCut
+                    && pip.cosTheta(mxPPimGamGam) < coneAngleCut && pim.cosTheta(mxPPipGamGam) < coneAngleCut
+                    && gam1.cosTheta(mxPPipPimGam2) < coneAngleCut && gam2.cosTheta(mxPPipPimGam1) < coneAngleCut) {
                 hMxp.fill(mxp.mass());
                 hIMPipPimPi0.fill(imPipPimPi0.mass());
             }
@@ -56,19 +88,13 @@ for(String dataFile : dataFiles){
 
 dir.cd("/Cuts");
 dir.addDataSet(hIMGamGam);
+dir.addDataSet(hPCone, hPimCone, hPipCone, hGam1Cone, hGam2Cone);
 dir.cd("/Plots");
 dir.addDataSet(hMxp);
 dir.addDataSet(hIMPipPimPi0);
 
 dir.writeFile("/work/clas12/viducic/rho/clas12/results/exclusiveOmegaAnalysis_RGA.hipo");
 println("done");
-
-
-
-
-
-
-
 
 
 
