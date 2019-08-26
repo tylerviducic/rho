@@ -22,7 +22,6 @@ H1F hPimCone = new H1F("hPimCone", 90, 0, 90);
 H1F hGam1Cone = new H1F("hGam1Cone", 90, 0, 90);
 H1F hGam2Cone = new H1F("hGam2Cone", 90, 0, 90);
 
-
 TDirectory dir = new TDirectory();
 dir.mkdir("/Cuts");
 dir.mkdir("/Plots");
