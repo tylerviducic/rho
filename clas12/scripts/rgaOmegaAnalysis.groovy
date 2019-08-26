@@ -56,11 +56,11 @@ for(String dataFile : dataFiles){
             Particle gam1 = physEvent.getParticle("[22, 0]");
             Particle gam2 = physEvent.getParticle("[22, 1]");
 
-            Particle mxPipPimGamGam = physEvent.getParticle("[b] + [t] - [211] - [-211] - [22, 0] - [22, 1]");
-            Particle mxPPimGamGam = physEvent.getParticle("[b] + [t] - [2212] - [-211] - [22, 0] - [22, 1]");
-            Particle mxPPipGamGam = physEvent.getParticle("[b] + [t] - [2212] - [211] - [22, 0] - [22, 1]");
-            Particle mxPPipPimGam1 = physEvent.getParticle("[b] + [t] - [2212] - [211] - [-211] - [22, 0]");
-            Particle mxPPipPimGam2 = physEvent.getParticle("[b] + [t] - [2212] - [211] - [-211] - [22, 1]");
+            Particle mxPipPimGamGam = physEvent.getParticle("[b] + [t] - [11] - [211] - [-211] - [22, 0] - [22, 1]");
+            Particle mxPPimGamGam = physEvent.getParticle("[b] + [t] - [11] - [2212] - [-211] - [22, 0] - [22, 1]");
+            Particle mxPPipGamGam = physEvent.getParticle("[b] + [t] - [11] - [2212] - [211] - [22, 0] - [22, 1]");
+            Particle mxPPipPimGam1 = physEvent.getParticle("[b] + [t] - [11] - [2212] - [211] - [-211] - [22, 0]");
+            Particle mxPPipPimGam2 = physEvent.getParticle("[b] + [t] - [11] - [2212] - [211] - [-211] - [22, 1]");
 
 
             Particle mxp = physEvent.getParticle("[b] + [t] - [2212] - [11]");

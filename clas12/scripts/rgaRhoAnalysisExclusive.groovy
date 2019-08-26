@@ -82,9 +82,9 @@ for (String dataFile : dataFiles) {
             Particle pip = physEvent.getParticle("[211]");
             Particle pim = physEvent.getParticle("[-211]");
 
-            Particle mxPipPim = physEvent.getParticle("[b] + [t] - [211] - [-211]");
-            Particle mxPPiP = physEvent.getParticle("[b] + [t] - [2212] - [211]");
-            Particle mxPPim = physEvent.getParticle("[b] + [t] - [2212] - [-211]");
+            Particle mxPipPim = physEvent.getParticle("[b] + [t] - [11] - [211] - [-211]");
+            Particle mxPPiP = physEvent.getParticle("[b] + [t] - [11] - [2212] - [211]");
+            Particle mxPPim = physEvent.getParticle("[b] + [t] - [11] - [2212] - [-211]");
 
             Particle mx_P = physEvent.getParticle("[b] + [t] - [11] - [2212]");
             Particle mx_PePipPim = physEvent.getParticle("[b] + [t] - [11] - [2212] - [211] - [-211]");
