@@ -30,7 +30,7 @@ dir.mkdir("/Plots");
 EventFilter filter = new EventFilter("11:2212:211:-211:22:22");
 
 double beamEnergy = 10.6;
-coneAngleCut = Math.toRadians(10);
+double coneAngleCut = Math.toRadians(10);
 
 for(String dataFile : dataFiles){
     HipoReader reader = new HipoReader();
@@ -56,17 +56,19 @@ for(String dataFile : dataFiles){
             Particle gam1 = physEvent.getParticle("[22, 0]");
             Particle gam2 = physEvent.getParticle("[22, 1]");
 
+            //missing systems
             Particle mxPipPimGamGam = physEvent.getParticle("[b] + [t] - [211] - [-211] - [22, 0] - [22, 1]");
             Particle mxPPimGamGam = physEvent.getParticle("[b] + [t] - [2212] - [-211] - [22, 0] - [22, 1]");
             Particle mxPPipGamGam = physEvent.getParticle("[b] + [t] - [2212] - [211] - [22, 0] - [22, 1]");
             Particle mxPPipPimGam1 = physEvent.getParticle("[b] + [t] - [2212] - [211] - [-211] - [22, 0]");
             Particle mxPPipPimGam2 = physEvent.getParticle("[b] + [t] - [2212] - [211] - [-211] - [22, 1]");
 
-
+            //analysis particles
             Particle mxp = physEvent.getParticle("[b] + [t] - [2212] - [11]");
             Particle imPipPimPi0 = physEvent.getParticle("[211] + [-211] + [22,0] + [22,1]");
             Particle imGamGam = physEvent.getParticle("[22,0] + [22,1]");
 
+            //cut plots
             hIMGamGam.fill(imGamGam.mass());
             hPCone.fill(Math.toDegrees(p.cosTheta(mxPipPimGamGam)));
             hPimCone.fill(Math.toDegrees(pim.cosTheta(mxPPipGamGam)));
@@ -74,6 +76,7 @@ for(String dataFile : dataFiles){
             hGam1Cone.fill(Math.toDegrees(gam1.cosTheta(mxPPipPimGam2)));
             hGam2Cone.fill(Math.toDegrees(gam2.cosTheta(mxPPipPimGam1)));
 
+            //analysis plots
             if(Math.abs(imGamGam.mass() - 0.134) < 0.03 && p.cosTheta(mxPipPimGamGam) < coneAngleCut
                     && pip.cosTheta(mxPPimGamGam) < coneAngleCut && pim.cosTheta(mxPPipGamGam) < coneAngleCut
                     && gam1.cosTheta(mxPPipPimGam2) < coneAngleCut && gam2.cosTheta(mxPPipPimGam1) < coneAngleCut) {

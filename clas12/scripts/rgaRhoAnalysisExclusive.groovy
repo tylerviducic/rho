@@ -34,8 +34,13 @@ H1F himPipPim = new H1F("himPipPim", 230, 0.2, 2.5);
 himPipPim.setTitle("IM_PipPim w/ cut|mx2_PePipPim| < 0.01 && me_PePipPim < 0.1");
 himPipPim.setFillColor(42);
 
+H1F hPCone = new H1F("hPCone", 90, 0, 90);
+H1F hPipCone = new H1F("hPipCone", 90, 0, 90);
+H1F hPimCone = new H1F("hPimCone", 90, 0, 90);
+
 double mx2PePipPimCut = 0.01;
 double mePePipPimCut = 0.2;
+double pConeCut = Math.toRadians(10);
 
 TDirectory dir = new TDirectory();
 dir.mkdir("/Cuts");
@@ -76,18 +81,28 @@ for (String dataFile : dataFiles) {
             Particle e = physEvent.getParticle("[11]");
             Particle pip = physEvent.getParticle("[211]");
             Particle pim = physEvent.getParticle("[-211]");
+
+            Particle mxPipPim = physEvent.getParticle("[b] + [t] - [211] - [-211]");
+            Particle mxPPiP = physEvent.getParticle("[b] + [t] - [2212] - [211]");
+            Particle mxPPim = physEvent.getParticle("[b] + [t] - [2212] - [-211]");
+
             Particle mx_P = physEvent.getParticle("[b] + [t] - [11] - [2212]");
             Particle mx_PePipPim = physEvent.getParticle("[b] + [t] - [11] - [2212] - [211] - [-211]");
             Particle im_PipPim = physEvent.getParticle("[211] + [-211]");
 
 
             hMx2_PePipPim.fill(mx_PePipPim.mass2());
+            hPCone.fill(Math.toDegrees(p.cosTheta(mxPipPim)));
+            hPipCone.fill(Math.toDegrees(pip.cosTheta(mxPPim)));
+            hPimCone.fill(Math.toDegrees(pim.cosTheta(mxPPiP)));
+
 
             if(Math.abs(mx_PePipPim.mass2()) < mx2PePipPimCut){
                 hMe_PePipPim.fill(mx_PePipPim.e());
             }
 
-            if(Math.abs(mx_PePipPim.mass2()) < mx2PePipPimCut && mx_PePipPim.e() < mePePipPimCut){
+            if(Math.abs(mx_PePipPim.mass2()) < mx2PePipPimCut && mx_PePipPim.e() < mePePipPimCut
+                && p.cosTheta(mxPPiP) < pConeCut){
                 hMxp.fill(mx_P.mass());
                 himPipPim.fill(im_PipPim.mass());
             }
@@ -100,6 +115,7 @@ for (String dataFile : dataFiles) {
 dir.cd("/Cuts");
 dir.addDataSet(hMx2_PePipPim);
 dir.addDataSet(hMe_PePipPim);
+dir.addDataSet(hPimCone, hPipCone, hPCone);
 dir.cd("/Plots");
 dir.addDataSet(hMxp);
 dir.addDataSet(himPipPim);
