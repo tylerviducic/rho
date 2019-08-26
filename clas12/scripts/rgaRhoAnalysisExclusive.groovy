@@ -92,9 +92,9 @@ for (String dataFile : dataFiles) {
 
 
             hMx2_PePipPim.fill(mx_PePipPim.mass2());
-            hPCone.fill(Math.toDegrees(p.cosTheta(mxPipPim)));
-            hPipCone.fill(Math.toDegrees(pip.cosTheta(mxPPim)));
-            hPimCone.fill(Math.toDegrees(pim.cosTheta(mxPPiP)));
+            hPCone.fill(p.cosTheta(mxPipPim));
+            hPipCone.fill(pip.cosTheta(mxPPim));
+            hPimCone.fill(pim.cosTheta(mxPPiP));
 
 
             if(Math.abs(mx_PePipPim.mass2()) < mx2PePipPimCut){

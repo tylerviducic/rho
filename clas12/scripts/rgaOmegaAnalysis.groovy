@@ -70,11 +70,11 @@ for(String dataFile : dataFiles){
 
             //cut plots
             hIMGamGam.fill(imGamGam.mass());
-            hPCone.fill(Math.toDegrees(p.cosTheta(mxPipPimGamGam)));
-            hPimCone.fill(Math.toDegrees(pim.cosTheta(mxPPipGamGam)));
-            hPipCone.fill(Math.toDegrees(pip.cosTheta(mxPPimGamGam)));
-            hGam1Cone.fill(Math.toDegrees(gam1.cosTheta(mxPPipPimGam2)));
-            hGam2Cone.fill(Math.toDegrees(gam2.cosTheta(mxPPipPimGam1)));
+            hPCone.fill(p.cosTheta(mxPipPimGamGam));
+            hPimCone.fill(pim.cosTheta(mxPPipGamGam));
+            hPipCone.fill(pip.cosTheta(mxPPimGamGam));
+            hGam1Cone.fill(gam1.cosTheta(mxPPipPimGam2));
+            hGam2Cone.fill(gam2.cosTheta(mxPPipPimGam1));
 
             //analysis plots
             if(Math.abs(imGamGam.mass() - 0.134) < 0.03 && p.cosTheta(mxPipPimGamGam) < coneAngleCut
