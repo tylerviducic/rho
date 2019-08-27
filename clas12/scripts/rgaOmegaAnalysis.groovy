@@ -89,7 +89,9 @@ for(String dataFile : dataFiles){
             Particle imPipPimPi0 = physEvent.getParticle("[211] + [-211] + [22,0] + [22,1]");
             Particle imGamGam = physEvent.getParticle("[22,0] + [22,1]");
 
-            hq2.fill(4 * beam.e() * e.e() * Math.sin(e.theta()/2)* Math.sin(e.theta()/2));
+            q2 = 4 * beam.e() * e.e() * Math.sin(e.theta()/2)* Math.sin(e.theta()/2);
+
+            hq2.fill(q2);
             hPCone.fill(Math.abs(pCone));
             hPimCone.fill(Math.abs(pimCone));
             hPipCone.fill(Math.abs(pipCone));
@@ -97,9 +99,7 @@ for(String dataFile : dataFiles){
             hGam2Cone.fill(Math.abs(gam2Cone));
             hPhotons.fill(Math.toDegrees(imGamGam.theta() - mxPPipPim.theta()));
 
-
-
-            if(pCone < coneAngleCut && pipCone < coneAngleCut
+            if(q2 < 2.5 && pCone < coneAngleCut && pipCone < coneAngleCut
                     && pimCone < coneAngleCut && Math.toDegrees(imGamGam.theta() - mxPPipPim.theta()) < coneAngleCut){
                 hMx2PPipPimGamGam.fill(mxPPipPimGamGam.mass2());
                 hIMPipPimPi0.fill(imPipPimPi0.mass());
