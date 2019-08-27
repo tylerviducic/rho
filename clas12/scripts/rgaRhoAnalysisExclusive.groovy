@@ -117,6 +117,7 @@ for (String dataFile : dataFiles) {
 dir.cd("/Cuts");
 dir.addDataSet(hMx2_PePipPim);
 dir.addDataSet(hMe_PePipPim);
+dir.addDataSet(hPimCone, hPCone, hPipCone);
 dir.cd("/Plots");
 dir.addDataSet(hMxp);
 dir.addDataSet(himPipPim);
