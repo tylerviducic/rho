@@ -31,6 +31,7 @@ EventFilter filter = new EventFilter("11:2212:211:-211:22:22");
 
 double beamEnergy = 10.6;
 double coneAngleCut = Math.cos(Math.toRadians(10));
+nEvents = 0;
 
 for(String dataFile : dataFiles){
     HipoReader reader = new HipoReader();
@@ -44,6 +45,8 @@ for(String dataFile : dataFiles){
         reader.nextEvent(event);
         event.read(particles);
         event.read(conf);
+
+        nEvents++;
 
         PhysicsEvent physEvent = DataManager.getPhysicsEvent(beamEnergy, particles);
 
@@ -68,20 +71,24 @@ for(String dataFile : dataFiles){
             Particle imGamGam = physEvent.getParticle("[22,0] + [22,1]");
 
             hIMGamGam.fill(imGamGam.mass());
-            hPCone.fill(Math.toDegrees(Math.acos(p.cosTheta(mxPipPimGamGam))));
+            hPCone.fill(Math.toDegrees(p.theta() - mxPipPimGamGam.theta()));
+            //hPCone.fill(Math.toDegrees(Math.acos(p.cosTheta(mxPipPimGamGam))));
             hPimCone.fill(Math.toDegrees(Math.acos(pim.cosTheta(mxPPipGamGam))));
             hPipCone.fill(Math.toDegrees(Math.acos(pip.cosTheta(mxPPimGamGam))));
             hGam1Cone.fill(Math.toDegrees(Math.acos(gam1.cosTheta(mxPPipPimGam2))));
             hGam2Cone.fill(Math.toDegrees(Math.acos(gam2.cosTheta(mxPPipPimGam1))));
 
 
-            if(Math.abs(imGamGam.mass() - 0.134) < 0.03 && p.cosTheta(mxPipPimGamGam) < coneAngleCut
+            if(imGamGam.mass() > 0.05 && imGamGam.mass() < 0.2 && p.cosTheta(mxPipPimGamGam) < coneAngleCut
                     && pip.cosTheta(mxPPimGamGam) < coneAngleCut && pim.cosTheta(mxPPipGamGam) < coneAngleCut
                     && gam1.cosTheta(mxPPipPimGam2) < coneAngleCut && gam2.cosTheta(mxPPipPimGam1) < coneAngleCut) {
                 hMxp.fill(mxp.mass());
                 hIMPipPimPi0.fill(imPipPimPi0.mass());
             }
 
+        }
+        if(nEvents == 1000000){
+            break;
         }
     }
     reader.close();
