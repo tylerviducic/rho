@@ -17,6 +17,10 @@ H1F hMxp = new H1F("hMxp", 200, 0, 2);
 H1F hIMPipPimPi0 = new H1F("hIMPipPimPi0", 200, 0, 2);
 H1F hIMGamGam = new H1F("hIMGamGam", 100, -0.1, 0.5);
 
+H1F hMx2PPipPimGamGam = new H1F("mx2PPipPimGamGam", 100, -0.1, 0.1);
+H1F hMx2PPipPim = new H1F("mx2PPipPim", 100, -0.1, 0.1);
+
+
 H1F hPCone = new H1F("hPCone", 90, 0, 90);
 H1F hPipCone = new H1F("hPipCone", 90, 0, 90);
 H1F hPimCone = new H1F("hPimCone", 90, 0, 90);
@@ -56,6 +60,9 @@ for(String dataFile : dataFiles){
             Particle gam1 = physEvent.getParticle("[22, 0]");
             Particle gam2 = physEvent.getParticle("[22, 1]");
 
+            Particle mxPPipPimGamGam = physEvent.getParticle("[b] + [t] - [2212] - [11] - [211] - [-211] - [22, 0] - [22, 1]");
+            Particle mxPPipPim = physEvent.getParticle("[b] + [t] - [11] - [2212] - [211] - [-211]");
+
             Particle mxPipPimGamGam = physEvent.getParticle("[b] + [t] - [11] - [211] - [-211] - [22, 0] - [22, 1]");
             Particle mxPPimGamGam = physEvent.getParticle("[b] + [t] - [11] - [2212] - [-211] - [22, 0] - [22, 1]");
             Particle mxPPipGamGam = physEvent.getParticle("[b] + [t] - [11] - [2212] - [211] - [22, 0] - [22, 1]");
@@ -78,9 +85,12 @@ for(String dataFile : dataFiles){
             hPipCone.fill(pipCone);
             hGam1Cone.fill(gam1Cone);
             hGam2Cone.fill(gam2Cone);
+            hMx2PPipPim.fill(mxPPipPim.mass2());
+            hMx2PPipPimGamGam.fill(mxPPipPimGamGam.mass2());
 
-            if(imGamGam.mass() > 0.05 && pCone < coneAngleCut && pipCone < coneAngleCut && pimCone < coneAngleCut
-                && gam1Cone < coneAngleCut && gam2Cone < coneAngleCut){
+
+            if(imGamGam.mass() > 0.05 && imGamGam.mass() < 0.2 && pCone < coneAngleCut && pipCone < coneAngleCut
+                    && pimCone < coneAngleCut && gam1Cone < coneAngleCut && gam2Cone < coneAngleCut){
                 hIMPipPimPi0.fill(imPipPimPi0.mass());
                 hMxp.fill(mxp.mass());
             }
@@ -92,6 +102,7 @@ for(String dataFile : dataFiles){
 dir.cd("/Cuts");
 dir.addDataSet(hIMGamGam);
 dir.addDataSet(hPCone, hPimCone, hPipCone, hGam1Cone, hGam2Cone);
+dir.addDataSet(hMx2PPipPimGamGam, hMx2PPipPim);
 dir.cd("/Plots");
 dir.addDataSet(hMxp);
 dir.addDataSet(hIMPipPimPi0);

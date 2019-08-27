@@ -40,7 +40,7 @@ H1F hPimCone = new H1F("hPimCone", 90, 0, 90);
 
 double mx2PePipPimCut = 0.01;
 double mePePipPimCut = 0.2;
-double pConeCut = Math.cos(Math.toRadians(10));
+double coneAngleCut = 10;
 
 TDirectory dir = new TDirectory();
 dir.mkdir("/Cuts");
@@ -48,7 +48,6 @@ dir.mkdir("/Plots");
 
 double beamEnergy = 10.6;
 int nEvents = 0;
-double coneAngleCut = 10;
 
 for (String dataFile : dataFiles) {
     println("done " + (dataFiles.indexOf(dataFile) + 1) + " out of " + dataFiles.size() + " files");
