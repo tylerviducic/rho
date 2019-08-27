@@ -30,8 +30,7 @@ dir.mkdir("/Plots");
 EventFilter filter = new EventFilter("11:2212:211:-211:22:22");
 
 double beamEnergy = 10.6;
-double coneAngleCut = Math.cos(Math.toRadians(10));
-nEvents = 0;
+double coneAngleCut = 10;
 
 for(String dataFile : dataFiles){
     HipoReader reader = new HipoReader();
@@ -40,18 +39,11 @@ for(String dataFile : dataFiles){
     Bank particles = new Bank(reader.getSchemaFactory().getSchema("REC::Particle"));
     Bank conf = new Bank(reader.getSchemaFactory().getSchema("RUN::config"));
     Event event = new Event();
-    if(nEvents > 1000000){
-        break;
-    }
 
     while(reader.hasNext()){
         reader.nextEvent(event);
         event.read(particles);
         event.read(conf);
-
-
-        nEvents++;
-        println(nEvents);
 
         PhysicsEvent physEvent = DataManager.getPhysicsEvent(beamEnergy, particles);
 
@@ -70,27 +62,28 @@ for(String dataFile : dataFiles){
             Particle mxPPipPimGam1 = physEvent.getParticle("[b] + [t] - [11] - [2212] - [211] - [-211] - [22, 0]");
             Particle mxPPipPimGam2 = physEvent.getParticle("[b] + [t] - [11] - [2212] - [211] - [-211] - [22, 1]");
 
+            pCone = Math.toDegrees(p.theta() - mxPipPimGamGam.theta());
+            pimCone = Math.toDegrees(pim.theta() - mxPPipGamGam.theta());
+            pipCone = Math.toDegrees(pip.theta() - mxPPimGamGam.theta());
+            gam1Cone = Math.toDegrees(gam1.theta() - mxPPipPimGam2.theta());
+            gam2Cone = Math.toDegrees(gam2.theta() - mxPPipPimGam1.theta());
 
             Particle mxp = physEvent.getParticle("[b] + [t] - [2212] - [11]");
             Particle imPipPimPi0 = physEvent.getParticle("[211] + [-211] + [22,0] + [22,1]");
             Particle imGamGam = physEvent.getParticle("[22,0] + [22,1]");
 
             hIMGamGam.fill(imGamGam.mass());
-            hPCone.fill(Math.toDegrees(p.theta() - mxPipPimGamGam.theta()));
-            //hPCone.fill(Math.toDegrees(Math.acos(p.cosTheta(mxPipPimGamGam))));
-            hPimCone.fill(Math.toDegrees(Math.acos(pim.cosTheta(mxPPipGamGam))));
-            hPipCone.fill(Math.toDegrees(Math.acos(pip.cosTheta(mxPPimGamGam))));
-            hGam1Cone.fill(Math.toDegrees(Math.acos(gam1.cosTheta(mxPPipPimGam2))));
-            hGam2Cone.fill(Math.toDegrees(Math.acos(gam2.cosTheta(mxPPipPimGam1))));
+            hPCone.fill(pCone);
+            hPimCone.fill(pimCone);
+            hPipCone.fill(pipCone);
+            hGam1Cone.fill(gam1Cone);
+            hGam2Cone.fill(gam2Cone);
 
-
-            if(imGamGam.mass() > 0.05 && imGamGam.mass() < 0.2 && p.cosTheta(mxPipPimGamGam) < coneAngleCut
-                    && pip.cosTheta(mxPPimGamGam) < coneAngleCut && pim.cosTheta(mxPPipGamGam) < coneAngleCut
-                    && gam1.cosTheta(mxPPipPimGam2) < coneAngleCut && gam2.cosTheta(mxPPipPimGam1) < coneAngleCut) {
-                hMxp.fill(mxp.mass());
+            if(imGamGam.mass() > 0.05 && pCone < coneAngleCut && pipCone < coneAngleCut && pimCone < coneAngleCut
+                && gam1Cone < coneAngleCut && gam2Cone < coneAngleCut){
                 hIMPipPimPi0.fill(imPipPimPi0.mass());
+                hMxp.fill(mxp.mass());
             }
-
         }
     }
     reader.close();
