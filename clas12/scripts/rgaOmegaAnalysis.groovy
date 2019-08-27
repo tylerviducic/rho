@@ -47,6 +47,7 @@ for(String dataFile : dataFiles){
         event.read(conf);
 
         nEvents++;
+        println(nEvents);
 
         PhysicsEvent physEvent = DataManager.getPhysicsEvent(beamEnergy, particles);
 
