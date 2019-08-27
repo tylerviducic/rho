@@ -27,6 +27,7 @@ H1F hPimCone = new H1F("hPimCone", 90, 0, 90);
 H1F hGam1Cone = new H1F("hGam1Cone", 90, 0, 90);
 H1F hGam2Cone = new H1F("hGam2Cone", 90, 0, 90);
 H1F hPhotons = new H1F("hPhotons", 90, 0, 90);
+H1F hq2 = new H1F("hq2", 80, 0, 80);
 
 TDirectory dir = new TDirectory();
 dir.mkdir("/Cuts");
@@ -61,6 +62,7 @@ for(String dataFile : dataFiles){
         if(filter.isValid(physEvent)){
 
             // Setting up cone angle variables
+            Particle q = physEvent.getParticle("[b] - [11]");
             Particle p = physEvent.getParticle("[2212]");
             Particle pim = physEvent.getParticle("[-211]");
             Particle pip = physEvent.getParticle("[211]");
@@ -86,6 +88,7 @@ for(String dataFile : dataFiles){
             Particle imPipPimPi0 = physEvent.getParticle("[211] + [-211] + [22,0] + [22,1]");
             Particle imGamGam = physEvent.getParticle("[22,0] + [22,1]");
 
+            hq2.fill(q.e());
             hPCone.fill(Math.abs(pCone));
             hPimCone.fill(Math.abs(pimCone));
             hPipCone.fill(Math.abs(pipCone));
@@ -101,7 +104,6 @@ for(String dataFile : dataFiles){
                 hMxp.fill(mxp.mass());
                 hMx2PPipPim.fill(mxPPipPim.mass2());
                 hIMGamGam.fill(imGamGam.mass());
-
             }
         }
     }
@@ -112,7 +114,7 @@ dir.cd("/Cuts");
 dir.addDataSet(hIMGamGam);
 dir.addDataSet(hPCone, hPimCone, hPipCone, hGam1Cone, hGam2Cone);
 dir.addDataSet(hMx2PPipPimGamGam, hMx2PPipPim);
-dir.addDataSet(hPhotons);
+dir.addDataSet(hPhotons, hq2);
 dir.cd("/Plots");
 dir.addDataSet(hMxp);
 dir.addDataSet(hIMPipPimPi0);
