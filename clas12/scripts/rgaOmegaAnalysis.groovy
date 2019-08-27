@@ -91,7 +91,7 @@ for(String dataFile : dataFiles){
             hPipCone.fill(Math.abs(pipCone));
             hGam1Cone.fill(Math.abs(gam1Cone));
             hGam2Cone.fill(Math.abs(gam2Cone));
-            hPhotons.fill(Math.toDegrees(gam1.theta() - gam2.theta()));
+            hPhotons.fill(Math.toDegrees(imGamGam.theta() - mxPPipPim.theta()));
             hMx2PPipPimGamGam.fill(mxPPipPimGamGam.mass2());
 
 
