@@ -86,7 +86,6 @@ for(String dataFile : dataFiles){
             Particle imPipPimPi0 = physEvent.getParticle("[211] + [-211] + [22,0] + [22,1]");
             Particle imGamGam = physEvent.getParticle("[22,0] + [22,1]");
 
-            hIMGamGam.fill(imGamGam.mass());
             hPCone.fill(Math.abs(pCone));
             hPimCone.fill(Math.abs(pimCone));
             hPipCone.fill(Math.abs(pipCone));
@@ -101,6 +100,8 @@ for(String dataFile : dataFiles){
                 hIMPipPimPi0.fill(imPipPimPi0.mass());
                 hMxp.fill(mxp.mass());
                 hMx2PPipPim.fill(mxPPipPim.mass2());
+                hIMGamGam.fill(imGamGam.mass());
+
             }
         }
     }
