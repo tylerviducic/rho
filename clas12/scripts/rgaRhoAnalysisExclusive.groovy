@@ -48,6 +48,7 @@ dir.mkdir("/Plots");
 
 double beamEnergy = 10.6;
 int nEvents = 0;
+double coneAngleCut = 10;
 
 for (String dataFile : dataFiles) {
     println("done " + (dataFiles.indexOf(dataFile) + 1) + " out of " + dataFiles.size() + " files");
@@ -83,8 +84,12 @@ for (String dataFile : dataFiles) {
             Particle pim = physEvent.getParticle("[-211]");
 
             Particle mxPipPim = physEvent.getParticle("[b] + [t] - [11] - [211] - [-211]");
-            Particle mxPPiP = physEvent.getParticle("[b] + [t] - [11] - [2212] - [211]");
+            Particle mxPPip = physEvent.getParticle("[b] + [t] - [11] - [2212] - [211]");
             Particle mxPPim = physEvent.getParticle("[b] + [t] - [11] - [2212] - [-211]");
+
+            pCone = Math.toDegrees(p.theta() - mxPipPim.theta());
+            pipCone = Math.toDegrees(pip.theta() - mxPPim.theta());
+            pimCone = Math.toDegrees(pim.theta() - mxPPip.theta())
 
             Particle mx_P = physEvent.getParticle("[b] + [t] - [11] - [2212]");
             Particle mx_PePipPim = physEvent.getParticle("[b] + [t] - [11] - [2212] - [211] - [-211]");
@@ -92,21 +97,19 @@ for (String dataFile : dataFiles) {
 
 
             hMx2_PePipPim.fill(mx_PePipPim.mass2());
-            hPCone.fill(p.cosTheta(mxPipPim));
-            hPipCone.fill(pip.cosTheta(mxPPim));
-            hPimCone.fill(pim.cosTheta(mxPPiP));
+            hPCone.fill(pCone);
+            hPipCone.fill(pipCone);
+            hPimCone.fill(pimCone);
 
 
             if(Math.abs(mx_PePipPim.mass2()) < mx2PePipPimCut){
                 hMe_PePipPim.fill(mx_PePipPim.e());
             }
 
-            if(Math.abs(mx_PePipPim.mass2()) < mx2PePipPimCut && mx_PePipPim.e() < mePePipPimCut
-                    && p.cosTheta(mxPPiP) < pConeCut){
+            if(Math.abs(mx_PePipPim.mass2()) < mx2PePipPimCut && mx_PePipPim.e() < mePePipPimCut && pCone < coneAngleCut){
                 hMxp.fill(mx_P.mass());
                 himPipPim.fill(im_PipPim.mass());
             }
-
         }
     }
     reader.close();
