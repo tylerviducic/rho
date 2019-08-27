@@ -103,7 +103,7 @@ for(String dataFile : dataFiles){
                     && pimCone < coneAngleCut && Math.toDegrees(imGamGam.theta() - mxPPipPim.theta()) < coneAngleCut){
                 hMx2PPipPimGamGam.fill(mxPPipPimGamGam.mass2());
                 hIMPipPimPi0.fill(imPipPimPi0.mass());
-                hMxp.fill(mxp.mass2());
+                hMxp.fill(mxp.mass());
                 hMx2PPipPim.fill(mxPPipPim.mass2());
                 hIMGamGam.fill(imGamGam.mass());
             }
