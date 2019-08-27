@@ -62,7 +62,8 @@ for(String dataFile : dataFiles){
         if(filter.isValid(physEvent)){
 
             // Setting up cone angle variables
-            Particle q = physEvent.getParticle("[b] - [11]");
+            Particle beam = physEvent.getParticle("[b]");
+            Particle e = physEvent.getParticle("[11]");
             Particle p = physEvent.getParticle("[2212]");
             Particle pim = physEvent.getParticle("[-211]");
             Particle pip = physEvent.getParticle("[211]");
@@ -88,7 +89,7 @@ for(String dataFile : dataFiles){
             Particle imPipPimPi0 = physEvent.getParticle("[211] + [-211] + [22,0] + [22,1]");
             Particle imGamGam = physEvent.getParticle("[22,0] + [22,1]");
 
-            hq2.fill(q.e());
+            hq2.fill(beam.e()*beam.e() - e.e() * e.e());
             hPCone.fill(Math.abs(pCone));
             hPimCone.fill(Math.abs(pimCone));
             hPipCone.fill(Math.abs(pipCone));
