@@ -40,9 +40,9 @@ double coneAngleCut = 10;
 int nEvents = 0;
 
 for(String dataFile : dataFiles){
-    if(nEvents > 5000000){
-        break;
-    }
+//    if(nEvents > 5000000){
+//        break;
+//    }
     HipoReader reader = new HipoReader();
     reader.open(dataFile);
 
@@ -99,7 +99,7 @@ for(String dataFile : dataFiles){
             hGam2Cone.fill(Math.abs(gam2Cone));
             hPhotons.fill(Math.toDegrees(imGamGam.theta() - mxPPipPim.theta()));
 
-            if(q2 < 2.5 && pCone < coneAngleCut && pipCone < coneAngleCut
+            if(q2 < 2.5 && pCone < coneAngleCut && pipCone < coneAngleCut && imGamGam.mass() > 0.1 && imGamGam.mass() < 0.16
                     && pimCone < coneAngleCut && Math.toDegrees(imGamGam.theta() - mxPPipPim.theta()) < coneAngleCut){
                 hMx2PPipPimGamGam.fill(mxPPipPimGamGam.mass2());
                 hIMPipPimPi0.fill(imPipPimPi0.mass());
