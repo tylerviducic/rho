@@ -15,7 +15,7 @@ List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/rg-a/tr
 
 H1F hMxp = new H1F("hMxp", 200, 0, 2);
 H1F hIMPipPimPi0 = new H1F("hIMPipPimPi0", 200, 0, 2);
-H1F hIMGamGam = new H1F("hIMGamGam", 100, -0.1, 0.5);
+H1F hIMGamGam = new H1F("hIMGamGam", 100, -0.1, 0.8);
 
 H1F hMx2PPipPimGamGam = new H1F("mx2PPipPimGamGam", 100, -0.05, 0.05);
 H1F hMx2PPipPim = new H1F("mx2PPipPim", 100, -0.05, 0.05);
