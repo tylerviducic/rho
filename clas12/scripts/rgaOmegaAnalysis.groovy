@@ -26,6 +26,7 @@ H1F hPipCone = new H1F("hPipCone", 90, 0, 90);
 H1F hPimCone = new H1F("hPimCone", 90, 0, 90);
 H1F hGam1Cone = new H1F("hGam1Cone", 90, 0, 90);
 H1F hGam2Cone = new H1F("hGam2Cone", 90, 0, 90);
+H1F hPhotons = new H1F("hPhotons", 90, 0, 90);
 
 TDirectory dir = new TDirectory();
 dir.mkdir("/Cuts");
@@ -91,6 +92,7 @@ for(String dataFile : dataFiles){
             hPipCone.fill(Math.abs(pipCone));
             hGam1Cone.fill(Math.abs(gam1Cone));
             hGam2Cone.fill(Math.abs(gam2Cone));
+            hPhotons.fill(Math.toDegrees(gam1.theta() - gam2.theta()));
             hMx2PPipPimGamGam.fill(mxPPipPimGamGam.mass2());
             if(Math.abs(mxPPipPimGamGam.mass2()) < 0.01){
                 hMx2PPipPim.fill(mxPPipPim.mass2());
@@ -111,6 +113,7 @@ dir.cd("/Cuts");
 dir.addDataSet(hIMGamGam);
 dir.addDataSet(hPCone, hPimCone, hPipCone, hGam1Cone, hGam2Cone);
 dir.addDataSet(hMx2PPipPimGamGam, hMx2PPipPim);
+dir.addDataSet(hPhotons);
 dir.cd("/Plots");
 dir.addDataSet(hMxp);
 dir.addDataSet(hIMPipPimPi0);
