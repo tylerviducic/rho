@@ -101,7 +101,7 @@ for(String dataFile : dataFiles){
             if(pCone < coneAngleCut && pipCone < coneAngleCut
                     && pimCone < coneAngleCut && gam1Cone < coneAngleCut && gam2Cone < coneAngleCut){
                 hIMPipPimPi0.fill(imPipPimPi0.mass());
-                hMxp.fill(mxp.mass());
+                hMxp.fill(mxp.mass2());
                 hMx2PPipPim.fill(mxPPipPim.mass2());
                 hIMGamGam.fill(imGamGam.mass());
             }
