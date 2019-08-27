@@ -35,8 +35,12 @@ EventFilter filter = new EventFilter("11:2212:211:-211:22:22");
 
 double beamEnergy = 10.6;
 double coneAngleCut = 10;
+int nEvents = 0;
 
 for(String dataFile : dataFiles){
+    if(nEvents > 1000000){
+        break;
+    }
     HipoReader reader = new HipoReader();
     reader.open(dataFile);
 
@@ -48,6 +52,8 @@ for(String dataFile : dataFiles){
         reader.nextEvent(event);
         event.read(particles);
         event.read(conf);
+
+        nEvents++;
 
         PhysicsEvent physEvent = DataManager.getPhysicsEvent(beamEnergy, particles);
 
