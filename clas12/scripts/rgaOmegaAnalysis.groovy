@@ -30,7 +30,7 @@ dir.mkdir("/Plots");
 EventFilter filter = new EventFilter("11:2212:211:-211:22:22");
 
 double beamEnergy = 10.6;
-double coneAngleCut = Math.toRadians(10);
+double coneAngleCut = Math.cos(Math.toRadians(10));
 
 for(String dataFile : dataFiles){
     HipoReader reader = new HipoReader();
