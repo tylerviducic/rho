@@ -27,7 +27,7 @@ H1F hPimCone = new H1F("hPimCone", 90, 0, 90);
 H1F hGam1Cone = new H1F("hGam1Cone", 90, 0, 90);
 H1F hGam2Cone = new H1F("hGam2Cone", 90, 0, 90);
 H1F hPhotons = new H1F("hPhotons", 90, 0, 90);
-H1F hq2 = new H1F("hq2", 80, 0, 80);
+H1F hq2 = new H1F("hq2", 100, 0, 10);
 
 TDirectory dir = new TDirectory();
 dir.mkdir("/Cuts");
