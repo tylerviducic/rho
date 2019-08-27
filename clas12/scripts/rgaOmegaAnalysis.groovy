@@ -91,8 +91,10 @@ for(String dataFile : dataFiles){
             hPipCone.fill(Math.abs(pipCone));
             hGam1Cone.fill(Math.abs(gam1Cone));
             hGam2Cone.fill(Math.abs(gam2Cone));
-            hMx2PPipPim.fill(mxPPipPim.mass2());
             hMx2PPipPimGamGam.fill(mxPPipPimGamGam.mass2());
+            if(Math.abs(mxPPipPimGamGam.mass2()) < 0.01){
+                hMx2PPipPim.fill(mxPPipPim.mass2());
+            }
 
 
             if(imGamGam.mass() > 0.05 && imGamGam.mass() < 0.2 && pCone < coneAngleCut && pipCone < coneAngleCut
