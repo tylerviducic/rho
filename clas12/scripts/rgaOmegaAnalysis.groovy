@@ -40,11 +40,15 @@ for(String dataFile : dataFiles){
     Bank particles = new Bank(reader.getSchemaFactory().getSchema("REC::Particle"));
     Bank conf = new Bank(reader.getSchemaFactory().getSchema("RUN::config"));
     Event event = new Event();
+    if(nEvents > 1000000){
+        break;
+    }
 
     while(reader.hasNext()){
         reader.nextEvent(event);
         event.read(particles);
         event.read(conf);
+
 
         nEvents++;
         println(nEvents);
@@ -87,9 +91,6 @@ for(String dataFile : dataFiles){
                 hIMPipPimPi0.fill(imPipPimPi0.mass());
             }
 
-        }
-        if(nEvents == 1000000){
-            break;
         }
     }
     reader.close();
