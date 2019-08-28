@@ -100,7 +100,6 @@ for (String dataFile : dataFiles) {
             hPipCone.fill(pipCone);
             hPimCone.fill(pimCone);
 
-
             if(Math.abs(mx_PePipPim.mass2()) < mx2PePipPimCut){
                 hMe_PePipPim.fill(mx_PePipPim.e());
             }

@@ -44,7 +44,7 @@ for(String dataFile : dataFiles){
 //        break;
 //    }
 
-    System.out.println("Opening file " + dataFiles.indexOf(dataFile) + " out of " + dataFiles.size());
+    System.out.println("Opening file " + (dataFiles.indexOf(dataFile) + 1) + " out of " + dataFiles.size());
     HipoReader reader = new HipoReader();
     reader.open(dataFile);
 
@@ -105,7 +105,7 @@ for(String dataFile : dataFiles){
                     && pimCone < coneAngleCut && Math.toDegrees(imGamGam.theta() - mxPPipPim.theta()) < coneAngleCut){
                 hMx2PPipPimGamGam.fill(mxPPipPimGamGam.mass2());
                 hMx2PPipPim.fill(mxPPipPim.mass2());
-                if(Math.abs(mxPPipPimGamGam.mass2()) < 0.05){
+                if(Math.abs(mxPPipPimGamGam.mass2()) < 0.01){
                     hIMPipPimPi0.fill(imPipPimPi0.mass());
                     hMxp.fill(mxp.mass());
                 }
