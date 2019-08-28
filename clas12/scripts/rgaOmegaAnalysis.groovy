@@ -40,9 +40,9 @@ double coneAngleCut = 10;
 int nEvents = 0;
 
 for(String dataFile : dataFiles){
-    if(nEvents > 5000000){
-        break;
-    }
+//    if(nEvents > 5000000){
+//        break;
+//    }
     HipoReader reader = new HipoReader();
     reader.open(dataFile);
 
