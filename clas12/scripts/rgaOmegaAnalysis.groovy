@@ -43,6 +43,8 @@ for(String dataFile : dataFiles){
 //    if(nEvents > 5000000){
 //        break;
 //    }
+
+    System.out.println("Opening file " + dataFiles.indexOf(dataFile) + " out of " + dataFiles.size());
     HipoReader reader = new HipoReader();
     reader.open(dataFile);
 
@@ -106,7 +108,6 @@ for(String dataFile : dataFiles){
                 if(Math.abs(mxPPipPim.mass2()) < 0.05 && Math.abs(mxPPipPimGamGam.mass2()) < 0.05){
                     hIMPipPimPi0.fill(imPipPimPi0.mass());
                     hMxp.fill(mxp.mass());
-                    hIMGamGam.fill(imGamGam.mass());
                 }
             }
         }
