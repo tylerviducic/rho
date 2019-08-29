@@ -1,4 +1,3 @@
-import com.sun.xml.internal.ws.model.ParameterImpl
 import org.jlab.groot.data.H1F
 import org.jlab.groot.data.TDirectory
 import org.jlab.jnp.hipo4.data.Bank
