@@ -100,7 +100,7 @@ for(String dataFile : dataFiles){
             hGam2Cone.fill(Math.abs(gam2Cone));
             hPhotons.fill(Math.toDegrees(imGamGam.theta() - mxPPipPim.theta()));
 
-            if(q2 < 4 && pCone < coneAngleCut && pipCone < coneAngleCut && imGamGam.mass() > 0.05 && imGamGam.mass() < 0.2
+            if(q2 < 3 && pCone < coneAngleCut && pipCone < coneAngleCut && imGamGam.mass() > 0.05 && imGamGam.mass() < 0.2
                     && pimCone < coneAngleCut && Math.toDegrees(imGamGam.theta() - mxPPipPim.theta()) < coneAngleCut){
                 hMx2PPipPimGamGam.fill(mxPPipPimGamGam.mass2());
                 hMx2PPipPim.fill(mxPPipPim.mass2());

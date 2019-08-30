@@ -89,10 +89,11 @@ for(String dataFile : dataFiles){
             hGamCone.fill(Math.abs(gamCone));
 
 
-            if(q2 < 4 && pCone < coneAngleCut && pipCone < coneAngleCut && pimCone < coneAngleCut && gamCone < coneAngleCut){
+            if(q2 < 3 && pCone < coneAngleCut && pipCone < coneAngleCut && pimCone < coneAngleCut && gamCone < coneAngleCut){
                 hMx2PPipPimGam.fill(mxPPipPimGam.mass2());
                 hMx2PPipPim.fill(mxPPipPim.mass2());
-                if(Math.abs(mxPPipPimGam.mass2()) < 0.01 && mxPPipPim.e() > 0.1 && gam.p() > 0.1 && Math.abs(mxPPipPim.e() - gam.p()) < 0.1){
+                if(Math.abs(mxPPipPim.mass2()) < 0.01 && Math.abs(mxPPipPimGam.mass2()) < 0.01 && mxPPipPim.e() > 0.1
+                        && gam.p() > 0.1 && Math.abs(mxPPipPim.e() - gam.p()) < 0.1){
                     hIMPipPimGam.fill(imPipPimGam.mass());
                     hMxp.fill(mxp.mass());
                 }
