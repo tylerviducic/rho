@@ -120,8 +120,8 @@ dir.addDataSet(hPCone, hPimCone, hPipCone, hGam1Cone, hGam2Cone);
 dir.addDataSet(hMx2PPipPimGamGam, hMx2PPipPim);
 dir.addDataSet(hPhotons, hq2);
 dir.cd("/Plots");
-dir.addDataSet(hMxp);
-dir.addDataSet(hIMPipPimPi0);
+dir.addDataSet(hMxp.getGraph());
+dir.addDataSet(hIMPipPimPi0.getGraph());
 
 dir.writeFile("/work/clas12/viducic/rho/clas12/results/exclusiveOmegaAnalysis_RGA.hipo");
 println("done");

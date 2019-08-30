@@ -108,8 +108,8 @@ dir.addDataSet(hPCone, hPimCone, hPipCone, hGamCone);
 dir.addDataSet(hMx2PPipPimGam, hMx2PPipPim);
 dir.addDataSet(hq2);
 dir.cd("/Plots");
-dir.addDataSet(hMxp);
-dir.addDataSet(hIMPipPimGam);
+dir.addDataSet(hMxp.getGraph());
+dir.addDataSet(hIMPipPimGam.getGraph());
 
 dir.writeFile("/work/clas12/viducic/rho/clas12/results/exclusiveRhoPhotonAnalysis_RGA.hipo");
 println("done");
