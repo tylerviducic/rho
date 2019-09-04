@@ -15,7 +15,7 @@ import org.jlab.jnp.utils.file.FileUtils
 
 Calorimeter eCal = new Calorimeter();
 DriftChamber dc = new DriftChamber();
-List<String> dataFiles = FileFinder.getFiles("/Placeholder/Directory");
+List<String> dataFiles = FileFinder.getFiles("/work/clas12/avakian/mc/mcaugust2019/lund/pythia/claspyth11.21.41-0.5.0.4.0.3/*");
 
 H2F eDetected = new H2F("eDetected", 90, 0, 90, 90, 0, 90);
 H2F eGamDetected = new H2F("eGanDetected", 90, 0, 90, 90, 0, 90);
