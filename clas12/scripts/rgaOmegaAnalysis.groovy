@@ -12,8 +12,8 @@ import org.jlab.jnp.utils.file.FileUtils
 List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/rg-a/trains/v16_v2/skim8_ep/*");
 
 
-H1F hMxp = new H1F("hMxp", 100, 0, 2);
-H1F hIMPipPimPi0 = new H1F("hIMPipPimPi0", 100, 0, 2);
+H1F hMxp = new H1F("hMxp", 150, 0, 2);
+H1F hIMPipPimPi0 = new H1F("hIMPipPimPi0", 150, 0, 2);
 H1F hIMGamGam = new H1F("hIMGamGam", 100, -0.1, 0.8);
 
 H1F hMx2PPipPimGamGam = new H1F("mx2PPipPimGamGam", 100, -0.05, 0.05);
