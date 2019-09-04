@@ -12,8 +12,8 @@ import org.jlab.jnp.utils.file.FileUtils
 List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/rg-a/trains/v16_v2/skim8_ep/*");
 
 
-H1F hMxp = new H1F("hMxp", 150, 0, 2);
-H1F hIMPipPimGam = new H1F("hIMPipPimPi0", 150, 0, 2);
+H1F hMxp = new H1F("hMxp", 100, 0, 2);
+H1F hIMPipPimGam = new H1F("hIMPipPimPi0", 100, 0, 2);
 H1F hMx2PPipPimGam = new H1F("mx2PPipPimGam", 100, -0.05, 0.05);
 H1F hMx2PPipPim = new H1F("mx2PPipPim", 100, -0.05, 0.05);
 
@@ -108,8 +108,12 @@ dir.addDataSet(hPCone, hPimCone, hPipCone, hGamCone);
 dir.addDataSet(hMx2PPipPimGam, hMx2PPipPim);
 dir.addDataSet(hq2);
 dir.cd("/Plots");
-dir.addDataSet(hMxp.getGraph());
-dir.addDataSet(hIMPipPimGam.getGraph());
+mxpPlot = hMxp.getGraph();
+mxpPlot.setTitle("mxp");
+imPipPimGamPlot = hIMPipPimGam.getGraph();
+imPipPimGamPlot.setTitle("imPipPimGam");
+dir.addDataSet(mxpPlot);
+dir.addDataSet(imPipPimGamPlot);
 
 dir.writeFile("/work/clas12/viducic/rho/clas12/results/exclusiveRhoPhotonAnalysis_RGA.hipo");
 println("done");
