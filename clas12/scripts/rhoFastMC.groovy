@@ -46,6 +46,7 @@ for(String dataFile: dataFiles) {
     //reader.acceptStatus(1);
     reader.addFile(dataFile);
     reader.open();
+    println(reader.toString());
 
     PhysicsEvent event = new PhysicsEvent();
 
