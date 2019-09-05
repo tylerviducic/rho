@@ -204,6 +204,7 @@ public class Calorimeter extends Detector {
 
     public Calorimeter() {
         this.name = "Cal";
+        this.initCal();
     }
 
     //b = 305.013
