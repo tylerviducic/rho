@@ -51,7 +51,7 @@ for(String dataFile: dataFiles) {
     PhysicsEvent event = new PhysicsEvent();
 
     while (reader.nextEvent(event)) {
-        print("next");
+        System.out.println("next");
         println(event.toLundString());
         event.setBeamParticle(new Particle(11, 0, 0, 11));
         event.setTargetParticle(new Particle(2212, 0, 0, 0));
