@@ -104,7 +104,7 @@ dir.addDataSet(eDetected, eGamDetected, ePiPiDetected, gamUndetected);
 dir.cd("/Cut");
 dir.addDataSet(eDetectedCut, eGamDetectedCut, ePiPiDetectedCut, gamUndetectedCut);
 
-dir.writeFile("/work/clas12/viducic/rho/clas12/results/rhoFastMCResults");
+dir.writeFile("/work/clas12/viducic/rho/clas12/results/rhoFastMCResults.hipo");
 
 
 // ################################################################################################################## //
