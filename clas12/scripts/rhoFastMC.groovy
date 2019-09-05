@@ -14,7 +14,7 @@ import org.jlab.jnp.utils.file.FileUtils
 
 
 Calorimeter cal = new Calorimeter();
-cal.initCal();
+
 
 //DriftChamberSuperlayer dcSector = new DriftChamberSuperlayer(0.3861, 4.694, 228.078);
 //dcSector.initDCSector();
@@ -50,6 +50,7 @@ for(String dataFile: dataFiles) {
     PhysicsEvent event = new PhysicsEvent();
 
     while (reader.nextEvent(event)) {
+        print("next");
         println(event.toLundString());
         event.setBeamParticle(new Particle(11, 0, 0, 11));
         event.setTargetParticle(new Particle(2212, 0, 0, 0));
