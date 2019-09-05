@@ -46,11 +46,11 @@ for(String dataFile: dataFiles) {
     //reader.acceptStatus(1);
     reader.addFile(dataFile);
     reader.open();
-    println(reader.toString());
 
     PhysicsEvent event = new PhysicsEvent();
 
     while (reader.nextEvent(event)) {
+        println(event.toLundString());
         event.setBeamParticle(new Particle(11, 0, 0, 11));
         event.setTargetParticle(new Particle(2212, 0, 0, 0));
 
