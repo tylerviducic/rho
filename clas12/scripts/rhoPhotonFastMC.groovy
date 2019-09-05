@@ -3,7 +3,6 @@ import org.jlab.geom.prim.Path3D
 import org.jlab.geom.prim.Point3D
 import org.jlab.geom.prim.Shape3D
 import org.jlab.geom.prim.Triangle3D
-import org.jlab.groot.data.H1F
 import org.jlab.groot.data.H2F
 import org.jlab.groot.data.TDirectory
 import org.jlab.jnp.physics.Particle
