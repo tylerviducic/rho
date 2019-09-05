@@ -42,6 +42,7 @@ H1F hMxp = new H1F("hMxp", "hMxp", 150, 0 , 1.5);
 
 for(String dataFile: dataFiles) {
 
+    System.out.println(dataFile);
     LundReader reader = new LundReader();
     //reader.acceptStatus(1);
     reader.addFile(dataFile);
