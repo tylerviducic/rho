@@ -44,14 +44,13 @@ for(String dataFile: dataFiles) {
 
     System.out.println(dataFile)
     LundReader reader = new LundReader();
-    //reader.acceptStatus(1);
+    reader.acceptStatus(1);
     reader.addFile(dataFile);
     reader.open();
 
     PhysicsEvent event = new PhysicsEvent();
 
     while (reader.nextEvent(event)) {
-        System.out.println("next");
         println(event.toLundString());
         event.setBeamParticle(new Particle(11, 0, 0, 11));
         event.setTargetParticle(new Particle(2212, 0, 0, 0));
