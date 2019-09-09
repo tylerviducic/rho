@@ -13,7 +13,6 @@ import org.jlab.jnp.utils.file.FileUtils
 
 
 Calorimeter eCal = new Calorimeter();
-e
 DriftChamber dc = new DriftChamber();
 List<String> dataFiles = FileFinder.getFiles("/work/clas12/avakian/mc/mcaugust2019/lund/pythia/claspyth11.21.41-0.5.0.4.0.3/clas*.dat");
 
