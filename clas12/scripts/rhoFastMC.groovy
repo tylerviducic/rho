@@ -27,7 +27,7 @@ DriftChamber driftChamber = new DriftChamber();
 //String dataFile = "/u/group/clas12/mcdata/generated/lund/ppippim/clasdispr.00.e11.000.emn0.75tmn.09.xs65.61nb.113.0001.dat";
 //String dataFile = "/media/tylerviducic/Elements/clas12/mcdata/clasdispr.00.e11.000.emn0.75tmn.09.xs65.61nb.113.0002.dat";
 //List<String> dataFiles = FileFinder.getFiles("/media/tylerviducic/Elements/clas12/mcdata/*.dat");
-List<String> dataFiles = FileFinder.getFiles("/work/clas12/avakian/mc/mcaugust2019/lund/pythia/claspyth11.21.41-0.5.0.4.0.3/clas*.dat")
+List<String> dataFiles = FileFinder.getFiles("/work/clas12/avakian/mc/mcaugust2019/lund/pythia/claspyth11.21.41-0.5.0.4.0.3/clas*")
 
 H2F hSquare = new H2F("hSquare", "hSquare",200, -450, 450, 200, -450, 450);
 TCanvas c1 = new TCanvas("c1", 600, 600);
