@@ -4,6 +4,7 @@ import org.jlab.geom.prim.Point3D
 import org.jlab.geom.prim.Shape3D
 import org.jlab.geom.prim.Triangle3D
 import org.jlab.groot.data.H2F
+import org.jlab.groot.data.H1F
 import org.jlab.groot.data.TDirectory
 import org.jlab.jnp.physics.EventFilter
 import org.jlab.jnp.physics.Particle
@@ -22,6 +23,8 @@ H2F eDetected = new H2F("eDetected", 90, 0, 90, 90, 0, 90);
 H2F eGamDetected = new H2F("eGanDetected", 90, 0, 90, 90, 0, 90);
 H2F gamUndetected = new H2F("gamUndetected", 90, 0, 90, 90, 0, 90);
 H2F ePiPiDetected = new H2F("ePiPiDetected", 90, 0, 90, 90, 0, 90);
+
+H1F eTheta = new H1F("eTheta", 90, 0, 90);
 
 H2F eDetectedCut = new H2F("eDetectedCut", 90, 0, 90, 90, 0, 90);
 H2F eGamDetectedCut = new H2F("eGanDetectedCut", 90, 0, 90, 90, 0, 90);
@@ -78,6 +81,8 @@ for(String dataFile : dataFiles){
             Line3D eLine = ePath.getLine(0);
             Line3D gamLine = gamPath.getLine(0);
 
+            eTheta.fill(Math.toDegrees(e.theta()));
+
             if (eCal.hasIntersection(eLine) && dc.hasHitsInAllLayers(eLine)){
                 eDetected.fill(Math.toDegrees(pipPim.theta()), Math.toDegrees(pipPim.phi()));
                 if (eCal.hasIntersection(gamLine)) {
@@ -108,7 +113,7 @@ for(String dataFile : dataFiles){
 }
 
 dir.cd("/Uncut");
-dir.addDataSet(eDetected, eGamDetected, ePiPiDetected, gamUndetected);
+dir.addDataSet(eDetected, eGamDetected, ePiPiDetected, gamUndetected, eTheta);
 dir.cd("/Cut");
 dir.addDataSet(eDetectedCut, eGamDetectedCut, ePiPiDetectedCut, gamUndetectedCut);
 
