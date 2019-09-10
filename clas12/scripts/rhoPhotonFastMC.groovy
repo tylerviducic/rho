@@ -5,6 +5,7 @@ import org.jlab.geom.prim.Shape3D
 import org.jlab.geom.prim.Triangle3D
 import org.jlab.groot.data.H2F
 import org.jlab.groot.data.TDirectory
+import org.jlab.jnp.physics.EventFilter
 import org.jlab.jnp.physics.Particle
 import org.jlab.jnp.physics.ParticleList
 import org.jlab.jnp.physics.PhysicsEvent
@@ -31,6 +32,8 @@ TDirectory dir = new TDirectory();
 dir.mkdir("/Cut");
 dir.mkdir("/Uncut");
 
+EventFilter filter = new EventFilter("11:2212:211:-211:22");
+
 for(String dataFile : dataFiles){
     LundReader reader = new LundReader();
     reader.acceptStatus(1);
@@ -40,60 +43,57 @@ for(String dataFile : dataFiles){
     PhysicsEvent event = new PhysicsEvent();
 
     while (reader.nextEvent(event)){
+        if(filter.isValid(event)) {
+            event.setBeamParticle(new Particle(11, 0, 0, 10.6));
+            event.setTargetParticle(new Particle(2212, 0, 0, 0));
 
-        event.setBeamParticle(new Particle(11, 0, 0, 10.6));
-        event.setTargetParticle(new Particle(2212, 0, 0, 0));
+            ParticleList particles = event.getParticleList();
 
-        ParticleList particles = event.getParticleList();
+            Particle p = event.getParticleByPid(2212, 1);
+            Particle e = event.getParticleByPid(11, 1);
+            Particle pip = event.getParticleByPid(211, 0);
+            Particle pim = event.getParticleByPid(-211, 0);
+            Particle gam = event.getParticleByPid(22, 0);
+            Particle pipPim = event.getParticle("[211] + [-211]");
 
-        Particle p = event.getParticleByPid(2212, 1);
-        Particle e = event.getParticleByPid(11, 1);
-        Particle pip = event.getParticleByPid(211, 0);
-        Particle pim = event.getParticleByPid(-211, 0);
-        Particle gam = event.getParticleByPid(22, 0);
-        Particle pipPim = event.getParticle("[211] + [-211]");
+            StraightLine pLine = new StraightLine(p);
+            StraightLine electronLine = new StraightLine(e);
+            StraightLine pipLine = new StraightLine(pip);
+            StraightLine pimLine = new StraightLine(pim);
+            StraightLine gammaLine = new StraightLine(gam);
 
-        StraightLine pLine = new StraightLine(p);
-        StraightLine electronLine = new StraightLine(e);
-        StraightLine pipLine = new StraightLine(pip);
-        StraightLine pimLine = new StraightLine(pim);
-        StraightLine gammaLine = new StraightLine(gam);
+            Path3D pPath = pLine.getPath();
+            Path3D ePath = electronLine.getPath();
+            Path3D pipPath = pipLine.getPath();
+            Path3D pimPath = pimLine.getPath();
+            Path3D gamPath = gamLine.getPath();
 
-        Path3D pPath = pLine.getPath();
-        Path3D ePath = electronLine.getPath();
-        Path3D pipPath = pipLine.getPath();
-        Path3D pimPath = pimLine.getPath();
-        Path3D gamPath = gamLine.getPath();
+            Line3D eLine = ePath.getLine(0);
+            Line3D gamLine = gamPath.getLine(0);
 
-        Line3D eLine = ePath.getLine(0);
-        Line3D gamLine = gamPath.getLine(0);
-
-        if(eCal.hasIntersection(eLine) && dc.hasHitsInAllLayers(eLine)){
-            eDetected.fill(Math.toDegrees(pipPim.theta()), Math.toDegrees(pipPim.phi()));
-            if(eCal.hasIntersection(gamLine)){
-                eGamDetected.fill(Math.toDegrees(pipPim.theta()), Math.toDegrees(pipPim.phi()));
-            }
-            else if (eCal.hasIntersection(pipPath.getLine(0)) && eCal.hasIntersection(pimPath.getLine(0))
-                && dc.hasHitsInAllLayers(pipPath.getLine(0)) && dc.hasHitsInAllLayers(pimPath.getLine(0))){
-                ePiPiDetected.fill(Math.toDegrees(gam.theta()), Math.toDegrees(gam.phi()));
-            }
-            else if(gam.theta() > Math.toRadians(45) && gam.theta() < Math.toRadians(135)){
-                gamUndetected.fill(Math.toDegrees(pipPim.theta()), Math.toDegrees(pipPim.phi()));
-            }
-        }
-
-        if (e.theta() < Math.toRadians(4.5)){
-            if(eCal.hasIntersection(eLine) && dc.hasHitsInAllLayers(eLine)){
-                eDetectedCut.fill(Math.toDegrees(pipPim.theta()), Math.toDegrees(pipPim.phi()));
-                if(eCal.hasIntersection(gamLine)){
-                    eGamDetectedCut.fill(Math.toDegrees(pipPim.theta()), Math.toDegrees(pipPim.phi()));
+            if (eCal.hasIntersection(eLine) && dc.hasHitsInAllLayers(eLine)) {
+                eDetected.fill(Math.toDegrees(pipPim.theta()), Math.toDegrees(pipPim.phi()));
+                if (eCal.hasIntersection(gamLine)) {
+                    eGamDetected.fill(Math.toDegrees(pipPim.theta()), Math.toDegrees(pipPim.phi()));
+                } else if (eCal.hasIntersection(pipPath.getLine(0)) && eCal.hasIntersection(pimPath.getLine(0))
+                        && dc.hasHitsInAllLayers(pipPath.getLine(0)) && dc.hasHitsInAllLayers(pimPath.getLine(0))) {
+                    ePiPiDetected.fill(Math.toDegrees(gam.theta()), Math.toDegrees(gam.phi()));
+                } else if (gam.theta() > Math.toRadians(45) && gam.theta() < Math.toRadians(135)) {
+                    gamUndetected.fill(Math.toDegrees(pipPim.theta()), Math.toDegrees(pipPim.phi()));
                 }
-                else if (eCal.hasIntersection(pipPath.getLine(0)) && eCal.hasIntersection(pimPath.getLine(0))
-                        && dc.hasHitsInAllLayers(pipPath.getLine(0)) && dc.hasHitsInAllLayers(pimPath.getLine(0))){
-                    ePiPiDetectedCut.fill(Math.toDegrees(gam.theta()), Math.toDegrees(gam.phi()));
-                }
-                else if(gam.theta() > Math.toRadians(45) && gam.theta() < Math.toRadians(135)){
-                    gamUndetectedCut.fill(Math.toDegrees(pipPim.theta()), Math.toDegrees(pipPim.phi()));
+            }
+
+            if (e.theta() < Math.toRadians(4.5)) {
+                if (eCal.hasIntersection(eLine) && dc.hasHitsInAllLayers(eLine)) {
+                    eDetectedCut.fill(Math.toDegrees(pipPim.theta()), Math.toDegrees(pipPim.phi()));
+                    if (eCal.hasIntersection(gamLine)) {
+                        eGamDetectedCut.fill(Math.toDegrees(pipPim.theta()), Math.toDegrees(pipPim.phi()));
+                    } else if (eCal.hasIntersection(pipPath.getLine(0)) && eCal.hasIntersection(pimPath.getLine(0))
+                            && dc.hasHitsInAllLayers(pipPath.getLine(0)) && dc.hasHitsInAllLayers(pimPath.getLine(0))) {
+                        ePiPiDetectedCut.fill(Math.toDegrees(gam.theta()), Math.toDegrees(gam.phi()));
+                    } else if (gam.theta() > Math.toRadians(45) && gam.theta() < Math.toRadians(135)) {
+                        gamUndetectedCut.fill(Math.toDegrees(pipPim.theta()), Math.toDegrees(pipPim.phi()));
+                    }
                 }
             }
         }
