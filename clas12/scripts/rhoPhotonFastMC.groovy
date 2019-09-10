@@ -20,13 +20,13 @@ List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/avakian
 
 H2F eDetected = new H2F("eDetected", 90, 0, 90, 90, 0, 90);
 H2F eGamDetected = new H2F("eGanDetected", 90, 0, 90, 90, 0, 90);
-H2F gamUndetected = new H2F("eDetected", 90, 0, 90, 90, 0, 90);
-H2F ePiPiDetected = new H2F("eDetected", 90, 0, 90, 90, 0, 90);
+H2F gamUndetected = new H2F("gamUndetected", 90, 0, 90, 90, 0, 90);
+H2F ePiPiDetected = new H2F("ePiPiDetected", 90, 0, 90, 90, 0, 90);
 
 H2F eDetectedCut = new H2F("eDetectedCut", 90, 0, 90, 90, 0, 90);
 H2F eGamDetectedCut = new H2F("eGanDetectedCut", 90, 0, 90, 90, 0, 90);
-H2F gamUndetectedCut = new H2F("eDetectedCut", 90, 0, 90, 90, 0, 90);
-H2F ePiPiDetectedCut = new H2F("eDetectedCut", 90, 0, 90, 90, 0, 90);
+H2F gamUndetectedCut = new H2F("gamUndetectedCut", 90, 0, 90, 90, 0, 90);
+H2F ePiPiDetectedCut = new H2F("ePiPiDetectedCut", 90, 0, 90, 90, 0, 90);
 
 TDirectory dir = new TDirectory();
 dir.mkdir("/Cut");
