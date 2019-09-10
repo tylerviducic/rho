@@ -36,6 +36,7 @@ dir.mkdir("/Cut");
 dir.mkdir("/Uncut");
 
 EventFilter filter = new EventFilter("11:2212:211:-211:22");
+int rhoCount = 0;
 
 for(String dataFile : dataFiles){
     System.out.println("Opening file " + (dataFiles.indexOf(dataFile) +1) + " out of " + dataFiles.size() + " files");
@@ -48,6 +49,7 @@ for(String dataFile : dataFiles){
 
     while (reader.nextEvent(event)){
         if(filter.isValid(event)) {
+            rhoCount++;
             event.setBeamParticle(new Particle(11, 0, 0, 10.6));
             event.setTargetParticle(new Particle(2212, 0, 0, 0));
 
@@ -110,7 +112,7 @@ for(String dataFile : dataFiles){
         }
     }
 }
-
+System.out.println("Number of rho0 to ppg decays: " + rhoCount);
 dir.cd("/Uncut");
 dir.addDataSet(eDetected, eGamDetected, ePiPiDetected, gamUndetected, eTheta);
 dir.cd("/Cut");
