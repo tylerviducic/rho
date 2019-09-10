@@ -90,7 +90,7 @@ for(String dataFile : dataFiles){
                 }
             }
 
-            if (Math.toRadians(e.theta()) < 4.5) {
+            if (Math.toDegrees(e.theta()) < 4.5) {
                 if (eCal.hasIntersection(eLine) && dc.hasHitsInAllLayers(eLine)) {
                     eDetectedCut.fill(Math.toDegrees(pipPim.theta()), Math.toDegrees(pipPim.phi()));
                     if (eCal.hasIntersection(gamLine)) {
