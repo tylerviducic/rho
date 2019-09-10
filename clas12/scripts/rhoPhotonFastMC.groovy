@@ -83,7 +83,7 @@ for(String dataFile : dataFiles){
             Line3D eLine = ePath.getLine(0);
             Line3D gamLine = gamPath.getLine(0);
 
-            if (eCal.hasIntersection(eLine) && dc.hasHitsInAllLayers(eLine)){
+            if (eCal.hasIntersection(eLine)){
                 eTheta.fill(Math.toDegrees(e.theta()));
                 eDetected.fill(Math.toDegrees(pipPim.theta()), Math.toDegrees(pipPim.phi()));
                 if (eCal.hasIntersection(gamLine)) {
@@ -97,7 +97,7 @@ for(String dataFile : dataFiles){
             }
 
             if (Math.toDegrees(e.theta()) < 4.5) {
-                if (eCal.hasIntersection(eLine) && dc.hasHitsInAllLayers(eLine)) {
+                if (eCal.hasIntersection(eLine)) {
                     eDetectedCut.fill(Math.toDegrees(pipPim.theta()), Math.toDegrees(pipPim.phi()));
                     if (eCal.hasIntersection(gamLine)) {
                         eGamDetectedCut.fill(Math.toDegrees(pipPim.theta()), Math.toDegrees(pipPim.phi()));
