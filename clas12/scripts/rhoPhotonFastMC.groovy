@@ -19,17 +19,17 @@ DriftChamber dc = new DriftChamber();
 //List<String> dataFiles = FileFinder.getFiles("/work/clas12/avakian/mc/mcaugust2019/lund/pythia/claspyth11.21.41-0.5.0.4.0.3/clas*.dat");
 List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/avakian/mc/mcaugust2019/lund/pythia/claspyth11.21.41-0.5.05.1.2/clas*")
 
-H2F eDetected = new H2F("eDetected", 90, 0, 90, 90, 0, 90);
-H2F eGamDetected = new H2F("eGanDetected", 90, 0, 90, 90, 0, 90);
-H2F gamUndetected = new H2F("gamUndetected", 90, 0, 90, 90, 0, 90);
-H2F ePiPiDetected = new H2F("ePiPiDetected", 90, 0, 90, 90, 0, 90);
+H2F eDetected = new H2F("eDetected", 90, 0, 90, 90, 0, 360);
+H2F eGamDetected = new H2F("eGanDetected", 90, 0, 90, 90, 0, 360);
+H2F gamUndetected = new H2F("gamUndetected", 90, 0, 90, 90, 0, 360);
+H2F ePiPiDetected = new H2F("ePiPiDetected", 90, 0, 90, 90, 0, 360);
 
 H1F eTheta = new H1F("eTheta", 90, 0, 90);
 
-H2F eDetectedCut = new H2F("eDetectedCut", 90, 0, 90, 90, 0, 90);
-H2F eGamDetectedCut = new H2F("eGanDetectedCut", 90, 0, 90, 90, 0, 90);
-H2F gamUndetectedCut = new H2F("gamUndetectedCut", 90, 0, 90, 90, 0, 90);
-H2F ePiPiDetectedCut = new H2F("ePiPiDetectedCut", 90, 0, 90, 90, 0, 90);
+H2F eDetectedCut = new H2F("eDetectedCut", 90, 0, 90, 90, 0, 360);
+H2F eGamDetectedCut = new H2F("eGanDetectedCut", 90, 0, 90, 90, 0, 360);
+H2F gamUndetectedCut = new H2F("gamUndetectedCut", 90, 0, 90, 90, 0, 360);
+H2F ePiPiDetectedCut = new H2F("ePiPiDetectedCut", 90, 0, 90, 90, 0, 360);
 
 TDirectory dir = new TDirectory();
 dir.mkdir("/Cut");
