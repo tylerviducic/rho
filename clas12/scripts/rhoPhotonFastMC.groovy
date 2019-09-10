@@ -44,6 +44,7 @@ for(String dataFile : dataFiles){
 
     while (reader.nextEvent(event)){
         if(filter.isValid(event)) {
+            System.out.println("Valid event");
             event.setBeamParticle(new Particle(11, 0, 0, 10.6));
             event.setTargetParticle(new Particle(2212, 0, 0, 0));
 
