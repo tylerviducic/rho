@@ -50,16 +50,16 @@ for(String dataFile : dataFiles){
 
             ParticleList particles = event.getParticleList();
 
-//            Particle p = event.getParticleByPid(2212, 1);
-//            Particle e = event.getParticleByPid(11, 1);
-//            Particle pip = event.getParticleByPid(211, 0);
-//            Particle pim = event.getParticleByPid(-211, 0);
-//            Particle gam = event.getParticleByPid(22, 0);
-            Particle p = event.getParticle("[2212]");
-            Particle e = event.getParticle("[11]");
-            Particle pip = event.getParticle("[211]");
-            Particle pim = event.getParticle("[-211]");
-            Particle gam = event.getParticle("[22]");
+            Particle p = event.getParticleByPid(2212, 0);
+            Particle e = event.getParticleByPid(11, 0);
+            Particle pip = event.getParticleByPid(211, 0);
+            Particle pim = event.getParticleByPid(-211, 0);
+            Particle gam = event.getParticleByPid(22, 0);
+//            Particle p = event.getParticle("[2212]");
+//            Particle e = event.getParticle("[11]");
+//            Particle pip = event.getParticle("[211]");
+//            Particle pim = event.getParticle("[-211]");
+//            Particle gam = event.getParticle("[22]");
 
             Particle pipPim = event.getParticle("[211] + [-211]");
 
