@@ -78,7 +78,8 @@ for(String dataFile : dataFiles){
             Line3D eLine = ePath.getLine(0);
             Line3D gamLine = gamPath.getLine(0);
 
-            if (eCal.hasIntersection(eLine) && dc.hasHitsInAllLayers(eLine)) {
+            if (eCal.hasIntersection(eLine) && dc.hasHitsInAllLayers(eLine)){
+                System.out.println("electron detected");
                 eDetected.fill(Math.toDegrees(pipPim.theta()), Math.toDegrees(pipPim.phi()));
                 if (eCal.hasIntersection(gamLine)) {
                     eGamDetected.fill(Math.toDegrees(pipPim.theta()), Math.toDegrees(pipPim.phi()));
