@@ -66,7 +66,7 @@ for(String dataFile : dataFiles){
             Path3D ePath = electronLine.getPath();
             Path3D pipPath = pipLine.getPath();
             Path3D pimPath = pimLine.getPath();
-            Path3D gamPath = gamLine.getPath();
+            Path3D gamPath = gammaLine.getPath();
 
             Line3D eLine = ePath.getLine(0);
             Line3D gamLine = gamPath.getLine(0);
