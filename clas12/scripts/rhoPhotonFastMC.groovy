@@ -35,6 +35,7 @@ dir.mkdir("/Uncut");
 EventFilter filter = new EventFilter("11:2212:211:-211:22");
 
 for(String dataFile : dataFiles){
+    System.out.println("Opening file " + (dataFiles.indexOf(dataFile) +1) + " out of " + dataFiles.size() + " files");
     LundReader reader = new LundReader();
     reader.acceptStatus(1);
     reader.addFile(dataFile);
@@ -44,7 +45,6 @@ for(String dataFile : dataFiles){
 
     while (reader.nextEvent(event)){
         if(filter.isValid(event)) {
-            System.out.println("Valid event");
             event.setBeamParticle(new Particle(11, 0, 0, 10.6));
             event.setTargetParticle(new Particle(2212, 0, 0, 0));
 
@@ -79,7 +79,6 @@ for(String dataFile : dataFiles){
             Line3D gamLine = gamPath.getLine(0);
 
             if (eCal.hasIntersection(eLine) && dc.hasHitsInAllLayers(eLine)){
-                System.out.println("electron detected");
                 eDetected.fill(Math.toDegrees(pipPim.theta()), Math.toDegrees(pipPim.phi()));
                 if (eCal.hasIntersection(gamLine)) {
                     eGamDetected.fill(Math.toDegrees(pipPim.theta()), Math.toDegrees(pipPim.phi()));
@@ -91,7 +90,7 @@ for(String dataFile : dataFiles){
                 }
             }
 
-            if (e.theta() < Math.toRadians(4.5)) {
+            if (Math.toRadians(e.theta()) < 4.5) {
                 if (eCal.hasIntersection(eLine) && dc.hasHitsInAllLayers(eLine)) {
                     eDetectedCut.fill(Math.toDegrees(pipPim.theta()), Math.toDegrees(pipPim.phi()));
                     if (eCal.hasIntersection(gamLine)) {
