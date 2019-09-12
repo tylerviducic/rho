@@ -19,21 +19,15 @@ DriftChamber dc = new DriftChamber();
 //List<String> dataFiles = FileFinder.getFiles("/work/clas12/avakian/mc/mcaugust2019/lund/pythia/claspyth11.21.41-0.5.0.4.0.3/clas*.dat");
 List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/avakian/mc/mcaugust2019/lund/pythia/claspyth11.21.41-0.5.05.1.2/clas*")
 
-H2F eDetected = new H2F("eDetected", 90, 0, 90, 90, 0, 200);
-H2F eGamDetected = new H2F("eGanDetected", 90, 0, 90, 90, 0, 200);
-H2F gamUndetected = new H2F("gamUndetected", 90, 0, 90, 90, 0, 200);
-H2F ePiPiDetected = new H2F("ePiPiDetected", 90, 0, 90, 90, 0, 200);
+H2F gamThetaPhi = new H2F("gamThetaPhi", 90, 0, 180, 180, -180, 180);
+H2F pipThetaPhi = new H2F("pipThetaPhi", 90, 0, 180, 180, -180, 180);
+H2F pimThetaPhi = new H2F("pimThetaPhi", 90, 0, 180, 180, -180, 180);
+H2F pThetaPhi = new H2F("pThetaPhi", 90, 0, 180, 180, -180, 180);
 
-H1F eTheta = new H1F("eTheta", 90, 0, 90);
-
-H2F eDetectedCut = new H2F("eDetectedCut", 90, 0, 90, 90, 0, 200);
-H2F eGamDetectedCut = new H2F("eGanDetectedCut", 90, 0, 90, 90, 0, 200);
-H2F gamUndetectedCut = new H2F("gamUndetectedCut", 90, 0, 90, 90, 0, 200);
-H2F ePiPiDetectedCut = new H2F("ePiPiDetectedCut", 90, 0, 90, 90, 0, 200);
 
 TDirectory dir = new TDirectory();
-dir.mkdir("/Cut");
-dir.mkdir("/Uncut");
+dir.mkdir("/GammaDetected");
+dir.mkdir("/OthersDetected");
 
 EventFilter filter = new EventFilter("11:2212:211:-211:22");
 int rhoCount = 0;
@@ -60,63 +54,41 @@ for(String dataFile : dataFiles){
             Particle pip = event.getParticleByPid(211, 0);
             Particle pim = event.getParticleByPid(-211, 0);
             Particle gam = event.getParticleByPid(22, 0);
-//            Particle p = event.getParticle("[2212]");
-//            Particle e = event.getParticle("[11]");
-//            Particle pip = event.getParticle("[211]");
-//            Particle pim = event.getParticle("[-211]");
-//            Particle gam = event.getParticle("[22]");
 
-            Particle pipPim = event.getParticle("[211] + [-211]");
 
-            StraightLine pLine = new StraightLine(p);
-            StraightLine electronLine = new StraightLine(e);
-            StraightLine pipLine = new StraightLine(pip);
-            StraightLine pimLine = new StraightLine(pim);
-            StraightLine gammaLine = new StraightLine(gam);
+            StraightLine pLineSL = new StraightLine(p);
+            StraightLine pipLineSL = new StraightLine(pip);
+            StraightLine pimLineSL = new StraightLine(pim);
+            StraightLine gammaLineSL = new StraightLine(gam);
 
-            Path3D pPath = pLine.getPath();
-            Path3D ePath = electronLine.getPath();
-            Path3D pipPath = pipLine.getPath();
-            Path3D pimPath = pimLine.getPath();
-            Path3D gamPath = gammaLine.getPath();
+            Path3D pPath = pLineSL.getPath();
+            Path3D pipPath = pipLineSL.getPath();
+            Path3D pimPath = pimLineSL.getPath();
+            Path3D gamPath = gammaLineSL.getPath();
 
-            Line3D eLine = ePath.getLine(0);
             Line3D gamLine = gamPath.getLine(0);
-
-            if (eCal.hasIntersection(eLine)){
-                eTheta.fill(Math.toDegrees(e.theta()));
-                eDetected.fill(Math.toDegrees(pipPim.theta()), Math.toDegrees(pipPim.phi()));
-                if (eCal.hasIntersection(gamLine)) {
-                    eGamDetected.fill(Math.toDegrees(pipPim.theta()), Math.toDegrees(pipPim.phi()));
-                } else if (eCal.hasIntersection(pipPath.getLine(0)) && eCal.hasIntersection(pimPath.getLine(0))
-                        && dc.hasHitsInAllLayers(pipPath.getLine(0)) && dc.hasHitsInAllLayers(pimPath.getLine(0))) {
-                    ePiPiDetected.fill(Math.toDegrees(gam.theta()), Math.toDegrees(gam.phi()));
-                } else if (gam.theta() > Math.toRadians(45) && gam.theta() < Math.toRadians(135)) {
-                    gamUndetected.fill(Math.toDegrees(pipPim.theta()), Math.toDegrees(pipPim.phi()));
-                }
-            }
+            Line3D pipLine = pipPath.getLine(0);
+            Line3D pimLine = pimPath.getLine(0);
+            Line3D pLine = pPath.getLine(0);
 
             if (Math.toDegrees(e.theta()) < 4.5) {
-                if (eCal.hasIntersection(eLine)) {
-                    eDetectedCut.fill(Math.toDegrees(pipPim.theta()), Math.toDegrees(pipPim.phi()));
-                    if (eCal.hasIntersection(gamLine)) {
-                        eGamDetectedCut.fill(Math.toDegrees(pipPim.theta()), Math.toDegrees(pipPim.phi()));
-                    } else if (eCal.hasIntersection(pipPath.getLine(0)) && eCal.hasIntersection(pimPath.getLine(0))
-                            && dc.hasHitsInAllLayers(pipPath.getLine(0)) && dc.hasHitsInAllLayers(pimPath.getLine(0))) {
-                        ePiPiDetectedCut.fill(Math.toDegrees(gam.theta()), Math.toDegrees(gam.phi()));
-                    } else if (gam.theta() > Math.toRadians(45) && gam.theta() < Math.toRadians(135)) {
-                        gamUndetectedCut.fill(Math.toDegrees(pipPim.theta()), Math.toDegrees(pipPim.phi()));
-                    }
+                if(eCal.hasIntersection(gamLine)){
+                    pipThetaPhi.fill(pip.theta(), pip.phi());
+                    pimThetaPhi.fill(pim.theta(), pim.phi());
+                    pThetaPhi.fill(p.theta(), p.phi());
+                }
+                if(dc.hasHitsInAllLayers(pipLine) && dc.hasHitsInAllLayers(pimLine) && dc.hasHitsInAllLayers(pLine)){
+                    gamThetaPhi.fill(gam.theta(), gam.phi());
                 }
             }
         }
     }
 }
 System.out.println("Number of rho0 to ppg decays: " + rhoCount);
-dir.cd("/Uncut");
-dir.addDataSet(eDetected, eGamDetected, ePiPiDetected, gamUndetected, eTheta);
-dir.cd("/Cut");
-dir.addDataSet(eDetectedCut, eGamDetectedCut, ePiPiDetectedCut, gamUndetectedCut);
+dir.cd("/GammaDetected");
+dir.addDataSet(pipThetaPhi, pimThetaPhi, pThetaPhi);
+dir.cd("/OthersDetected");
+dir.addDataSet(gamThetaPhi);
 
 dir.writeFile("/work/clas12/viducic/rho/clas12/results/rhoFastMCResults.hipo");
 
