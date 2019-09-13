@@ -73,12 +73,12 @@ for(String dataFile : dataFiles){
 
             if (Math.toDegrees(e.theta()) < 4.5) {
                 if(eCal.hasIntersection(gamLine)){
-                    pipThetaPhi.fill(pip.theta(), pip.phi());
-                    pimThetaPhi.fill(pim.theta(), pim.phi());
-                    pThetaPhi.fill(p.theta(), p.phi());
+                    pipThetaPhi.fill(Math.toDegrees(pip.theta()), Math.toDegrees(pip.phi()));
+                    pimThetaPhi.fill(Math.toDegrees(pim.theta()), Math.toDegrees(pim.phi()));
+                    pThetaPhi.fill(Math.toDegrees(p.theta()), Math.toDegrees(p.phi()));
                 }
                 if(dc.hasHitsInAllLayers(pipLine) && dc.hasHitsInAllLayers(pimLine) && dc.hasHitsInAllLayers(pLine)){
-                    gamThetaPhi.fill(gam.theta(), gam.phi());
+                    gamThetaPhi.fill(Math.toDegrees(gam.theta()), Math.toDegrees(gam.phi()));
                 }
             }
         }
