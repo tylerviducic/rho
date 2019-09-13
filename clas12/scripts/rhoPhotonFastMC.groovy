@@ -31,6 +31,8 @@ dir.mkdir("/OthersDetected");
 
 EventFilter filter = new EventFilter("11:2212:211:-211:22");
 int rhoCount = 0;
+int gamCount = 0;
+int otherCount = 0;
 
 for(String dataFile : dataFiles){
     System.out.println("Opening file " + (dataFiles.indexOf(dataFile) +1) + " out of " + dataFiles.size() + " files");
@@ -73,11 +75,13 @@ for(String dataFile : dataFiles){
 
             if (Math.toDegrees(e.theta()) < 4.5) {
                 if(eCal.hasIntersection(gamLine)){
+                    gamCount++;
                     pipThetaPhi.fill(Math.toDegrees(pip.theta()), Math.toDegrees(pip.phi()));
                     pimThetaPhi.fill(Math.toDegrees(pim.theta()), Math.toDegrees(pim.phi()));
                     pThetaPhi.fill(Math.toDegrees(p.theta()), Math.toDegrees(p.phi()));
                 }
                 if(dc.hasHitsInAllLayers(pipLine) && dc.hasHitsInAllLayers(pimLine) && dc.hasHitsInAllLayers(pLine)){
+                    otherCount++;
                     gamThetaPhi.fill(Math.toDegrees(gam.theta()), Math.toDegrees(gam.phi()));
                 }
             }
@@ -85,6 +89,8 @@ for(String dataFile : dataFiles){
     }
 }
 System.out.println("Number of rho0 to ppg decays: " + rhoCount);
+System.out.println("Number of photons detected: " + gamCount);
+System.out.println("Number of p, pi+, pi- detected: " + otherCount);
 dir.cd("/GammaDetected");
 dir.addDataSet(pipThetaPhi, pimThetaPhi, pThetaPhi);
 dir.cd("/OthersDetected");
