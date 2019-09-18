@@ -37,6 +37,7 @@ EventFilter filter = new EventFilter("11:2212:211:-211:22");
 int rhoCount = 0;
 int gamCount = 0;
 int otherCount = 0;
+int gamPCount = 0;
 
 for(String dataFile : dataFiles){
     System.out.println("Opening file " + (dataFiles.indexOf(dataFile) +1) + " out of " + dataFiles.size() + " files");
@@ -85,7 +86,7 @@ for(String dataFile : dataFiles){
                     pThetaPhi.fill(Math.toDegrees(p.theta()), Math.toDegrees(p.phi()));
                     pTheta.fill(Math.toDegrees(p.theta()));
                     if(dc.hasHitsInAllLayers(pLine)){
-                        println("gam and proton hit");
+                        gamPCount++;
                         pipPimTheta.fill(pip.theta(), pim.theta());
                     }
                 }
@@ -100,6 +101,7 @@ for(String dataFile : dataFiles){
 System.out.println("Number of rho0 to ppg decays: " + rhoCount);
 System.out.println("Number of photons detected: " + gamCount);
 System.out.println("Number of p, pi+, pi- detected: " + otherCount);
+System.out.println("Number of p, gamma detected: " + gamPCount);
 dir.cd("/GammaDetected");
 dir.addDataSet(pipThetaPhi, pimThetaPhi, pThetaPhi, pTheta);
 dir.cd("/OthersDetected");
