@@ -24,11 +24,14 @@ H2F gamThetaPhi = new H2F("gamThetaPhi", 90, 0, 180, 180, -180, 180);
 H2F pipThetaPhi = new H2F("pipThetaPhi", 90, 0, 180, 180, -180, 180);
 H2F pimThetaPhi = new H2F("pimThetaPhi", 90, 0, 180, 180, -180, 180);
 H2F pThetaPhi = new H2F("pThetaPhi", 90, 0, 180, 180, -180, 180);
+H1F pTheta = new H1F("pTheta", 90, 0, 180);
+H2F pipPimTheta = new H2F("pipPimTheta", 90, 0, 180, 90, 0, 180);
 
 
 TDirectory dir = new TDirectory();
 dir.mkdir("/GammaDetected");
 dir.mkdir("/OthersDetected");
+dir.mkdir("/GammaProtonDetected");
 
 EventFilter filter = new EventFilter("11:2212:211:-211:22");
 int rhoCount = 0;
@@ -80,6 +83,10 @@ for(String dataFile : dataFiles){
                     pipThetaPhi.fill(Math.toDegrees(pip.theta()), Math.toDegrees(pip.phi()));
                     pimThetaPhi.fill(Math.toDegrees(pim.theta()), Math.toDegrees(pim.phi()));
                     pThetaPhi.fill(Math.toDegrees(p.theta()), Math.toDegrees(p.phi()));
+                    pTheta.fill(Math.toDegrees(p.theta()));
+                    if(dc.hasHitsInAllLayers(pLine)){
+                        pipPimTheta.fill(pip.theta(), pim.theta());
+                    }
                 }
                 if(dc.hasHitsInAllLayers(pipLine) && dc.hasHitsInAllLayers(pimLine) && dc.hasHitsInAllLayers(pLine)){
                     otherCount++;
@@ -93,9 +100,11 @@ System.out.println("Number of rho0 to ppg decays: " + rhoCount);
 System.out.println("Number of photons detected: " + gamCount);
 System.out.println("Number of p, pi+, pi- detected: " + otherCount);
 dir.cd("/GammaDetected");
-dir.addDataSet(pipThetaPhi, pimThetaPhi, pThetaPhi);
+dir.addDataSet(pipThetaPhi, pimThetaPhi, pThetaPhi, pTheta);
 dir.cd("/OthersDetected");
 dir.addDataSet(gamThetaPhi);
+dir.cd("/GammaProtonDetected");
+dir.addDataSet(pipPimTheta);
 
 dir.writeFile("/work/clas12/viducic/rho/clas12/results/rhoFastMCResults.hipo");
 
