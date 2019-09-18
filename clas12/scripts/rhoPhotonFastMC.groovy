@@ -85,6 +85,7 @@ for(String dataFile : dataFiles){
                     pThetaPhi.fill(Math.toDegrees(p.theta()), Math.toDegrees(p.phi()));
                     pTheta.fill(Math.toDegrees(p.theta()));
                     if(dc.hasHitsInAllLayers(pLine)){
+                        println("gam and proton hit");
                         pipPimTheta.fill(pip.theta(), pim.theta());
                     }
                 }
