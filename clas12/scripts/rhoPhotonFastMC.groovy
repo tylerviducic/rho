@@ -87,7 +87,7 @@ for(String dataFile : dataFiles){
                     pTheta.fill(Math.toDegrees(p.theta()));
                     if(dc.hasHitsInAllLayers(pLine)){
                         gamPCount++;
-                        pipPimTheta.fill(pip.theta(), pim.theta());
+                        pipPimTheta.fill(Math.toDegrees(pip.theta()), Math.toDegrees(pim.theta()));
                     }
                 }
                 if(dc.hasHitsInAllLayers(pipLine) && dc.hasHitsInAllLayers(pimLine) && dc.hasHitsInAllLayers(pLine)){
