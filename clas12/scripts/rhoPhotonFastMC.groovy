@@ -56,12 +56,13 @@ for(String dataFile : dataFiles){
 
             ParticleList particles = event.getParticleList();
 
-            Particle p = event.getParticleByPid(2212, 1);
-            Particle e = event.getParticleByPid(11, 1);
+            Particle p = event.getParticleByPid(2212, 0);
+            Particle e = event.getParticleByPid(11, 0);
             Particle pip = event.getParticleByPid(211, 0);
             Particle pim = event.getParticleByPid(-211, 0);
             Particle gam = event.getParticleByPid(22, 0);
 
+            println("p x-momentum: " + p.px());
 
             StraightLine pLineSL = new StraightLine(p);
             StraightLine pipLineSL = new StraightLine(pip);
