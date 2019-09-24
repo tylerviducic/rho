@@ -62,7 +62,7 @@ for(String dataFile : dataFiles){
             Particle pim = event.getParticleByPid(-211, 0);
             Particle gam = event.getParticleByPid(22, 0);
 
-            println("p x-momentum: " + p.px());
+            println("e theta: " + Math.toDegrees(e.theta()));
 
             StraightLine pLineSL = new StraightLine(p);
             StraightLine pipLineSL = new StraightLine(pip);
