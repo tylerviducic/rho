@@ -26,6 +26,7 @@ H2F pimThetaPhi = new H2F("pimThetaPhi", 90, 0, 180, 180, -180, 180);
 H2F pThetaPhi = new H2F("pThetaPhi", 90, 0, 180, 180, -180, 180);
 H1F pTheta = new H1F("pTheta", 90, 0, 180);
 H2F pipPimTheta = new H2F("pipPimTheta", 90, 0, 180, 90, 0, 180);
+H2F pPTheta = new H2F("pPTheta", 100, 0, 10, 90, 0, 180);
 
 
 TDirectory dir = new TDirectory();
@@ -87,6 +88,7 @@ for(String dataFile : dataFiles){
                     if(dc.hasHitsInAllLayers(pLine)){
                         gamPCount++;
                         pipPimTheta.fill(Math.toDegrees(pip.theta()), Math.toDegrees(pim.theta()));
+                        pPTheta.fill(p.p(), p.theta())
                     }
                 }
                 if(dc.hasHitsInAllLayers(pipLine) && dc.hasHitsInAllLayers(pimLine) && dc.hasHitsInAllLayers(pLine)){
@@ -106,7 +108,7 @@ dir.addDataSet(pipThetaPhi, pimThetaPhi, pThetaPhi, pTheta);
 dir.cd("/OthersDetected");
 dir.addDataSet(gamThetaPhi);
 dir.cd("/GammaProtonDetected");
-dir.addDataSet(pipPimTheta);
+dir.addDataSet(pipPimTheta, pPTheta);
 
 dir.writeFile("/work/clas12/viducic/rho/clas12/results/rhoFastMCResults.hipo");
 
