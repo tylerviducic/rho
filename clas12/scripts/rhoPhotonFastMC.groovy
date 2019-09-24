@@ -20,7 +20,7 @@ DriftChamber dc = new DriftChamber();
 List<String> dataFiles = FileFinder.getFiles("/scratch/viducic/tmp/clas*");
 //List<String> dataFiles = FileFinder.getFilesFromSubdirs("/work/clas12/avakian/mc/mcaugust2019/lund/pythia/", "clas*");
 
-H2F gamThetaPhi = new H2F("gamThetaPhi", 90, 0, 180, 180, -180, 180);
+H2F gamThetaPhi = new H2F("gamThetaPhi", 45, 0, 180, 90, -180, 180);
 H2F pipThetaPhi = new H2F("pipThetaPhi", 90, 0, 180, 180, -180, 180);
 H2F pimThetaPhi = new H2F("pimThetaPhi", 90, 0, 180, 180, -180, 180);
 H2F pThetaPhi = new H2F("pThetaPhi", 90, 0, 180, 180, -180, 180);
