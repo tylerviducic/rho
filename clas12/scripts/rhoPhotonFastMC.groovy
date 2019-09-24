@@ -62,8 +62,6 @@ for(String dataFile : dataFiles){
             Particle pim = event.getParticleByPid(-211, 0);
             Particle gam = event.getParticleByPid(22, 0);
 
-            println("e theta: " + Math.toDegrees(e.theta()));
-
             StraightLine pLineSL = new StraightLine(p);
             StraightLine pipLineSL = new StraightLine(pip);
             StraightLine pimLineSL = new StraightLine(pim);
@@ -80,6 +78,8 @@ for(String dataFile : dataFiles){
             Line3D pLine = pPath.getLine(0);
 
             if (Math.toDegrees(e.theta()) < 4.5) {
+                println("e theta: " + Math.toDegrees(e.theta()));
+
                 if(eCal.hasIntersection(gamLine)){
                     gamCount++;
                     pipThetaPhi.fill(Math.toDegrees(pip.theta()), Math.toDegrees(pip.phi()));
