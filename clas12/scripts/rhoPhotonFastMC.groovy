@@ -77,8 +77,6 @@ for(String dataFile : dataFiles){
             Particle pim = physicsEvent.getParticle("[-211]");
             Particle gam = physicsEvent.getParticle("[22]");
 
-            println("p px: " + p.px());
-
             StraightLine pLineSL = new StraightLine(p);
             StraightLine pipLineSL = new StraightLine(pip);
             StraightLine pimLineSL = new StraightLine(pim);
