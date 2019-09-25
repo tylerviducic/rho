@@ -64,7 +64,7 @@ for(String dataFile : dataFiles){
 
         PhysicsEvent physicsEvent = DataManager.getPhysicsEvent(10.6, particles);
 
-        println(physicsEvent.toLundString());
+        println(physicsEvent.toString());
 
         if(filter.isValid(physicsEvent)) {
             System.out.println("event passed");
