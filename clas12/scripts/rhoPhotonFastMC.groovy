@@ -6,10 +6,14 @@ import org.jlab.geom.prim.Triangle3D
 import org.jlab.groot.data.H2F
 import org.jlab.groot.data.H1F
 import org.jlab.groot.data.TDirectory
+import org.jlab.jnp.hipo4.data.Bank
+import org.jlab.jnp.hipo4.data.Event
+import org.jlab.jnp.hipo4.io.HipoReader
 import org.jlab.jnp.physics.EventFilter
 import org.jlab.jnp.physics.Particle
 import org.jlab.jnp.physics.ParticleList
 import org.jlab.jnp.physics.PhysicsEvent
+import org.jlab.jnp.reader.DataManager
 import org.jlab.jnp.reader.LundReader
 import org.jlab.jnp.utils.file.FileUtils
 
@@ -42,26 +46,30 @@ int gamPCount = 0;
 
 for(String dataFile : dataFiles){
     System.out.println("Opening file " + (dataFiles.indexOf(dataFile) +1) + " out of " + dataFiles.size() + " files");
-    LundReader reader = new LundReader();
-    reader.acceptStatus(1);
-    reader.addFile(dataFile);
-    reader.open();
+//    LundReader reader = new LundReader();
+//    reader.acceptStatus(1);
+//    reader.addFile(dataFile);
+//    reader.open();
 
-    PhysicsEvent event = new PhysicsEvent();
+    HipoReader reader = new HipoReader();
+    reader.open(dataFile);
+
+    Bank particles = new Bank(reader.getSchemaFactory().getSchema("mc::event"));
+    Event event = new Event();
     
-    while (reader.nextEvent(event)){
-        if(filter.isValid(event)) {
+    while (reader.hasNext()){
+        reader.nextEvent(event);
+        event.read(particles);
+
+        PhysicsEvent physicsEvent = DataManager.getPhysicsEvent(10.6, particles);
+
+        if(filter.isValid(physicsEvent)) {
             rhoCount++;
-            event.setBeamParticle(new Particle(11, 0, 0, 10.6));
-            event.setTargetParticle(new Particle(2212, 0, 0, 0));
-
-            ParticleList particles = event.getParticleList();
-
-            Particle p = event.getParticleByPid(2212, 0);
-            Particle e = event.getParticleByPid(11, 0);
-            Particle pip = event.getParticleByPid(211, 0);
-            Particle pim = event.getParticleByPid(-211, 0);
-            Particle gam = event.getParticleByPid(22, 0);
+            Particle p = physicsEvent.getParticleByPid(2212, 1);
+            Particle e = physicsEvent.getParticleByPid(11, 1);
+            Particle pip = physicsEvent.getParticleByPid(211, 0);
+            Particle pim = physicsEvent.getParticleByPid(-211, 0);
+            Particle gam = physicsEvent.getParticleByPid(22, 0);
 
             StraightLine pLineSL = new StraightLine(p);
             StraightLine pipLineSL = new StraightLine(pip);
