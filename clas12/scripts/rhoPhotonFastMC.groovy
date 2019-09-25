@@ -66,11 +66,18 @@ for(String dataFile : dataFiles){
 
         if(filter.isValid(physicsEvent)) {
             rhoCount++;
-            Particle p = physicsEvent.getParticleByPid(2212, 1);
-            Particle e = physicsEvent.getParticleByPid(11, 1);
-            Particle pip = physicsEvent.getParticleByPid(211, 0);
-            Particle pim = physicsEvent.getParticleByPid(-211, 0);
-            Particle gam = physicsEvent.getParticleByPid(22, 0);
+//            Particle p = physicsEvent.getParticleByPid(2212, 1);
+//            Particle e = physicsEvent.getParticleByPid(11, 1);
+//            Particle pip = physicsEvent.getParticleByPid(211, 0);
+//            Particle pim = physicsEvent.getParticleByPid(-211, 0);
+//            Particle gam = physicsEvent.getParticleByPid(22, 0);
+            Particle p = physicsEvent.getParticle("[2212]");
+            Particle e = physicsEvent.getParticle("[11]");
+            Particle pip = physicsEvent.getParticle("[211]");
+            Particle pim = physicsEvent.getParticle("[-211]");
+            Particle gam = physicsEvent.getParticle("[22]");
+
+            println("p px: " + p.px());
 
             StraightLine pLineSL = new StraightLine(p);
             StraightLine pipLineSL = new StraightLine(pip);
