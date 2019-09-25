@@ -64,10 +64,7 @@ for(String dataFile : dataFiles){
 
         PhysicsEvent physicsEvent = DataManager.getPhysicsEvent(10.6, particles);
 
-        println(physicsEvent.toString());
-
         if(filter.isValid(physicsEvent)) {
-            System.out.println("event passed");
             rhoCount++;
 //            Particle p = physicsEvent.getParticleByPid(2212, 1);
 //            Particle e = physicsEvent.getParticleByPid(11, 1);
