@@ -7,7 +7,7 @@ import org.jlab.jnp.reader.LundReader
 import org.jlab.jnp.utils.benchmark.ProgressPrintout
 import org.jlab.jnp.utils.file.FileUtils
 
-String directory = "/scratch/viducic/tmp2";
+String directory = "/scratch/viducic/tmp0";
 List<String> fileList = FileUtils.getFileListInDir(directory);
 
 Schema.SchemaBuilder schemaBuilder = new Schema.SchemaBuilder("mc::event", 22001, 1);
@@ -30,7 +30,7 @@ writer.getSchemaFactory().addSchema(schema);
 writer.setCompressionType(2);
 writer.setMaxSize(16777216).setMaxEvents(1000000);
 writer.setCompressionType(2);
-writer.open("/work/clas12/viducic/data/clas12/rho_mc_2.hipo");
+writer.open("/work/clas12/viducic/data/clas12/rho_mc_0.hipo");
 int counter = 0;
 int eventCounter = 0;
 Iterator var10 = fileList.iterator();
@@ -39,6 +39,7 @@ while(var10.hasNext()) {
     String file = (String)var10.next();
     System.out.println("adding file ----> " + file);
     LundReader reader = new LundReader();
+    reader.acceptStatus(1);
     reader.addFile(file);
     reader.open();
     PhysicsEvent event = new PhysicsEvent();
