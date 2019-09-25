@@ -28,7 +28,7 @@ ProgressPrintout progress = new ProgressPrintout();
 HipoWriter writer = new HipoWriter();
 writer.getSchemaFactory().addSchema(schema);
 writer.setCompressionType(2);
-writer.setMaxSize(16777216).setMaxEvents(1000000);
+writer.setMaxSize(16777216).setMaxEvents(10000000);
 writer.setCompressionType(2);
 writer.open("/work/clas12/viducic/data/clas12/rho_mc_0.hipo");
 int counter = 0;
