@@ -64,6 +64,8 @@ for(String dataFile : dataFiles){
 
         PhysicsEvent physicsEvent = DataManager.getPhysicsEvent(10.6, particles);
 
+        println(physicsEvent.toLundString());
+
         if(filter.isValid(physicsEvent)) {
             System.out.println("event passed");
             rhoCount++;
