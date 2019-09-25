@@ -21,7 +21,8 @@ import org.jlab.jnp.utils.file.FileUtils
 Calorimeter eCal = new Calorimeter();
 DriftChamber dc = new DriftChamber();
 //List<String> dataFiles = FileFinder.getFiles("/work/clas12/avakian/mc/mcaugust2019/lund/pythia/claspyth11.21.41-0.5.0.4.0.3/clas*.dat");
-List<String> dataFiles = FileFinder.getFiles("/scratch/viducic/tmp/clas*");
+//List<String> dataFiles = FileFinder.getFiles("/scratch/viducic/tmp/clas*");
+List<String> dataFiles = FileFinder.getFiles("/work/clas12/viducic/data/clas12/rho_mc_0.hipo");
 //List<String> dataFiles = FileFinder.getFilesFromSubdirs("/work/clas12/avakian/mc/mcaugust2019/lund/pythia/", "clas*");
 
 H2F gamThetaPhi = new H2F("gamThetaPhi", 45, 0, 180, 90, -180, 180);
