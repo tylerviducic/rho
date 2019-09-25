@@ -7,7 +7,7 @@ import org.jlab.jnp.reader.LundReader
 import org.jlab.jnp.utils.benchmark.ProgressPrintout
 import org.jlab.jnp.utils.file.FileUtils
 
-String directory = "/scratch/viducic/tmp5";
+String directory = "/scratch/viducic/tmp6";
 List<String> fileList = FileUtils.getFileListInDir(directory);
 
 Schema.SchemaBuilder schemaBuilder = new Schema.SchemaBuilder("mc::event", 22001, 1);
@@ -30,7 +30,7 @@ writer.getSchemaFactory().addSchema(schema);
 writer.setCompressionType(2);
 writer.setMaxSize(16777216).setMaxEvents(1000000);
 writer.setCompressionType(2);
-writer.open("/work/clas12/viducic/data/clas12/rho_mc_5.hipo");
+writer.open("/work/clas12/viducic/data/clas12/rho_mc_6.hipo");
 int counter = 0;
 int eventCounter = 0;
 Iterator var10 = fileList.iterator();
