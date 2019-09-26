@@ -31,8 +31,7 @@ H2F pimThetaPhi = new H2F("pimThetaPhi", 90, 0, 180, 180, -180, 180);
 H2F pThetaPhi = new H2F("pThetaPhi", 90, 0, 180, 180, -180, 180);
 H1F pTheta = new H1F("pTheta", 90, 0, 180);
 H2F pipPimTheta = new H2F("pipPimTheta", 90, 0, 180, 90, 0, 180);
-H2F pPTheta = new H2F("pPTheta", 50, 0, 5, 90, 0, 180);
-
+H2F pPTheta = new H2F("pPTheta", 50, 0, 3, 60, 0, 60);
 
 TDirectory dir = new TDirectory();
 dir.mkdir("/GammaDetected");
