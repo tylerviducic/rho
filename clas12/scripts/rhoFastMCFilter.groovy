@@ -22,7 +22,7 @@ for(String dataFile: dataFiles){
     HipoReader reader = new HipoReader();
     reader.open(dataFile);
 
-    Bank particles = new Bank(reader.getSchemaFactory().getSchema("MC::Event"));
+    Bank particles = new Bank(reader.getSchemaFactory().getSchema("MC::Particle"));
     Event event = new Event();
     while (reader.hasNext()) {
         try {
