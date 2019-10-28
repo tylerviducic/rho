@@ -29,6 +29,7 @@ for(String dataFile: dataFiles){
     event.read(particles);
 
     PhysicsEvent physicsEvent = DataManager.getPhysicsEvent(10.6, particles);
+    println(physicsEvent.toLundString());
     if(filter.isValid(physicsEvent)){
         eventCounter++;
         writer.addEvent(event);
