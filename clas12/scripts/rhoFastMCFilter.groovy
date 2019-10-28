@@ -7,7 +7,7 @@ import org.jlab.jnp.physics.PhysicsEvent
 import org.jlab.jnp.reader.DataManager
 import org.jlab.jnp.utils.file.FileUtils
 
-List<String> dataFiles = FileFinder.getFilesFromSubdirs("/w/hallb-scifs17exp/clas12/avakian/mc/mcaugust2019/T-1.00_S-1.0/clasdis/cooked631", "*.hipo");
+List<String> dataFiles = FileFinder.getFiles("/w/hallb-scifs17exp/clas12/avakian/mc/mcaugust2019/T-1.00_S-1.0/clasdis/cooked631", "*.hipo");
 EventFilter filter = new EventFilter("11:2212:211:-211:22");
 HipoReader firstReader = new HipoReader();
 firstReader.open(dataFiles[0]);
