@@ -8,7 +8,7 @@ import org.jlab.jnp.reader.LundReader
 import org.jlab.jnp.utils.benchmark.ProgressPrintout
 import org.jlab.jnp.utils.file.FileUtils
 
-String directory = " /w/hallb-scifs17exp/clas12/avakian/mc/mcaugust2019/T-1.00_S-1.0/clasdis/cooked631/";
+String directory = "/w/hallb-scifs17exp/clas12/avakian/mc/mcaugust2019/T-1.00_S-1.0/clasdis/cooked631/";
 List<String> fileList = FileUtils.getFileListInDir(directory);
 
 println(fileList.size());
