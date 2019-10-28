@@ -24,15 +24,16 @@ for(String dataFile: dataFiles){
 
     Bank particles = new Bank(reader.getSchemaFactory().getSchema("MC::Event"));
     Event event = new Event();
+    while (reader.hasNext()) {
+        reader.nextEvent(event);
+        event.read(particles);
 
-    reader.nextEvent(event);
-    event.read(particles);
-
-    PhysicsEvent physicsEvent = DataManager.getPhysicsEvent(10.6, particles);
-    println(physicsEvent.toLundString());
-    if(filter.isValid(physicsEvent)){
-        eventCounter++;
-        writer.addEvent(event);
+        PhysicsEvent physicsEvent = DataManager.getPhysicsEvent(10.6, particles);
+        println(physicsEvent.toLundString());
+        if (filter.isValid(physicsEvent)) {
+            eventCounter++;
+            writer.addEvent(event);
+        }
     }
 }
 
