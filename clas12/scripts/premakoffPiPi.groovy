@@ -33,7 +33,7 @@ while (reader.hasNext()){
 
     PhysicsEvent physicsEvent = DataManager.getPhysicsEvent(10.6, particle);
 
-    if(physicsEvent.getParticle(0).pid() == -211 && physicsEvent.countByCharge(1) ==2
+    if(physicsEvent.getParticleList().count() > 0 &&  physicsEvent.getParticle(0).pid() == -211 && physicsEvent.countByCharge(1) ==2
             && physicsEvent.countByCharge(-1) == 1){
         ParticleList particleList = physicsEvent.getParticleList();
 
