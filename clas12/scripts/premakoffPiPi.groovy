@@ -21,7 +21,7 @@ int channelCounter = 0;
 Event event = new Event();
 Bank particle = new Bank(reader.getSchemaFactory().getSchema("REC::Particle"));
 
-EventFilter filter = new EventFilter("2212:-211:211:Xn");
+EventFilter filter = new EventFilter("11:2212:-211:211:Xn");
 
 while (reader.hasNext()){
     reader.nextEvent(event);
@@ -35,7 +35,7 @@ while (reader.hasNext()){
 
     if(physicsEvent.getParticleList().count() > 0 &&  physicsEvent.getParticle(0).pid() == -211 ){
         ParticleList particleList = physicsEvent.getParticleList();
-        if(filter.isValid(physicsEvent)) {
+        if(filter.isValid(physicsEvent) && physicsEvent.getParticleByPid(11, 0).theta() < Math.toRadians(5)) {
             channelCounter++;
         }
     }
