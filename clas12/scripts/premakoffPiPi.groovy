@@ -33,12 +33,12 @@ while (reader.hasNext()){
 
     PhysicsEvent physicsEvent = DataManager.getPhysicsEvent(10.6, particle);
 
-    if(physicsEvent.getParticleList().count() > 0 &&  physicsEvent.getParticle(0).pid() == -211 ){
+    //if(physicsEvent.getParticleList().count() > 0 &&  physicsEvent.getParticle(0).pid() == -211 ){
         ParticleList particleList = physicsEvent.getParticleList();
         if(filter.isValid(physicsEvent) && physicsEvent.getParticleByPid(11, 0).theta() < Math.toRadians(5)) {
             channelCounter++;
         }
-    }
+    //}
 }
 
 System.out.println("++++++++++++++++++++++++++++++++++++");
