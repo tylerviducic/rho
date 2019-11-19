@@ -5,9 +5,11 @@ import org.jlab.jnp.physics.Particle
 import org.jlab.jnp.physics.ParticleList
 import org.jlab.jnp.physics.PhysicsEvent
 import org.jlab.jnp.reader.DataManager
+import org.jlab.jnp.hipo4.io.HipoChain
 
 
 //String directory = "/w/hallb-scifs17exp/clas12/rg-a/trains/pass1/v1_4/skim04_inclusive";
+String directory = "/w/hallb-scifs17exp/clas12/rg-a/production/recon/pass0/v5/mon/005030";
 
 HipoChain reader = new HipoChain();
 reader.addDir(directory);
