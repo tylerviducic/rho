@@ -33,11 +33,9 @@ while (reader.hasNext()){
 
     PhysicsEvent physicsEvent = DataManager.getPhysicsEvent(10.6, particle);
 
-    if(physicsEvent.getParticleList().count() > 0 &&  physicsEvent.getParticle(0).pid() == -211 && physicsEvent.countByCharge(1) ==2
-            && physicsEvent.countByCharge(-1) == 1){
+    if(physicsEvent.getParticleList().count() > 0 &&  physicsEvent.getParticle(0).pid() == -211 ){
         ParticleList particleList = physicsEvent.getParticleList();
-
-        if(particleList.countByPid(2212) ==1 && particleList.countByPid(211) ==1 ){
+        if(filter.isValid(physicsEvent)) {
             channelCounter++;
         }
     }
