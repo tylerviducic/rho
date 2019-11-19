@@ -9,7 +9,7 @@ import org.jlab.jnp.hipo4.io.HipoChain
 
 
 //String directory = "/w/hallb-scifs17exp/clas12/rg-a/trains/pass1/v1_4/skim04_inclusive";
-String directory = "/w/hallb-scifs17exp/clas12/rg-a/production/recon/pass0/v5/mon/005030";
+String directory = "/lustre19/expphy/cache/clas12/rg-a/production/reconstructed/Fall2018/Torus-1/pass1/v1/005032";
 
 HipoChain reader = new HipoChain();
 reader.addDir(directory);
