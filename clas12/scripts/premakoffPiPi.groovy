@@ -75,7 +75,7 @@ while (reader.hasNext()){
         hEDPxPyPt.fill(pxPt, pyPt);
         hEDq2.fill(q2);
         hEDImPipPimTheta.fill(imPipPim.mass(), Math.toDegrees(imPipPim.theta()));
-        System.out.println("filling");
+
     }
 }
 
