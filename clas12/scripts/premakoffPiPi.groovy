@@ -40,7 +40,8 @@ while (reader.hasNext()){
     reader.nextEvent(event);
     event.read(particle);
     eventCounter++;
-    if(eventCounter % 10000 == 0){
+
+    if(eventCounter % 100000 == 0){
         System.out.println("Event counter = " + eventCounter);
     }
 
@@ -50,11 +51,14 @@ while (reader.hasNext()){
     if(physicsEvent.getParticleList().count() > 0 &&  physicsEvent.getParticle(0).pid() == -211
             && physicsEvent.countByPid(2212) == 1  && physicsEvent.countByPid(211) == 1
             && physicsEvent.countByCharge(1) == 2 && physicsEvent.countByCharge(-1) == 1){
+
         noFilterCounter++;
+
     }
 
     //Electron detected loop
     if(filter.isValid(physicsEvent) && physicsEvent.getParticleByPid(11, 0).theta() < Math.toRadians(5)) {
+
         filterCounter++;
 
         Particle electron = physicsEvent.getParticleByPid(11, 0);
@@ -77,7 +81,7 @@ while (reader.hasNext()){
 
 dir.cd("/Electron Detected");
 dir.addDataSet(hEDPxPyPt, hEDPxPyPt, hEDPyPt, hEDq2, hEDImPipPimTheta, hEDMm2PPipPim);
-dir.writeFile("/w/hallb-scifs17exp/clas12/viducic/premakoff/results/premakoffResults");
+dir.writeFile("/w/hallb-scifs17exp/clas12/viducic/premakoff/results/premakoffResults.hipo");
 
 System.out.println("++++++++++++++++++++++++++++++++++++");
 System.out.println("++++++++++++++++++++++++++++++++++++\n");
@@ -87,7 +91,7 @@ System.out.println("Percentage of events with wanted final state (no e): " + ((d
 System.out.println("Number of p pi+ pi- events with no electron: " + noFilterCounter);
 System.out.println("Percentage of events with wanted final state : " + ((double)(noFilterCounter)/(double)(eventCounter) * 100));
 
-
+/////////////          Methods              ////////////////
 
 public static double getQ2(Particle particle1, Particle particle2){
     return 4 * particle1.e() * particle2.e() * Math.sin(getTheta(particle1, particle2)/2) * Math.sin(getTheta(particle1, particle2)/2);
