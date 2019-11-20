@@ -18,7 +18,7 @@ H1F hEDq2 = new H1F("hEDq2", 100, 0.5, 0.5);
 H2F hEDImPipPimTheta = new H2F("hImPipPimTheta", 60, 0.5, 1.1, 90, 0, 90);
 
 TDirectory dir = new TDirectory();
-dir.mkdir("/Electron Detected");
+dir.mkdir("/ElectronDetected");
 
 //String directory = "/w/hallb-scifs17exp/clas12/rg-a/trains/pass1/v1_4/skim04_inclusive";
 String directory = "/lustre19/expphy/cache/clas12/rg-a/production/reconstructed/Fall2018/Torus-1/pass1/v1/005032";
@@ -79,7 +79,7 @@ while (reader.hasNext()){
     }
 }
 
-dir.cd("/Electron Detected");
+dir.cd("/ElectronDetected");
 dir.addDataSet(hEDPxPyPt, hEDPxPt, hEDPyPt, hEDq2, hEDImPipPimTheta, hEDMm2PPipPim);
 dir.writeFile("/w/hallb-scifs17exp/clas12/viducic/premakoff/results/premakoffResults.hipo");
 
