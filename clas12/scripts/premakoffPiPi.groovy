@@ -10,11 +10,11 @@ import org.jlab.jnp.hipo4.io.HipoChain
 import org.jlab.groot.data.H2F
 import org.jlab.groot.ui.TCanvas
 
-H1F hEDPyPt = new H1F("hEDPyPt", 100, 0.5, 0.5);
-H1F hEDPxPt = new H1F("hEDPxPt", 100, 0.5, 0.5);
-H2F hEDPxPyPt = new H2F("hEDPxPyPt", 100, 0.5, 0.5, 100, 0.5, 0.5);
-H1F hEDMm2PPipPim = new H1F("hEDMmPPipPim", 100, 0.5, 0.5);
-H1F hEDq2 = new H1F("hEDq2", 100, 0.5, 0.5);
+H1F hEDPyPt = new H1F("hEDPyPt", 100, -0.5, 0.5);
+H1F hEDPxPt = new H1F("hEDPxPt", 100, -0.5, 0.5);
+H2F hEDPxPyPt = new H2F("hEDPxPyPt", 100, -0.5, 0.5, 100, -0.5, 0.5);
+H1F hEDMm2PPipPim = new H1F("hEDMmPPipPim", 100, -0.5, 0.5);
+H1F hEDq2 = new H1F("hEDq2", 100, -0.5, 0.5);
 H2F hEDImPipPimTheta = new H2F("hImPipPimTheta", 60, 0.5, 1.1, 90, 0, 90);
 
 TDirectory dir = new TDirectory();
