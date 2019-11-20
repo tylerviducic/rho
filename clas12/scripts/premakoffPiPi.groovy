@@ -1,12 +1,24 @@
+import org.jlab.groot.data.H1F
+import org.jlab.groot.data.TDirectory
 import org.jlab.jnp.hipo4.data.Event
 import org.jlab.jnp.hipo4.data.Bank
 import org.jlab.jnp.physics.EventFilter
 import org.jlab.jnp.physics.Particle
-import org.jlab.jnp.physics.ParticleList
 import org.jlab.jnp.physics.PhysicsEvent
 import org.jlab.jnp.reader.DataManager
 import org.jlab.jnp.hipo4.io.HipoChain
+import org.jlab.groot.data.H2F
 
+
+H1F hEDPyPt = new H1F("hEDPyPt", 100, 0.5, 0.5);
+H1F hEDPxPt = new H1F("hEDPxPt", 100, 0.5, 0.5);
+H2F hEDPxPyPt = new H2F("hEDPxPyPt", 100, 0.5, 0.5, 100, 0.5, 0.5);
+H1F hEDMm2PPipPim = new H1F("hEDMmPPipPim", 100, 0.5, 0.5);
+H1F hEDq2 = new H1F("hEDq2", 100, 0.5, 0.5);
+H2F hEDImPipPimTheta = new H2F("hImPipPimTheta", 60, 0.5, 1.1, 90, 0, 90);
+
+TDirectory dir = new TDirectory();
+dir.mkdir("/Electron Detected");
 
 //String directory = "/w/hallb-scifs17exp/clas12/rg-a/trains/pass1/v1_4/skim04_inclusive";
 String directory = "/lustre19/expphy/cache/clas12/rg-a/production/reconstructed/Fall2018/Torus-1/pass1/v1/005032";
@@ -34,17 +46,38 @@ while (reader.hasNext()){
 
     PhysicsEvent physicsEvent = DataManager.getPhysicsEvent(10.6, particle);
 
+    //No Electron detected loop
     if(physicsEvent.getParticleList().count() > 0 &&  physicsEvent.getParticle(0).pid() == -211
             && physicsEvent.countByPid(2212) == 1  && physicsEvent.countByPid(211) == 1
             && physicsEvent.countByCharge(1) == 2 && physicsEvent.countByCharge(-1) == 1){
         noFilterCounter++;
     }
-        ParticleList particleList = physicsEvent.getParticleList();
-        if(filter.isValid(physicsEvent) && physicsEvent.getParticleByPid(11, 0).theta() < Math.toRadians(5)) {
-            filterCounter++;
-        }
 
+    //Electron detected loop
+    if(filter.isValid(physicsEvent) && physicsEvent.getParticleByPid(11, 0).theta() < Math.toRadians(5)) {
+        filterCounter++;
+
+        Particle electron = physicsEvent.getParticleByPid(11, 0);
+        Particle missingPPipPim = physicsEvent.getParticle("[b] + [t] - [2212] - [211] - [-211]");
+        Particle imPipPim = physicsEvent.getParticle("[211] + -[211]");
+
+        double q2 = getQ2(electron, missingPPipPim);
+        double pyPt = missingPPipPim.py()/missingPPipPim.p();
+        double pxPt = missingPPipPim.px()/missingPPipPim.p();
+
+        hEDMm2PPipPim.fill(missingPPipPim.mass2());
+        hEDPxPt.fill(pxPt);
+        hEDPyPt.fill(pyPt);
+        hEDPxPyPt(pxPt, pyPt);
+        hEDq2.fill(q2);
+        hEDImPipPimTheta.fill(imPipPim.mass(), Math.toDegrees(imPipPim.theta()));
+
+    }
 }
+
+dir.cd("/Electron Detected");
+dir.addDataSet(hEDPxPyPt, hEDPxPyPt, hEDPyPt, hEDq2, hEDImPipPimTheta, hEDMm2PPipPim);
+dir.writeFile("/w/hallb-scifs17exp/clas12/viducic/premakoff/results/premakoffResults");
 
 System.out.println("++++++++++++++++++++++++++++++++++++");
 System.out.println("++++++++++++++++++++++++++++++++++++\n");
@@ -54,3 +87,12 @@ System.out.println("Percentage of events with wanted final state (no e): " + ((d
 System.out.println("Number of p pi+ pi- events with no electron: " + noFilterCounter);
 System.out.println("Percentage of events with wanted final state : " + ((double)(noFilterCounter)/(double)(eventCounter) * 100));
 
+
+
+public static double getQ2(Particle particle1, Particle particle2){
+    return 4 * particle1.e() * particle2.e() * Math.sin(getTheta(particle1, particle2)/2) * Math.sin(getTheta(particle1, particle2)/2);
+}
+
+public static double getTheta(Particle particle1, Particle particle2){
+    return Math.acos(particle1.cosTheta(particle2));
+}
