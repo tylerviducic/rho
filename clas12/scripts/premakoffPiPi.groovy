@@ -85,7 +85,7 @@ dir.cd("/ElectronDetected");
 dir.addDataSet(hEDPxPyPt, hEDPxPt, hEDPyPt, hEDq2, hEDImPipPimTheta, hEDMm2PPipPim);
 dir.writeFile("/w/hallb-scifs17exp/clas12/viducic/premakoff/results/premakoffResults.hipo");
 
-TCanvas c1 = new TCanvas(1000, 1000);
+TCanvas c1 = new TCanvas("c1", 1000, 1000);
 c1.divide(2, 3);
 c1.cd(0);
 c1.draw(hEDImPipPimTheta);
