@@ -68,7 +68,7 @@ while (reader.hasNext()){
         hEDMm2PPipPim.fill(missingPPipPim.mass2());
         hEDPxPt.fill(pxPt);
         hEDPyPt.fill(pyPt);
-        hEDPxPyPt(pxPt, pyPt);
+        hEDPxPyPt.fill(pxPt, pyPt);
         hEDq2.fill(q2);
         hEDImPipPimTheta.fill(imPipPim.mass(), Math.toDegrees(imPipPim.theta()));
 
