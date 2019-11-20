@@ -80,7 +80,7 @@ while (reader.hasNext()){
 }
 
 dir.cd("/Electron Detected");
-dir.addDataSet(hEDPxPyPt, hEDPxPyPt, hEDPyPt, hEDq2, hEDImPipPimTheta, hEDMm2PPipPim);
+dir.addDataSet(hEDPxPyPt, hEDPxPt, hEDPyPt, hEDq2, hEDImPipPimTheta, hEDMm2PPipPim);
 dir.writeFile("/w/hallb-scifs17exp/clas12/viducic/premakoff/results/premakoffResults.hipo");
 
 System.out.println("++++++++++++++++++++++++++++++++++++");
