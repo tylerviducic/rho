@@ -87,6 +87,7 @@ while (reader.hasNext()){
 }
 
 
+
 dir.cd("/ElectronDetected");
 dir.addDataSet(hEDPxPyPt, hEDPxPt, hEDPyPt, hEDq2, hEDImPipPimTheta, hEDMm2EPPipPim);
 dir.writeFile("/w/hallb-scifs17exp/clas12/viducic/premakoff/results/premakoffResults.hipo");
@@ -113,7 +114,7 @@ System.out.println("Total number of events = " + eventCounter);
 System.out.println("Percentage of events with wanted final state (no e): " + ((double)(filterCounter)/(double)(eventCounter) * 100));
 System.out.println("Number of p pi+ pi- events with no electron: " + noFilterCounter);
 System.out.println("Percentage of events with wanted final state : " + ((double)(noFilterCounter)/(double)(eventCounter) * 100));
-
+System.out.println("Number of events with final state + cuts: " + hEDImPipPimTheta.integral());
 /////////////          Methods              ////////////////
 
 public static double getQ2(Particle particle1, Particle particle2){
