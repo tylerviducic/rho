@@ -71,7 +71,6 @@ while (reader.hasNext()){
         
 
         hEDMm2PPipPim.fill(missingPPipPim.mass2());
-        System.out.println(hEDMm2PPipPim.integral());
         hEDPxPt.fill(pxPt);
         hEDPyPt.fill(pyPt);
         hEDPxPyPt.fill(pxPt, pyPt);
