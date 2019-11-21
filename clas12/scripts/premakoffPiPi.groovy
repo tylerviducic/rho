@@ -66,12 +66,12 @@ while (reader.hasNext()){
         Particle imPipPim = physicsEvent.getParticle("[211] + [-211]");
 
         double q2 = getQ2(physicsEvent.beamParticle(), electron);
-        System.out.println(q2);
         double pyPt = missingPPipPim.py()/missingPPipPim.p();
         double pxPt = missingPPipPim.px()/missingPPipPim.p();
         
 
         hEDMm2PPipPim.fill(missingPPipPim.mass2());
+        System.out.println(hEDMm2PPipPim.integral());
         hEDPxPt.fill(pxPt);
         hEDPyPt.fill(pyPt);
         hEDPxPyPt.fill(pxPt, pyPt);
