@@ -70,11 +70,15 @@ while (reader.hasNext()){
         double pxPt = missingEPPipPim.px()/missingEPPipPim.p();
         
 
-        hEDMm2EPPipPim.fill(missingEPPipPim.mass2());
+        //hEDMm2EPPipPim.fill(missingEPPipPim.mass2());
         hEDPxPt.fill(pxPt);
         hEDPyPt.fill(pyPt);
         hEDPxPyPt.fill(pxPt, pyPt);
         hEDq2.fill(q2);
+
+        if(q2 < 0.02 && Math.abs(pyPt) < 0.2 && Math.abs(pxPt) < 0.2){
+            hEDMm2EPPipPim.fill(missingEPPipPim.mass2());
+        }
 
         if(q2 < 0.02 && Math.abs(pyPt) < 0.2 && Math.abs(pxPt) < 0.2
                 && Math.abs(missingEPPipPim.mass2()) < 0.02 ) {
