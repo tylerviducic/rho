@@ -8,13 +8,13 @@ import org.jlab.jnp.physics.PhysicsEvent
 import org.jlab.jnp.reader.DataManager
 import org.jlab.jnp.hipo4.io.HipoChain
 import org.jlab.groot.data.H2F
+import org.jlab.groot.ui.TCanvas
 
-
-H1F hEDPyPt = new H1F("hEDPyPt", 100, 0.5, 0.5);
-H1F hEDPxPt = new H1F("hEDPxPt", 100, 0.5, 0.5);
-H2F hEDPxPyPt = new H2F("hEDPxPyPt", 100, 0.5, 0.5, 100, 0.5, 0.5);
-H1F hEDMm2PPipPim = new H1F("hEDMmPPipPim", 100, 0.5, 0.5);
-H1F hEDq2 = new H1F("hEDq2", 100, 0.5, 0.5);
+H1F hEDPyPt = new H1F("hEDPyPt", 100, -0.5, 0.5);
+H1F hEDPxPt = new H1F("hEDPxPt", 100, -0.5, 0.5);
+H2F hEDPxPyPt = new H2F("hEDPxPyPt", 100, -0.5, 0.5, 100, -0.5, 0.5);
+H1F hEDMm2PPipPim = new H1F("hEDMmPPipPim", 100, -0.5, 0.5);
+H1F hEDq2 = new H1F("hEDq2", 100, -0.5, 0.5);
 H2F hEDImPipPimTheta = new H2F("hImPipPimTheta", 60, 0.5, 1.1, 90, 0, 90);
 
 TDirectory dir = new TDirectory();
@@ -81,9 +81,26 @@ while (reader.hasNext()){
     }
 }
 
+
+
 dir.cd("/ElectronDetected");
 dir.addDataSet(hEDPxPyPt, hEDPxPt, hEDPyPt, hEDq2, hEDImPipPimTheta, hEDMm2PPipPim);
 dir.writeFile("/w/hallb-scifs17exp/clas12/viducic/premakoff/results/premakoffResults.hipo");
+
+TCanvas c1 = new TCanvas("c1", 1000, 1000);
+c1.divide(2, 3);
+c1.cd(0);
+c1.draw(hEDImPipPimTheta);
+c1.cd(1);
+c1.draw(hEDMm2PPipPim);
+c1.cd(2);
+c1.draw(hEDPxPt);
+c1.cd(3);
+c1.draw(hEDPyPt);
+c1.cd(4);
+c1.draw(hEDPxPyPt);
+c1.cd(5);
+c1.draw(hEDq2);
 
 System.out.println("++++++++++++++++++++++++++++++++++++");
 System.out.println("++++++++++++++++++++++++++++++++++++\n");
