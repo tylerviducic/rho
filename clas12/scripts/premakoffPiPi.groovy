@@ -63,7 +63,7 @@ while (reader.hasNext()){
 
         Particle electron = physicsEvent.getParticleByPid(11, 0);
         Particle missingPPipPim = physicsEvent.getParticle("[b] + [t] - [2212] - [211] - [-211]");
-        Particle imPipPim = physicsEvent.getParticle("[211] + -[211]");
+        Particle imPipPim = physicsEvent.getParticle("[211] + [-211]");
 
         double q2 = getQ2(electron, missingPPipPim);
         System.out.println(q2);
@@ -95,9 +95,5 @@ System.out.println("Percentage of events with wanted final state : " + ((double)
 /////////////          Methods              ////////////////
 
 public static double getQ2(Particle particle1, Particle particle2){
-    return 4 * particle1.e() * particle2.e() * Math.sin(getTheta(particle1, particle2)/2) * Math.sin(getTheta(particle1, particle2)/2);
-}
-
-public static double getTheta(Particle particle1, Particle particle2){
-    return Math.acos(particle1.cosTheta(particle2));
+    return 4 * particle1.e() * particle2.e() * Math.sin(particle2.theta() /2) * Math.sin(particle2.theta()/2);
 }
