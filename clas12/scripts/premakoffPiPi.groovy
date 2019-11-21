@@ -66,6 +66,7 @@ while (reader.hasNext()){
         Particle imPipPim = physicsEvent.getParticle("[211] + -[211]");
 
         double q2 = getQ2(electron, missingPPipPim);
+        System.out.println(q2);
         double pyPt = missingPPipPim.py()/missingPPipPim.p();
         double pxPt = missingPPipPim.px()/missingPPipPim.p();
 
