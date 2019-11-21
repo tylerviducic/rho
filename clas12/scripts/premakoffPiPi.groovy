@@ -76,7 +76,7 @@ while (reader.hasNext()){
         hEDPxPyPt.fill(pxPt, pyPt);
         hEDq2.fill(q2);
 
-        if(q2 < 0.02 && Math.abs(pyPt) < 0.15 && Math.ans(pxPt) < 0.15
+        if(q2 < 0.02 && Math.abs(pyPt) < 0.15 && Math.abs(pxPt) < 0.15
                 && Math.abs(missingEPPipPim.mass2()) < 0.01 ) {
             hEDImPipPimTheta.fill(imPipPim.mass(), Math.toDegrees(imPipPim.theta()));
         }
