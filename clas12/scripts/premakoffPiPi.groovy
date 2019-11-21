@@ -63,11 +63,12 @@ while (reader.hasNext()){
 
         Particle electron = physicsEvent.getParticle("[11]");
         Particle missingEPPipPim = physicsEvent.getParticle("[b] + [t] - [2212] - [211] - [-211] - [11]");
+        Particle missingPPipPim = physicsEvent.getParticle("[b] + [t] - [2212] - [211] - [-211]");
         Particle imPipPim = physicsEvent.getParticle("[211] + [-211]");
 
         double q2 = getQ2(physicsEvent.beamParticle(), electron);
-        double pyPt = missingEPPipPim.py()/missingEPPipPim.p();
-        double pxPt = missingEPPipPim.px()/missingEPPipPim.p();
+        double pyPt = missingPPipPim.py()/missingPPipPim.p();
+        double pxPt = missingPPipPim.px()/missingPPipPim.p();
         
 
         hEDMm2EPPipPim.fill(missingEPPipPim.mass2());
