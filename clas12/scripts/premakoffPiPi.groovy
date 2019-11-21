@@ -27,7 +27,7 @@ TDirectory dir = new TDirectory();
 dir.mkdir("/ElectronDetected");
 
 //String directory = "/w/hallb-scifs17exp/clas12/rg-a/trains/pass1/v1_4/skim04_inclusive";
-String directory = "/lustre19/expphy/cache/clas12/rg-a/production/reconstructed/Fall2018/Torus-1/pass1/v1/005032";
+String directory = "/lustre19/expphy/cache/clas12/rg-a/production/reconstructed/Fall2018/Torus-1/pass1/v1/005126";
 
 HipoChain reader = new HipoChain();
 reader.addDir(directory);
