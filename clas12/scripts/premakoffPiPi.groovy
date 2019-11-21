@@ -13,9 +13,9 @@ import org.jlab.groot.ui.TCanvas
 H1F hEDPyPt = new H1F("hEDPyPt", 100, -0.5, 0.5);
 H1F hEDPxPt = new H1F("hEDPxPt", 100, -0.5, 0.5);
 H2F hEDPxPyPt = new H2F("hEDPxPyPt", 100, -0.5, 0.5, 100, -0.5, 0.5);
-H1F hEDMm2PPipPim = new H1F("hEDMmPPipPim", 100, -0.5, 0.5);
-H1F hEDq2 = new H1F("hEDq2", 100, -0.5, 0.5);
-H2F hEDImPipPimTheta = new H2F("hImPipPimTheta", 60, 0.5, 1.1, 90, 0, 90);
+H1F hEDMm2EPPipPim = new H1F("hEDMmPPipPim", 100, -0.1, 0.1);
+H1F hEDq2 = new H1F("hEDq2", 50, 0, 0.5);
+H2F hEDImPipPimTheta = new H2F("hImPipPimTheta", 60, 0.5, 1.1, 50, 0, 50);
 
 TDirectory dir = new TDirectory();
 dir.mkdir("/ElectronDetected");
@@ -62,15 +62,15 @@ while (reader.hasNext()){
         filterCounter++;
 
         Particle electron = physicsEvent.getParticle("[11]");
-        Particle missingPPipPim = physicsEvent.getParticle("[b] + [t] - [2212] - [211] - [-211]");
+        Particle missingEPPipPim = physicsEvent.getParticle("[b] + [t] - [2212] - [211] - [-211] - [11]");
         Particle imPipPim = physicsEvent.getParticle("[211] + [-211]");
 
         double q2 = getQ2(physicsEvent.beamParticle(), electron);
-        double pyPt = missingPPipPim.py()/missingPPipPim.p();
-        double pxPt = missingPPipPim.px()/missingPPipPim.p();
+        double pyPt = missingEPPipPim.py()/missingEPPipPim.p();
+        double pxPt = missingEPPipPim.px()/missingEPPipPim.p();
         
 
-        hEDMm2PPipPim.fill(missingPPipPim.mass2());
+        hEDMm2EPPipPim.fill(missingEPPipPim.mass2());
         hEDPxPt.fill(pxPt);
         hEDPyPt.fill(pyPt);
         hEDPxPyPt.fill(pxPt, pyPt);
@@ -81,9 +81,8 @@ while (reader.hasNext()){
 }
 
 
-
 dir.cd("/ElectronDetected");
-dir.addDataSet(hEDPxPyPt, hEDPxPt, hEDPyPt, hEDq2, hEDImPipPimTheta, hEDMm2PPipPim);
+dir.addDataSet(hEDPxPyPt, hEDPxPt, hEDPyPt, hEDq2, hEDImPipPimTheta, hEDMm2EPPipPim);
 dir.writeFile("/w/hallb-scifs17exp/clas12/viducic/premakoff/results/premakoffResults.hipo");
 
 TCanvas c1 = new TCanvas("c1", 1000, 1000);
@@ -91,7 +90,7 @@ c1.divide(2, 3);
 c1.cd(0);
 c1.draw(hEDImPipPimTheta);
 c1.cd(1);
-c1.draw(hEDMm2PPipPim);
+c1.draw(hEDMm2EPPipPim);
 c1.cd(2);
 c1.draw(hEDPxPt);
 c1.cd(3);
