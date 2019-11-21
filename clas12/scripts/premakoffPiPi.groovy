@@ -14,7 +14,7 @@ H1F hEDPyPt = new H1F("hEDPyPt", 100, -0.5, 0.5);
 H1F hEDPxPt = new H1F("hEDPxPt", 100, -0.5, 0.5);
 H2F hEDPxPyPt = new H2F("hEDPxPyPt", 100, -0.5, 0.5, 100, -0.5, 0.5);
 H1F hEDMm2EPPipPim = new H1F("hEDMmPPipPim", 100, -0.05, 0.05);
-H1F hEDq2 = new H1F("hEDq2", 50, 0, 0.5);
+H1F hEDq2 = new H1F("hEDq2", 50, 0, 0.1);
 H2F hEDImPipPimTheta = new H2F("hImPipPimTheta", 60, 0.5, 1.1, 50, 0, 50);
 
 TDirectory dir = new TDirectory();
@@ -75,7 +75,10 @@ while (reader.hasNext()){
         hEDPyPt.fill(pyPt);
         hEDPxPyPt.fill(pxPt, pyPt);
         hEDq2.fill(q2);
+
+        //if(q2 < )
         hEDImPipPimTheta.fill(imPipPim.mass(), Math.toDegrees(imPipPim.theta()));
+
 
     }
 }
