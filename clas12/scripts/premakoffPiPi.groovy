@@ -61,11 +61,11 @@ while (reader.hasNext()){
 
         filterCounter++;
 
-        Particle electron = physicsEvent.getParticleByPid(11, 0);
+        Particle electron = physicsEvent.getParticle("[11]");
         Particle missingPPipPim = physicsEvent.getParticle("[b] + [t] - [2212] - [211] - [-211]");
         Particle imPipPim = physicsEvent.getParticle("[211] + [-211]");
 
-        double q2 = getQ2(electron, missingPPipPim);
+        double q2 = getQ2(physicsEvent.beamParticle(), electron);
         System.out.println(q2);
         double pyPt = missingPPipPim.py()/missingPPipPim.p();
         double pxPt = missingPPipPim.px()/missingPPipPim.p();
