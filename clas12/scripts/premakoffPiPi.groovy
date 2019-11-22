@@ -27,10 +27,26 @@ TDirectory dir = new TDirectory();
 dir.mkdir("/ElectronDetected");
 
 //String directory = "/w/hallb-scifs17exp/clas12/rg-a/trains/pass1/v1_4/skim04_inclusive";
-String directory = "/lustre19/expphy/cache/clas12/rg-a/production/reconstructed/Fall2018/Torus-1/pass1/v1/005126";
+String subDirectory = "/lustre19/expphy/cache/clas12/rg-a/production/reconstructed/Fall2018/Torus-1/pass1/v1/005";
+ArrayList<String> runs = new ArrayList<>();
+runs.add("169");
+runs.add("163");
+runs.add("252");
+runs.add("258");
+runs.add("126");
+runs.add("204");
+runs.add("038");
+runs.add("199");
+runs.add("203");
+runs.add("117");
+
 
 HipoChain reader = new HipoChain();
-reader.addDir(directory);
+for(String run: runs) {
+    String directory = subDirectory + run;
+    System.out.println(directory);
+    reader.addDir(directory);
+}
 reader.open();
 
 int eventCounter = 0;
