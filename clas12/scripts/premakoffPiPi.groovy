@@ -23,21 +23,21 @@ hEDMm2EPPipPim.setTitle("Missing mass2 of e'p'pi+pi-");
 H1F hEDq2 = new H1F("hEDq2", 50, 0, 0.1);
 hEDq2.setTitle("Q2");
 H2F hEDImPipPimTheta = new H2F("hImPipPimTheta", 60, 0.5, 1.1, 50, 0, 50);
-hEDImPipPimTheta.setTitle("IMpi+pi- vs theta of p(pi+pi-)");
+hEDImPipPimTheta.setTitle("EDIMpi+pi- vs theta of p(pi+pi-)");
 H1F hDiffPT = new H1F("hDiffPT", 100, -0.5, 0.5);
 hDiffPT.setTitle("Difference between Missing PT and ePT");
 
 ///////////////////////      no e detected histos       ///////////////////////
 
-H1F hPyPt = new H1F("hEDPyPt", 100, -0.5, 0.5);
+H1F hPyPt = new H1F("hPyPt", 100, -0.5, 0.5);
 hPyPt.setTitle("missing pty/missing p");
-H1F hPxPt = new H1F("hEDPxPt", 100, -0.5, 0.5);
+H1F hPxPt = new H1F("hPxPt", 100, -0.5, 0.5);
 hPxPt.setTitle("missing ptx/missing p");
-H2F hPxPyPt = new H2F("hEDPxPyPt", 100, -0.2, 0.2, 100, -0.2, 0.2);
+H2F hPxPyPt = new H2F("hPxPyPt", 100, -0.2, 0.2, 100, -0.2, 0.2);
 hPxPyPt.setTitle("ptx/p vs pty/p");
-H1F hMm2PPipPim = new H1F("hEDMmPPipPim", 100, -0.05, 0.05);
+H1F hMm2PPipPim = new H1F("hMmPPipPim", 100, -0.05, 0.05);
 hMm2PPipPim.setTitle("Missing mass2 of e'p'pi+pi-");
-H1F hq2 = new H1F("hEDq2", 50, 0, 0.1);
+H1F hq2 = new H1F("hq2", 50, 0, 0.1);
 hq2.setTitle("Q2");
 H2F hImPipPimTheta = new H2F("hImPipPimTheta", 60, 0.5, 1.1, 50, 0, 50);
 hImPipPimTheta.setTitle("IMpi+pi- vs theta of p(pi+pi-)");
