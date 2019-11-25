@@ -153,7 +153,7 @@ while (reader.hasNext()){
 dir.cd("/ElectronDetected");
 dir.addDataSet(hEDPxPyPt, hEDPxPt, hEDPyPt, hEDq2, hEDImPipPimTheta, hEDMm2EPPipPim);
 dir.cd("/NoElectronDetected");
-dir.addDataSet(hPxPyPt, hPxPt, hPyPt, hq2, hImPipPimTheta, hMm2EPPipPim);
+dir.addDataSet(hPxPyPt, hPxPt, hPyPt, hq2, hImPipPimTheta, hMm2PPipPim);
 dir.writeFile("/w/hallb-scifs17exp/clas12/viducic/premakoff/results/premakoffResults.hipo");
 
 //TCanvas c1 = new TCanvas("c1", 1000, 1000);
