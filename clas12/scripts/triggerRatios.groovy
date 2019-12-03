@@ -28,19 +28,19 @@ while (reader.hasNext()){
 
     PhysicsEvent physicsEvent = DataManager.getPhysicsEvent(10.6, particle);
 
-    Particle triggerParticle = physicsEvent.getParticle(0);
-    int pid = triggerParticle.pid();
-    if(pid == 11){
-        eTrigger++;
-    }
-    else if(pid == -211){
-        pimTrigger++;
-        if (physicsEvent.countByPid(11) >= 1){
-            eTagger++;
+    if(physicsEvent.getParticleList().count() > 0) {
+        Particle triggerParticle = physicsEvent.getParticle(0);
+        int pid = triggerParticle.pid();
+        if (pid == 11) {
+            eTrigger++;
+        } else if (pid == -211) {
+            pimTrigger++;
+            if (physicsEvent.countByPid(11) >= 1) {
+                eTagger++;
+            }
+        } else if (pid == 0) {
+            noTrigger++;
         }
-    }
-    else if(pid == 0){
-        noTrigger++;
     }
 }
 
