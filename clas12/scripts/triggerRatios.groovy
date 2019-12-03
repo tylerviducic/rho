@@ -16,10 +16,11 @@ int pimTrigger = 0;
 int eTrigger = 0;
 int eTagger = 0;
 
+reader.open();
+
 Event event = new Event();
 Bank particle = new Bank(reader.getSchemaFactory().getSchema("REC::Particle"));
 
-reader.open();
 while (reader.hasNext()){
     eventCounter++;
     reader.nextEvent(event);
