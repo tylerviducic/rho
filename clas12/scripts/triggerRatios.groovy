@@ -22,13 +22,14 @@ Event event = new Event();
 Bank particle = new Bank(reader.getSchemaFactory().getSchema("REC::Particle"));
 
 while (reader.hasNext()){
-    eventCounter++;
     reader.nextEvent(event);
     event.read(particle);
 
     PhysicsEvent physicsEvent = DataManager.getPhysicsEvent(10.6, particle);
 
     if(physicsEvent.getParticleList().count() > 0) {
+        eventCounter++;
+
         Particle triggerParticle = physicsEvent.getParticle(0);
         int pid = triggerParticle.pid();
         if (pid == 11) {
@@ -44,8 +45,8 @@ while (reader.hasNext()){
     }
 }
 
-System.out.println("Fraction of events with e-trigger: " + eTrigger + "/" + eventCounter);
-System.out.println("Fraction of events with pi- trigger: " + pimTrigger + "/" + eventCounter);
-System.out.println("Fraction of events with pi- trigger and e in FT: " + eTagger + "/" + eventCounter);
-System.out.println("Fraction of events with no trigger: " + noTrigger + "/" + eventCounter);
+System.out.println("Fraction of events with e-trigger: " + eTrigger + "/" + eventCounter + " --> " + eTrigger/eventCounter);
+System.out.println("Fraction of events with pi- trigger: " + pimTrigger + "/" + eventCounter + " --> " + pimTrigger/eventCounter);
+System.out.println("Fraction of events with pi- trigger and e in FT: " + eTagger + "/" + eventCounter +  " --> " + eTagger/eventCounter);
+System.out.println("Fraction of events with no trigger: " + noTrigger + "/" + eventCounter + " --> " + noTrigger/eventCounter);
 

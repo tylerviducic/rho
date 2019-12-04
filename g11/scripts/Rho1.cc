@@ -394,8 +394,9 @@ void Rho1(){
     //h_mxP2->Fill(mxProton);
 
 
-    for (int k=0; k<=50; k++)
+    for  (int k=0; k<=50; k++)
       {
+        
 	h=0.3+(double(k)/100.0); //relates histogram number (place in array) to bin of IM_PipPim
 	if ( Pgam > 0.1 && me_PPipPim > 0.1 && abs(mx2_PPipPimGam) < 0.001  && Pgam > 0.1 && me_PPipPim - Pgam>-0.1 && me_PPipPim - Pgam < 0.1 && abs(mx2_PPipPim)<0.005)
 	  {
