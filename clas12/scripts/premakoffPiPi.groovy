@@ -42,10 +42,24 @@ hq2.setTitle("Q2");
 H2F hImPipPimTheta = new H2F("hImPipPimTheta", 60, 0.5, 1.1, 50, 0, 50);
 hImPipPimTheta.setTitle("IMpi+pi- vs theta of p(pi+pi-)");
 
+ArrayList<H1F> imPipPimHistos = new ArrayList<>();
+ArrayList<H1F> eDImPipPimHistos = new ArrayList<>();
+
+for(int i = 0; i < 10; i++){
+    double theta = 2.5 + (double)(i) * 2.5;
+    String name = "imPipPimTheta" + theta;
+    imPipPimHistos.add(new H1F(name, 70,0.5, 1.2));
+
+    eDimPipPimHistos.add(new H1F("ed"+name, 70,0.5, 1.2));
+
+}
+
 
 TDirectory dir = new TDirectory();
 dir.mkdir("/ElectronDetected");
-dir.mkdir("NoElectronDetected");
+dir.mkdir("/NoElectronDetected");
+dir.mkdir("/ED-IMPipPim_Theta");
+dir.mkdir("/IMPipPim_Theta");
 
 //String directory = "/w/hallb-scifs17exp/clas12/rg-a/trains/pass1/v1_4/skim04_inclusive";
 String subDirectory = "/lustre19/expphy/cache/clas12/rg-a/production/reconstructed/Fall2018/Torus-1/pass1/v1/005";
@@ -60,6 +74,38 @@ runs.add("038");
 runs.add("199");
 runs.add("203");
 runs.add("117");
+runs.add("206");
+runs.add("032");
+runs.add("039");
+runs.add("040");
+runs.add("128");
+runs.add("129");
+runs.add("124");
+runs.add("181");
+runs.add("182");
+runs.add("041");
+runs.add("130");
+runs.add("043");
+runs.add("180");
+runs.add("197");
+runs.add("119");
+runs.add("120");
+runs.add("116");
+runs.add("138");
+runs.add("139");
+runs.add("153");
+runs.add("158");
+runs.add("045");
+runs.add("159");
+runs.add("160");
+runs.add("162");
+runs.add("046");
+runs.add("047");
+runs.add("164");
+runs.add("051");
+runs.add("052");
+runs.add("053");
+
 
 
 HipoChain reader = new HipoChain();
@@ -115,6 +161,10 @@ while (reader.hasNext()){
         if(q2 < 0.02 && Math.abs(pyPt) < 0.2 && Math.abs(pxPt) < 0.2
             && Math.abs(missingPPipPim.mass2()) < 0.02 ) {
             hImPipPimTheta.fill(imPipPim.mass(), Math.toDegrees(imPipPim.theta()));
+
+            if (Math.toDegrees(imPipPim.theta())< 25){
+                imPipPimHistos.get(getBinIndex(imPipPim)).fill(imPipPim.mass());
+            }
         }
     }
 
@@ -146,14 +196,26 @@ while (reader.hasNext()){
         if(q2 < 0.02 && Math.abs(pyPt) < 0.2 && Math.abs(pxPt) < 0.2
             && Math.abs(missingEPPipPim.mass2()) < 0.02 ) {
             hEDImPipPimTheta.fill(imPipPim.mass(), Math.toDegrees(imPipPim.theta()));
+
+            if (Math.toDegrees(imPipPim.theta())< 25){
+                eDImPipPimHistos.get(getBinIndex(imPipPim)).fill(imPipPim.mass());
+            }
         }
     }
 }
 
 dir.cd("/ElectronDetected");
-dir.addDataSet(hEDPxPyPt, hEDPxPt, hEDPyPt, hEDq2, hEDImPipPimTheta, hEDMm2EPPipPim);
+dir.addDataSet(hEDPxPyPt, hEDPxPt, hEDPyPt, hEDq2, hEDImPipPimTheta, hEDMm2EPPipPim, hDiffPT);
 dir.cd("/NoElectronDetected");
 dir.addDataSet(hPxPyPt, hPxPt, hPyPt, hq2, hImPipPimTheta, hMm2PPipPim);
+dir.cd("/ED-IMPipPim_Theta");
+for(H1F histo: eDImPipPimHistos){
+    dir.addDataSet(histo);
+}
+dir.cd("/IMPipPim_Theta");
+for(H1F histo: imPipPimHistos){
+    dir.addDataSet(histo);
+}
 dir.writeFile("/w/hallb-scifs17exp/clas12/viducic/premakoff/results/premakoffResults.hipo");
 
 //TCanvas c1 = new TCanvas("c1", 1000, 1000);
@@ -182,4 +244,8 @@ System.out.println("Number of events with final state + cuts: " + hEDImPipPimThe
 
 public static double getQ2(Particle particle1, Particle particle2){
     return 4 * particle1.e() * particle2.e() * Math.sin(particle2.theta() /2) * Math.sin(particle2.theta()/2);
+}
+
+public static int getBinIndex(Particle particle){
+    return (int)(particle.theta()/2.5);
 }
