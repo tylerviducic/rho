@@ -50,7 +50,7 @@ for(int i = 0; i < 10; i++){
     String name = "imPipPimTheta" + theta;
     imPipPimHistos.add(new H1F(name, 70,0.5, 1.2));
 
-    eDimPipPimHistos.add(new H1F("ed"+name, 70,0.5, 1.2));
+    eDImPipPimHistos.add(new H1F("ed"+name, 70,0.5, 1.2));
 
 }
 
