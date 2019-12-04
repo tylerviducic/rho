@@ -9,6 +9,7 @@ import org.jlab.jnp.reader.DataManager
 import org.jlab.jnp.hipo4.io.HipoChain
 import org.jlab.groot.data.H2F
 import org.jlab.groot.ui.TCanvas
+import org.jlab.jnp.utils.file.FileUtils
 
 ///////////////////////       e detected histos        ///////////////////////
 
@@ -54,66 +55,17 @@ for(int i = 0; i < 10; i++){
 
 }
 
-
 TDirectory dir = new TDirectory();
 dir.mkdir("/ElectronDetected");
 dir.mkdir("/NoElectronDetected");
 dir.mkdir("/ED-IMPipPim_Theta");
 dir.mkdir("/IMPipPim_Theta");
 
-//String directory = "/w/hallb-scifs17exp/clas12/rg-a/trains/pass1/v1_4/skim04_inclusive";
-String subDirectory = "/lustre19/expphy/cache/clas12/rg-a/production/reconstructed/Fall2018/Torus-1/pass1/v1/005";
-ArrayList<String> runs = new ArrayList<>();
-runs.add("169");
-runs.add("163");
-runs.add("252");
-runs.add("258");
-runs.add("126");
-runs.add("204");
-runs.add("038");
-runs.add("199");
-runs.add("203");
-runs.add("117");
-runs.add("206");
-runs.add("032");
-runs.add("039");
-runs.add("040");
-runs.add("128");
-runs.add("129");
-runs.add("124");
-runs.add("181");
-runs.add("182");
-runs.add("041");
-runs.add("130");
-runs.add("043");
-runs.add("180");
-runs.add("197");
-runs.add("119");
-runs.add("120");
-runs.add("116");
-runs.add("138");
-runs.add("139");
-runs.add("153");
-runs.add("158");
-runs.add("045");
-runs.add("159");
-runs.add("160");
-runs.add("162");
-runs.add("046");
-runs.add("047");
-runs.add("164");
-runs.add("051");
-runs.add("052");
-runs.add("053");
-
-
+String directory = "/lustre19/expphy/cache/clas12/rg-a/production/reconstructed/Fall2018/Torus-1/pass1/v1/";
+List<String> files = FileUtils.getFilesInDirectoryRecursive(directory, "*.hipo");
 
 HipoChain reader = new HipoChain();
-for(String run: runs) {
-    String directory = subDirectory + run;
-    System.out.println(directory);
-    reader.addDir(directory);
-}
+reader.addFiles(files);
 reader.open();
 
 int eventCounter = 0;
@@ -247,5 +199,5 @@ public static double getQ2(Particle particle1, Particle particle2){
 }
 
 public static int getBinIndex(Particle particle){
-    return (int)(particle.theta()/2.5);
+    return (int)(Math.toDegrees(particle.theta())/2.5);
 }
