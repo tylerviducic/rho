@@ -68,7 +68,7 @@ HipoChain reader = new HipoChain();
 reader.addFiles(files);
 reader.open();
 
-int eventCounter = 0;
+long eventCounter = 0;
 int filterCounter = 0;
 int noFilterCounter = 0;
 
