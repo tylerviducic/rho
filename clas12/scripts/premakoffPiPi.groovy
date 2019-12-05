@@ -4,6 +4,7 @@ import org.jlab.jnp.hipo4.data.Event
 import org.jlab.jnp.hipo4.data.Bank
 import org.jlab.jnp.physics.EventFilter
 import org.jlab.jnp.physics.Particle
+import org.jlab.jnp.physics.ParticleList
 import org.jlab.jnp.physics.PhysicsEvent
 import org.jlab.jnp.reader.DataManager
 import org.jlab.jnp.hipo4.io.HipoChain
@@ -61,7 +62,8 @@ dir.mkdir("/NoElectronDetected");
 dir.mkdir("/ED-IMPipPim_Theta");
 dir.mkdir("/IMPipPim_Theta");
 
-String directory = "/lustre19/expphy/cache/clas12/rg-a/production/reconstructed/Fall2018/Torus-1/pass1/v1/";
+//String directory = "/lustre19/expphy/cache/clas12/rg-a/production/reconstructed/Fall2018/Torus-1/pass1/v1/";
+String directory = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/premakoff/";
 List<String> files = FileUtils.getFilesInDirectoryRecursive(directory, "*.hipo");
 
 HipoChain reader = new HipoChain();
@@ -91,7 +93,8 @@ while (reader.hasNext()){
 ////////////////////    No Electron detected loop    /////////////////////////
     if(physicsEvent.getParticleList().count() > 0 &&  physicsEvent.getParticle(0).pid() == -211
         && physicsEvent.countByPid(2212) == 1  && physicsEvent.countByPid(211) == 1
-        && physicsEvent.countByCharge(1) == 2 && physicsEvent.countByCharge(-1) == 1){
+        && physicsEvent.countByCharge(1) == 2 && physicsEvent.countByCharge(-1) == 1
+        && inForward(physicsEvent)){
 
         noFilterCounter++;
 
@@ -121,7 +124,8 @@ while (reader.hasNext()){
     }
 
 ////////////////////       Electron detected loop      /////////////////////////
-    else if(filter.isValid(physicsEvent) && physicsEvent.getParticleByPid(11, 0).theta() < Math.toRadians(5)) {
+    else if(filter.isValid(physicsEvent) && physicsEvent.getParticleByPid(11, 0).theta() < Math.toRadians(5)
+            && inForward(physicsEvent)) {
 
         filterCounter++;
 
@@ -200,4 +204,14 @@ public static double getQ2(Particle particle1, Particle particle2){
 
 public static int getBinIndex(Particle particle){
     return (int)(Math.toDegrees(particle.theta())/2.5);
+}
+
+public static boolean inForward(PhysicsEvent physicsEvent){
+    ParticleList particleList = physicsEvent.getParticleList();
+    for(int i = 0; i < particleList.count(); i++){
+        if (Math.toDegrees(particleList.get(i).theta()) < 35){
+            return false;
+        }
+    }
+    return true;
 }
