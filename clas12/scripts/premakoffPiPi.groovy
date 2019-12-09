@@ -28,6 +28,8 @@ H2F hEDImPipPimTheta = new H2F("hImPipPimTheta", 60, 0.5, 1.1, 50, 0, 50);
 hEDImPipPimTheta.setTitle("EDIMpi+pi- vs theta of p(pi+pi-)");
 H1F hDiffPT = new H1F("hDiffPT", 100, -0.5, 0.5);
 hDiffPT.setTitle("Difference between Missing PT and ePT");
+H1F hMMEPipPim = new H1F("hMMEPipPim", 100, 0.5, 1.5);
+hMMEPipPim.setTitle("Missing mass of electron, pip pim");
 
 ///////////////////////      no e detected histos       ///////////////////////
 
@@ -133,6 +135,7 @@ while (reader.hasNext()){
         Particle missingEPPipPim = physicsEvent.getParticle("[b] + [t] - [2212] - [211] - [-211] - [11]");
         Particle missingPPipPim = physicsEvent.getParticle("[b] + [t] - [2212] - [211] - [-211]");
         Particle imPipPim = physicsEvent.getParticle("[211] + [-211]");
+        Particle missingEPipPim = physicsEvent.getParticle("[b] + [t] - [11] - [211] - [-211]");
 
         double q2 = getQ2(physicsEvent.beamParticle(), electron);
         double pyPt = missingPPipPim.py()/missingPPipPim.p();
@@ -147,10 +150,11 @@ while (reader.hasNext()){
             hEDPxPyPt.fill(pxPt, pyPt);
             hEDq2.fill(q2);
             hDiffPT.fill(missingPT-ePT);
+            hMMEPipPim.fill(missingEPipPim.mass());
         }
 
         if(q2 < 0.02 && Math.abs(pyPt) < 0.2 && Math.abs(pxPt) < 0.2
-            && Math.abs(missingEPPipPim.mass2()) < 0.02 ) {
+            && Math.abs(missingEPPipPim.mass2()) < 0.02 && Math.abs(missingEPipPim.mass() - 0.938) < 0.05) {
             hEDImPipPimTheta.fill(imPipPim.mass(), Math.toDegrees(imPipPim.theta()));
 
             if (Math.toDegrees(imPipPim.theta())< 25){
