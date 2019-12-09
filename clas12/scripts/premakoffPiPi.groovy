@@ -154,7 +154,7 @@ while (reader.hasNext()){
         }
 
         if(q2 < 0.02 && Math.abs(pyPt) < 0.2 && Math.abs(pxPt) < 0.2
-            && Math.abs(missingEPPipPim.mass2()) < 0.02 && Math.abs(missingEPipPim.mass() - 0.938) < 0.05) {
+            && Math.abs(missingEPPipPim.mass2()) < 0.02 && Math.abs(missingEPipPim.mass() - 0.938) < 0.1) {
             hEDImPipPimTheta.fill(imPipPim.mass(), Math.toDegrees(imPipPim.theta()));
 
             if (Math.toDegrees(imPipPim.theta())< 25){
@@ -165,7 +165,7 @@ while (reader.hasNext()){
 }
 
 dir.cd("/ElectronDetected");
-dir.addDataSet(hEDPxPyPt, hEDPxPt, hEDPyPt, hEDq2, hEDImPipPimTheta, hEDMm2EPPipPim, hDiffPT);
+dir.addDataSet(hEDPxPyPt, hEDPxPt, hEDPyPt, hEDq2, hEDImPipPimTheta, hEDMm2EPPipPim, hDiffPT, hMMEPipPim);
 dir.cd("/NoElectronDetected");
 dir.addDataSet(hPxPyPt, hPxPt, hPyPt, hq2, hImPipPimTheta, hMm2PPipPim);
 dir.cd("/ED-IMPipPim_Theta");
@@ -213,13 +213,8 @@ public static int getBinIndex(Particle particle){
 public static boolean inForward(PhysicsEvent physicsEvent){
     ParticleList particleList = physicsEvent.getParticleList();
     for(int i = 0; i < particleList.count(); i++){
-        if (Math.toDegrees(particleList.get(i).theta()) > 35 ){
-            if (particleList.get(i).pid() == 2212){
-                continue;
-            }
-            else {
-                return false
-            };
+        if (Math.toDegrees(particleList.get(i).theta()) > 35 && particleList.get(i).pid() != 2212){
+            return false;
         }
     }
     return true;
