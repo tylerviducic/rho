@@ -213,8 +213,13 @@ public static int getBinIndex(Particle particle){
 public static boolean inForward(PhysicsEvent physicsEvent){
     ParticleList particleList = physicsEvent.getParticleList();
     for(int i = 0; i < particleList.count(); i++){
-        if (Math.toDegrees(particleList.get(i).theta()) > 35 &&particleList.get(i).pid()!=2212){
-            return false;
+        if (Math.toDegrees(particleList.get(i).theta()) > 35 ){
+            if (particleList.get(i).pid() == 2212){
+                continue;
+            }
+            else {
+                return false
+            };
         }
     }
     return true;
