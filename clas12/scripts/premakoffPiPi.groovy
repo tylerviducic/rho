@@ -154,7 +154,7 @@ while (reader.hasNext()){
         }
 
         if(q2 < 0.02 && Math.abs(pyPt) < 0.2 && Math.abs(pxPt) < 0.2
-            && Math.abs(missingEPPipPim.mass2()) < 0.02 && Math.abs(missingEPipPim.mass() - 0.938) < 0.1) {
+            && Math.abs(missingEPPipPim.mass2()) < 0.02 && missingEPipPim.mass() > 0.8 && missingEPipPim.mass() < 1.3) {
             hEDImPipPimTheta.fill(imPipPim.mass(), Math.toDegrees(imPipPim.theta()));
 
             if (Math.toDegrees(imPipPim.theta())< 25){
