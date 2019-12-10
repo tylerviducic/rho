@@ -150,13 +150,13 @@ while (reader.hasNext()){
             hEDPxPyPt.fill(pxPt, pyPt);
             hEDq2.fill(q2);
             hDiffPT.fill(missingPT-ePT);
-            hMMEPipPim.fill(missingEPipPim.mass());
         }
 
         if(q2 < 0.02 && Math.abs(pyPt) < 0.2 && Math.abs(pxPt) < 0.2
-            && Math.abs(missingEPPipPim.mass2()) < 0.02 && missingEPipPim.mass() > 0.8 && missingEPipPim.mass() < 1.3) {
+            && Math.abs(missingEPPipPim.mass2()) < 0.02 ) {
+            //&& missingEPipPim.mass() > 0.8 && missingEPipPim.mass() < 1.3
             hEDImPipPimTheta.fill(imPipPim.mass(), Math.toDegrees(imPipPim.theta()));
-
+            hMMEPipPim.fill(missingEPipPim.mass());
             if (Math.toDegrees(imPipPim.theta())< 25){
                 eDImPipPimHistos.get(getBinIndex(imPipPim)).fill(imPipPim.mass());
             }
