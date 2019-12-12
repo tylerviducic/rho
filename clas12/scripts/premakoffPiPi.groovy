@@ -116,7 +116,7 @@ while (reader.hasNext()){
 
         }
 
-        if(q2 < 0.02 && Math.abs(pyPt) < 0.2 && Math.abs(pxPt) < 0.2
+        if(Math.abs(missingPPipPim.mass2()) < 0.02 && Math.abs(pyPt) < 0.2 && Math.abs(pxPt) < 0.2
             && Math.abs(missingPPipPim.mass2()) < 0.02 ) {
             hImPipPimTheta.fill(imPipPim.mass(), Math.toDegrees(imPipPim.theta()));
 
