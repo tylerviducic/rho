@@ -31,7 +31,7 @@ long eventCounter = 0;
 Event event = new Event();
 Bank particle = new Bank(reader.getSchemaFactory().getSchema("REC::Particle"));
 
-EventFilter filter = new EventFilter("11:2212:-211:211:Xn");
+EventFilter filter = new EventFilter("11:-211:211:Xn");
 
 while (reader.hasNext()){
     reader.nextEvent(event);
@@ -46,8 +46,8 @@ while (reader.hasNext()){
 
 ////////////////////    No Electron detected loop    /////////////////////////
     if(physicsEvent.getParticleList().count() > 0 &&  physicsEvent.getParticle(0).pid() == -211
-            && physicsEvent.countByPid(2212) == 1  && physicsEvent.countByPid(211) == 1
-            && physicsEvent.countByCharge(1) == 2 && physicsEvent.countByCharge(-1) == 1){
+            && physicsEvent.countByPid(211) == 1
+            && physicsEvent.countByCharge(1) == 1 && physicsEvent.countByCharge(-1) == 1){
 
 
         noeWriter.addEvent(event);
