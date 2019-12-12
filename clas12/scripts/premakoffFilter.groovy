@@ -21,9 +21,9 @@ reader.addFiles(files);
 reader.open();
 
 HipoWriter eWriter = new HipoWriter(reader.getSchemaFactory());
-eWriter.open("/w/hallb-scifs17exp/clas12/viducic/data/clas12/premakoff/eDetectedPremakoff.hipo");
+eWriter.open("/w/hallb-scifs17exp/clas12/viducic/data/clas12/premakoff/eDetectedPremakoff_noP.hipo");
 HipoWriter noeWriter = new HipoWriter(reader.getSchemaFactory());
-noeWriter.open("/w/hallb-scifs17exp/clas12/viducic/data/clas12/premakoff/noeDetectedPremakoff.hipo");
+noeWriter.open("/w/hallb-scifs17exp/clas12/viducic/data/clas12/premakoff/noeDetectedPremakoff_noP.hipo");
 
 
 long eventCounter = 0;
