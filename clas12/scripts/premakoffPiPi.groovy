@@ -107,12 +107,13 @@ while (reader.hasNext()){
         double pyPt = missingPPipPim.py()/missingPPipPim.p();
         double pxPt = missingPPipPim.px()/missingPPipPim.p();
 
-        hMm2PPipPim.fill(missingPPipPim.mass2());
-        if (Math.abs(missingPPipPim.mass2()) < 0.02){
+        hq2.fill(q2);
+        if (q2 < 0.02){
             hPxPt.fill(pxPt);
             hPyPt.fill(pyPt);
             hPxPyPt.fill(pxPt, pyPt);
-            hq2.fill(q2);
+            hMm2PPipPim.fill(missingPPipPim.mass2());
+
         }
 
         if(q2 < 0.02 && Math.abs(pyPt) < 0.2 && Math.abs(pxPt) < 0.2
