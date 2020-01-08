@@ -143,7 +143,7 @@ while (reader.hasNext()){
         double ePT = Math.sqrt(electron.px() * electron.px() + electron.py()*electron.py());
 
         hEDMm2EPipPim.fill(missingEPipPim.mass2());
-        if(Math.abs(missingEPipPim.mass2()) < 0.02) {
+        if(Math.abs(missingEPipPim.mass2() - 0.938) < 0.1) {
             hEDPxPt.fill(pxPt);
             hEDPyPt.fill(pyPt);
             hEDPxPyPt.fill(pxPt, pyPt);
@@ -152,7 +152,7 @@ while (reader.hasNext()){
         }
 
         if(q2 < 0.02 && Math.abs(pyPt) < 0.2 && Math.abs(pxPt) < 0.2
-            && Math.abs(missingEPipPim.mass2()) < 0.02 && Math.abs(missingPT-ePT) < 0.1) {
+            && Math.abs(missingEPipPim.mass2() - 0.938) < 0.1 && Math.abs(missingPT-ePT) < 0.1) {
             //&& missingEPipPim.mass() > 0.8 && missingEPipPim.mass() < 1.3
             hEDImPipPimTheta.fill(imPipPim.mass(), Math.toDegrees(imPipPim.theta()));
             hMMEPipPim.fill(missingEPipPim.mass());
