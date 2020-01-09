@@ -65,11 +65,13 @@ dir.mkdir("/ED-IMPipPim_Theta");
 dir.mkdir("/IMPipPim_Theta");
 
 //String directory = "/lustre19/expphy/cache/clas12/rg-a/production/reconstructed/Fall2018/Torus-1/pass1/v1/";
-String directory = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/premakoff";
-List<String> files = FileUtils.getFilesInDirectoryRecursive(directory, "eDetectedPremakoff_noP*");
+//String directory = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/premakoff";
+//List<String> files = FileUtils.getFilesInDirectoryRecursive(directory, "eDetectedPremakoff_noP*");
+
+String file = String directory = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/premakoff/eDetectedPremakoff_noP.hipo";
 
 HipoChain reader = new HipoChain();
-reader.addFiles(files);
+reader.addFile(file);
 reader.open();
 
 long eventCounter = 0;
