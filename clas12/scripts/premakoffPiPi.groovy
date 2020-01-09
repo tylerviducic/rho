@@ -20,7 +20,7 @@ H1F hEDPxPt = new H1F("hEDPxPt", 100, -0.5, 0.5);
 hEDPxPt.setTitle("missing ptx/missing p");
 H2F hEDPxPyPt = new H2F("hEDPxPyPt", 100, -0.2, 0.2, 100, -0.2, 0.2);
 hEDPxPyPt.setTitle("ptx/p vs pty/p");
-H1F hEDMm2EPipPim = new H1F("hEDMmPPipPim", 150, 0.0, 1.5);
+H1F hEDMm2EPipPim = new H1F("hEDMmPPipPim", 150, 0.0, 3);
 hEDMm2EPipPim.setTitle("Missing mass2 of e'p'pi+pi-");
 H1F hEDq2 = new H1F("hEDq2", 50, 0, 0.1);
 hEDq2.setTitle("Q2");
@@ -93,40 +93,41 @@ while (reader.hasNext()){
     PhysicsEvent physicsEvent = DataManager.getPhysicsEvent(10.6, particle);
 
 ////////////////////    No Electron detected loop    /////////////////////////
-    if(physicsEvent.getParticleList().count() > 0 &&  physicsEvent.getParticle(0).pid() == -211
-        && physicsEvent.countByPid(211) == 1 && physicsEvent.countByCharge(1) == 1
-        && physicsEvent.countByCharge(-1) == 1 && inForward(physicsEvent)){
-
-        noFilterCounter++;
-
-        Particle missingPipPim = physicsEvent.getParticle("[b] + [t] - [211] - [-211]");
-        Particle imPipPim = physicsEvent.getParticle("[211] + [-211]");
-
-        double q2 = getQ2(physicsEvent.beamParticle(), missingPipPim);
-        double pyPt = missingPipPim.py()/missingPipPim.p();
-        double pxPt = missingPipPim.px()/missingPipPim.p();
-
-        hq2.fill(q2);
-        if (q2 < 0.02){
-            hPxPt.fill(pxPt);
-            hPyPt.fill(pyPt);
-            hPxPyPt.fill(pxPt, pyPt);
-            hMm2PipPim.fill(missingPipPim.mass2());
-
-        }
-
-        if(Math.abs(missingPipPim.mass2()) < 0.02 && Math.abs(pyPt) < 0.2 && Math.abs(pxPt) < 0.2
-            && Math.abs(missingPipPim.mass2()) < 0.02 ) {
-            hImPipPimTheta.fill(imPipPim.mass(), Math.toDegrees(imPipPim.theta()));
-
-            if (Math.toDegrees(imPipPim.theta())< 25){
-                imPipPimHistos.get(getBinIndex(imPipPim)).fill(imPipPim.mass());
-            }
-        }
-    }
+//    if(physicsEvent.getParticleList().count() > 0 &&  physicsEvent.getParticle(0).pid() == -211
+//        && physicsEvent.countByPid(211) == 1 && physicsEvent.countByCharge(1) == 1
+//        && physicsEvent.countByCharge(-1) == 1 && inForward(physicsEvent)){
+//
+//        noFilterCounter++;
+//
+//        Particle missingPipPim = physicsEvent.getParticle("[b] + [t] - [211] - [-211]");
+//        Particle imPipPim = physicsEvent.getParticle("[211] + [-211]");
+//
+//        double q2 = getQ2(physicsEvent.beamParticle(), missingPipPim);
+//        double pyPt = missingPipPim.py()/missingPipPim.p();
+//        double pxPt = missingPipPim.px()/missingPipPim.p();
+//
+//        hq2.fill(q2);
+//        if (q2 < 0.02){
+//            hPxPt.fill(pxPt);
+//            hPyPt.fill(pyPt);
+//            hPxPyPt.fill(pxPt, pyPt);
+//            hMm2PipPim.fill(missingPipPim.mass2());
+//
+//        }
+//
+//        if(Math.abs(missingPipPim.mass2()) < 0.02 && Math.abs(pyPt) < 0.2 && Math.abs(pxPt) < 0.2
+//            && Math.abs(missingPipPim.mass2()) < 0.02 ) {
+//            hImPipPimTheta.fill(imPipPim.mass(), Math.toDegrees(imPipPim.theta()));
+//
+//            if (Math.toDegrees(imPipPim.theta())< 25){
+//                imPipPimHistos.get(getBinIndex(imPipPim)).fill(imPipPim.mass());
+//            }
+//        }
+//    }
 
 ////////////////////       Electron detected loop      /////////////////////////
-    else if(filter.isValid(physicsEvent) && physicsEvent.getParticleByPid(11, 0).theta() < Math.toRadians(5)
+    //else
+    if(filter.isValid(physicsEvent) && physicsEvent.getParticleByPid(11, 0).theta() < Math.toRadians(5)
             && inForward(physicsEvent)) {
 
         filterCounter++;
@@ -143,7 +144,7 @@ while (reader.hasNext()){
         double ePT = Math.sqrt(electron.px() * electron.px() + electron.py()*electron.py());
 
         hEDMm2EPipPim.fill(missingEPipPim.mass2());
-        if(Math.abs(missingEPipPim.mass2() - 0.938) < 0.1) {
+        if(missingEPipPim.mass2() < 1.4 && missingEPipPim.mass2() > 0.7) {
             hEDPxPt.fill(pxPt);
             hEDPyPt.fill(pyPt);
             hEDPxPyPt.fill(pxPt, pyPt);
@@ -152,7 +153,7 @@ while (reader.hasNext()){
         }
 
         if(q2 < 0.02 && Math.abs(pyPt) < 0.2 && Math.abs(pxPt) < 0.2
-            && Math.abs(missingEPipPim.mass2() - 0.938) < 0.1 && Math.abs(missingPT-ePT) < 0.1) {
+            && missingEPipPim.mass2() < 1.4 && missingEPipPim.mass2() > 0.7 && Math.abs(missingPT-ePT) < 0.4) {
             //&& missingEPipPim.mass() > 0.8 && missingEPipPim.mass() < 1.3
             hEDImPipPimTheta.fill(imPipPim.mass(), Math.toDegrees(imPipPim.theta()));
             hMMEPipPim.fill(missingEPipPim.mass());
