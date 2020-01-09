@@ -68,7 +68,7 @@ dir.mkdir("/IMPipPim_Theta");
 //String directory = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/premakoff";
 //List<String> files = FileUtils.getFilesInDirectoryRecursive(directory, "eDetectedPremakoff_noP*");
 
-String file = String directory = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/premakoff/eDetectedPremakoff_noP.hipo";
+String file = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/premakoff/eDetectedPremakoff_noP.hipo";
 
 HipoChain reader = new HipoChain();
 reader.addFile(file);
