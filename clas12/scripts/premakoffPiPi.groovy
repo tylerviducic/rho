@@ -29,7 +29,7 @@ hEDImPipPimTheta.setTitle("EDIMpi+pi- vs theta of p(pi+pi-)");
 H1F hDiffPT = new H1F("hDiffPT", 100, -0.5, 0.5);
 hDiffPT.setTitle("Difference between Missing PT and ePT");
 H1F hEDmmEPPipPim = new H1F("hEDmmEPPipPim", 100, -0.5, 0.5);
-hMMEPipPim.setTitle("Missing mass of electron, proton, pip pim");
+hEDmmEPPipPim.setTitle("Missing mass of electron, proton, pip pim");
 
 
 ///////////////////////      no e detected histos       ///////////////////////
