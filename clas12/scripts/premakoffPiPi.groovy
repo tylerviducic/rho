@@ -28,8 +28,9 @@ H2F hEDImPipPimTheta = new H2F("hImPipPimTheta", 60, 0.5, 1.1, 50, 0, 50);
 hEDImPipPimTheta.setTitle("EDIMpi+pi- vs theta of p(pi+pi-)");
 H1F hDiffPT = new H1F("hDiffPT", 100, -0.5, 0.5);
 hDiffPT.setTitle("Difference between Missing PT and ePT");
-H1F hMMEPipPim = new H1F("hMMEPipPim", 100, 0.5, 1.5);
-hMMEPipPim.setTitle("Missing mass of electron, pip pim");
+H1F hEDmmEPPipPim = new H1F("hEDmmEPPipPim", 100, -0.5, 0.5);
+hMMEPipPim.setTitle("Missing mass of electron, proton, pip pim");
+
 
 ///////////////////////      no e detected histos       ///////////////////////
 
@@ -135,15 +136,18 @@ while (reader.hasNext()){
         filterCounter++;
 
         Particle electron = physicsEvent.getParticle("[11]");
+        Particle ePipPim = physicsEvent.getParticle("[11] + [211] + [-211]");
         Particle missingEPipPim = physicsEvent.getParticle("[b] + [t] - [211] - [-211] - [11]");
         Particle missingPipPim = physicsEvent.getParticle("[b] + [t] - [211] - [-211]");
         Particle imPipPim = physicsEvent.getParticle("[211] + [-211]");
+        Particle missingEPPipPim = ePipPim.combine(missingEPipPim, 1);
 
         double q2 = getQ2(physicsEvent.beamParticle(), electron);
         double pyPt = missingPipPim.py()/missingPipPim.p();
         double pxPt = missingPipPim.px()/missingPipPim.p();
         double missingPT = Math.sqrt(missingPipPim.px()*missingPipPim.px() + missingPipPim.py()*missingPipPim.py());
         double ePT = Math.sqrt(electron.px() * electron.px() + electron.py()*electron.py());
+
 
         hEDMm2EPipPim.fill(missingEPipPim.mass2());
         if(missingEPipPim.mass2() < 1.4 && missingEPipPim.mass2() > 0.7) {
@@ -152,32 +156,32 @@ while (reader.hasNext()){
             hEDPxPyPt.fill(pxPt, pyPt);
             hEDq2.fill(q2);
             hDiffPT.fill(missingPT-ePT);
-        }
+            hEDmmEPPipPim.fill(missingEPPipPim.mass2());
 
-        if(q2 < 0.02 && Math.abs(pyPt) < 0.2 && Math.abs(pxPt) < 0.2
-            && missingEPipPim.mass2() < 1.4 && missingEPipPim.mass2() > 0.7 && Math.abs(missingPT-ePT) < 0.4) {
-            //&& missingEPipPim.mass() > 0.8 && missingEPipPim.mass() < 1.3
-            hEDImPipPimTheta.fill(imPipPim.mass(), Math.toDegrees(imPipPim.theta()));
-            hMMEPipPim.fill(missingEPipPim.mass());
-            if (Math.toDegrees(imPipPim.theta())< 25){
-                eDImPipPimHistos.get(getBinIndex(imPipPim)).fill(imPipPim.mass());
+            if(q2 < 0.02 && Math.abs(pxPt) < 0.2 && Math.abs(pyPt) < 0.2
+                         && Math.abs(missingPT - ePT) < 0.4){
+                hEDImPipPimTheta.fill(imPipPim.mass(), imPipPim.theta());
+                if (Math.toDegrees(imPipPim.theta())< 25){
+                    eDImPipPimHistos.get(getBinIndex(imPipPim)).fill(imPipPim.mass());
+                }
             }
         }
+
     }
 }
 
 dir.cd("/ElectronDetected");
-dir.addDataSet(hEDPxPyPt, hEDPxPt, hEDPyPt, hEDq2, hEDImPipPimTheta, hEDMm2EPipPim, hDiffPT, hMMEPipPim);
-dir.cd("/NoElectronDetected");
-dir.addDataSet(hPxPyPt, hPxPt, hPyPt, hq2, hImPipPimTheta, hMm2PipPim);
+dir.addDataSet(hEDPxPyPt, hEDPxPt, hEDPyPt, hEDq2, hEDImPipPimTheta, hEDMm2EPipPim, hDiffPT, hEDmmEPPipPim);
+//dir.cd("/NoElectronDetected");
+//dir.addDataSet(hPxPyPt, hPxPt, hPyPt, hq2, hImPipPimTheta, hMm2PipPim);
 dir.cd("/ED-IMPipPim_Theta");
 for(H1F histo: eDImPipPimHistos){
     dir.addDataSet(histo);
 }
-dir.cd("/IMPipPim_Theta");
-for(H1F histo: imPipPimHistos){
-    dir.addDataSet(histo);
-}
+//dir.cd("/IMPipPim_Theta");
+//for(H1F histo: imPipPimHistos){
+//    dir.addDataSet(histo);
+//}
 dir.writeFile("/w/hallb-scifs17exp/clas12/viducic/premakoff/results/premakoffResults_noP.hipo");
 
 //TCanvas c1 = new TCanvas("c1", 1000, 1000);
