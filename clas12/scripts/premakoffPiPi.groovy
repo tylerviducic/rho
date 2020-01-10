@@ -141,6 +141,7 @@ while (reader.hasNext()){
         Particle missingPipPim = physicsEvent.getParticle("[b] + [t] - [211] - [-211]");
         Particle imPipPim = physicsEvent.getParticle("[211] + [-211]");
         Particle missingEPPipPim = ePipPim.combine(missingEPipPim, 1);
+        System.out.println(missingEPPipPim.toLundString());
 
         double q2 = getQ2(physicsEvent.beamParticle(), electron);
         double pyPt = missingPipPim.py()/missingPipPim.p();
