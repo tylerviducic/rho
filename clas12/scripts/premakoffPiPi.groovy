@@ -164,7 +164,7 @@ while (reader.hasNext()){
             hEDmmEPPipPim.fill(missingEPPipPim.mass2());
 
             if(q2 < 0.02 && Math.abs(pxPt) < 0.2 && Math.abs(pyPt) < 0.2 && Math.abs(missingPT - ePT) < 0.4){
-                System.out.println("filling");
+                System.out.println(imPipPim.mass());
                 hEDImPipPimTheta.fill(imPipPim.mass(), imPipPim.theta());
                 if (Math.toDegrees(imPipPim.theta())< 25){
                     eDImPipPimHistos.get(getBinIndex(imPipPim)).fill(imPipPim.mass());
