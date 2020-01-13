@@ -24,7 +24,7 @@ H1F hEDMm2EPipPim = new H1F("hEDMmPPipPim", 150, 0.0, 3);
 hEDMm2EPipPim.setTitle("Missing mass2 of e'p'pi+pi-");
 H1F hEDq2 = new H1F("hEDq2", 50, 0, 0.1);
 hEDq2.setTitle("Q2");
-H2F hEDImPipPimTheta = new H2F("hImPipPimTheta", 60, 0.5, 1.1, 50, 0, 50);
+H2F hEDImPipPimTheta = new H2F("hEDImPipPimTheta", 60, 0.5, 1.1, 50, 0, 50);
 hEDImPipPimTheta.setTitle("EDIMpi+pi- vs theta of p(pi+pi-)");
 H1F hDiffPT = new H1F("hDiffPT", 100, -0.5, 0.5);
 hDiffPT.setTitle("Difference between Missing PT and ePT");
@@ -89,7 +89,7 @@ while (reader.hasNext()){
     event.read(particle);
     eventCounter++;
 
-    if(eventCounter % 100000 == 0){
+    if(eventCounter % 1000000 == 0){
         System.out.println("Event counter = " + eventCounter);
     }
 
@@ -163,8 +163,8 @@ while (reader.hasNext()){
             hDiffPT.fill(missingPT-ePT);
             hEDmmEPPipPim.fill(missingEPPipPim.mass2());
 
-            if(q2 < 0.02 && Math.abs(pxPt) < 0.2 && Math.abs(pyPt) < 0.2
-                         && Math.abs(missingPT - ePT) < 0.4){
+            if(q2 < 0.02 && Math.abs(pxPt) < 0.2 && Math.abs(pyPt) < 0.2 && Math.abs(missingPT - ePT) < 0.4){
+                System.out.println("filling");
                 hEDImPipPimTheta.fill(imPipPim.mass(), imPipPim.theta());
                 if (Math.toDegrees(imPipPim.theta())< 25){
                     eDImPipPimHistos.get(getBinIndex(imPipPim)).fill(imPipPim.mass());
