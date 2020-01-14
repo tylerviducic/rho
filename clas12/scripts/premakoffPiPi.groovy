@@ -142,11 +142,6 @@ while (reader.hasNext()){
         Particle missingPipPim = physicsEvent.getParticle("[b] + [t] - [211] - [-211]");
         Particle imPipPim = physicsEvent.getParticle("[211] + [-211]");
 
-        Particle missingEPPipPim = new Particle();
-        missingEPPipPim.copy(beamTarget);
-        missingEPPipPim.combine(ePipPim, -1);
-        missingEPPipPim.combine(missingEPipPim, -1);
-
         double q2 = getQ2(physicsEvent.beamParticle(), electron);
         double pyPt = missingPipPim.py()/missingPipPim.p();
         double pxPt = missingPipPim.px()/missingPipPim.p();
@@ -161,10 +156,9 @@ while (reader.hasNext()){
             hEDPxPyPt.fill(pxPt, pyPt);
             hEDq2.fill(q2);
             hDiffPT.fill(missingPT-ePT);
-            hEDmmEPPipPim.fill(missingEPPipPim.mass2());
 
             if(q2 < 0.02 && Math.abs(pxPt) < 0.2 && Math.abs(pyPt) < 0.2 && Math.abs(missingPT - ePT) < 0.4){
-                hEDImPipPimTheta.fill(imPipPim.mass(), imPipPim.theta());
+                hEDImPipPimTheta.fill(imPipPim.mass(), Math.toDegrees(imPipPim.theta()));
                 if (Math.toDegrees(imPipPim.theta())< 25){
                     eDImPipPimHistos.get(getBinIndex(imPipPim)).fill(imPipPim.mass());
                 }
