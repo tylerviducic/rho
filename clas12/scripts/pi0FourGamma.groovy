@@ -16,7 +16,7 @@ H1F hPion1 = new H1F("hPion1", 100, 0, 1.0);
 hPion1.setTitle("im gam1 and gam2");
 H1F hPion2 = new H1F("hPion2", 100, 0, 1.0);
 hPion2.setTitle("im gam3 and gam4");
-H2F hPion1Pion2 = new H2F("hPion1Pion2", 100, 0, 1.0, 100, 0, 1.0);
+H2F hPion1Pion2 = new H2F("hPion1Pion2", 100, 0, 0.3, 100, 0, 0.3);
 
 String file = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/premakoff/photons.hipo";
 HipoChain reader = new HipoChain();
@@ -33,7 +33,7 @@ while (reader.hasNext()){
     PhysicsEvent physicsEvent = DataManager.getPhysicsEvent(10.6, particle);
 
     Particle missingPe = physicsEvent.getParticle("[b] + [t] - [2212] - [11]");
-    Particle missingPeGamGamGamGam = physicsEvent.getParticle("[b] + [t] - [2212] - [11] - [22,0] - [22, 1] - [22,2] - [22,3]")
+    Particle missingPeGamGamGamGam = physicsEvent.getParticle("[b] + [t] - [2212] - [11] - [22,0] - [22, 1] - [22,2] - [22, 3]")
     Particle pion1 = physicsEvent.getParticle("[22, 0] + [22,1]");
     Particle pion2 = physicsEvent.getParticle("[22, 2] + [22,3]");
 
