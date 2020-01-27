@@ -7,7 +7,7 @@ import org.jlab.jnp.physics.Particle
 import org.jlab.jnp.physics.PhysicsEvent
 import org.jlab.jnp.reader.DataManager
 
-H1F hMM2pe = new H1F("hMM2pe", 180, -0.3, 1.5);
+H1F hMM2pe = new H1F("hMM2pe", 230, -0.3, 2.0);
 hMM2pe.setTitle("Missing Mass^2 of detected proton and electron");
 
 String file = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/premakoff/photons.hipo";
