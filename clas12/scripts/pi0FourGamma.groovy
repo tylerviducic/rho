@@ -40,10 +40,12 @@ while (reader.hasNext()){
     hMM2pe.fill(missingPe.mass2());
     hMM2all.fill(missingPeGamGamGamGam.mass2());
 
-    hPion1.fill(pion1.mass());
-    if(physicsEvent.getParticle("[22, 2]").p() > 0.3 && physicsEvent.getParticle("[22, 3]").p() > 0.3){
-        hPion2.fill(pion2.mass());
-        hPion1Pion2.fill(pion1.mass(), pion2.mass());
+    if(physicsEvent.getParticle("[22, 2]").p() > 0.3 && physicsEvent.getParticle("[22, 3]").p() > 0.3 ){
+        hPion1.fill(pion1.mass());
+        if(pion1.mass() > 0.1 && pion1.mass() < 0.16){
+            hPion2.fill(pion2.mass());
+            hPion1Pion2.fill(pion1.mass(), pion2.mass());
+        }
     }
 
 }
