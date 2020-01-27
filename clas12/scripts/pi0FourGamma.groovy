@@ -65,7 +65,9 @@ c2.draw(hMM2all);
 TCanvas c3 = new TCanvas("c3", 500, 500);
 TCanvas c4 = new TCanvas("c4", 500, 500);
 TCanvas c5 = new TCanvas("c5", 500, 500);
+TCanvas c6 = new TCanvas("c6", 500, 500);
 
 c3.draw(hPion1);
 c4.draw(hPion2);
 c5.draw(hPion1Pion2);
+c6.draw(hIM4gam);
