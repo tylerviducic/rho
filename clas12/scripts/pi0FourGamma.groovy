@@ -17,6 +17,9 @@ hPion1.setTitle("im gam1 and gam2");
 H1F hPion2 = new H1F("hPion2", 100, 0, 1.0);
 hPion2.setTitle("im gam3 and gam4");
 H2F hPion1Pion2 = new H2F("hPion1Pion2", 100, 0, 0.3, 100, 0, 0.3);
+H1F hIM4gam = new H1F("hIM4gam", 150, -0.5, 1.0);
+hIM4gam.setTitle("Invariant mass of 4 pions");
+
 
 String file = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/premakoff/photons.hipo";
 HipoChain reader = new HipoChain();
@@ -36,8 +39,8 @@ while (reader.hasNext()){
     Particle missingPeGamGamGamGam = physicsEvent.getParticle("[b] + [t] - [2212] - [11] - [22,0] - [22, 1] - [22,2] - [22, 3]")
     Particle pion1 = physicsEvent.getParticle("[22, 0] + [22,1]");
     Particle pion2 = physicsEvent.getParticle("[22, 2] + [22,3]");
+    Particle gam4 = physicsEvent.getParticle("[22,0] - [22, 1] - [22,2] - [22, 3]");
 
-    hMM2pe.fill(missingPe.mass2());
     hMM2all.fill(missingPeGamGamGamGam.mass2());
 
     if(physicsEvent.getParticle("[22, 2]").p() > 0.3 && physicsEvent.getParticle("[22, 3]").p() > 0.3 ){
@@ -45,6 +48,10 @@ while (reader.hasNext()){
         if(pion1.mass() > 0.1 && pion1.mass() < 0.16){
             hPion2.fill(pion2.mass());
             hPion1Pion2.fill(pion1.mass(), pion2.mass());
+            if (pion2.mass() > 0.1 && pion2.mass() < 0.16){
+                hIM4gam.fill(gam4.mass());
+                hMM2pe.fill(missingPe.mass2());
+            }
         }
     }
 
