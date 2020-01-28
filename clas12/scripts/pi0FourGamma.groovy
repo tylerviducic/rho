@@ -10,7 +10,7 @@ import org.jlab.jnp.reader.DataManager
 import org.jlab.jnp.utils.file.FileUtils
 
 H1F hMM2pe = new H1F("hMM2pe", 200, -1.0, 5.0);
-hMM2pe.setTitle("Missing Mass^2 of detected proton and electron");
+hMM2pe.setTitle("Missing Mass of detected proton and electron");
 H1F hMM2all = new H1F("hMM2all", 100, -0.5, 0.5);
 hMM2all.setTitle("Missing mass 2 of p, e, 4 photons");
 H1F hPion1 = new H1F("hPion1", 100, 0, 1.0);
@@ -53,9 +53,9 @@ while (reader.hasNext()){
         if(pion1.mass() > 0.1 && pion1.mass() < 0.16){
             hPion2.fill(pion2.mass());
             hPion1Pion2.fill(pion1.mass(), pion2.mass());
-            if (pion2.mass() > 0.1 && pion2.mass() < 0.16){
+            if (pion2.mass() > 0.1 && pion2.mass() < 0.16 && gam4.mass() > 0.8 && gam4.mass() < 1.1){
                 hIM4gam.fill(gam4.mass());
-                hMM2pe.fill(missingPe.mass2());
+                hMM2pe.fill(missingPe.mass());
             }
         }
     }
