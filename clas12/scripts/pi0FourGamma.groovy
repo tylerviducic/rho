@@ -28,6 +28,7 @@ String directory = "/work/clas12/viducic/data/clas12/premakoff/";
 HipoChain reader = new HipoChain();
 //reader.addFile(file);
 reader.addDir(directory, "skimmed*");
+System.out.println(reader.getFilesList());
 reader.open();
 
 Event event = new Event();
