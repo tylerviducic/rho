@@ -21,7 +21,7 @@ H2F hPion1Pion2 = new H2F("hPion1Pion2", 100, 0, 0.3, 100, 0, 0.3);
 H1F hIM4gam = new H1F("hIM4gam", 150, -0.5, 1.0);
 hIM4gam.setTitle("Invariant mass of 4 pions");
 
-String directory = "/work/clas12/viducic/data/clas12/premakoff/skimmed/";
+String directory = "/work/clas12/viducic/data/clas12/premakoff/skimmedFiles/";
 //String file = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/premakoff/photons.hipo";
 List<String> files = FileUtils.getFileListInDir(directory);
 System.out.println(files);
