@@ -44,7 +44,7 @@ while (reader.hasNext()){
     Particle missingPeGamGamGamGam = physicsEvent.getParticle("[b] + [t] - [2212] - [11] - [22,0] - [22, 1] - [22,2] - [22, 3]")
     Particle pion1 = physicsEvent.getParticle("[22, 0] + [22,1]");
     Particle pion2 = physicsEvent.getParticle("[22, 2] + [22,3]");
-    Particle gam4 = physicsEvent.getParticle("[22,0] - [22, 1] - [22,2] - [22, 3]");
+    Particle gam4 = physicsEvent.getParticle("[22,0] + [22, 1] + [22,2] + [22, 3]");
 
     hMM2all.fill(missingPeGamGamGamGam.mass2());
 
