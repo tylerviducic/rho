@@ -9,7 +9,7 @@ import org.jlab.jnp.physics.PhysicsEvent
 import org.jlab.jnp.reader.DataManager
 import org.jlab.jnp.utils.file.FileUtils
 
-H1F hMM2pe = new H1F("hMM2pe", 100, -3.0, 3.0);
+H1F hMM2pe = new H1F("hMM2pe", 200, -1.0, 5.0);
 hMM2pe.setTitle("Missing Mass^2 of detected proton and electron");
 H1F hMM2all = new H1F("hMM2all", 100, -0.5, 0.5);
 hMM2all.setTitle("Missing mass 2 of p, e, 4 photons");
