@@ -29,7 +29,7 @@ HipoChain reader = new HipoChain();
 //reader.addFile(file);
 reader.addDir(directory, "skimmed*");
 System.out.println(reader.getFilesList());
-reader.open();
+//reader.open();
 
 Event event = new Event();
 Bank particle = new Bank(reader.getSchemaFactory().getSchema("REC::Particle"));
