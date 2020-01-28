@@ -7,6 +7,7 @@ import org.jlab.jnp.hipo4.io.HipoChain
 import org.jlab.jnp.physics.Particle
 import org.jlab.jnp.physics.PhysicsEvent
 import org.jlab.jnp.reader.DataManager
+import org.jlab.jnp.utils.file.FileUtils
 
 H1F hMM2pe = new H1F("hMM2pe", 230, -0.3, 2.0);
 hMM2pe.setTitle("Missing Mass^2 of detected proton and electron");
