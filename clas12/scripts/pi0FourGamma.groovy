@@ -53,7 +53,7 @@ while (reader.hasNext()){
         if(pion1.mass() > 0.1 && pion1.mass() < 0.16){
             hPion2.fill(pion2.mass());
             hPion1Pion2.fill(pion1.mass(), pion2.mass());
-            if (pion2.mass() > 0.1 && pion2.mass() < 0.16 && gam4.mass() > 0.8 && gam4.mass() < 1.1){
+            if (pion2.mass() > 0.1 && pion2.mass() < 0.16 && gam4.mass() > 0.2 && gam4.mass() < 0.6){
                 hIM4gam.fill(gam4.mass());
                 hMM2pe.fill(missingPe.mass());
             }
