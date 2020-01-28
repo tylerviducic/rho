@@ -21,9 +21,12 @@ H1F hIM4gam = new H1F("hIM4gam", 150, -0.5, 1.0);
 hIM4gam.setTitle("Invariant mass of 4 pions");
 
 
-String file = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/premakoff/photons.hipo";
+//String file = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/premakoff/photons.hipo";
+List<String> files = FileUtils.getFilesInDirectoryRecursive(directory, "skimmed*");
+
 HipoChain reader = new HipoChain();
-reader.addFile(file);
+//reader.addFile(file);
+reader.addFiles(files);
 reader.open();
 
 Event event = new Event();
