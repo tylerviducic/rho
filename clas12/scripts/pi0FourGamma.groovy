@@ -82,5 +82,6 @@ TCanvas c6 = new TCanvas("c6", 500, 500);
 
 c3.draw(hPion1);
 c4.draw(hPion2);
-c5.draw(hPion1Pion2);
+//c5.draw(hPion1Pion2);
+c5.draw(hPion2MissingPion);
 c6.draw(hIM4gam);
