@@ -8,7 +8,7 @@ import org.jlab.jnp.physics.Particle
 import org.jlab.jnp.physics.PhysicsEvent
 import org.jlab.jnp.reader.DataManager
 
-H1F hMMProtonElectron = new H1F("hMMProtonElectron", 100, 0, 1);
+H1F hMMProtonElectron = new H1F("hMMProtonElectron", 200, 0, 1);
 H1F hIMProtonPion = new H1F("hIMProtonPion", 100, 0.5, 1.5);
 H1F hIMElectronKaon = new H1F("hIMElectronKaon", 100, 0, 1.5);
 
