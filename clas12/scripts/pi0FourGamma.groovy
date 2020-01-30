@@ -20,6 +20,8 @@ hPion2.setTitle("im gam3 and gam4");
 H2F hPion1Pion2 = new H2F("hPion1Pion2", 100, 0, 0.3, 100, 0, 0.3);
 H1F hIM4gam = new H1F("hIM4gam", 150, 0.4, 1.5);
 hIM4gam.setTitle("Invariant mass of 4 pions");
+H1F hMMPEPi = new H1F("hMMPePi", 50, 0.0, 0.5);
+
 
 String directory = "/work/clas12/viducic/data/clas12/premakoff/skimmedFiles/";
 //String file = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/premakoff/photons.hipo";
@@ -42,11 +44,13 @@ while (reader.hasNext()){
 
     Particle missingPe = physicsEvent.getParticle("[b] + [t] - [2212] - [11]");
     Particle missingPeGamGamGamGam = physicsEvent.getParticle("[b] + [t] - [2212] - [11] - [22,0] - [22, 1] - [22,2] - [22, 3]")
+    Particle missingPEPi = physicsEvent.getParticle("[b] + [t] - [2212] -[11] - [22,0] - [22,1]");
     Particle pion1 = physicsEvent.getParticle("[22, 0] + [22,1]");
     Particle pion2 = physicsEvent.getParticle("[22, 2] + [22,3]");
     Particle gam4 = physicsEvent.getParticle("[22,0] + [22, 1] + [22,2] + [22, 3]");
 
     hMM2all.fill(missingPeGamGamGamGam.mass2());
+    hMMPEPi.fill(missingPEPi.mass());
 
     if(physicsEvent.getParticle("[22, 2]").p() > 0.3 && physicsEvent.getParticle("[22, 3]").p() > 0.3 ){
         hPion1.fill(pion1.mass());
