@@ -71,7 +71,7 @@ while (reader.hasNext()){
 TCanvas c1 = new TCanvas("c1", 500, 500);
 c1.draw(hMM2pe);
 TCanvas c2 = new TCanvas("c2", 500, 500);
-c2.draw(hMM2all);
+c2.draw(hMMPEPi);
 
 TCanvas c3 = new TCanvas("c3", 500, 500);
 TCanvas c4 = new TCanvas("c4", 500, 500);
