@@ -50,10 +50,10 @@ while (reader.hasNext()){
     Particle gam4 = physicsEvent.getParticle("[22,0] + [22, 1] + [22,2] + [22, 3]");
 
     hMM2all.fill(missingPeGamGamGamGam.mass2());
-    hMMPEPi.fill(missingPEPi.mass());
 
     if(physicsEvent.getParticle("[22, 2]").p() > 0.3 && physicsEvent.getParticle("[22, 3]").p() > 0.3 ){
         hPion1.fill(pion1.mass());
+        hMMPEPi.fill(missingPEPi.mass());
         if(pion1.mass() > 0.1 && pion1.mass() < 0.16){
             hPion2.fill(pion2.mass());
             hPion1Pion2.fill(pion1.mass(), pion2.mass());
