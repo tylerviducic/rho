@@ -16,7 +16,7 @@ TCanvas c1 = new TCanvas("c1", 500, 500);
 TCanvas c2 = new TCanvas("c2", 500, 500);
 TCanvas c3 = new TCanvas("c3", 500, 500);
 
-String file = "";
+String file = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/lambda/skimmed_005425.hipo";
 HipoChain reader = new HipoChain();
 reader.addFile(file);
 
