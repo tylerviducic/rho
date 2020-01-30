@@ -16,7 +16,7 @@ TCanvas c1 = new TCanvas("c1", 500, 500);
 TCanvas c2 = new TCanvas("c2", 500, 500);
 TCanvas c3 = new TCanvas("c3", 500, 500);
 
-String file = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/lambda/skimmed_005425.hipo";
+String file = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/lambda/skimmed_005425_1.hipo";
 HipoChain reader = new HipoChain();
 reader.addFile(file);
 reader.open();
@@ -36,7 +36,7 @@ while (reader.hasNext()){
     Particle protonPion = physicsEvent.getParticle("[2212] + [-211]");
 
     hMMProtonElectron.fill(missingKaon.mass());
-    if(missingKaon.mass() > 0.45 && missingKaon.mass() < 0.55){
+    if(missingKaon.mass() > 0.4 && missingKaon.mass() < 0.6){
         hIMProtonPion.fill(protonPion.mass());
         if (filter.isValid(physicsEvent)){
             Particle electronKaon = physicsEvent.getParticle("[b] + [t] - [11] - [321]");
