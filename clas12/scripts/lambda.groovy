@@ -39,7 +39,6 @@ while (reader.hasNext()){
     if(missingKaon.mass() > 0.45 && missingKaon.mass() < 0.55){
         hIMProtonPion.fill(protonPion.mass());
         if (filter.isValid(physicsEvent)){
-            System.out.println("true");
             Particle electronKaon = physicsEvent.getParticle("[b] + [t] - [11] - [321]");
             hMMElectronKaon.fill(electronKaon.mass());
         }
