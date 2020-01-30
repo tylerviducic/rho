@@ -10,7 +10,7 @@ import org.jlab.jnp.reader.DataManager
 
 H1F hMMProtonElectron = new H1F("hMMProtonElectron", 200, 0, 1);
 H1F hIMProtonPion = new H1F("hIMProtonPion", 100, 1.0, 2.5);
-H1F hIMElectronKaon = new H1F("hIMElectronKaon", 100, 1.0, 2.5);
+H1F hMMElectronKaon = new H1F("hIMElectronKaon", 100, 1.0, 2.5);
 
 TCanvas c1 = new TCanvas("c1", 500, 500);
 TCanvas c2 = new TCanvas("c2", 500, 500);
@@ -39,8 +39,9 @@ while (reader.hasNext()){
     if(missingKaon.mass() > 0.45 && missingKaon.mass() < 0.55){
         hIMProtonPion.fill(protonPion.mass());
         if (filter.isValid(physicsEvent)){
+            System.out.println("true");
             Particle electronKaon = physicsEvent.getParticle("[b] + [t] - [11] - [321]");
-            hIMElectronKaon.fill(electronKaon.mass());
+            hMMElectronKaon.fill(electronKaon.mass());
         }
     }
 
@@ -48,4 +49,4 @@ while (reader.hasNext()){
 
 c1.draw(hMMProtonElectron);
 c2.draw(hIMProtonPion);
-c3.draw(hIMElectronKaon);
+c3.draw(hMMElectronKaon);
