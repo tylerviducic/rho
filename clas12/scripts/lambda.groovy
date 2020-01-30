@@ -36,12 +36,16 @@ while (reader.hasNext()){
     Particle protonPion = physicsEvent.getParticle("[2212] + [-211]");
 
     hMMProtonElectron.fill(missingKaon.mass());
-
-
-    if (filter.isValid(physicsEvent)){
-        Particle electronKaon = physicsEvent.getParticle("[11] + [321]");
+    if(missingKaon.mass() > 0.45 && missingKaon.mass() < 0.55){
+        hIMProtonPion.fill(protonPion.mass());
+        if (filter.isValid(physicsEvent)){
+            Particle electronKaon = physicsEvent.getParticle("[11] + [321]");
+            hIMElectronKaon.fill(electronKaon.mass());
+        }
     }
 
 }
 
 c1.draw(hMMProtonElectron);
+c2.draw(hIMProtonPion);
+c3.draw(hIMElectronKaon);
