@@ -18,7 +18,7 @@ hPion1.setTitle("im gam1 and gam2");
 H1F hPion2 = new H1F("hPion2", 100, 0, 1.0);
 hPion2.setTitle("im gam3 and gam4");
 H2F hPion1Pion2 = new H2F("hPion1Pion2", 100, 0, 0.3, 100, 0, 0.3);
-H1F hIM4gam = new H1F("hIM4gam", 150, -0.5, 1.0);
+H1F hIM4gam = new H1F("hIM4gam", 150, 0.4, 1.5);
 hIM4gam.setTitle("Invariant mass of 4 pions");
 
 String directory = "/work/clas12/viducic/data/clas12/premakoff/skimmedFiles/";
