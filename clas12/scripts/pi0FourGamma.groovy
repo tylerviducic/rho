@@ -20,7 +20,8 @@ hPion2.setTitle("im gam3 and gam4");
 H2F hPion1Pion2 = new H2F("hPion1Pion2", 100, 0, 0.3, 100, 0, 0.3);
 H1F hIM4gam = new H1F("hIM4gam", 150, 0.4, 1.5);
 hIM4gam.setTitle("Invariant mass of 4 pions");
-H1F hMMPEPi = new H1F("hMMPePi", 100, 0.0, 2.0);
+H1F hMMPEPi = new H1F("hMMPePi", 100, 0.0, 1.0);
+H2F hPion2MissingPion = new H2F("hPion2MissingPion", 100, 0, 1.0, 100, 0, 1.0);
 
 
 String directory = "/work/clas12/viducic/data/clas12/premakoff/skimmedFiles/";
@@ -57,6 +58,7 @@ while (reader.hasNext()){
             hMMPEPi.fill(missingPEPi.mass());
             hPion2.fill(pion2.mass());
             hPion1Pion2.fill(pion1.mass(), pion2.mass());
+            hPion2MissingPion.fill(pion2.mass(), missingPEPi.mass());
             if (pion2.mass() > 0.1 && pion2.mass() < 0.16 && gam4.mass() > 0.8 && gam4.mass() < 1.1){
         //if ( gam4.mass() > 0.4 && gam4.mass() < 0.65){
 
