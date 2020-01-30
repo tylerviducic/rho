@@ -53,8 +53,8 @@ while (reader.hasNext()){
 
     if(physicsEvent.getParticle("[22, 2]").p() > 0.3 && physicsEvent.getParticle("[22, 3]").p() > 0.3 ){
         hPion1.fill(pion1.mass());
-        hMMPEPi.fill(missingPEPi.mass());
         if(pion1.mass() > 0.1 && pion1.mass() < 0.16){
+            hMMPEPi.fill(missingPEPi.mass());
             hPion2.fill(pion2.mass());
             hPion1Pion2.fill(pion1.mass(), pion2.mass());
             if (pion2.mass() > 0.1 && pion2.mass() < 0.16 && gam4.mass() > 0.8 && gam4.mass() < 1.1){
