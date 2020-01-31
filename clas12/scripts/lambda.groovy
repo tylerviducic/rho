@@ -16,15 +16,16 @@ TCanvas c1 = new TCanvas("c1", 500, 500);
 TCanvas c2 = new TCanvas("c2", 500, 500);
 TCanvas c3 = new TCanvas("c3", 500, 500);
 
-String file = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/lambda/skimmed_005425_1.hipo";
+//String directory = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/lambda/tagger";
+String directory = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/lambda/forward";
 HipoChain reader = new HipoChain();
-reader.addFile(file);
+reader.addDir(directory);
 reader.open();
 
 Event event = new Event();
 Bank particle = new Bank(reader.getSchemaFactory().getSchema("REC::Particle"));
 
-EventFilter filter = new EventFilter("11:2212:-211:321:X+:X-:Xn");
+EventFilter filter = new EventFilter("11:2212:-211:321:Xn");
 
 while (reader.hasNext()){
     reader.nextEvent(event);
@@ -49,5 +50,3 @@ while (reader.hasNext()){
 c1.draw(hMMProtonElectron);
 c2.draw(hIMProtonPion);
 c3.draw(hMMElectronKaon);
-
-//plot im p pi-
