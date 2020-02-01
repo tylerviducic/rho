@@ -16,8 +16,8 @@ TCanvas c1 = new TCanvas("c1", 500, 500);
 TCanvas c2 = new TCanvas("c2", 500, 500);
 TCanvas c3 = new TCanvas("c3", 500, 500);
 
-String directory = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/lambda/tagger";
-//String directory = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/lambda/forward";
+//String directory = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/lambda/tagger";
+String directory = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/lambda/forward";
 HipoChain reader = new HipoChain();
 reader.addDir(directory);
 reader.open();
