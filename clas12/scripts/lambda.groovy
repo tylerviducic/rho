@@ -16,8 +16,8 @@ TCanvas c1 = new TCanvas("c1", 500, 500);
 TCanvas c2 = new TCanvas("c2", 500, 500);
 TCanvas c3 = new TCanvas("c3", 500, 500);
 
-String directory = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/lambda/tagger";
-//String directory = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/lambda/forward";
+//String directory = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/lambda/tagger";
+String directory = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/lambda/forward";
 HipoChain reader = new HipoChain();
 reader.addDir(directory);
 reader.open();
@@ -36,14 +36,15 @@ while (reader.hasNext()){
     Particle missingKaon = physicsEvent.getParticle("[b] + [t] - [2212] - [11] - [-211]");
     Particle protonPion = physicsEvent.getParticle("[2212] + [-211]");
 
-    hMMProtonElectron.fill(missingKaon.mass());
-    if(missingKaon.mass() > 0.4 && missingKaon.mass() < 0.6){
-        hIMProtonPion.fill(protonPion.mass());
-        if (filter.isValid(physicsEvent)){
-            Particle electronKaon = physicsEvent.getParticle("[b] + [t] - [11] - [321]");
-            hMMElectronKaon.fill(electronKaon.mass());
-        }
-    }
+    hIMProtonPion.fill(protonPion.mass());
+//    hMMProtonElectron.fill(missingKaon.mass());
+//    if(missingKaon.mass() > 0.4 && missingKaon.mass() < 0.6){
+//        hIMProtonPion.fill(protonPion.mass());
+//        if (filter.isValid(physicsEvent)){
+//            Particle electronKaon = physicsEvent.getParticle("[b] + [t] - [11] - [321]");
+//            hMMElectronKaon.fill(electronKaon.mass());
+//        }
+//    }
 
 }
 
