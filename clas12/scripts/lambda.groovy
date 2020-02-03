@@ -9,10 +9,15 @@ import org.jlab.jnp.physics.PhysicsEvent
 import org.jlab.jnp.reader.DataManager
 
 H1F hMMProtonElectron = new H1F("hMMProtonElectron", 200, 0, 1);
+hMMProtonElectron.setTitle("Missing mass of Proton-Electron-Pion with no cuts");
 H1F hIMProtonPion = new H1F("hIMProtonPion", 250, 1.0, 2.5);
+hIMProtonPion.setTitle("Invariant mass of Proton-Pion  with no cuts");
 H1F hMMElectronKaon = new H1F("hIMElectronKaon", 100, 1.0, 2.5);
+hMMElectronKaon.setTitle("Missing mass of electron-kaon");
 H1F hMMProtonElectronCut = new H1F("hMMProtonElectronCut", 200, 0, 1);
+hMMProtonElectronCut.setTitle("Missing mass of Proton-Electron-Pion with cuts");
 H1F hIMProtonPionCut = new H1F("hIMProtonPionCut", 250, 1.0, 2.5)
+hIMProtonPionCut.setTitle("Invariant mass of Proton-Pion  with no cuts");
 
 TCanvas c1 = new TCanvas("c1", 500, 500);
 TCanvas c2 = new TCanvas("c2", 500, 500);
@@ -20,9 +25,9 @@ TCanvas c3 = new TCanvas("c3", 500, 500);
 TCanvas c4 = new TCanvas("c4", 500, 500);
 TCanvas c5 = new TCanvas("c5", 500, 500);
 
-String directory = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/lambda/tagger";
+//String directory = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/lambda/tagger";
 //String directory = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/lambda/forward";
-//String directory = "/home/tylerviducic/research/rho/clas12/data/lambda/forward";
+String directory = "/home/tylerviducic/research/rho/clas12/data/lambda/forward";
 HipoChain reader = new HipoChain();
 reader.addDir(directory);
 reader.open();
