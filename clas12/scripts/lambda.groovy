@@ -71,18 +71,23 @@ while (reader.hasNext()){
 
     Particle missingKaon = physicsEvent.getParticle("[b] + [t] - [2212] - [11] - [-211]");
     Particle protonPion = physicsEvent.getParticle("[2212] + [-211]");
+    Particle proton = physicsEvent.getParticle("[2212]");
+    Particle electron = physicsEvent.getParticle("[11]");
+    Particle pion = physicsEvent.getParticle("[-211]");
 
     hProtonVertex.fill(physicsEvent.getParticle("[2212]").vz());
     hElectronVertex.fill(physicsEvent.getParticle("[11]").vz());
     hPionVertex.fill(physicsEvent.getParticle("[-211]").vz());
 
     hIMProtonPion.fill(protonPion.mass());
-    if(protonPion.mass() > 1.1 && protonPion.mass() < 1.125){
+    if(protonPion.mass() > 1.1 && protonPion.mass() < 1.125 && Math.abs(proton.vz() - electron.vz()) < 2
+                               && Math.abs(pion.vz() - electron.vz()) < 2){
         hMMProtonElectronCut.fill(missingKaon.mass());
     }
 
     hMMProtonElectron.fill(missingKaon.mass());
-    if(missingKaon.mass() > 0.4 && missingKaon.mass() < 0.6){
+    if(missingKaon.mass() > 0.4 && missingKaon.mass() < 0.6 && Math.abs(proton.vz() - electron.vz()) < 2
+                                && Math.abs(pion.vz() - electron.vz()) < 2){
         hIMProtonPionCut.fill(protonPion.mass());
         if (filter.isValid(physicsEvent)){
             Particle electronKaon = physicsEvent.getParticle("[b] + [t] - [11] - [321]");
