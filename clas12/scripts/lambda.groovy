@@ -57,7 +57,7 @@ while (reader.hasNext()){
     Particle protonPion = physicsEvent.getParticle("[2212] + [-211]");
 
     hIMProtonPion.fill(protonPion.mass());
-    if(protonPion.mass() > 0.95 && protonPion.mass() < 1.2){
+    if(protonPion.mass() > 1.1 && protonPion.mass() < 1.125){
         hMMProtonElectronCut.fill(missingKaon.mass());
     }
 
