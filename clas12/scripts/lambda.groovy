@@ -75,9 +75,9 @@ while (reader.hasNext()){
     Particle electron = physicsEvent.getParticle("[11]");
     Particle pion = physicsEvent.getParticle("[-211]");
 
-    hProtonVertex.fill(physicsEvent.getParticle("[2212]").vz());
+    hProtonVertex.fill(Math.abs(proton.vz() - electron.vz()));
     hElectronVertex.fill(physicsEvent.getParticle("[11]").vz());
-    hPionVertex.fill(physicsEvent.getParticle("[-211]").vz());
+    hPionVertex.fill(Math.abs(pion.vz() - electron.vz()));
 
     if(Math.abs(proton.vz() - electron.vz()) < 2 && Math.abs(pion.vz() - electron.vz()) < 2) {
         hIMProtonPion.fill(protonPion.mass());
