@@ -20,9 +20,9 @@ hMMProtonElectronCut.setTitle("Missing mass of Proton-Electron-Pion with cuts");
 H1F hIMProtonPionCut = new H1F("hIMProtonPionCut", 250, 1.0, 1.25)
 hIMProtonPionCut.setTitle("Invariant mass of Proton-Pion  with cuts");
 
-H1F hProtonVertex = new H1F("hProtonVertex", 100, -50, 50);
+H1F hProtonVertex = new H1F("hProtonVertex", 100, -10, 10);
 H1F hElectronVertex = new H1F("hElectronVertex", 100, -50, 50);
-H1F hPionVertex = new H1F("hPioVertex", 100, -50, 50);
+H1F hPionVertex = new H1F("hPioVertex", 100, -10, 10);
 
 //H1FC hK = new H1FC("hK", 100, 0.2, 1.2);
 //hK.addCut(0.45, 0.65);
@@ -75,9 +75,9 @@ while (reader.hasNext()){
     Particle electron = physicsEvent.getParticle("[11]");
     Particle pion = physicsEvent.getParticle("[-211]");
 
-    hProtonVertex.fill(Math.abs(proton.vz() - electron.vz()));
+    hProtonVertex.fill(proton.vz() - electron.vz());
     hElectronVertex.fill(physicsEvent.getParticle("[11]").vz());
-    hPionVertex.fill(Math.abs(pion.vz() - electron.vz()));
+    hPionVertex.fill(pion.vz() - electron.vz());
 
     if(Math.abs(proton.vz() - electron.vz()) < 2 && Math.abs(pion.vz() - electron.vz()) < 2) {
         hIMProtonPion.fill(protonPion.mass());
