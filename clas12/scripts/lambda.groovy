@@ -15,7 +15,7 @@ H1F hIMProtonPion = new H1F("hIMProtonPion", 250, 1.0, 1.25);
 hIMProtonPion.setTitle("Invariant mass of Proton-Pion  with no cuts");
 H1F hMMElectronKaon = new H1F("hIMElectronKaon", 100, 1.0, 2.5);
 hMMElectronKaon.setTitle("Missing mass of electron-kaon");
-H1F hMMProtonElectronCut = new H1F("hMMProtonElectronCut", 200, 0, 1);
+H1F hMMProtonElectronCut = new H1F("hMMProtonElectronCut", 80, 0, 1);
 hMMProtonElectronCut.setTitle("Missing mass of Proton-Electron-Pion with cuts");
 H1F hIMProtonPionCut = new H1F("hIMProtonPionCut", 250, 1.0, 1.25)
 hIMProtonPionCut.setTitle("Invariant mass of Proton-Pion  with cuts");
