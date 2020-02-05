@@ -72,9 +72,9 @@ while (reader.hasNext()){
     Particle missingKaon = physicsEvent.getParticle("[b] + [t] - [2212] - [11] - [-211]");
     Particle protonPion = physicsEvent.getParticle("[2212] + [-211]");
 
-    hProtonVertex.fill(physicsEvent.getParticle("2212").vz());
-    hElectronVertex.fill(physicsEvent.getParticle("11").vz());
-    hPionVertex.fill(physicsEvent.getParticle("-211").vz());
+    hProtonVertex.fill(physicsEvent.getParticle("[2212]").vz());
+    hElectronVertex.fill(physicsEvent.getParticle("[11]").vz());
+    hPionVertex.fill(physicsEvent.getParticle("[-211]").vz());
 
     hIMProtonPion.fill(protonPion.mass());
     if(protonPion.mass() > 1.1 && protonPion.mass() < 1.125){
