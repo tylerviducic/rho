@@ -52,7 +52,7 @@ TCanvas c5 = new TCanvas("c5", 500, 500);
 String directory = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/lambda/forward";
 //String directory = "/home/tylerviducic/research/rho/clas12/data/lambda/forward";
 HipoChain reader = new HipoChain();
-reader.addDir(directory, "skimmed_5*");
+reader.addDir(directory, "*skimmed_5*");
 reader.open();
 
 Event event = new Event();
