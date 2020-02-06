@@ -1,9 +1,8 @@
 import org.jlab.groot.data.H1F
-import org.jlab.groot.data.H1FC
 import org.jlab.groot.ui.TCanvas
 import org.jlab.jnp.hipo4.data.Bank
-import org.jlab.jnp.hipo4.io.HipoChain
 import org.jlab.jnp.hipo4.data.Event
+import org.jlab.jnp.hipo4.io.HipoChain
 import org.jlab.jnp.physics.EventFilter
 import org.jlab.jnp.physics.Particle
 import org.jlab.jnp.physics.PhysicsEvent
@@ -53,7 +52,7 @@ TCanvas c5 = new TCanvas("c5", 500, 500);
 String directory = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/lambda/forward";
 //String directory = "/home/tylerviducic/research/rho/clas12/data/lambda/forward";
 HipoChain reader = new HipoChain();
-reader.addDir(directory);
+reader.addDir(directory, "skimmed_5*");
 reader.open();
 
 Event event = new Event();
