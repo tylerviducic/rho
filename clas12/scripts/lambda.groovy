@@ -95,4 +95,5 @@ while (reader.hasNext()){
     }
 }
 
+System.out.println("done");
 
