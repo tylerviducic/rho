@@ -78,7 +78,7 @@ while (reader.hasNext()){
     hElectronVertex.fill(physicsEvent.getParticle("[11]").vz());
     hPionVertex.fill(pion.vz() - electron.vz());
 
-    if(Math.abs(proton.vz() - electron.vz()) < 2 && Math.abs(pion.vz() - electron.vz()) < 2) {
+    if(Math.abs(proton.vz() - pion.vz()) < 2 && Math.abs(pion.vz() - electron.vz()) < 2) {
         hIMProtonPion.fill(protonPion.mass());
         if (protonPion.mass() > 1.1 && protonPion.mass() < 1.125) {
             hMMProtonElectronCut.fill(missingKaon.mass());
