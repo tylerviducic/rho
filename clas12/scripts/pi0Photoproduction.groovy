@@ -39,9 +39,9 @@ while (reader.hasNext()){
     Particle missingPEGamGam = physicsEvent.getParticle("[b] + [t] - [2212] - [11] - [22,0] - [22,1]");
 
     hPi0.fill(pi0.mass());
-    hMissingPEGamGam.fill(missingPE.mass2());
     if(pi0.mass() > 0.1 && pi0.mass() < 0.16){
         hMissingPE.fill(missingPE.mass());
+        hMissingPEGamGam.fill(missingPE.mass2());
     }
 }
 
