@@ -18,7 +18,7 @@ c1.getCanvas().initTimer(1000);
 c1.cd(0).draw(hPi0);
 c1.cd(1).draw(hMissingPE);
 
-String directory = "/work/clas12/viducic/clas12/data/clas12/pion/forward";
+String directory = "/work/clas12/viducic/data/clas12/pion/forward/";
 
 HipoChain reader = new HipoChain();
 reader.addDir(directory);
