@@ -7,7 +7,7 @@ import org.jlab.jnp.physics.Particle
 import org.jlab.jnp.physics.PhysicsEvent
 import org.jlab.jnp.reader.DataManager
 
-H1F hPi0 = new H1F("pi0", 50, 0, 0.5);
+H1F hPi0 = new H1F("pi0", 50, 0, 0.25);
 hPi0.setTitle("Invariant mass gamma gamma");
 H1F hMissingPE = new H1F("missingPE", 100, 0, 1);
 hMissingPE.setTitle("missing mass of proton-electron");
