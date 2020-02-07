@@ -59,10 +59,11 @@ while (reader.hasNext()){
             hPion2.fill(pion2.mass());
             hPion1Pion2.fill(pion1.mass(), pion2.mass());
             hPion2MissingPion.fill(pion2.mass(), missingPEPi.mass());
-            if (pion2.mass() > 0.1 && pion2.mass() < 0.16 && gam4.mass() > 0.8 && gam4.mass() < 1.1){
-        //if ( gam4.mass() > 0.4 && gam4.mass() < 0.65){
+//            if (pion2.mass() > 0.1 && pion2.mass() < 0.16 && gam4.mass() > 0.8 && gam4.mass() < 1.1){
+            if (pion2.mass() > 0.1 && pion2.mass() < 0.16){
+                //if ( gam4.mass() > 0.4 && gam4.mass() < 0.65){
 
-            hIM4gam.fill(gam4.mass());
+                hIM4gam.fill(gam4.mass());
                 hMM2pe.fill(missingPe.mass());//}
             }
         }
@@ -82,6 +83,6 @@ TCanvas c6 = new TCanvas("c6", 500, 500);
 
 c3.draw(hPion1);
 c4.draw(hPion2);
-//c5.draw(hPion1Pion2);
-c5.draw(hPion2MissingPion);
+c5.draw(hPion1Pion2);
+//c5.draw(hPion2MissingPion);
 c6.draw(hIM4gam);
