@@ -35,7 +35,7 @@ while (reader.hasNext()){
     Particle pi0 = physicsEvent.getParticle("[22,0] + [22,1]");
     Particle missingPE = physicsEvent.getParticle("[b] + [t] - [2212] - [11]");
 
-    hmissingPE.fill(missingPE.mass());
+    hMissingPE.fill(missingPE.mass());
     hPi0.fill(pi0.mass());
 }
 
