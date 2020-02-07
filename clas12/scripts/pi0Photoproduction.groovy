@@ -12,13 +12,15 @@ hPi0.setTitle("Invariant mass gamma gamma");
 H1F hMissingPE = new H1F("missingPE", 100, 0, 1);
 hMissingPE.setTitle("missing mass of proton-electron");
 H1F hMissingPEGamGam = new H1F("hMissingPEGamGam", 100, -0.1, 0.1);
+H1F hMissingEnergy = new H1F("missingEnergy", 100, 0, 1.5);
 
 TCanvas c1 = new TCanvas("c1", 1000, 1000);
-c1.divide(1, 3);
+c1.divide(2, 2);
 c1.getCanvas().initTimer(1000);
 c1.cd(0).draw(hPi0);
 c1.cd(1).draw(hMissingPE);
 c1.cd(2).draw(hMissingPEGamGam);
+c1.cd(3).draw(hMissingEnergy);
 
 String directory = "/work/clas12/viducic/data/clas12/pion/forward/";
 
@@ -43,6 +45,7 @@ while (reader.hasNext()){
     hPi0.fill(pi0.mass());
     if(pi0.mass() > 0.1 && pi0.mass() < 0.16 && Math.abs(missingPEGamGam.mass2()) < 0.02){
         hMissingPE.fill(missingPE.mass());
+        hMissingEnergy.fill(missingPEGamGam.e());
     }
 }
 
