@@ -11,6 +11,7 @@ H1F hPi0 = new H1F("pi0", 50, 0, 0.5);
 hPi0.setTitle("Invariant mass gamma gamma");
 H1F hMissingPE = new H1F("missingPE", 100, 0, 1);
 hMissingPE.setTitle("missing mass of proton-electron");
+H1F hMissingPEGamGam = new H1F("hMissingPEGamGam", 100, -0.5, 0.5);
 
 TCanvas c1 = new TCanvas("c1", 1000, 1000);
 c1.divide(1, 2);
@@ -34,8 +35,10 @@ while (reader.hasNext()){
     PhysicsEvent physicsEvent = DataManager.getPhysicsEvent(10.6, particle);
     Particle pi0 = physicsEvent.getParticle("[22,0] + [22,1]");
     Particle missingPE = physicsEvent.getParticle("[b] + [t] - [2212] - [11]");
+    Particle missingPEGamGam = physicsEvent.getParticle("[b] + [t] - [2212] - [11] - [22,0] - [22,1]");
 
     hPi0.fill(pi0.mass());
+    hMissingPEGamGam.fill(missingPE.mass());
     if(pi0.mass() > 0.1 && pi0.mass() < 0.16){
         hMissingPE.fill(missingPE.mass());
     }
