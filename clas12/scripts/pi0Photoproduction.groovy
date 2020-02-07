@@ -14,10 +14,11 @@ hMissingPE.setTitle("missing mass of proton-electron");
 H1F hMissingPEGamGam = new H1F("hMissingPEGamGam", 100, -0.5, 0.5);
 
 TCanvas c1 = new TCanvas("c1", 1000, 1000);
-c1.divide(1, 2);
+c1.divide(1, 3);
 c1.getCanvas().initTimer(1000);
 c1.cd(0).draw(hPi0);
 c1.cd(1).draw(hMissingPE);
+c1.cd(2).draw(hMissingPEGamGam);
 
 String directory = "/work/clas12/viducic/data/clas12/pion/forward/";
 
