@@ -25,7 +25,7 @@ reader.addDir(directory);
 reader.open();
 
 Event event = new Event();
-Bank particle = new Bank(reader.getSchemaFactory().getSchema("RED::Particle"));
+Bank particle = new Bank(reader.getSchemaFactory().getSchema("REC::Particle"));
 
 while (reader.hasNext()){
     reader.nextEvent(event);
