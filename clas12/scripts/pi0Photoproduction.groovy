@@ -60,6 +60,7 @@ System.out.println("done");
 
 static Particle getBestPi0(PhysicsEvent physicsEvent){
     int photonCount = physicsEvent.countByPid(22);
+    System.out.println("Photon count is: " + photonCount);
     for(int i = 0; i < photonCount-1; i++){
         for(int j = i+1; j<photonCount; j++){
             System.out.println("testing photon " + (i +1) + " and photon " + (j+1));
