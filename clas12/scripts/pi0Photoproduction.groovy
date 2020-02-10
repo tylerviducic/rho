@@ -54,7 +54,7 @@ while (reader.hasNext()){
     hMissingPEGamGam.fill(missingPEGamGam.mass2());
     hPi0.fill(pi0.mass());
     hMissingEnergy.fill(missingPEGamGam.p());
-    if(pi0.mass() > 0.1 && pi0.mass() < 0.16 && Math.abs(missingPEGamGam.mass2()) < 0.02 && missingPEGamGam.p() < 0.15){
+    if(pi0.mass() > 0.1 && pi0.mass() < 0.16 && Math.abs(missingPEGamGam.mass2()) < 0.02 && missingPEGamGam.p() < 0.1){
         hMissingPE.fill(missingPE.mass());
         hMissingPionElectron.fill(missingPi0E.mass());
     }
