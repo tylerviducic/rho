@@ -62,11 +62,9 @@ static Particle getBestPi0(PhysicsEvent physicsEvent){
     int photonCount = physicsEvent.countByPid(22);
     for(int i = 0; i < photonCount-1; i++){
         for(int j = i+1; j<photonCount; j++){
-            Particle gam1 = physicsEvent.getParticleByPid(22, i);
+            Particle pi0 = physicsEvent.getParticleByPid(22, i);
             Particle gam2 = physicsEvent.getParticleByPid(2, j);
-
-            Particle pi0 = gam1.copyParticle(gam1);
-            pi0.combine(gam2, 1);
+             pi0.combine(gam2, 1);
 
             if(pi0.mass() < 0.16 && pi0.mass() > 0.1){
                 return pi0
