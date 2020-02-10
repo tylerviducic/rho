@@ -45,7 +45,7 @@ while (reader.hasNext()){
             && physicsEvent.countByPid(22) >= 2
             && physicsEvent.getParticleByPid(2212, 0).theta() < Math.toRadians(35)){
 
-        writer.addEvent(event);
+        //writer.addEvent(event);
         System.out.println(physicsEvent.countByPid(22));
     }
 }
