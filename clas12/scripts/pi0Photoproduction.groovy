@@ -12,7 +12,9 @@ hPi0.setTitle("Invariant mass gamma gamma");
 H1F hMissingPE = new H1F("missingPE", 100, 0, 1);
 hMissingPE.setTitle("missing mass of proton-electron");
 H1F hMissingPEGamGam = new H1F("hMissingPEGamGam", 100, -0.1, 0.1);
+hMissingPEGamGam.setTitle("Missing mass^2 of proton, electron, and first two photons");
 H1F hMissingEnergy = new H1F("missingEnergy", 80, 0, 0.4);
+hMissingEnergy.setTitle("missing momentum of proton, electron, and first two photons");
 
 TCanvas c1 = new TCanvas("c1", 1000, 1000);
 c1.divide(2, 2);
