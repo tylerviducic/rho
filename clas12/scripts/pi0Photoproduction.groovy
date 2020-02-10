@@ -38,8 +38,9 @@ while (reader.hasNext()){
     event.read(particle);
 
     PhysicsEvent physicsEvent = DataManager.getPhysicsEvent(10.6, particle);
-    //Particle pi0 = physicsEvent.getParticle("[22,0] + [22,1]");
-    Particle pi0 = getBestPi0(physicsEvent);
+    System.out.println(physicsEvent.countByPid(22));
+    Particle pi0 = physicsEvent.getParticle("[22,0] + [22,1]");
+    //Particle pi0 = getBestPi0(physicsEvent);
     Particle missingPE = physicsEvent.getParticle("[b] + [t] - [2212] - [11]");
     Particle missingPEGamGam = physicsEvent.getParticle("[b] + [t] - [2212] - [11] - [22,0] - [22,1]");
 
