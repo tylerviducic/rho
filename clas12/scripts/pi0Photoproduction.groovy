@@ -24,8 +24,8 @@ c1.getCanvas().initTimer(1000);
 c1.cd(0).draw(hPi0);
 c1.cd(1).draw(hMissingPE);
 c1.cd(2).draw(hMissingPEGamGam);
-//c1.cd(3).draw(hMissingEnergy);
-c1.cd(3).draw(hMissingPionElectron);
+c1.cd(3).draw(hMissingEnergy);
+//c1.cd(3).draw(hMissingPionElectron);
 
 String directory = "/work/clas12/viducic/data/clas12/pion/forward/";
 
@@ -53,10 +53,10 @@ while (reader.hasNext()){
     hMissingPEGamGam.fill(missingPEGamGam.mass2());
     hPi0.fill(pi0.mass());
     hMissingEnergy.fill(missingPEGamGam.p());
-    //if(pi0.mass() > 0.1 && pi0.mass() < 0.16 && Math.abs(missingPEGamGam.mass2()) < 0.02){
-    if(pi0.mass() > 0.1 && pi0.mass() < 0.16 && missingPi0E.mass() > 0.8 && missingPi0E.mass() < 1.0){
+    if(pi0.mass() > 0.1 && pi0.mass() < 0.16 && Math.abs(missingPEGamGam.mass2()) < 0.02){
+    //if(pi0.mass() > 0.1 && pi0.mass() < 0.16 && missingPi0E.mass() > 0.8 && missingPi0E.mass() < 1.0){
         hMissingPE.fill(missingPE.mass());
-        //hMissingPionElectron.fill(missingPi0E.mass());
+        hMissingPionElectron.fill(missingPi0E.mass());
     }
 }
 
