@@ -41,9 +41,6 @@ while (reader.hasNext()){
     event.read(particle);
 
     PhysicsEvent physicsEvent = DataManager.getPhysicsEvent(10.6, particle);
-    if (physicsEvent.countByPid(22) > 2){
-        System.out.println("unicorn");
-    }
     //Particle pi0 = physicsEvent.getParticle("[22,0] + [22,1]");
     Particle pi0 = getBestPi0(physicsEvent);
     Particle missingPE = physicsEvent.getParticle("[b] + [t] - [2212] - [11]");
@@ -69,7 +66,6 @@ System.out.println("done");
 
 static Particle getBestPi0(PhysicsEvent myPhysicsEvent){
     int photonCount = myPhysicsEvent.countByPid(22);
-    System.out.println("Photon count is: " + photonCount);
     for(int i = 0; i < photonCount-1; i++){
         for(int j = i+1; j<photonCount; j++){
             Particle pi0 = Particle.copyFrom(myPhysicsEvent.getParticleByPid(22, i));
