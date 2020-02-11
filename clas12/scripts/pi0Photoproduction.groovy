@@ -44,8 +44,8 @@ while (reader.hasNext()){
     if (physicsEvent.countByPid(22) > 2){
         System.out.println("unicorn");
     }
-    Particle pi0 = physicsEvent.getParticle("[22,0] + [22,1]");
-    //Particle pi0 = getBestPi0(physicsEvent);
+    //Particle pi0 = physicsEvent.getParticle("[22,0] + [22,1]");
+    Particle pi0 = getBestPi0(physicsEvent);
     Particle missingPE = physicsEvent.getParticle("[b] + [t] - [2212] - [11]");
     Particle missingPEGamGam = physicsEvent.getParticle("[b] + [t] - [2212] - [11] - [22,0] - [22,1]");
     Particle missingPi0E = physicsEvent.getParticle("[b] + [t] - [11] - [22, 0] - [22, 1]");
@@ -74,7 +74,7 @@ static Particle getBestPi0(PhysicsEvent physicsEvent){
         for(int j = i+1; j<photonCount; j++){
             System.out.println("testing photon " + (i +1) + " and photon " + (j+1));
             Particle pi0 = physicsEvent.getParticleByPid(22, i);
-            Particle gam2 = physicsEvent.getParticleByPid(2, j);
+            Particle gam2 = physicsEvent.getParticleByPid(22, j);
             pi0.combine(gam2, 1);
             System.out.println("Pi0 mass is: " + pi0.mass());
             if(pi0.mass() < 0.16 && pi0.mass() > 0.1){
