@@ -78,6 +78,7 @@ static Particle getBestPi0(PhysicsEvent physicsEvent){
             pi0.combine(gam2, 1);
             //System.out.println("Pi0 mass is: " + pi0.mass());
             if(pi0.mass() < 0.16 && pi0.mass() > 0.1){
+                System.out.println("found one!");
                 return pi0
             }
         }
