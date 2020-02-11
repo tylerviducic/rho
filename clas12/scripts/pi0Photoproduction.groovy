@@ -86,5 +86,6 @@ static Particle getBestPi0(PhysicsEvent physicsEvent){
     Particle pi0 = physicsEvent.getParticleByPid(22, 0);
     Particle gam2 = physicsEvent.getParticleByPid(22, 1);
     pi0.combine(gam2, 1);
+    System.out.println("mass of pi0 is: " + pi0.mass());
     return pi0;
 }
