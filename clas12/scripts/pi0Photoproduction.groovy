@@ -44,7 +44,8 @@ while (reader.hasNext()){
     //Particle pi0 = physicsEvent.getParticle("[22,0] + [22,1]");
     Particle pi0 = getBestPi0(physicsEvent);
     Particle missingPE = physicsEvent.getParticle("[b] + [t] - [2212] - [11]");
-    Particle missingPEGamGam = physicsEvent.getParticle("[b] + [t] - [2212] - [11] - [22,0] - [22,1]");
+    Particle missingPEGamGam = Particle.copyFrom(physicsEvent.getParticle("[b] + [t] - [2212] - [11]"));
+    missingPEGamGam.combine(Particle.copyFrom(pi0), -1);
     Particle missingPi0E = Particle.copyFrom(physicsEvent.getParticle("[b] + [t] - [11]"));
     missingPi0E.combine(Particle.copyFrom(pi0), -1);
 
