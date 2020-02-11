@@ -69,18 +69,19 @@ System.out.println("done");
 
 static Particle getBestPi0(PhysicsEvent physicsEvent){
     int photonCount = physicsEvent.countByPid(22);
-    System.out.println("Photon count is: " + photonCount);
+    //System.out.println("Photon count is: " + photonCount);
     for(int i = 0; i < photonCount-1; i++){
         for(int j = i+1; j<photonCount; j++){
-            System.out.println("testing photon " + (i +1) + " and photon " + (j+1));
+            //System.out.println("testing photon " + (i +1) + " and photon " + (j+1));
             Particle pi0 = physicsEvent.getParticleByPid(22, i);
             Particle gam2 = physicsEvent.getParticleByPid(22, j);
             pi0.combine(gam2, 1);
-            System.out.println("Pi0 mass is: " + pi0.mass());
+            //System.out.println("Pi0 mass is: " + pi0.mass());
             if(pi0.mass() < 0.16 && pi0.mass() > 0.1){
                 return pi0
             }
         }
     }
+    System.out.println("mass of photon one and 2: " + physicsEvent.getParticle("[22,0]+[22,1]"));
     return physicsEvent.getParticle("[22,0]+[22,1]");
 }
