@@ -82,6 +82,6 @@ static Particle getBestPi0(PhysicsEvent physicsEvent){
             }
         }
     }
-    System.out.println("mass of photon one and 2: " + physicsEvent.getParticle("[22,0]+[22,1]"));
+    System.out.println("mass of photon one and 2: " + physicsEvent.getParticle("[22,0]+[22,1]").mass());
     return physicsEvent.getParticle("[22,0]+[22,1]");
 }
