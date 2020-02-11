@@ -56,7 +56,7 @@ while (reader.hasNext()){
     //if(pi0.mass() > 0.1 && pi0.mass() < 0.16 && Math.abs(missingPEGamGam.mass2()) < 0.02){
     if(pi0.mass() > 0.1 && pi0.mass() < 0.16 && missingPi0E.mass() > 0.8 && missingPi0E.mass() < 1.0){
         hMissingPE.fill(missingPE.mass());
-        hMissingPionElectron.fill(missingPi0E.mass());
+        //hMissingPionElectron.fill(missingPi0E.mass());
     }
 }
 
