@@ -72,22 +72,17 @@ static Particle getBestPi0(PhysicsEvent myPhysicsEvent){
     System.out.println("Photon count is: " + photonCount);
     for(int i = 0; i < photonCount-1; i++){
         for(int j = i+1; j<photonCount; j++){
-            //System.out.println("testing photon " + (i +1) + " and photon " + (j+1));
-            Particle pi0 = myPhysicsEvent.getParticleByPid(22, i);
-            Particle gam2 = myPhysicsEvent.getParticleByPid(22, j);
-            //pi0.combine(gam2, 1);
-            //System.out.println("Pi0 mass is: " + pi0.mass());
+            Particle pi0 = Particle.copyFrom(myPhysicsEvent.getParticleByPid(22, i));
+            Particle gam2 = Particle.copyFrom(myPhysicsEvent.getParticleByPid(22, j));
+
+            pi0.combine(gam2, 1);
             if(pi0.mass() < 0.16 && pi0.mass() > 0.1){
-                //System.out.println("found one!");
                 return pi0
             }
         }
     }
-    Particle pi0 = myPhysicsEvent.getParticleByPid(22, 0);
-    Particle gam2 = myPhysicsEvent.getParticleByPid(22, 1);
-    //pi0.combine(gam2, 1);
-    System.out.println("photons in event: " + myPhysicsEvent.countByPid(22));
-    System.out.println(myPhysicsEvent.toLundString());
+    Particle pi0 = Particle.copyFrom(myPhysicsEvent.getParticleByPid(22, 0));
+    Particle gam2 = Particle.copyFrom(myPhysicsEvent.getParticleByPid(22, 1));
+    pi0.combine(gam2, 1);
     return pi0;
-    //return myPhysicsEvent.getParticle("[22,0] + [22,1]");
 }
