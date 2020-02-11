@@ -45,14 +45,15 @@ while (reader.hasNext()){
     Particle pi0 = getBestPi0(physicsEvent);
     Particle missingPE = physicsEvent.getParticle("[b] + [t] - [2212] - [11]");
     Particle missingPEGamGam = physicsEvent.getParticle("[b] + [t] - [2212] - [11] - [22,0] - [22,1]");
-    Particle missingPi0E = physicsEvent.getParticle("[b] + [t] - [11] - [22, 0] - [22, 1]");
+    Particle missingPi0E = Particle.copyFrom(physicsEvent.getParticle("[b] + [t] - [11]"));
+    missingPi0E.combine(Particle.copyFrom(pi0), -1);
 
 
     hMissingPEGamGam.fill(missingPEGamGam.mass2());
     hPi0.fill(pi0.mass());
     hMissingEnergy.fill(missingPEGamGam.p());
-    if(pi0.mass() > 0.1 && pi0.mass() < 0.16 && Math.abs(missingPEGamGam.mass2()) < 0.02){
-    //if(pi0.mass() > 0.1 && pi0.mass() < 0.16 && missingPi0E.mass() > 0.8 && missingPi0E.mass() < 1.0){
+    //if(pi0.mass() > 0.1 && pi0.mass() < 0.16 && Math.abs(missingPEGamGam.mass2()) < 0.02){
+    if(pi0.mass() > 0.1 && pi0.mass() < 0.16 && missingPi0E.mass() > 0.8 && missingPi0E.mass() < 1.0){
         hMissingPE.fill(missingPE.mass());
         hMissingPionElectron.fill(missingPi0E.mass());
     }
