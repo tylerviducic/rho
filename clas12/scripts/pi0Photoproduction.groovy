@@ -85,7 +85,7 @@ static Particle getBestPi0(PhysicsEvent myPhysicsEvent){
     }
     Particle pi0 = myPhysicsEvent.getParticleByPid(22, 0);
     Particle gam2 = myPhysicsEvent.getParticleByPid(22, 1);
-    pi0.combine(gam2, 1);
+    //pi0.combine(gam2, 1);
     System.out.println("photons in event: " + myPhysicsEvent.countByPid(22));
     System.out.println(myPhysicsEvent.toLundString());
     return pi0;
