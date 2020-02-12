@@ -27,7 +27,8 @@ c1.cd(2).draw(hMissingPEGamGam);
 c1.cd(3).draw(hMissingEnergy);
 //c1.cd(3).draw(hMissingPionElectron);
 
-String directory = "/work/clas12/viducic/data/clas12/pion/forward/";
+String directory = "/work/clas12/viducic/data/clas12/pion/tagger/";
+//String directory = "/media/tylerviducic/Elements/clas12/pion/forward";
 
 HipoChain reader = new HipoChain();
 reader.addDir(directory);
@@ -41,8 +42,8 @@ while (reader.hasNext()){
     event.read(particle);
 
     PhysicsEvent physicsEvent = DataManager.getPhysicsEvent(10.6, particle);
-    //Particle pi0 = physicsEvent.getParticle("[22,0] + [22,1]");
-    Particle pi0 = getBestPi0(physicsEvent);
+    Particle pi0 = physicsEvent.getParticle("[22,0] + [22,1]");
+    //Particle pi0 = getBestPi0(physicsEvent);
     Particle missingPE = physicsEvent.getParticle("[b] + [t] - [2212] - [11]");
     Particle missingPEGamGam = Particle.copyFrom(physicsEvent.getParticle("[b] + [t] - [2212] - [11]"));
     missingPEGamGam.combine(Particle.copyFrom(pi0), -1);
@@ -53,8 +54,9 @@ while (reader.hasNext()){
     hMissingPEGamGam.fill(missingPEGamGam.mass2());
     hPi0.fill(pi0.mass());
     hMissingEnergy.fill(missingPEGamGam.p());
-    if(pi0.mass() > 0.1 && pi0.mass() < 0.16 && Math.abs(missingPEGamGam.mass2()) < 0.02){
-    //if(pi0.mass() > 0.1 && pi0.mass() < 0.16 && missingPi0E.mass() > 0.8 && missingPi0E.mass() < 1.0){
+    //if(pi0.mass() > 0.1 && pi0.mass() < 0.16 && Math.abs(missingPEGamGam.mass2()) < 0.02){
+    if(pi0.mass() > 0.1 && pi0.mass() < 0.16 && missingPi0E.mass() > 0.8 && missingPi0E.mass() < 1.0
+            && Math.abs(missingPEGamGam.mass2()) < 0.02){
         hMissingPE.fill(missingPE.mass());
         hMissingPionElectron.fill(missingPi0E.mass());
     }
