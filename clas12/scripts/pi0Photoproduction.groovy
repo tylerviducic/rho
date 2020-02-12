@@ -24,8 +24,8 @@ c1.getCanvas().initTimer(1000);
 c1.cd(0).draw(hPi0);
 c1.cd(1).draw(hMissingPE);
 c1.cd(2).draw(hMissingPEGamGam);
-c1.cd(3).draw(hMissingEnergy);
-//c1.cd(3).draw(hMissingPionElectron);
+//c1.cd(3).draw(hMissingEnergy);
+c1.cd(3).draw(hMissingPionElectron);
 
 String directory = "/work/clas12/viducic/data/clas12/pion/tagger/";
 //String directory = "/media/tylerviducic/Elements/clas12/pion/forward";
@@ -42,12 +42,12 @@ while (reader.hasNext()){
     event.read(particle);
 
     PhysicsEvent physicsEvent = DataManager.getPhysicsEvent(10.6, particle);
-    Particle pi0 = physicsEvent.getParticle("[22,0] + [22,1]");
-    //Particle pi0 = getBestPi0(physicsEvent);
-    Particle missingPE = physicsEvent.getParticle("[b] + [t] - [2212] - [11]");
-    Particle missingPEGamGam = Particle.copyFrom(physicsEvent.getParticle("[b] + [t] - [2212] - [11]"));
+    //Particle pi0 = physicsEvent.getParticle("[22,0] + [22,1]");
+    Particle pi0 = getBestPi0(physicsEvent);
+    Particle missingPE = physicsEvent.getParticle("[b] + [t] - [2212] - [11, 0]");
+    Particle missingPEGamGam = Particle.copyFrom(physicsEvent.getParticle("[b] + [t] - [2212] - [11, 0]"));
     missingPEGamGam.combine(Particle.copyFrom(pi0), -1);
-    Particle missingPi0E = Particle.copyFrom(physicsEvent.getParticle("[b] + [t] - [11]"));
+    Particle missingPi0E = Particle.copyFrom(physicsEvent.getParticle("[b] + [t] - [11, 0]"));
     missingPi0E.combine(Particle.copyFrom(pi0), -1);
 
 
