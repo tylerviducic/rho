@@ -27,7 +27,7 @@ c1.cd(2).draw(hMissingPEGamGam);
 //c1.cd(3).draw(hMissingEnergy);
 c1.cd(3).draw(hMissingPionElectron);
 
-String directory = "/work/clas12/viducic/data/clas12/pion/tagger/";
+String directory = "/work/clas12/viducic/data/clas12/pion/forward/";
 //String directory = "/media/tylerviducic/Elements/clas12/pion/forward";
 
 HipoChain reader = new HipoChain();
