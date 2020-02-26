@@ -21,6 +21,7 @@ c1.cd(0).draw(hPion);
 String file = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/lambda/tagger/kaon_detected_5038.hipo"
 HipoChain reader = new HipoChain();
 reader.addFile(file);
+reader.open();
 
 Event event = new Event();
 Bank particle = new Bank(reader.getSchemaFactory().getSchema("REC::Particle"));
@@ -36,3 +37,5 @@ while (reader.hasNext()){
 
     hPion.fill(pion.mass());
 }
+
+System.out.println("done");
