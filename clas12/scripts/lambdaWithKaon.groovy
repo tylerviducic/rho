@@ -23,7 +23,8 @@ c1.cd(1).draw(hMMElectronKaon);
 //String file = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/lambda/tagger/kaon_detected_5038.hipo"
 String directory = "/volatile/clas12/users/clas12/rich/dst/recon/005038/*";
 HipoChain reader = new HipoChain();
-reader.addFile(file);
+reader.addDir(directory);
+//reader.addFile(file);
 reader.open();
 
 Event event = new Event();
