@@ -37,7 +37,7 @@ while (reader.hasNext()){
     event.read(particle);
 
     PhysicsEvent physicsEvent = DataManager.getPhysicsEvent(10.6, particle);
-    if (filter.isValid(physicsEvent) && physicsEvent.getParticleByPid(11, 0).theta() < Math.toRadians(5)) {
+    if (filter.isValid(physicsEvent)) {
         Particle missingEKaon = physicsEvent.getParticle("[b] + [t] - [11] - [321]");
         Particle pion = physicsEvent.getParticle("[b] + [t] - [11] - [321] - [2212]");
 
