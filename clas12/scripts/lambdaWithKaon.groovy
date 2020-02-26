@@ -17,6 +17,7 @@ TCanvas c1 = new TCanvas("c1", 1000, 1000);
 c1.divide(2,1);
 c1.getCanvas().initTimer(1000);
 c1.cd(0).draw(hPion);
+c1.cd(1).draw(hMMElectronKaon);
 
 String file = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/lambda/tagger/kaon_detected_5038.hipo"
 HipoChain reader = new HipoChain();
