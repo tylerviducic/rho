@@ -48,5 +48,9 @@ while(reader.hasNext()){
             event.setEventTag(13);
         }
     }
-    writerSorted.addEvent(event);
+    if (event.getEventTag() != 0) {
+        writerSorted.addEvent(event);
+    }
 }
+
+writerSorted.close();
