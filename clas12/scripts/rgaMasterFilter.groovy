@@ -50,7 +50,7 @@ while(reader.hasNext()){
     }
     if (event.getEventTag() != 0) {
         System.out.println(event.getEventTag());
-        writerSorted.addEvent(event);
+        writerSorted.addEvent(event, event.getEventTag());
     }
 }
 
