@@ -9,7 +9,7 @@ import org.jlab.jnp.reader.DataManager
 
 H1F hMMElectronKaon = new H1F("hIMElectronKaon", 100, 1.0, 2.5);
 hMMElectronKaon.setTitle("Missing mass of electron-kaon");
-H1F hPion = new H1F("hPion", 100, 0, 0.3);
+H1F hPion = new H1F("hPion", 250, -0.5, 4.0);
 hPion.setTitle("Missing mass of e, p, k+");
 
 TCanvas c1 = new TCanvas("c1", 1000, 1000);
