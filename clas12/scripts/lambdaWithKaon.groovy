@@ -42,7 +42,9 @@ while (reader.hasNext()){
         Particle pion = physicsEvent.getParticle("[b] + [t] - [11] - [321] - [2212]");
 
         hPion.fill(pion.mass2());
-        hMMElectronKaon.fill(missingEKaon.mass());
+        if(pion.mass2() > 0.0 && pion.mass2() < 0.1) {
+            hMMElectronKaon.fill(missingEKaon.mass());
+        }
     }
 }
 
