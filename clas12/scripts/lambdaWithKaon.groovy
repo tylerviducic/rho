@@ -36,6 +36,7 @@ while (reader.hasNext()){
     Particle pion = physicsEvent.getParticle("[b] + [t] - [11] - [321] - [2212]");
 
     hPion.fill(pion.mass());
+    hMMElectronKaon.fill(missingEKaon.mass());
 }
 
 System.out.println("done");
