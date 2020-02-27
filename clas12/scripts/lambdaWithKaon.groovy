@@ -8,7 +8,7 @@ import org.jlab.jnp.physics.Particle
 import org.jlab.jnp.physics.PhysicsEvent
 import org.jlab.jnp.reader.DataManager
 
-H1F hMMElectronKaon = new H1F("hIMElectronKaon", 250, 1.0, 4.0);
+H1F hMMElectronKaon = new H1F("hIMElectronKaon", 150, 0.9, 2.5);
 hMMElectronKaon.setTitle("Missing mass of electron-kaon");
 H1F hPion = new H1F("hPion", 250, -0.5, 4.0);
 hPion.setTitle("Missing mass of e, p, k+");
