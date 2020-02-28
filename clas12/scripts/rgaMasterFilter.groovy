@@ -8,6 +8,7 @@ import org.jlab.jnp.reader.DataManager
 
 
 String directory = "/volatile/clas12/users/clas12/rich/dst/recon/005038/";
+//String directory = args[0];
 //String file = "/volatile/clas12/users/clas12/rich/dst/recon/005038/rec_clas_005038.evio.00615-00619.hipo"
 //need way to only skim files tht have not been skimmed yet. easy way would be to write a file with run rumbers skimmed
 //if the run number is in the file, move to the next one
