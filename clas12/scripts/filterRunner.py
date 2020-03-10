@@ -14,7 +14,7 @@ for directory in directories:
         os.system("mv rga_master.hipo rga_skimmed_old.hipo")
         cmd_ex = command + " " + directory
         os.system(cmd_ex)
-        combine_command = "/home/viducic/jaw-2.0/bin/hipoutils.sh -merge -o rga_skimmed_master.hipo rga_skimmed.hipo rga_skimmed_old.hipo"
+        combine_command = "/home/viducic/jaw-2.0/bin/hipoutils.sh -merge -o rga_master.hipo rga_skimmed.hipo rga_skimmed_old.hipo"
         os.system(combine_command)
         os.system('rm rga_skimmed_old.hipo')
         pickle_out = open('filteredRuns.p', 'wb')
