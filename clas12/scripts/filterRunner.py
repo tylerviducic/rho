@@ -7,7 +7,7 @@ filtered_runs = pickle.load(pickle_in)
 pickle_in.close()
 directories = glob.glob("/volatile/clas12/rg-a/production/pass0/physTrain/dst/recon/*")
 
-command = '/home/viducic/jaw-2.0/bin/run-groovy /w/hallb-scifs17exp/clas12/viducic/rho/clas12/scripts/rgaMasterFiler.groovy'
+command = '/home/viducic/jaw-2.0/bin/run-groovy /w/hallb-scifs17exp/clas12/viducic/rho/clas12/scripts/rgaMasterFilter.groovy'
 
 for directory in directories:
     if directory not in filtered_runs and os.path.isdir(directory):
