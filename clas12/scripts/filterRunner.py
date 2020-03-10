@@ -17,8 +17,9 @@ for directory in directories:
         combine_command = "/home/viducic/jaw-2.0/bin/hipoutils.sh -merge -o rga_master.hipo rga_skimmed.hipo rga_skimmed_old.hipo"
         os.system(combine_command)
         os.system('rm rga_skimmed_old.hipo')
+        filtered_runs.append(directory)
         pickle_out = open('filteredRuns.p', 'wb')
-        pickle.dump(directory, pickle_out)
+        pickle.dump(filtered_runs, pickle_out)
         pickle_out.close()
 
 print("done!")
