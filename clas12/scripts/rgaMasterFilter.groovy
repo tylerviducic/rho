@@ -20,7 +20,7 @@ reader.open();
 
 HipoWriterSorted writerSorted = new HipoWriterSorted();
 writerSorted.getSchemaFactory().copy(reader.getSchemaFactory());
-writerSorted.open("/work/clas12/viducic/data/clas12/rga_skimmed.hipo");
+writerSorted.open("/work/clas12/viducic/data/clas12/rga/rga_skimmed.hipo");
 
 Event event = new Event();
 Bank particle = new Bank(reader.getSchemaFactory().getSchema("REC::Particle"));
