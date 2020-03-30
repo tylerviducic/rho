@@ -30,8 +30,8 @@ List<String> files = FileUtils.getFileListInDir(directory);
 System.out.println(files);
 
 HipoChain reader = new HipoChain();
-//reader.addFile(file);
-reader.addDir(directory);
+reader.addFiles(files);
+//reader.addDir(directory);
 reader.open();
 
 Event event = new Event();
