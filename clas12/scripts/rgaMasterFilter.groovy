@@ -33,7 +33,7 @@ while(reader.hasNext()){
     event.read(particle);
     event.setEventTag(0);
 
-    // rho -> pi+pi-gamma
+
     PhysicsEvent physicsEvent = DataManager.getPhysicsEvent(10.6, particle);
     if(premakoffRhoFilter.isValid(physicsEvent)){
         event.setEventTag(10);
