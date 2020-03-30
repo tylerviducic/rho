@@ -23,15 +23,15 @@ hIM4gam.setTitle("Invariant mass of 4 pions");
 H1F hMMPEPi = new H1F("hMMPePi", 100, 0.0, 1.0);
 H2F hPion2MissingPion = new H2F("hPion2MissingPion", 100, 0, 0.4, 100, 0, 1.0);
 
-String directory = "/w/hallb-scifs17exp/clas12/rg-a/trains/v2/skim4_inclusive"
-//String directory = "/work/clas12/viducic/data/clas12/premakoff/skimmedFiles/";
+//String directory = "/w/hallb-scifs17exp/clas12/rg-a/trains/v2/skim4_inclusive";
+String directory = "/work/clas12/viducic/data/clas12/premakoff/skimmedFiles/";
 //String file = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/premakoff/photons.hipo";
 List<String> files = FileUtils.getFileListInDir(directory);
 System.out.println(files);
 
 HipoChain reader = new HipoChain();
-reader.addFiles(files);
-//reader.addDir(directory);
+//reader.addFiles(files);
+reader.addDir(directory);
 reader.open();
 
 Event event = new Event();
