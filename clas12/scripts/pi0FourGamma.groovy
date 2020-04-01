@@ -9,9 +9,18 @@ import org.jlab.jnp.physics.PhysicsEvent
 import org.jlab.jnp.reader.DataManager
 import org.jlab.jnp.utils.file.FileUtils
 
-H2F hgam1gam2 = new H2F("gam1gam2", 60, 0, 0.6, 60, 0, 0.6);
-H2F hgam1gam3 = new H2F("gam1gam3", 60, 0, 0.6, 60, 0, 0.6);
-H2F hgam1gam4 = new H2F("gam1gam4", 60, 0, 0.6, 60, 0, 0.6);
+H2F hgam1gam2 = new H2F("gam1gam2", 30, 0, 0.3, 30, 0, 0.3);
+hgam1gam2.setTitle("gam1gam2");
+hgam1gam2.setTitleX("gam1gam2");
+hgam1gam2.setTitleY("gam3gam4");
+H2F hgam1gam3 = new H2F("gam1gam3", 30, 0, 0.3, 30, 0, 0.3);
+hgam1gam3.setTitle("gam1gam3");
+hgam1gam3.setTitleX("gam1gam3");
+hgam1gam3.setTitleY("gam2gam4");
+H2F hgam1gam4 = new H2F("gam1gam4", 30, 0, 0.3, 30, 0, 0.3);
+hgam1gam4.setTitle("gam1gam4");
+hgam1gam4.setTitleX("gam1gam4");
+hgam1gam4.setTitleY("gam2gam3");
 
 TCanvas c1 = new TCanvas("c1", 1000, 1000);
 c1.divide(1, 3);
