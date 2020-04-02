@@ -120,9 +120,10 @@ System.out.println("done");
 //   methods
 
 public static int getSector(int pindex, Bank calorimeter){
-
+    System.out.println("checking pindex " + pindex);
     for(int i = 0; i < calorimeter.getRows(); i++){
         if(calorimeter.getInt("pindex", i) == pindex){
+            System.out.println("is " + calorimeter.getInt("pindex", i) +  " == " +  pindex );
             return calorimeter.getInt("sector", i);
         }
     }
