@@ -20,8 +20,8 @@ hgam1gam4.setTitleX("gam1gam4");
 hgam1gam4.setTitleY("gam2gam3");
 
 H2F hpionpion = new H2F("pionpion", 60, 0, 0.3, 60, 0, 0.3);
-hgam1gam2.setTitleX("first pion");
-hgam1gam2.setTitleY("second pion");
+hpionpion.setTitleX("first pion");
+hpionpion.setTitleY("second pion");
 
 TCanvas c1 = new TCanvas("c1", 1000, 1000);
 //c1.divide(1, 3);
@@ -58,8 +58,6 @@ while (reader.hasNext()) {
     int gam1Index = physicsEvent.getParticleIndex(22, 1);
     int gam2Index = physicsEvent.getParticleIndex(22, 2);
     int gam3Index = physicsEvent.getParticleIndex(22, 3);
-
-    System.out.println(gam0Index + "  " + gam1Index + "  " + gam2Index + "  " + gam3Index);
 
     int sector0 = getSector(gam0Index, calorimeter);
     int sector1 = getSector(gam1Index, calorimeter);
