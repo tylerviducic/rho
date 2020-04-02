@@ -4,6 +4,7 @@ import org.jlab.groot.ui.TCanvas
 import org.jlab.jnp.hipo4.data.Bank
 import org.jlab.jnp.hipo4.data.Event
 import org.jlab.jnp.hipo4.io.HipoChain
+import org.jlab.jnp.physics.EventFilter
 import org.jlab.jnp.physics.Particle
 import org.jlab.jnp.physics.PhysicsEvent
 import org.jlab.jnp.reader.DataManager
@@ -47,56 +48,56 @@ Event event = new Event();
 Bank particle = new Bank(reader.getSchemaFactory().getSchema("REC::Particle"));
 Bank calorimeter = new Bank(reader.getSchemaFactory().getSchema("REC::Calorimeter"));
 
+EventFilter eventFilter = new EventFilter("11:2212:22:22:22:22");
+
 while (reader.hasNext()) {
     reader.nextEvent(event);
     event.read(particle);
     event.read(calorimeter);
 
-    PhysicsEvent physicsEvent = DataManager.getPhysicsEvent(10.6, particle);
+    if (eventFilter.isValid()) {
+        PhysicsEvent physicsEvent = DataManager.getPhysicsEvent(10.6, particle);
 
-    int gam0Index = physicsEvent.getParticleIndex(22, 0);
-    int gam1Index = physicsEvent.getParticleIndex(22, 1);
-    int gam2Index = physicsEvent.getParticleIndex(22, 2);
-    int gam3Index = physicsEvent.getParticleIndex(22, 3);
+        int gam0Index = physicsEvent.getParticleIndex(22, 0);
+        int gam1Index = physicsEvent.getParticleIndex(22, 1);
+        int gam2Index = physicsEvent.getParticleIndex(22, 2);
+        int gam3Index = physicsEvent.getParticleIndex(22, 3);
 
-    int sector0 = getSector(gam0Index, calorimeter);
-    int sector1 = getSector(gam1Index, calorimeter);
-    int sector2 = getSector(gam2Index, calorimeter);
-    int sector3 = getSector(gam3Index, calorimeter);
+        int sector0 = getSector(gam0Index, calorimeter);
+        int sector1 = getSector(gam1Index, calorimeter);
+        int sector2 = getSector(gam2Index, calorimeter);
+        int sector3 = getSector(gam3Index, calorimeter);
 
-    System.out.println(sector0 + "  " + sector1 + "  " + sector2 + "  " + sector3);
+        System.out.println(sector0 + "  " + sector1 + "  " + sector2 + "  " + sector3);
 
-    Particle gam0 = physicsEvent.getParticle(gam0Index);
-    Particle gam1 = physicsEvent.getParticle(gam1Index);
-    Particle gam2 = physicsEvent.getParticle(gam2Index);
-    Particle gam3 = physicsEvent.getParticle(gam3Index);
+        Particle gam0 = physicsEvent.getParticle(gam0Index);
+        Particle gam1 = physicsEvent.getParticle(gam1Index);
+        Particle gam2 = physicsEvent.getParticle(gam2Index);
+        Particle gam3 = physicsEvent.getParticle(gam3Index);
 
-    Particle pion1 = Particle.copyFrom(gam0);
-    Particle pion2;
+        Particle pion1 = Particle.copyFrom(gam0);
+        Particle pion2;
 
 
-    if(sector0 == -1 || sector1 == -1 || sector2 == -1 || sector3 == -1){
-        continue;
+        if (sector0 == -1 || sector1 == -1 || sector2 == -1 || sector3 == -1) {
+            continue;
+        }
+        if (sector0 == sector1 && sector2 == sector3) {
+            pion1.combine(Particle.copyFrom(gam1), 1);
+            pion2 = Particle.copyFrom(gam2)
+            pion2.combine(Particle.copyFrom(gam3), 1);
+        } else if (sector0 == sector2 && sector1 == sector3) {
+            pion1.combine(Particle.copyFrom(gam2), 1);
+            pion2 = Particle.copyFrom(gam1)
+            pion2.combine(Particle.copyFrom(gam3), 1);
+        } else if (sector0 == sector3 && sector1 == sector2) {
+            pion1.combine(Particle.copyFrom(gam3), 1);
+            pion2 = Particle.copyFrom(gam1);
+            pion2.combine(Particle.copyFrom(gam2), 1);
+        } else {
+            continue;
+        }
     }
-    if(sector0 == sector1 && sector2 == sector3){
-        pion1.combine(Particle.copyFrom(gam1), 1);
-        pion2 = Particle.copyFrom(gam2)
-        pion2.combine(Particle.copyFrom(gam3),1);
-    }
-    else if(sector0 == sector2 && sector1 == sector3){
-        pion1.combine(Particle.copyFrom(gam2), 1);
-        pion2 = Particle.copyFrom(gam1)
-        pion2.combine(Particle.copyFrom(gam3),1);
-    }
-    else if(sector0 == sector3 && sector1 == sector2){
-        pion1.combine(Particle.copyFrom(gam3), 1);
-        pion2 = Particle.copyFrom(gam1);
-        pion2.combine(Particle.copyFrom(gam2),1);
-    }
-    else{
-        continue;
-    }
-
 //    Particle gam1gam2 = physicsEvent.getParticle("[22,0] + [22,1]");
 //    Particle gam3gam4 = physicsEvent.getParticle("[22,2] + [22,3]");
 //
