@@ -55,9 +55,9 @@ while (reader.hasNext()) {
     event.read(particle);
     event.read(calorimeter);
 
-    if (eventFilter.isValid()) {
-        PhysicsEvent physicsEvent = DataManager.getPhysicsEvent(10.6, particle);
+    PhysicsEvent physicsEvent = DataManager.getPhysicsEvent(10.6, particle);
 
+    if (eventFilter.isValid(physicsEvent)) {
         int gam0Index = physicsEvent.getParticleIndex(22, 0);
         int gam1Index = physicsEvent.getParticleIndex(22, 1);
         int gam2Index = physicsEvent.getParticleIndex(22, 2);
