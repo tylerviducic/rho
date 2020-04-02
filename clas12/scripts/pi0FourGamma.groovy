@@ -97,7 +97,6 @@ while (reader.hasNext()) {
         } else {
             continue;
         }
-    }
 //    Particle gam1gam2 = physicsEvent.getParticle("[22,0] + [22,1]");
 //    Particle gam3gam4 = physicsEvent.getParticle("[22,2] + [22,3]");
 //
@@ -111,9 +110,9 @@ while (reader.hasNext()) {
 //    hgam1gam3.fill(gam1gam3.mass(), gam2gam4.mass());
 //    hgam1gam4.fill(gam1gam4.mass(), gam2gam3.mass());
 
-    hpionpion.fill(pion1.mass(), pion2.mass());
+        hpionpion.fill(pion1.mass(), pion2.mass());
+    }
 }
-
 System.out.println("done");
 
 
