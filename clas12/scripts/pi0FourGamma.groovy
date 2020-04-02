@@ -82,21 +82,22 @@ while (reader.hasNext()) {
         if (sector0 == -1 || sector1 == -1 || sector2 == -1 || sector3 == -1) {
             continue;
         }
-        if (sector0 == sector1 && sector2 == sector3) {
-            pion1.combine(Particle.copyFrom(gam1), 1);
-            pion2 = Particle.copyFrom(gam2)
-            pion2.combine(Particle.copyFrom(gam3), 1);
-        } else if (sector0 == sector2 && sector1 == sector3) {
-            pion1.combine(Particle.copyFrom(gam2), 1);
-            pion2 = Particle.copyFrom(gam1)
-            pion2.combine(Particle.copyFrom(gam3), 1);
-        } else if (sector0 == sector3 && sector1 == sector2) {
-            pion1.combine(Particle.copyFrom(gam3), 1);
-            pion2 = Particle.copyFrom(gam1);
-            pion2.combine(Particle.copyFrom(gam2), 1);
-        } else {
-            continue;
-        }
+        if (gam0.e() > 0.1 && gam1.e() > 0.1 && gam2.e() > 0.1 && gam3.e() > 0.1) {
+            if (sector0 == sector1 && sector2 == sector3) {
+                pion1.combine(Particle.copyFrom(gam1), 1);
+                pion2 = Particle.copyFrom(gam2)
+                pion2.combine(Particle.copyFrom(gam3), 1);
+            } else if (sector0 == sector2 && sector1 == sector3) {
+                pion1.combine(Particle.copyFrom(gam2), 1);
+                pion2 = Particle.copyFrom(gam1)
+                pion2.combine(Particle.copyFrom(gam3), 1);
+            } else if (sector0 == sector3 && sector1 == sector2) {
+                pion1.combine(Particle.copyFrom(gam3), 1);
+                pion2 = Particle.copyFrom(gam1);
+                pion2.combine(Particle.copyFrom(gam2), 1);
+            } else {
+                continue;
+            }
 //    Particle gam1gam2 = physicsEvent.getParticle("[22,0] + [22,1]");
 //    Particle gam3gam4 = physicsEvent.getParticle("[22,2] + [22,3]");
 //
@@ -110,7 +111,8 @@ while (reader.hasNext()) {
 //    hgam1gam3.fill(gam1gam3.mass(), gam2gam4.mass());
 //    hgam1gam4.fill(gam1gam4.mass(), gam2gam3.mass());
 
-        hpionpion.fill(pion1.mass(), pion2.mass());
+            hpionpion.fill(pion1.mass(), pion2.mass());
+        }
     }
 }
 System.out.println("done");
