@@ -58,6 +58,8 @@ while (reader.hasNext()) {
     int gam2Index = physicsEvent.getParticleIndex(22, 2);
     int gam3Index = physicsEvent.getParticleIndex(22, 3);
 
+    System.out.println(gam0Index + "  " + gam1Index + "  " + gam2Index + "  " + gam3Index);
+
     int sector0 = getSector(gam0Index, calorimeter);
     int sector1 = getSector(gam1Index, calorimeter);
     int sector2 = getSector(gam2Index, calorimeter);
