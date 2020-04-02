@@ -19,13 +19,17 @@ H2F hgam1gam4 = new H2F("gam1gam4", 30, 0, 0.3, 30, 0, 0.3);
 hgam1gam4.setTitleX("gam1gam4");
 hgam1gam4.setTitleY("gam2gam3");
 
-TCanvas c1 = new TCanvas("c1", 1000, 1000);
-c1.divide(1, 3);
-c1.getCanvas().initTimer(1000);
-c1.cd(0).draw(hgam1gam2);
-c1.cd(1).draw(hgam1gam3);
-c1.cd(2).draw(hgam1gam4);
+H2F hpionpion = new H2F("pionpion", 30, 0, 0.3, 30, 0, 0.3);
+hgam1gam2.setTitleX("first pion");
+hgam1gam2.setTitleY("second pion");
 
+TCanvas c1 = new TCanvas("c1", 1000, 1000);
+//c1.divide(1, 3);
+c1.getCanvas().initTimer(1000);
+//c1.cd(0).draw(hgam1gam2);
+//c1.cd(1).draw(hgam1gam3);
+//c1.cd(2).draw(hgam1gam4);
+c1.draw(hpionpion);
 
 //String directory = "/cache/clas12/rg-a/production/recon/fall2018/torus-1/pass1/v0/dst/train/skim4";
 //String directory = "/work/clas12/viducic/data/clas12/premakoff/skimmedFiles/";
@@ -49,29 +53,71 @@ while (reader.hasNext()) {
 
     PhysicsEvent physicsEvent = DataManager.getPhysicsEvent(10.6, particle);
 
-    Particle gam1 = physicsEvent.getParticleByPid(22, 0);
-    Particle gam2 = physicsEvent.getParticleByPid(22, 1);
-    Particle gam3 = physicsEvent.getParticleByPid(22, 2);
-    Particle gam4 = physicsEvent.getParticleByPid(22, 3);
+    int gam0Index = physicsEvent.getParticleIndex(22, 0);
+    int gam1Index = physicsEvent.getParticleIndex(22, 1);
+    int gam2Index = physicsEvent.getParticleIndex(22, 2);
+    int gam3Index = physicsEvent.getParticleIndex(22, 3);
 
-    int gam1Index = physicsEvent.getParticleIndex(22, 0);
-    int gam2Index = physicsEvent.getParticleIndex(22, 1);
-    int gam3Index = physicsEvent.getParticleIndex(22, 2);
-    int gam4Index = physicsEvent.getParticleIndex(22, 3);
+    int sector0 = getSector(gam0Index, calorimeter);
+    int sector1 = getSector(gam1Index, calorimeter);
+    int sector2 = getSector(gam2Index, calorimeter);
+    int sector3 = getSector(gam3Index, calorimeter);
 
+    Particle gam0 = physicsEvent.getParticle(gam0Index);
+    Particle gam1 = physicsEvent.getParticle(gam1Index);
+    Particle gam2 = physicsEvent.getParticle(gam2Index);
+    Particle gam3 = physicsEvent.getParticle(gam3Index);
 
-    Particle gam1gam2 = physicsEvent.getParticle("[22,0] + [22,1]");
-    Particle gam3gam4 = physicsEvent.getParticle("[22,2] + [22,3]");
+    Particle pion1 = Particle.copyFrom(gam0);
+    Particle pion2;
 
-    Particle gam1gam3 = physicsEvent.getParticle("[22,0] + [22,2]");
-    Particle gam2gam4 = physicsEvent.getParticle("[22,1] + [22,3]");
+    if(sector0 == sector1 && sector2 == sector3){
+        pion1.combine(Particle.copyFrom(gam1), 1);
+        pion2 = Particle.copyFrom(gam2)
+        pion2.combine(Particle.copyFrom(gam3),1);
+    }
+    else if(sector0 == sector2 && sector1 == sector3){
+        pion1.combine(Particle.copyFrom(gam2), 1);
+        pion2 = Particle.copyFrom(gam1)
+        pion2.combine(Particle.copyFrom(gam3),1);
+    }
+    else if(sector0 == sector3 && sector1 == sector2){
+        pion1.combine(Particle.copyFrom(gam3), 1);
+        pion2 = Particle.copyFrom(gam1);
+        pion2.combine(Particle.copyFrom(gam2),1);
+    }
+    else{
+        continue;
+    }
 
-    Particle gam1gam4 = physicsEvent.getParticle("[22,0] + [22,3]");
-    Particle gam2gam3 = physicsEvent.getParticle("[22,2] + [22,4]");
+//    Particle gam1gam2 = physicsEvent.getParticle("[22,0] + [22,1]");
+//    Particle gam3gam4 = physicsEvent.getParticle("[22,2] + [22,3]");
+//
+//    Particle gam1gam3 = physicsEvent.getParticle("[22,0] + [22,2]");
+//    Particle gam2gam4 = physicsEvent.getParticle("[22,1] + [22,3]");
+//
+//    Particle gam1gam4 = physicsEvent.getParticle("[22,0] + [22,3]");
+//    Particle gam2gam3 = physicsEvent.getParticle("[22,2] + [22,4]");
 
-    hgam1gam2.fill(gam1gam2.mass(), gam3gam4.mass());
-    hgam1gam3.fill(gam1gam3.mass(), gam2gam4.mass());
-    hgam1gam4.fill(gam1gam4.mass(), gam2gam3.mass());
+//    hgam1gam2.fill(gam1gam2.mass(), gam3gam4.mass());
+//    hgam1gam3.fill(gam1gam3.mass(), gam2gam4.mass());
+//    hgam1gam4.fill(gam1gam4.mass(), gam2gam3.mass());
+
+    hpionpion.fill(pion1.mass(), pion2.mass());
 }
 
 System.out.println("done");
+
+
+//   methods
+
+public static int getSector(int pindex, Bank calorimeter){
+
+    for(int i = 0; i < calorimeter.getRows(); i++){
+        if(calorimeter.getInt("pindex", i) == pindex){
+            return calorimeter.getInt("sector", i);
+        }
+    }
+
+    return -1;
+}
