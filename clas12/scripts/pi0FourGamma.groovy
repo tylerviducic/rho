@@ -24,6 +24,9 @@ H2F hpionpion = new H2F("pionpion", 60, 0, 0.3, 60, 0, 0.3);
 hpionpion.setTitleX("first pion");
 hpionpion.setTitleY("second pion");
 
+H1F hf0 = new H1F("f0", 100, 0, 1.5);
+hf0.setTitle("IM(pi0pi0");
+
 TCanvas c1 = new TCanvas("c1", 1000, 1000);
 //c1.divide(1, 3);
 c1.getCanvas().initTimer(1000);
@@ -78,8 +81,8 @@ while (reader.hasNext()) {
         Particle pion1 = Particle.copyFrom(gam0);
         Particle pion2;
 
-        Particle f0 = physicsEvent.getParticle("[b] + [t] - [22, 0] - [22, 1] - [22, 2] - [22, 3]");
-
+        Particle f0 = physicsEvent.getParticle("[22, 0] + [22, 1] + [22, 2] + [22, 3]");
+        hf0.fill(f0.mass());
 
         if (sector0 == -1 || sector1 == -1 || sector2 == -1 || sector3 == -1) {
             continue;
