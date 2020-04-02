@@ -78,6 +78,8 @@ while (reader.hasNext()) {
         Particle pion1 = Particle.copyFrom(gam0);
         Particle pion2;
 
+        Particle f0 = physicsEvent.getParticle("[b] + [t] - [22, 0] - [22, 1] - [22, 2] - [22, 3]");
+
 
         if (sector0 == -1 || sector1 == -1 || sector2 == -1 || sector3 == -1) {
             continue;
