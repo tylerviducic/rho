@@ -16,6 +16,7 @@ Bank calorimeter = new Bank(reader.getSchemaFactory().getSchema("REC::Calorimete
 int eventCounter = 0;
 
 while (reader.hasNext() && eventCounter < 11){
+    System.out.println("------------------")
     eventCounter++;
     reader.nextEvent(event);
     event.read(calorimeter);
