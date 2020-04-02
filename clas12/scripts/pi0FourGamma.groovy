@@ -19,7 +19,7 @@ H2F hgam1gam4 = new H2F("gam1gam4", 30, 0, 0.3, 30, 0, 0.3);
 hgam1gam4.setTitleX("gam1gam4");
 hgam1gam4.setTitleY("gam2gam3");
 
-H2F hpionpion = new H2F("pionpion", 30, 0, 0.3, 30, 0, 0.3);
+H2F hpionpion = new H2F("pionpion", 60, 0, 0.3, 60, 0, 0.3);
 hgam1gam2.setTitleX("first pion");
 hgam1gam2.setTitleY("second pion");
 

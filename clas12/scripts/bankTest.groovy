@@ -31,7 +31,6 @@ while (reader.hasNext() && eventCounter < 11){
         int pIndex = calorimeter.getInt("pindex", i);
         int sector = calorimeter.getInt("sector", i);
 
-        if (physicsEvent.getp)
     }
 }
 
