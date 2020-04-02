@@ -28,13 +28,13 @@ H1F hf0 = new H1F("f0", 100, 0, 1.5);
 hf0.setTitle("IM(pi0pi0");
 
 TCanvas c1 = new TCanvas("c1", 1000, 1000);
-//c1.divide(1, 3);
+c1.divide(1, 2);
 c1.getCanvas().initTimer(1000);
 //c1.cd(0).draw(hgam1gam2);
 //c1.cd(1).draw(hgam1gam3);
 //c1.cd(2).draw(hgam1gam4);
-c1.draw(hpionpion);
-
+c1.cd(0).draw(hpionpion);
+c1.cd(1).draw(hf0);
 //String directory = "/cache/clas12/rg-a/production/recon/fall2018/torus-1/pass1/v0/dst/train/skim4";
 //String directory = "/work/clas12/viducic/data/clas12/premakoff/skimmedFiles/";
 //String file = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/premakoff/photons.hipo";
