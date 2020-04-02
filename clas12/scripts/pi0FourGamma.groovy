@@ -50,6 +50,7 @@ Bank calorimeter = new Bank(reader.getSchemaFactory().getSchema("REC::Calorimete
 while (reader.hasNext()) {
     reader.nextEvent(event);
     event.read(particle);
+    event.read(calorimeter);
 
     PhysicsEvent physicsEvent = DataManager.getPhysicsEvent(10.6, particle);
 
