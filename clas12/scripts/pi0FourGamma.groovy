@@ -71,6 +71,10 @@ while (reader.hasNext()) {
     Particle pion1 = Particle.copyFrom(gam0);
     Particle pion2;
 
+
+    if(sector0 == -1 || sector1 == -1 || sector2 == -1 || sector3 == -1){
+        continue;
+    }
     if(sector0 == sector1 && sector2 == sector3){
         pion1.combine(Particle.copyFrom(gam1), 1);
         pion2 = Particle.copyFrom(gam2)
