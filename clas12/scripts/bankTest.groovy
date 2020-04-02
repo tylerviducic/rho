@@ -13,7 +13,10 @@ Event event = new Event();
 Bank particle = new Bank(reader.getSchemaFactory().getSchema("REC::Particle"));
 Bank calorimeter = new Bank(reader.getSchemaFactory().getSchema("REC::Calorimeter"));
 
-while (reader.hasNext()){
+int eventCounter = 0;
+
+while (reader.hasNext() && eventCounter < 11){
+    eventCounter++;
     reader.nextEvent(event);
     event.read(calorimeter);
 
