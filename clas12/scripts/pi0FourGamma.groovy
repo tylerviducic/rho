@@ -83,7 +83,8 @@ while (reader.hasNext()) {
 
         Particle f0 = physicsEvent.getParticle("[22, 0] + [22, 1] + [22, 2] + [22, 3]");
 
-        if (sector0 == -1 || sector1 == -1 || sector2 == -1 || sector3 == -1) {
+        if (sector0 == -1 || sector1 == -1 || sector2 == -1 || sector3 == -1
+            || (sector0 == sector1 && sector1 == sector2 && sector2 == sector3)) {
             continue;
         }
         if (gam0.e() > 0.5 && gam1.e() > 0.5 && gam2.e() > 0.5 && gam3.e() > 0.5 && f0.mass() > 0.8) { // && f0.mass() > 0.8
