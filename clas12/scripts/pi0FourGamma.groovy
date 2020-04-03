@@ -40,7 +40,7 @@ c1.getCanvas().initTimer(1000);
 //c1.cd(1).draw(hgam1gam3);
 //c1.cd(2).draw(hgam1gam4);
 c1.cd(0).draw(hpionpion);
-c1.cd(1).draw(hf0.getGraph());
+c1.cd(1).draw(hf0);
 c1.cd(2).draw(hmm2);
 c1.cd(3).draw(hmp);
 //String directory = "/cache/clas12/rg-a/production/recon/fall2018/torus-1/pass1/v0/dst/train/skim4";
@@ -139,6 +139,7 @@ while (reader.hasNext()) {
     }
 }
 System.out.println("done");
+c1.cd(1).draw(hf0.getGraph());
 
 
 //   methods
