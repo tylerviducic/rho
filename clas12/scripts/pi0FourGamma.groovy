@@ -24,8 +24,8 @@ H2F hpionpion = new H2F("pionpion", 60, 0, 0.3, 60, 0, 0.3);
 hpionpion.setTitleX("first pion");
 hpionpion.setTitleY("second pion");
 
-H1F hf0 = new H1F("f0", 100, 0.8, 1.5);
-hf0.setTitle("IM(pi0pi0");
+H1F hf0 = new H1F("f0", 100, 0.0, 2.0);
+hf0.setTitle("IM(pi0pi0)");
 
 TCanvas c1 = new TCanvas("c1", 1000, 1000);
 c1.divide(1, 2);
