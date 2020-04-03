@@ -139,7 +139,7 @@ while (reader.hasNext()) {
     }
 }
 System.out.println("done");
-c1.cd(1).draw(hf0.getGraph());
+
 
 
 //   methods
