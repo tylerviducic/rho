@@ -116,7 +116,7 @@ while (reader.hasNext()) {
 //    hgam1gam3.fill(gam1gam3.mass(), gam2gam4.mass());
 //    hgam1gam4.fill(gam1gam4.mass(), gam2gam3.mass());
             hpionpion.fill(pion1.mass(), pion2.mass());
-            if (pion1.mass() > 0.1 && pion1.mass() < 0.18 && pion2.mass() > 0.1 && pion2.mass() < 0.18) {
+            if (pion1.mass() > 0.1 && pion1.mass() < 0.15 && pion2.mass() > 0.1 && pion2.mass() < 0.15) {
                 hf0.fill(f0.mass());
             }
         }
