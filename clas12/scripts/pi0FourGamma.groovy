@@ -27,14 +27,22 @@ hpionpion.setTitleY("second pion");
 H1F hf0 = new H1F("f0", 100, 0.0, 2.0);
 hf0.setTitle("IM(pi0pi0)");
 
+H1F hmp = new H1F("mp", 100, -0.5, 0.5);
+hmp.setTitle("Missing momentum of all detected particles");
+
+H1F hmm2 = new H1F("mm2", 100, -0.5, 0.5);
+hmm2.setTitle("Missing mass2 of all particles");
+
 TCanvas c1 = new TCanvas("c1", 1000, 1000);
-c1.divide(1, 2);
+c1.divide(2, 2);
 c1.getCanvas().initTimer(1000);
 //c1.cd(0).draw(hgam1gam2);
 //c1.cd(1).draw(hgam1gam3);
 //c1.cd(2).draw(hgam1gam4);
 c1.cd(0).draw(hpionpion);
 c1.cd(1).draw(hf0);
+c1.cd(2).draw(hmm2);
+c1.cd(3).draw(hmp);
 //String directory = "/cache/clas12/rg-a/production/recon/fall2018/torus-1/pass1/v0/dst/train/skim4";
 //String directory = "/work/clas12/viducic/data/clas12/premakoff/skimmedFiles/";
 //String file = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/premakoff/photons.hipo";
@@ -82,6 +90,12 @@ while (reader.hasNext()) {
         Particle pion2;
 
         Particle f0 = physicsEvent.getParticle("[22, 0] + [22, 1] + [22, 2] + [22, 3]");
+        Particle missingePPi0Pi0 = physicsEvent.getParticle("[b] + [t] - [2212] - [11] - [22,0] - [22,1] - [22,2] - [22,3]");
+
+        double missingP = Math.sqrt(missingePPi0Pi0.px()/missingePPi0Pi0.p() * missingePPi0Pi0.px()/missingePPi0Pi0.p() + missingePPi0Pi0.py()/missingePPi0Pi0.p() * missingePPi0Pi0.py()/missingePPi0Pi0.p())
+
+        hmm2.fill(missingePPi0Pi0.mass2());
+        hmp.fill(missingP);
 
         if (sector0 == -1 || sector1 == -1 || sector2 == -1 || sector3 == -1
             || (sector0 == sector1 && sector1 == sector2 && sector2 == sector3)) {
