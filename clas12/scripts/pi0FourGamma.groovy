@@ -102,7 +102,7 @@ while (reader.hasNext()) {
             continue;
         }
         if (gam0.e() > 0.5 && gam1.e() > 0.5 && gam2.e() > 0.5 && gam3.e() > 0.5
-                && Math.abs(missingePPi0Pi0.mass2()) < 0.1
+                && Math.abs(missingePPi0Pi0.mass2()) < 0.2
                 && Math.abs(missingePPi0Pi0.px()/missingePPi0Pi0.p()) < 0.2 && Math.abs(missingePPi0Pi0.py()/missingePPi0Pi0.p()) < 0.2) { // && f0.mass() > 0.8
             if (sector0 == sector1 && sector2 == sector3) {
                 pion1.combine(Particle.copyFrom(gam1), 1);
