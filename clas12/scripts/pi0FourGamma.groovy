@@ -101,7 +101,8 @@ while (reader.hasNext()) {
             || (sector0 == sector1 && sector1 == sector2 && sector2 == sector3)) {
             continue;
         }
-        if (gam0.e() > 0.5 && gam1.e() > 0.5 && gam2.e() > 0.5 && gam3.e() > 0.5) { // && f0.mass() > 0.8
+        if (gam0.e() > 0.5 && gam1.e() > 0.5 && gam2.e() > 0.5 && gam3.e() > 0.5
+                && Math.abs(missingePPi0Pi0.mass2()) < 0.1 && missingP < 0.2) { // && f0.mass() > 0.8
             if (sector0 == sector1 && sector2 == sector3) {
                 pion1.combine(Particle.copyFrom(gam1), 1);
                 pion2 = Particle.copyFrom(gam2)
