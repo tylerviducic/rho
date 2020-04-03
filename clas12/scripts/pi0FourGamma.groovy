@@ -27,8 +27,8 @@ hpionpion.setTitleY("second pion");
 H1F hf0 = new H1F("f0", 100, 0.0, 2.0);
 hf0.setTitle("IM(pi0pi0)");
 
-H1F hmp = new H1F("mp", 100, -0.5, 0.5);
-hmp.setTitle("Missing momentum of all detected particles");
+H2F hmp = new H2F("mp", 100, -0.5, 0.5, 100, -0.5, 0.5);
+hmp.setTitle("Missing px vs missing py of all particles");
 
 H1F hmm2 = new H1F("mm2", 100, -0.5, 0.5);
 hmm2.setTitle("Missing mass2 of all particles");
@@ -92,10 +92,10 @@ while (reader.hasNext()) {
         Particle f0 = physicsEvent.getParticle("[22, 0] + [22, 1] + [22, 2] + [22, 3]");
         Particle missingePPi0Pi0 = physicsEvent.getParticle("[b] + [t] - [2212] - [11] - [22,0] - [22,1] - [22,2] - [22,3]");
 
-        double missingP = Math.sqrt(missingePPi0Pi0.px()/missingePPi0Pi0.p() * missingePPi0Pi0.px()/missingePPi0Pi0.p() + missingePPi0Pi0.py()/missingePPi0Pi0.p() * missingePPi0Pi0.py()/missingePPi0Pi0.p())
+        //double missingP = Math.sqrt(missingePPi0Pi0.px()/missingePPi0Pi0.p() * missingePPi0Pi0.px()/missingePPi0Pi0.p() + missingePPi0Pi0.py()/missingePPi0Pi0.p() * missingePPi0Pi0.py()/missingePPi0Pi0.p())
 
         hmm2.fill(missingePPi0Pi0.mass2());
-        hmp.fill(missingP);
+        hmp.fill(missingePPi0Pi0.px()/missingePPi0Pi0.p(), missingePPi0Pi0.py()/missingePPi0Pi0.p());
 
         if (sector0 == -1 || sector1 == -1 || sector2 == -1 || sector3 == -1
             || (sector0 == sector1 && sector1 == sector2 && sector2 == sector3)) {
