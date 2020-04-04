@@ -8,8 +8,7 @@ import org.jlab.jnp.physics.EventFilter
 import org.jlab.jnp.physics.Particle
 import org.jlab.jnp.physics.PhysicsEvent
 import org.jlab.jnp.reader.DataManager
-import org.jlab.jnp.utils.file.FileUtils
-import retrofit.http.Part
+
 
 H2F hgam1gam2 = new H2F("gam1gam2", 30, 0, 0.3, 30, 0, 0.3);
 hgam1gam2.setTitleX("gam1gam2");
