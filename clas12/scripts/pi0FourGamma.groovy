@@ -101,7 +101,6 @@ while (reader.hasNext()) {
         //this is gonna be weird. damn.
         hmm2.fill(missingePPi0Pi0.mass2());
         hmp.fill(missingePPi0Pi0.px()/missingePPi0Pi0.p(), missingePPi0Pi0.py()/missingePPi0Pi0.p());
-        hmxP.fill(missingePi0Pi0.mass());
 
         if (sector0 == -1 || sector1 == -1 || sector2 == -1 || sector3 == -1
             || (sector0 == sector1 && sector1 == sector2 && sector2 == sector3)) {
@@ -139,6 +138,7 @@ while (reader.hasNext()) {
 //    hgam1gam3.fill(gam1gam3.mass(), gam2gam4.mass());
 //    hgam1gam4.fill(gam1gam4.mass(), gam2gam3.mass());
             hpionpion.fill(pion1.mass(), pion2.mass());
+            hmxP.fill(missingePi0Pi0.mass());
             if (pion1.mass() > 0.1 && pion1.mass() < 0.16 && pion2.mass() > 0.1 && pion2.mass() < 0.16) {
                 hf0.fill(f0.mass());
             }
