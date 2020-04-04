@@ -33,6 +33,9 @@ hmp.setTitle("Missing px vs missing py of all particles");
 H1F hmm2 = new H1F("mm2", 100, -0.5, 0.5);
 hmm2.setTitle("Missing mass2 of all particles");
 
+H1F hmxP = new H1F("mxP", 100, 0.5, 1.5);
+hmm2.setTitle("Missing mass of electron and pi+ pi-");
+
 TCanvas c1 = new TCanvas("c1", 1000, 1000);
 c1.divide(2, 2);
 c1.getCanvas().initTimer(1000);
@@ -91,11 +94,13 @@ while (reader.hasNext()) {
 
         Particle f0 = physicsEvent.getParticle("[22, 0] + [22, 1] + [22, 2] + [22, 3]");
         Particle missingePPi0Pi0 = physicsEvent.getParticle("[b] + [t] - [2212] - [11] - [22,0] - [22,1] - [22,2] - [22,3]");
+        Particle missingePi0Pi0 = physicsEvent.getParticle("[b] + [t] - [11] - [22,0] - [22,1] - [22,2] - [22,3]");
 
-        //double missingP = Math.sqrt(missingePPi0Pi0.px()/missingePPi0Pi0.p() * missingePPi0Pi0.px()/missingePPi0Pi0.p() + missingePPi0Pi0.py()/missingePPi0Pi0.p() * missingePPi0Pi0.py()/missingePPi0Pi0.p())
-
+         //double missingP = Math.sqrt(missingePPi0Pi0.px()/missingePPi0Pi0.p() * missingePPi0Pi0.px()/missingePPi0Pi0.p() + missingePPi0Pi0.py()/missingePPi0Pi0.p() * missingePPi0Pi0.py()/missingePPi0Pi0.p())
+        //this is gonna be weird. damn.
         hmm2.fill(missingePPi0Pi0.mass2());
         hmp.fill(missingePPi0Pi0.px()/missingePPi0Pi0.p(), missingePPi0Pi0.py()/missingePPi0Pi0.p());
+        hmxP.fill(missingePi0Pi0.mass());
 
         if (sector0 == -1 || sector1 == -1 || sector2 == -1 || sector3 == -1
             || (sector0 == sector1 && sector1 == sector2 && sector2 == sector3)) {
