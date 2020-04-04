@@ -9,6 +9,7 @@ import org.jlab.jnp.physics.Particle
 import org.jlab.jnp.physics.PhysicsEvent
 import org.jlab.jnp.reader.DataManager
 import org.jlab.jnp.utils.file.FileUtils
+import retrofit.http.Part
 
 H2F hgam1gam2 = new H2F("gam1gam2", 30, 0, 0.3, 30, 0, 0.3);
 hgam1gam2.setTitleX("gam1gam2");
@@ -39,23 +40,16 @@ hmxP.setTitle("Missing mass of electron and pi+ pi-");
 TCanvas c1 = new TCanvas("c1", 1000, 1000);
 c1.divide(2, 2);
 c1.getCanvas().initTimer(1000);
-//c1.cd(0).draw(hgam1gam2);
-//c1.cd(1).draw(hgam1gam3);
-//c1.cd(2).draw(hgam1gam4);
+
 c1.cd(0).draw(hpionpion);
 c1.cd(1).draw(hf0);
 c1.cd(2).draw(hmm2);
 c1.cd(3).draw(hmxP);
 //c1.cd(3).draw(hmp);
-//String directory = "/cache/clas12/rg-a/production/recon/fall2018/torus-1/pass1/v0/dst/train/skim4";
-//String directory = "/work/clas12/viducic/data/clas12/premakoff/skimmedFiles/";
-//String file = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/premakoff/photons.hipo";
-//List<String> files = FileUtils.getFileListInDir(directory);
-//System.out.println(files);
+
+
 String dataFile = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/premakoff/pi0pi0_skim4.hipo";
 HipoChain reader = new HipoChain();
-//reader.addFiles(files);
-//reader.addDir(directory);
 reader.addFile(dataFile);
 reader.open();
 
@@ -92,13 +86,15 @@ while (reader.hasNext()) {
 
         Particle pion1 = Particle.copyFrom(gam0);
         Particle pion2;
+        Particle testPion1;
+        Particle testPion2;
 
-        Particle f0 = physicsEvent.getParticle("[22, 0] + [22, 1] + [22, 2] + [22, 3]");
+        //Particle f0 = physicsEvent.getParticle("[22, 0] + [22, 1] + [22, 2] + [22, 3]");
         Particle missingePPi0Pi0 = physicsEvent.getParticle("[b] + [t] - [2212] - [11] - [22,0] - [22,1] - [22,2] - [22,3]");
         Particle missingePi0Pi0 = physicsEvent.getParticle("[b] + [t] - [11] - [22,0] - [22,1] - [22,2] - [22,3]");
 
          //double missingP = Math.sqrt(missingePPi0Pi0.px()/missingePPi0Pi0.p() * missingePPi0Pi0.px()/missingePPi0Pi0.p() + missingePPi0Pi0.py()/missingePPi0Pi0.p() * missingePPi0Pi0.py()/missingePPi0Pi0.p())
-        //this is gonna be weird. damn.
+
         hmm2.fill(missingePPi0Pi0.mass2());
         hmp.fill(missingePPi0Pi0.px()/missingePPi0Pi0.p(), missingePPi0Pi0.py()/missingePPi0Pi0.p());
 
@@ -112,18 +108,35 @@ while (reader.hasNext()) {
                 pion1.combine(Particle.copyFrom(gam1), 1);
                 pion2 = Particle.copyFrom(gam2)
                 pion2.combine(Particle.copyFrom(gam3), 1);
+
+                testPion1 = Particle.initParticleWithMass(0.135, gam0.px() + gam1.px(), gam0.py() + gam1.py(), gam0.pz() + gam1.pz(),
+                        (gam0.vx() + gam1.py())/2, (gam0.vy() + gam1.vy())/2, (gam0.vz() + gam1.vz())/2);
+                testPion2 = Particle.initParticleWithMass(0.135, gam2.px() + gam3.px(), gam2.py() + gam3.py(), gam2.pz() + gam3.pz(),
+                        (gam2.vx() + gam3.py())/2, (gam2.vy() + gam3.vy())/2, (gam2.vz() + gam3.vz())/2);
             } else if (sector0 == sector2 && sector1 == sector3) {
                 pion1.combine(Particle.copyFrom(gam2), 1);
                 pion2 = Particle.copyFrom(gam1)
                 pion2.combine(Particle.copyFrom(gam3), 1);
+
+                testPion1 = Particle.initParticleWithMass(0.135, gam0.px() + gam2.px(), gam0.py() + gam2.py(), gam0.pz() + gam2.pz(),
+                        (gam0.vx() + gam2.py())/2, (gam0.vy() + gam2.vy())/2, (gam0.vz() + gam2.vz())/2);
+                testPion2 = Particle.initParticleWithMass(0.135, gam1.px() + gam3.px(), gam1.py() + gam3.py(), gam1.pz() + gam3.pz(),
+                        (gam1.vx() + gam3.py())/2, (gam2.vy() + gam3.vy())/2, (gam1.vz() + gam3.vz())/2);
             } else if (sector0 == sector3 && sector1 == sector2) {
                 pion1.combine(Particle.copyFrom(gam3), 1);
                 pion2 = Particle.copyFrom(gam1);
                 pion2.combine(Particle.copyFrom(gam2), 1);
+
+                testPion1 = Particle.initParticleWithMass(0.135, gam0.px() + gam3.px(), gam0.py() + gam3.py(), gam0.pz() + gam3.pz(),
+                        (gam0.vx() + gam3.py())/2, (gam0.vy() + gam3.vy())/2, (gam0.vz() + gam3.vz())/2);
+                testPion2 = Particle.initParticleWithMass(0.135, gam2.px() + gam1.px(), gam2.py() + gam1.py(), gam2.pz() + gam1.pz(),
+                        (gam2.vx() + gam1.py())/2, (gam2.vy() + gam1.vy())/2, (gam2.vz() + gam1.vz())/2);
             } else {
                 continue;
             }
 
+            Particle f0 = Particle.copyFrom(testPion1);
+            f0.combine(testPion2, 1);
             hpionpion.fill(pion1.mass(), pion2.mass());
             hmxP.fill(missingePi0Pi0.mass());
             if (pion1.mass() > 0.1 && pion1.mass() < 0.16 && pion2.mass() > 0.1 && pion2.mass() < 0.16) {
