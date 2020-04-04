@@ -136,9 +136,10 @@ while (reader.hasNext()) {
 
             Particle f0 = Particle.copyFrom(testPion1);
             f0.combine(testPion2, 1);
+
             hpionpion.fill(pion1.mass(), pion2.mass());
             hmxP.fill(missingePi0Pi0.mass());
-            if (pion1.mass() > 0.1 && pion1.mass() < 0.16 && pion2.mass() > 0.1 && pion2.mass() < 0.16) {
+            if (pion1.mass() > 0.12 && pion1.mass() < 0.15 && pion2.mass() > 0.12 && pion2.mass() < 0.15) {
                 hf0.fill(f0.mass());
             }
         }
