@@ -45,6 +45,7 @@ c1.getCanvas().initTimer(1000);
 c1.cd(0).draw(hpionpion);
 c1.cd(1).draw(hf0);
 c1.cd(2).draw(hmm2);
+c1.cd(3).draw(hmxP);
 //c1.cd(3).draw(hmp);
 //String directory = "/cache/clas12/rg-a/production/recon/fall2018/torus-1/pass1/v0/dst/train/skim4";
 //String directory = "/work/clas12/viducic/data/clas12/premakoff/skimmedFiles/";
