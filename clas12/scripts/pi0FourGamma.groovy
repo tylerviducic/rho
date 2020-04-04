@@ -107,9 +107,7 @@ while (reader.hasNext()) {
             continue;
         }
         if (gam0.e() > 0.5 && gam1.e() > 0.5 && gam2.e() > 0.5 && gam3.e() > 0.5
-                && Math.abs(missingePPi0Pi0.mass2()) < 0.2
-                //&& Math.abs(missingePPi0Pi0.px()/missingePPi0Pi0.p()) < 0.2 && Math.abs(missingePPi0Pi0.py()/missingePPi0Pi0.p()) < 0.2
-        ) { // && f0.mass() > 0.8
+                && Math.abs(missingePPi0Pi0.mass2()) < 0.05) { // && f0.mass() > 0.8
             if (sector0 == sector1 && sector2 == sector3) {
                 pion1.combine(Particle.copyFrom(gam1), 1);
                 pion2 = Particle.copyFrom(gam2)
@@ -125,18 +123,7 @@ while (reader.hasNext()) {
             } else {
                 continue;
             }
-//    Particle gam1gam2 = physicsEvent.getParticle("[22,0] + [22,1]");
-//    Particle gam3gam4 = physicsEvent.getParticle("[22,2] + [22,3]");
-//
-//    Particle gam1gam3 = physicsEvent.getParticle("[22,0] + [22,2]");
-//    Particle gam2gam4 = physicsEvent.getParticle("[22,1] + [22,3]");
-//
-//    Particle gam1gam4 = physicsEvent.getParticle("[22,0] + [22,3]");
-//    Particle gam2gam3 = physicsEvent.getParticle("[22,2] + [22,4]");
 
-//    hgam1gam2.fill(gam1gam2.mass(), gam3gam4.mass());
-//    hgam1gam3.fill(gam1gam3.mass(), gam2gam4.mass());
-//    hgam1gam4.fill(gam1gam4.mass(), gam2gam3.mass());
             hpionpion.fill(pion1.mass(), pion2.mass());
             hmxP.fill(missingePi0Pi0.mass());
             if (pion1.mass() > 0.1 && pion1.mass() < 0.16 && pion2.mass() > 0.1 && pion2.mass() < 0.16) {
