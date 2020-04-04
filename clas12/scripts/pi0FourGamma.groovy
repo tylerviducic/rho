@@ -85,8 +85,8 @@ while (reader.hasNext()) {
 
         Particle pion1 = Particle.copyFrom(gam0);
         Particle pion2;
-        Particle testPion1;
-        Particle testPion2;
+        Particle testPion1 = new Particle();
+        Particle testPion2 = new Particle();
 
         //Particle f0 = physicsEvent.getParticle("[22, 0] + [22, 1] + [22, 2] + [22, 3]");
         Particle missingePPi0Pi0 = physicsEvent.getParticle("[b] + [t] - [2212] - [11] - [22,0] - [22,1] - [22,2] - [22,3]");
@@ -108,27 +108,27 @@ while (reader.hasNext()) {
                 pion2 = Particle.copyFrom(gam2)
                 pion2.combine(Particle.copyFrom(gam3), 1);
 
-                testPion1 = Particle.initParticleWithMass(0.135, gam0.px() + gam1.px(), gam0.py() + gam1.py(), gam0.pz() + gam1.pz(),
+                testPion1.initParticleWithMass(0.135, gam0.px() + gam1.px(), gam0.py() + gam1.py(), gam0.pz() + gam1.pz(),
                         (gam0.vx() + gam1.py())/2, (gam0.vy() + gam1.vy())/2, (gam0.vz() + gam1.vz())/2);
-                testPion2 = Particle.initParticleWithMass(0.135, gam2.px() + gam3.px(), gam2.py() + gam3.py(), gam2.pz() + gam3.pz(),
+                testPion2.initParticleWithMass(0.135, gam2.px() + gam3.px(), gam2.py() + gam3.py(), gam2.pz() + gam3.pz(),
                         (gam2.vx() + gam3.py())/2, (gam2.vy() + gam3.vy())/2, (gam2.vz() + gam3.vz())/2);
             } else if (sector0 == sector2 && sector1 == sector3) {
                 pion1.combine(Particle.copyFrom(gam2), 1);
                 pion2 = Particle.copyFrom(gam1)
                 pion2.combine(Particle.copyFrom(gam3), 1);
 
-                testPion1 = Particle.initParticleWithMass(0.135, gam0.px() + gam2.px(), gam0.py() + gam2.py(), gam0.pz() + gam2.pz(),
+                testPion1.initParticleWithMass(0.135, gam0.px() + gam2.px(), gam0.py() + gam2.py(), gam0.pz() + gam2.pz(),
                         (gam0.vx() + gam2.py())/2, (gam0.vy() + gam2.vy())/2, (gam0.vz() + gam2.vz())/2);
-                testPion2 = Particle.initParticleWithMass(0.135, gam1.px() + gam3.px(), gam1.py() + gam3.py(), gam1.pz() + gam3.pz(),
+                testPion2.initParticleWithMass(0.135, gam1.px() + gam3.px(), gam1.py() + gam3.py(), gam1.pz() + gam3.pz(),
                         (gam1.vx() + gam3.py())/2, (gam2.vy() + gam3.vy())/2, (gam1.vz() + gam3.vz())/2);
             } else if (sector0 == sector3 && sector1 == sector2) {
                 pion1.combine(Particle.copyFrom(gam3), 1);
                 pion2 = Particle.copyFrom(gam1);
                 pion2.combine(Particle.copyFrom(gam2), 1);
 
-                testPion1 = Particle.initParticleWithMass(0.135, gam0.px() + gam3.px(), gam0.py() + gam3.py(), gam0.pz() + gam3.pz(),
+                testPion1.initParticleWithMass(0.135, gam0.px() + gam3.px(), gam0.py() + gam3.py(), gam0.pz() + gam3.pz(),
                         (gam0.vx() + gam3.py())/2, (gam0.vy() + gam3.vy())/2, (gam0.vz() + gam3.vz())/2);
-                testPion2 = Particle.initParticleWithMass(0.135, gam2.px() + gam1.px(), gam2.py() + gam1.py(), gam2.pz() + gam1.pz(),
+                testPion2.initParticleWithMass(0.135, gam2.px() + gam1.px(), gam2.py() + gam1.py(), gam2.pz() + gam1.pz(),
                         (gam2.vx() + gam1.py())/2, (gam2.vy() + gam1.vy())/2, (gam2.vz() + gam1.vz())/2);
             } else {
                 continue;
