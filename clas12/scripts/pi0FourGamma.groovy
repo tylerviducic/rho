@@ -34,7 +34,7 @@ H1F hmm2 = new H1F("mm2", 100, -0.5, 0.5);
 hmm2.setTitle("Missing mass2 of all particles");
 
 H1F hmxP = new H1F("mxP", 100, 0.5, 1.5);
-hmm2.setTitle("Missing mass of electron and pi+ pi-");
+hmxP.setTitle("Missing mass of electron and pi+ pi-");
 
 TCanvas c1 = new TCanvas("c1", 1000, 1000);
 c1.divide(2, 2);
