@@ -13,20 +13,17 @@ import org.jlab.groot.ui.TCanvas
 import org.jlab.jnp.utils.file.FileUtils
 
 
-String directory = "/lustre19/expphy/cache/clas12/rg-a/production/reconstructed/Fall2018/Torus-1/pass1/v1/";
-List<String> files = FileUtils.getFilesInDirectoryRecursive(directory, "*.hipo");
+//String directory = "/lustre19/expphy/cache/clas12/rg-a/production/reconstructed/Fall2018/Torus-1/pass1/v1/";
+//List<String> files = FileUtils.getFilesInDirectoryRecursive(directory, "*.hipo");
+String directory = "/cache/clas12/rg-a/production/recon/fall2018/torus-1/pass1/v0/dst/train/skim4";
 
 HipoChain reader = new HipoChain();
-reader.addFiles(files);
+//reader.addFiles(files);
+reader.addDir(directory);
 reader.open();
 
 HipoWriter eWriter = new HipoWriter(reader.getSchemaFactory());
 eWriter.open("/w/hallb-scifs17exp/clas12/viducic/data/clas12/premakoff/eDetectedPremakoff_noP.hipo");
-HipoWriter noeWriter = new HipoWriter(reader.getSchemaFactory());
-noeWriter.open("/w/hallb-scifs17exp/clas12/viducic/data/clas12/premakoff/noeDetectedPremakoff_noP.hipo");
-
-
-long eventCounter = 0;
 
 Event event = new Event();
 Bank particle = new Bank(reader.getSchemaFactory().getSchema("REC::Particle"));
@@ -36,32 +33,15 @@ EventFilter filter = new EventFilter("11:-211:211:Xn");
 while (reader.hasNext()){
     reader.nextEvent(event);
     event.read(particle);
-    eventCounter++;
-
-    if(eventCounter % 100000 == 0){
-        System.out.println("Event counter = " + eventCounter);
-    }
 
     PhysicsEvent physicsEvent = DataManager.getPhysicsEvent(10.6, particle);
 
-////////////////////    No Electron detected loop    /////////////////////////
-    if(physicsEvent.getParticleList().count() > 0 &&  physicsEvent.getParticle(0).pid() == -211
-            && physicsEvent.countByPid(211) == 1
-            && physicsEvent.countByCharge(1) == 1 && physicsEvent.countByCharge(-1) == 1){
-
-
-        noeWriter.addEvent(event);
-
-    }
-
 ////////////////////       Electron detected loop      /////////////////////////
-    else if(filter.isValid(physicsEvent) && physicsEvent.getParticleByPid(11, 0).theta() < Math.toRadians(5)) {
-
+    if(filter.isValid(physicsEvent)) {
         eWriter.addEvent(event);
     }
 }
 
-noeWriter.close();
 eWriter.close();
 
 println("done");
