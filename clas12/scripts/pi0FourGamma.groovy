@@ -89,10 +89,14 @@ while (reader.hasNext()) {
         ArrayList<Particle> pions = getPairs(sectors, photons);
         ArrayList<Particle> kinFitPions = getKinFitPions(sectors, photons);
 
+        if(pions.size() != 2){
+            continue;
+        }
+
         hmm2.fill(missingePPi0Pi0.mass2());
         hpionpion.fill(pions.get(0).mass(), pions.get(1).mass());
 
-        if(pions.size() == 2 && Math.abs(missingePPi0Pi0.mass()) < 0.05
+        if(Math.abs(missingePPi0Pi0.mass()) < 0.05
                 && pions.get(0).mass() > 0.12 && pions.get(0).mass() < 0.15 && pions.get(1).mass() > 0.12 && pions.get(1).mass() < 0.15){
 
             for(int i = 0; i < kinFitPions.size(); i++){
