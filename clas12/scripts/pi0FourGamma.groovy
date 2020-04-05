@@ -70,11 +70,12 @@ while (reader.hasNext()) {
                 photons.add(currentParticle);
             }
         }
-
+        if(photons.size() < 4){
+            continue;
+        }
         ArrayList<Integer> sectors = getSectors(photonIndex, calorimeter);
 
-        if((sectors.get(0) == sectors.get(1) && sectors.get(1) == sectors.get(2) && sectors.get(2) == sectors.get(3))
-        || photons.size() < 4){
+        if(sectors.get(0) == sectors.get(1) && sectors.get(1) == sectors.get(2) && sectors.get(2) == sectors.get(3)){
             continue;
         }
 
