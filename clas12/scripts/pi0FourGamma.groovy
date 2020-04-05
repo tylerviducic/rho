@@ -56,7 +56,7 @@ Event event = new Event();
 Bank particle = new Bank(reader.getSchemaFactory().getSchema("REC::Particle"));
 Bank calorimeter = new Bank(reader.getSchemaFactory().getSchema("REC::Calorimeter"));
 
-EventFilter eventFilter = new EventFilter("11:2212:22:22:22:22");
+EventFilter eventFilter = new EventFilter("11:2212:22:22:22:22:Xn");
 
 while (reader.hasNext()) {
     reader.nextEvent(event);
@@ -66,6 +66,18 @@ while (reader.hasNext()) {
     PhysicsEvent physicsEvent = DataManager.getPhysicsEvent(10.6, particle);
 
     if (eventFilter.isValid(physicsEvent)) {
+
+        ArrayList<Integer> photons = new ArrayList<>();
+        for(int i = 0; i < physicsEvent.count(); i++){
+            if (photons.size() > 4){
+                break;
+            }
+            Particle currentParticle = physicsEvent.getParticle(i);
+            if(currentParticle.pid() == 22 && currentParticle.e() > 0.5){
+                photons.add(i);
+            }
+        }
+
         int gam0Index = physicsEvent.getParticleIndex(22, 0);
         int gam1Index = physicsEvent.getParticleIndex(22, 1);
         int gam2Index = physicsEvent.getParticleIndex(22, 2);
@@ -90,11 +102,10 @@ while (reader.hasNext()) {
 
         //Particle f0 = physicsEvent.getParticle("[22, 0] + [22, 1] + [22, 2] + [22, 3]");
         Particle missingePPi0Pi0 = physicsEvent.getParticle("[b] + [t] - [2212] - [11] - [22,0] - [22,1] - [22,2] - [22,3]");
-        Particle missingePi0Pi0 = physicsEvent.getParticle("[b] + [t] - [11] - [22,0] - [22,1] - [22,2] - [22,3]");
+        Particle missingePi0Pi0 = physicsEvent.getParticle("[b] + [t]");
 
          //double missingP = Math.sqrt(missingePPi0Pi0.px()/missingePPi0Pi0.p() * missingePPi0Pi0.px()/missingePPi0Pi0.p() + missingePPi0Pi0.py()/missingePPi0Pi0.p() * missingePPi0Pi0.py()/missingePPi0Pi0.p())
 
-        hmm2.fill(missingePPi0Pi0.mass2());
         hmp.fill(missingePPi0Pi0.px()/missingePPi0Pi0.p(), missingePPi0Pi0.py()/missingePPi0Pi0.p());
 
         if (sector0 == -1 || sector1 == -1 || sector2 == -1 || sector3 == -1
@@ -137,7 +148,11 @@ while (reader.hasNext()) {
             Particle f0 = Particle.copyFrom(testPion1);
             f0.combine(testPion2, 1);
 
+            missingePi0Pi0.combine(testPion1, -1);
+            missingePi0Pi0.combine(testPion2, -1);
+
             hpionpion.fill(pion1.mass(), pion2.mass());
+            hmm2.fill(missingePPi0Pi0.mass2());
             hmxP.fill(missingePi0Pi0.mass());
             if (pion1.mass() > 0.12 && pion1.mass() < 0.15 && pion2.mass() > 0.12 && pion2.mass() < 0.15) {
                 hf0.fill(f0.mass());
@@ -158,4 +173,12 @@ public static int getSector(int pindex, Bank calorimeter){
         }
     }
     return -1;
+}
+
+public static ArrayList<Particle> getPairs(ArrayList<Integer> photons){
+    ArrayList<Particle> pions = new ArrayList<>();
+    for(int i = 0; i < photons.size(); i++);
+
+
+    return pions;
 }
