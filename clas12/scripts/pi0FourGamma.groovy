@@ -61,10 +61,10 @@ while (reader.hasNext()) {
         ArrayList<Particle> photons = new ArrayList<>();
 
         for(int i = 0; i < physicsEvent.count(); i++){
-            if (photonIndex.size() > 4){
+            if (photons.size() > 4){
                 break;
             }
-            Particle currentParticle = physicsEvent.getParticle(i);
+            Particle currentParticle = Particle.copyFrom(physicsEvent.getParticle(i));
             if(currentParticle.pid() == 22 && currentParticle.e() > 0.5){
                 photonIndex.add(i);
                 photons.add(currentParticle);
@@ -78,7 +78,6 @@ while (reader.hasNext()) {
         if(sectors.get(0) == sectors.get(1) && sectors.get(1) == sectors.get(2) && sectors.get(2) == sectors.get(3)){
             continue;
         }
-
 
         Particle missingePPi0Pi0 = physicsEvent.getParticle("[b] + [t] - [2212] - [11]");
         for(int i = 0; i < photons.size(); i++){
@@ -178,16 +177,25 @@ public static ArrayList<Particle> getKinFitPions(ArrayList<Integer> sectors, Arr
                 (photons.get(0).vx() + photons.get(1).vx())/2, (photons.get(0).vy() + photons.get(1).vy())/2, (photons.get(0).vz() + photons.get(1).vz())/2);
         pion2.initParticleWithMass(0.135, photons.get(2).px() + photons.get(3).px(), photons.get(2).py() + photons.get(3).py(), photons.get(2).pz() + photons.get(3).pz(),
                 (photons.get(2).vx() + photons.get(3).vx())/2, (photons.get(2).vy() + photons.get(3).vy())/2, (photons.get(2).vz() + photons.get(3).vz())/2);
+
+        kinFitPions.add(pion1);
+        kinFitPions.add(pion2);
     } else if(sectors.get(0) == sectors.get(2) && sectors.get(1) == sectors.get(3)){
         pion1.initParticleWithMass(0.135, photons.get(0).px() + photons.get(2).px(), photons.get(0).py() + photons.get(2).py(), photons.get(0).pz() + photons.get(2).pz(),
                 (photons.get(0).vx() + photons.get(2).vx())/2, (photons.get(0).vy() + photons.get(2).vy())/2, (photons.get(0).vz() + photons.get(2).vz())/2);
         pion2.initParticleWithMass(0.135, photons.get(1).px() + photons.get(3).px(), photons.get(1).py() + photons.get(3).py(), photons.get(1).pz() + photons.get(3).pz(),
                 (photons.get(1).vx() + photons.get(3).vx())/2, (photons.get(1).vy() + photons.get(3).vy())/2, (photons.get(1).vz() + photons.get(3).vz())/2);
+
+        kinFitPions.add(pion1);
+        kinFitPions.add(pion2);
     } else if(sectors.get(0) == sectors.get(3) && sectors.get(2) == sectors.get(1)) {
         pion1.initParticleWithMass(0.135, photons.get(0).px() + photons.get(3).px(), photons.get(0).py() + photons.get(3).py(), photons.get(0).pz() + photons.get(3).pz(),
                 (photons.get(0).vx() + photons.get(3).vx()) / 2, (photons.get(0).vy() + photons.get(3).vy()) / 2, (photons.get(0).vz() + photons.get(3).vz()) / 2);
         pion2.initParticleWithMass(0.135, photons.get(2).px() + photons.get(1).px(), photons.get(2).py() + photons.get(1).py(), photons.get(2).pz() + photons.get(1).pz(),
                 (photons.get(2).vx() + photons.get(1).vx()) / 2, (photons.get(2).vy() + photons.get(1).vy()) / 2, (photons.get(2).vz() + photons.get(1).vz()) / 2);
+
+        kinFitPions.add(pion1);
+        kinFitPions.add(pion2);
     }
     return kinFitPions;
 }
