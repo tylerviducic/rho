@@ -57,7 +57,7 @@ Bank calorimeter = new Bank(reader.getSchemaFactory().getSchema("REC::Calorimete
 
 EventFilter eventFilter = new EventFilter("11:2212:22:22:22:22:Xn");
 
-double gamCut = 0.4;
+double gamCut = 0.5;
 
 while (reader.hasNext()) {
     reader.nextEvent(event);
