@@ -57,6 +57,8 @@ Bank calorimeter = new Bank(reader.getSchemaFactory().getSchema("REC::Calorimete
 
 EventFilter eventFilter = new EventFilter("11:2212:22:22:22:22:Xn");
 
+double gamCut = 0.5;
+
 while (reader.hasNext()) {
     reader.nextEvent(event);
     event.read(particle);
@@ -69,7 +71,7 @@ while (reader.hasNext()) {
         ArrayList<Integer> photons = new ArrayList<>();
         for(int i = 0; i < physicsEvent.count(); i++){
             Particle currentParticle = Particle.copyFrom(physicsEvent.getParticle(i));
-            if(currentParticle.pid() == 22 && currentParticle.e() > 0.4){
+            if(currentParticle.pid() == 22 && currentParticle.e() > gamCut){
                 photons.add(i);
             }
         }
@@ -87,6 +89,19 @@ while (reader.hasNext()) {
         int sector1 = getSector(gam1Index, calorimeter);
         int sector2 = getSector(gam2Index, calorimeter);
         int sector3 = getSector(gam3Index, calorimeter);
+
+        if(sector0 == -1 && physicsEvent.getParticle(gam0Index).status < 2000){
+            sector0 = -2;
+        }
+        if(sector1 == -1 && physicsEvent.getParticle(gam1Index).status < 2000){
+            sector1 = -2;
+        }
+        if(sector2 == -1 && physicsEvent.getParticle(gam2Index).status < 2000){
+            sector2 = -2;
+        }
+        if(sector3 == -1 && physicsEvent.getParticle(gam3Index).status < 2000){
+            sector3 = -2;
+        }
 
 //        System.out.println(sector0 + "  " + sector1 + "  " + sector2 + "  " + sector3);
 
@@ -115,9 +130,9 @@ while (reader.hasNext()) {
             || (sector0 == sector1 && sector1 == sector2 && sector2 == sector3)) {
             continue;
         }
-//        if (gam0.e() > 0.5 && gam1.e() > 0.5 && gam2.e() > 0.5 && gam3.e() > 0.5
-//                && Math.abs(missingePPi0Pi0.mass2()) < 0.05) { // && f0.mass() > 0.8
-        if(Math.abs(missingePPi0Pi0.mass2()) < 0.05){
+        if (gam0.e() > gamCut && gam1.e() > gamCut && gam2.e() > gamCut && gam3.e() > gamCut
+                && Math.abs(missingePPi0Pi0.mass2()) < 0.05) { // && f0.mass() > 0.8
+//        if(Math.abs(missingePPi0Pi0.mass2()) < 0.05){
             if (sector0 == sector1 && sector2 == sector3) {
                 pion1.combine(Particle.copyFrom(gam1), 1);
                 pion2 = Particle.copyFrom(gam2)
