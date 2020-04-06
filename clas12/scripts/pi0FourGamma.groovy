@@ -9,6 +9,15 @@ import org.jlab.jnp.physics.Particle
 import org.jlab.jnp.physics.PhysicsEvent
 import org.jlab.jnp.reader.DataManager
 
+H2F hgam1gam2 = new H2F("gam1gam2", 30, 0, 0.3, 30, 0, 0.3);
+hgam1gam2.setTitleX("gam1gam2");
+hgam1gam2.setTitleY("gam3gam4");
+H2F hgam1gam3 = new H2F("gam1gam3", 30, 0, 0.3, 30, 0, 0.3);
+hgam1gam3.setTitleX("gam1gam3");
+hgam1gam3.setTitleY("gam2gam4");
+H2F hgam1gam4 = new H2F("gam1gam4", 30, 0, 0.3, 30, 0, 0.3);
+hgam1gam4.setTitleX("gam1gam4");
+hgam1gam4.setTitleY("gam2gam3");
 
 H2F hpionpion = new H2F("pionpion", 60, 0, 0.3, 60, 0, 0.3);
 hpionpion.setTitleX("first pion");
@@ -57,58 +66,94 @@ while (reader.hasNext()) {
 
     if (eventFilter.isValid(physicsEvent)) {
 
-        ArrayList<Integer> photonIndex = new ArrayList<>();
-        ArrayList<Particle> photons = new ArrayList<>();
-
+        ArrayList<Integer> photons = new ArrayList<>();
         for(int i = 0; i < physicsEvent.count(); i++){
             if (photons.size() > 4){
                 break;
             }
             Particle currentParticle = Particle.copyFrom(physicsEvent.getParticle(i));
             if(currentParticle.pid() == 22 && currentParticle.e() > 0.5){
-                photonIndex.add(i);
-                photons.add(currentParticle);
+                photons.add(i);
             }
         }
-        if(photons.size() < 4){
-            continue;
-        }
-        ArrayList<Integer> sectors = getSectors(photonIndex, calorimeter);
 
-        if(sectors.get(0) == sectors.get(1) && sectors.get(1) == sectors.get(2) && sectors.get(2) == sectors.get(3)){
-            continue;
-        }
 
-        Particle missingePPi0Pi0 = physicsEvent.getParticle("[b] + [t] - [2212] - [11]");
-        for(int i = 0; i < photons.size(); i++){
-            missingePPi0Pi0.combine(Particle.copyFrom(photons.get(i)), -1);
-        }
+        int gam0Index = physicsEvent.getParticleIndex(22, 0);
+        int gam1Index = physicsEvent.getParticleIndex(22, 1);
+        int gam2Index = physicsEvent.getParticleIndex(22, 2);
+        int gam3Index = physicsEvent.getParticleIndex(22, 3);
+
+        int sector0 = getSector(gam0Index, calorimeter);
+        int sector1 = getSector(gam1Index, calorimeter);
+        int sector2 = getSector(gam2Index, calorimeter);
+        int sector3 = getSector(gam3Index, calorimeter);
+
+//        System.out.println(sector0 + "  " + sector1 + "  " + sector2 + "  " + sector3);
+
+        Particle gam0 = physicsEvent.getParticle(gam0Index);
+        Particle gam1 = physicsEvent.getParticle(gam1Index);
+        Particle gam2 = physicsEvent.getParticle(gam2Index);
+        Particle gam3 = physicsEvent.getParticle(gam3Index);
+
+        Particle pion1 = Particle.copyFrom(gam0);
+        Particle pion2;
+        Particle testPion1 = new Particle();
+        Particle testPion2 = new Particle();
+
+        //Particle f0 = physicsEvent.getParticle("[22, 0] + [22, 1] + [22, 2] + [22, 3]");
+        Particle missingePPi0Pi0 = physicsEvent.getParticle("[b] + [t] - [2212] - [11] - [22,0] - [22,1] - [22,2] - [22,3]");
         Particle missingePi0Pi0 = physicsEvent.getParticle("[b] + [t] - [11]");
 
-        ArrayList<Particle> pions = getPairs(sectors, photons);
-        ArrayList<Particle> kinFitPions = getKinFitPions(sectors, photons);
+        hmp.fill(missingePPi0Pi0.px()/missingePPi0Pi0.p(), missingePPi0Pi0.py()/missingePPi0Pi0.p());
 
-        if(pions.size() != 2){
+        if (sector0 == -1 || sector1 == -1 || sector2 == -1 || sector3 == -1
+            || (sector0 == sector1 && sector1 == sector2 && sector2 == sector3)) {
             continue;
         }
+        if (gam0.e() > 0.5 && gam1.e() > 0.5 && gam2.e() > 0.5 && gam3.e() > 0.5
+                && Math.abs(missingePPi0Pi0.mass2()) < 0.05) { // && f0.mass() > 0.8
+            if (sector0 == sector1 && sector2 == sector3) {
+                pion1.combine(Particle.copyFrom(gam1), 1);
+                pion2 = Particle.copyFrom(gam2)
+                pion2.combine(Particle.copyFrom(gam3), 1);
 
-        hmm2.fill(missingePPi0Pi0.mass2());
-        hpionpion.fill(pions.get(0).mass(), pions.get(1).mass());
+                testPion1.initParticleWithMass(0.135, gam0.px() + gam1.px(), gam0.py() + gam1.py(), gam0.pz() + gam1.pz(),
+                        (gam0.vx() + gam1.py())/2, (gam0.vy() + gam1.vy())/2, (gam0.vz() + gam1.vz())/2);
+                testPion2.initParticleWithMass(0.135, gam2.px() + gam3.px(), gam2.py() + gam3.py(), gam2.pz() + gam3.pz(),
+                        (gam2.vx() + gam3.py())/2, (gam2.vy() + gam3.vy())/2, (gam2.vz() + gam3.vz())/2);
+            } else if (sector0 == sector2 && sector1 == sector3) {
+                pion1.combine(Particle.copyFrom(gam2), 1);
+                pion2 = Particle.copyFrom(gam1)
+                pion2.combine(Particle.copyFrom(gam3), 1);
 
-        if(Math.abs(missingePPi0Pi0.mass()) < 0.05
-                && pions.get(0).mass() > 0.12 && pions.get(0).mass() < 0.15 && pions.get(1).mass() > 0.12 && pions.get(1).mass() < 0.15){
+                testPion1.initParticleWithMass(0.135, gam0.px() + gam2.px(), gam0.py() + gam2.py(), gam0.pz() + gam2.pz(),
+                        (gam0.vx() + gam2.py())/2, (gam0.vy() + gam2.vy())/2, (gam0.vz() + gam2.vz())/2);
+                testPion2.initParticleWithMass(0.135, gam1.px() + gam3.px(), gam1.py() + gam3.py(), gam1.pz() + gam3.pz(),
+                        (gam1.vx() + gam3.py())/2, (gam2.vy() + gam3.vy())/2, (gam1.vz() + gam3.vz())/2);
+            } else if (sector0 == sector3 && sector1 == sector2) {
+                pion1.combine(Particle.copyFrom(gam3), 1);
+                pion2 = Particle.copyFrom(gam1);
+                pion2.combine(Particle.copyFrom(gam2), 1);
 
-            for(int i = 0; i < kinFitPions.size(); i++){
-                missingePi0Pi0.combine(Particle.copyFrom(kinFitPions.get(i)), -1);
+                testPion1.initParticleWithMass(0.135, gam0.px() + gam3.px(), gam0.py() + gam3.py(), gam0.pz() + gam3.pz(),
+                        (gam0.vx() + gam3.py())/2, (gam0.vy() + gam3.vy())/2, (gam0.vz() + gam3.vz())/2);
+                testPion2.initParticleWithMass(0.135, gam2.px() + gam1.px(), gam2.py() + gam1.py(), gam2.pz() + gam1.pz(),
+                        (gam2.vx() + gam1.py())/2, (gam2.vy() + gam1.vy())/2, (gam2.vz() + gam1.vz())/2);
+            } else {
+                continue;
             }
 
-             hmm2.fill(missingePPi0Pi0.mass2());
+            Particle f0 = Particle.copyFrom(testPion1);
+            f0.combine(testPion2, 1);
 
-            Particle pi0pi0 = Particle.copyFrom(kinFitPions.get(0));
-            pi0pi0.combine(Particle.copyFrom(kinFitPions.get(1)), 1);
+            missingePi0Pi0.combine(testPion1, -1);
+            missingePi0Pi0.combine(testPion2, -1);
 
-            hf0.fill(pi0pi0.mass());
+            hpionpion.fill(pion1.mass(), pion2.mass());
             hmxP.fill(missingePi0Pi0.mass());
+            if (pion1.mass() > 0.12 && pion1.mass() < 0.15 && pion2.mass() > 0.12 && pion2.mass() < 0.15) {
+                hf0.fill(f0.mass());
+            }
         }
     }
 }
@@ -123,79 +168,4 @@ public static int getSector(int pindex, Bank calorimeter){
         }
     }
     return -1;
-}
-
-public static ArrayList<Integer> getSectors(ArrayList<Integer> pIndex, Bank calorimeter){
-    ArrayList<Integer> sectors = new ArrayList<>();
-    for(int i = 0; i < pIndex.size(); i++){
-        int sector = getSector(i, calorimeter);
-        sectors.add(sector);
-    }
-    return sectors;
-}
-
-
-public static ArrayList<Particle> getPairs(ArrayList<Integer> sectors, ArrayList<Particle> photons){
-    ArrayList<Particle> pions = new ArrayList<>();
-
-    if(sectors.get(0) == sectors.get(1) && sectors.get(2) == sectors.get(3)){
-        Particle pion1 = Particle.copyFrom(photons.get(0));
-        pion1.combine(Particle.copyFrom(photons.get(1)), 1);
-        Particle pion2 = Particle.copyFrom(photons.get(2));
-        pion2.combine(Particle.copyFrom(photons.get(3)), 1);
-
-        pions.add(pion1);
-        pions.add(pion2);
-    } else if(sectors.get(0) == sectors.get(2) && sectors.get(1) == sectors.get(3)){
-        Particle pion1 = Particle.copyFrom(photons.get(0));
-        pion1.combine(Particle.copyFrom(photons.get(2)), 1);
-        Particle pion2 = Particle.copyFrom(photons.get(1));
-        pion2.combine(Particle.copyFrom(photons.get(3)), 1);
-
-        pions.add(pion1);
-        pions.add(pion2);
-    } else if(sectors.get(0) == sectors.get(3) && sectors.get(2) == sectors.get(1)){
-        Particle pion1 = Particle.copyFrom(photons.get(0));
-        pion1.combine(Particle.copyFrom(photons.get(3)), 1);
-        Particle pion2 = Particle.copyFrom(photons.get(2));
-        pion2.combine(Particle.copyFrom(photons.get(1)), 1);
-
-        pions.add(pion1);
-        pions.add(pion2);
-    }
-
-    return pions;
-}
-
-public static ArrayList<Particle> getKinFitPions(ArrayList<Integer> sectors, ArrayList<Particle> photons){
-    ArrayList<Particle> kinFitPions = new ArrayList<>();
-    Particle pion1 = new Particle();
-    Particle pion2 = new Particle();
-
-    if(sectors.get(0) == sectors.get(1) && sectors.get(2) == sectors.get(3)){
-        pion1.initParticleWithMass(0.135, photons.get(0).px() + photons.get(1).px(), photons.get(0).py() + photons.get(1).py(), photons.get(0).pz() + photons.get(1).pz(),
-                (photons.get(0).vx() + photons.get(1).vx())/2, (photons.get(0).vy() + photons.get(1).vy())/2, (photons.get(0).vz() + photons.get(1).vz())/2);
-        pion2.initParticleWithMass(0.135, photons.get(2).px() + photons.get(3).px(), photons.get(2).py() + photons.get(3).py(), photons.get(2).pz() + photons.get(3).pz(),
-                (photons.get(2).vx() + photons.get(3).vx())/2, (photons.get(2).vy() + photons.get(3).vy())/2, (photons.get(2).vz() + photons.get(3).vz())/2);
-
-        kinFitPions.add(pion1);
-        kinFitPions.add(pion2);
-    } else if(sectors.get(0) == sectors.get(2) && sectors.get(1) == sectors.get(3)){
-        pion1.initParticleWithMass(0.135, photons.get(0).px() + photons.get(2).px(), photons.get(0).py() + photons.get(2).py(), photons.get(0).pz() + photons.get(2).pz(),
-                (photons.get(0).vx() + photons.get(2).vx())/2, (photons.get(0).vy() + photons.get(2).vy())/2, (photons.get(0).vz() + photons.get(2).vz())/2);
-        pion2.initParticleWithMass(0.135, photons.get(1).px() + photons.get(3).px(), photons.get(1).py() + photons.get(3).py(), photons.get(1).pz() + photons.get(3).pz(),
-                (photons.get(1).vx() + photons.get(3).vx())/2, (photons.get(1).vy() + photons.get(3).vy())/2, (photons.get(1).vz() + photons.get(3).vz())/2);
-
-        kinFitPions.add(pion1);
-        kinFitPions.add(pion2);
-    } else if(sectors.get(0) == sectors.get(3) && sectors.get(2) == sectors.get(1)) {
-        pion1.initParticleWithMass(0.135, photons.get(0).px() + photons.get(3).px(), photons.get(0).py() + photons.get(3).py(), photons.get(0).pz() + photons.get(3).pz(),
-                (photons.get(0).vx() + photons.get(3).vx()) / 2, (photons.get(0).vy() + photons.get(3).vy()) / 2, (photons.get(0).vz() + photons.get(3).vz()) / 2);
-        pion2.initParticleWithMass(0.135, photons.get(2).px() + photons.get(1).px(), photons.get(2).py() + photons.get(1).py(), photons.get(2).pz() + photons.get(1).pz(),
-                (photons.get(2).vx() + photons.get(1).vx()) / 2, (photons.get(2).vy() + photons.get(1).vy()) / 2, (photons.get(2).vz() + photons.get(1).vz()) / 2);
-
-        kinFitPions.add(pion1);
-        kinFitPions.add(pion2);
-    }
-    return kinFitPions;
 }
