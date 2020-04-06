@@ -77,11 +77,14 @@ while (reader.hasNext()) {
             }
         }
 
+        if(photons.size() != 4){
+            continue;
+        }
 
-        int gam0Index = physicsEvent.getParticleIndex(22, 0);
-        int gam1Index = physicsEvent.getParticleIndex(22, 1);
-        int gam2Index = physicsEvent.getParticleIndex(22, 2);
-        int gam3Index = physicsEvent.getParticleIndex(22, 3);
+        int gam0Index = photons.get(0);
+        int gam1Index = photons.get(1);
+        int gam2Index = photons.get(2);
+        int gam3Index = photons.get(3);
 
         int sector0 = getSector(gam0Index, calorimeter);
         int sector1 = getSector(gam1Index, calorimeter);
@@ -101,7 +104,12 @@ while (reader.hasNext()) {
         Particle testPion2 = new Particle();
 
         //Particle f0 = physicsEvent.getParticle("[22, 0] + [22, 1] + [22, 2] + [22, 3]");
-        Particle missingePPi0Pi0 = physicsEvent.getParticle("[b] + [t] - [2212] - [11] - [22,0] - [22,1] - [22,2] - [22,3]");
+        Particle missingePPi0Pi0 = physicsEvent.getParticle("[b] + [t] - [2212] - [11]");
+        missingePPi0Pi0.combine(Particle.copyFrom(gam0), -1);
+        missingePPi0Pi0.combine(Particle.copyFrom(gam1), -1);
+        missingePPi0Pi0.combine(Particle.copyFrom(gam2), -1);
+        missingePPi0Pi0.combine(Particle.copyFrom(gam3), -1);
+
         Particle missingePi0Pi0 = physicsEvent.getParticle("[b] + [t] - [11]");
 
         hmp.fill(missingePPi0Pi0.px()/missingePPi0Pi0.p(), missingePPi0Pi0.py()/missingePPi0Pi0.p());
