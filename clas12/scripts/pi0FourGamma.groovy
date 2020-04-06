@@ -113,7 +113,7 @@ while (reader.hasNext()) {
         Particle missingePi0Pi0 = physicsEvent.getParticle("[b] + [t] - [11]");
 
         hmp.fill(missingePPi0Pi0.px()/missingePPi0Pi0.p(), missingePPi0Pi0.py()/missingePPi0Pi0.p());
-
+        hmm2.fill(missingePPi0Pi0.mass2());
         if (sector0 == -1 || sector1 == -1 || sector2 == -1 || sector3 == -1
             || (sector0 == sector1 && sector1 == sector2 && sector2 == sector3)) {
             continue;
