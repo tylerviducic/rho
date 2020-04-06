@@ -69,7 +69,7 @@ while (reader.hasNext()) {
         ArrayList<Integer> photons = new ArrayList<>();
         for(int i = 0; i < physicsEvent.count(); i++){
             Particle currentParticle = Particle.copyFrom(physicsEvent.getParticle(i));
-            if(currentParticle.pid() == 22 && currentParticle.e() > 0.5){
+            if(currentParticle.pid() == 22 && currentParticle.e() > 0.4){
                 photons.add(i);
             }
         }
