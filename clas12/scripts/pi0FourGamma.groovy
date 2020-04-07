@@ -44,13 +44,15 @@ hpion2PvsTheta.setTitleX("second momentum");
 hpion2PvsTheta.setTitleY("second pion theta");
 
 TCanvas c1 = new TCanvas("c1", 1000, 1000);
-c1.divide(2, 2);
+c1.divide(3, 2);
 c1.getCanvas().initTimer(1000);
 
 c1.cd(0).draw(hpionpion);
 c1.cd(1).draw(hf0);
 c1.cd(2).draw(hmm2);
 c1.cd(3).draw(hmxP);
+c1.cd(4).draw(hpion1PvsTheta);
+c1.cd(5).draw(hpion2PvsTheta);
 //c1.cd(3).draw(hmp);
 
 
