@@ -35,11 +35,11 @@ hmm2.setTitle("Missing mass2 of all particles");
 H1F hmxP = new H1F("mxP", 100, 0.5, 1.5);
 hmxP.setTitle("Missing mass of electron and pi0pi0");
 
-H2F hpion1PvsTheta = new H2F("hpion1PvsTheta", 100, 0, 4.0, 90, 0, 90);
+H2F hpion1PvsTheta = new H2F("hpion1PvsTheta", 100, 0, 4.0, 40, 0, 40);
 hpion1PvsTheta.setTitleX("first momentum");
 hpion1PvsTheta.setTitleY("first pion theta");
 
-H2F hpion2PvsTheta = new H2F("hpion2PvsTheta", 100, 0, 4.0, 90, 0, 90);
+H2F hpion2PvsTheta = new H2F("hpion2PvsTheta", 100, 0, 4.0, 40, 0, 40);
 hpion2PvsTheta.setTitleX("second momentum");
 hpion2PvsTheta.setTitleY("second pion theta");
 
