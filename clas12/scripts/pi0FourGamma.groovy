@@ -132,7 +132,7 @@ while (reader.hasNext()) {
             continue;
         }
         if (gam0.e() > gamCut && gam1.e() > gamCut && gam2.e() > gamCut && gam3.e() > gamCut
-                && Math.abs(missingePPi0Pi0.mass2()) < 0.05) { // && f0.mass() > 0.8
+                && Math.abs(missingePPi0Pi0.mass2()) < 0.05 && Math.toDegrees(physicsEvent.getParticleByPid(2212, 0).theta()) < 35) { // && f0.mass() > 0.8
 //        if(Math.abs(missingePPi0Pi0.mass2()) < 0.05){
             if (sector0 == sector1 && sector2 == sector3) {
                 pion1.combine(Particle.copyFrom(gam1), 1);
