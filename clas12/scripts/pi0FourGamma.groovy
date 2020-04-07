@@ -186,7 +186,8 @@ while (reader.hasNext()) {
             hpion2PvsTheta.fill(pion2.p(), Math.toDegrees(pion2.theta()));
 
             if (pion1.mass() > 0.12 && pion1.mass() < 0.15 && pion2.mass() > 0.12 && pion2.mass() < 0.15
-                    && pion1.p() > 1.5 && pion2.p() < 2.5) {
+                    && pion1.p() > 1.5 && pion2.p() < 2.5 && Math.toDegrees(pion1.theta()) < 28 && Math.toDegrees(pion2.theta()) < 28
+                    && Math.toDegrees(pion1.theta()) > 8 && Math.toDegrees(pion1.theta()) > 8) {
                 hf0.fill(f0.mass());
                 hmxP.fill(missingePi0Pi0.mass());
             }
