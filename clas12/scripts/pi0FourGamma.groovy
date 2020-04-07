@@ -57,7 +57,7 @@ Bank calorimeter = new Bank(reader.getSchemaFactory().getSchema("REC::Calorimete
 
 EventFilter eventFilter = new EventFilter("11:2212:22:22:22:22:Xn");
 
-double gamCut = 0.55;
+double gamCut = 0.5;
 
 while (reader.hasNext()) {
     reader.nextEvent(event);
@@ -126,6 +126,7 @@ while (reader.hasNext()) {
 
         hmp.fill(missingePPi0Pi0.px()/missingePPi0Pi0.p(), missingePPi0Pi0.py()/missingePPi0Pi0.p());
         hmm2.fill(missingePPi0Pi0.mass2());
+
         if (sector0 == -1 || sector1 == -1 || sector2 == -1 || sector3 == -1
             || (sector0 == sector1 && sector1 == sector2 && sector2 == sector3)) {
             continue;
