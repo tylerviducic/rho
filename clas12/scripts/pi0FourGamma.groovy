@@ -35,6 +35,14 @@ hmm2.setTitle("Missing mass2 of all particles");
 H1F hmxP = new H1F("mxP", 100, 0.5, 1.5);
 hmxP.setTitle("Missing mass of electron and pi0pi0");
 
+H2F hpion1PvsTheta = new H2F("hpion1PvsTheta", 100, 0, 4.0, 90, 0, 90);
+hpion1PvsTheta.setTitleX("first momentum");
+hpion1PvsTheta.setTitleY("first pion theta");
+
+H2F hpion2PvsTheta = new H2F("hpion2PvsTheta", 100, 0, 4.0, 90, 0, 90);
+hpion2PvsTheta.setTitleX("second momentum");
+hpion2PvsTheta.setTitleY("second pion theta");
+
 TCanvas c1 = new TCanvas("c1", 1000, 1000);
 c1.divide(2, 2);
 c1.getCanvas().initTimer(1000);
@@ -172,6 +180,9 @@ while (reader.hasNext()) {
             missingePi0Pi0.combine(testPion2, -1);
 
             hpionpion.fill(pion1.mass(), pion2.mass());
+            hpion1PvsTheta.fill(pion1.p(), Math.toDegrees(pion1.theta()));
+            hpion2PvsTheta.fill(pion2.p(), Math.toDegrees(pion2.theta()));
+
             if (pion1.mass() > 0.12 && pion1.mass() < 0.15 && pion2.mass() > 0.12 && pion2.mass() < 0.15) {
                 hf0.fill(f0.mass());
                 hmxP.fill(missingePi0Pi0.mass());
