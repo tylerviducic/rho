@@ -43,13 +43,17 @@ H2F hpion2PvsTheta = new H2F("hpion2PvsTheta", 100, 0, 4.0, 40, 0, 40);
 hpion2PvsTheta.setTitleX("second momentum");
 hpion2PvsTheta.setTitleY("second pion theta");
 
+H1F hPtheta = new H1F("hPtheta", 90, 0, 90);
+hPtheta.setTitle("theta distribution of proton");
+
 TCanvas c1 = new TCanvas("c1", 1000, 1000);
 c1.divide(3, 2);
 c1.getCanvas().initTimer(1000);
 
 c1.cd(0).draw(hpionpion);
 c1.cd(1).draw(hf0);
-c1.cd(2).draw(hmm2);
+//c1.cd(2).draw(hmm2);
+c1.cd(2).draw(hPtheta);
 c1.cd(3).draw(hmxP);
 c1.cd(4).draw(hpion1PvsTheta);
 c1.cd(5).draw(hpion2PvsTheta);
@@ -188,6 +192,7 @@ while (reader.hasNext()) {
             if (pion1.mass() > 0.12 && pion1.mass() < 0.15 && pion2.mass() > 0.12 && pion2.mass() < 0.15
                     && pion1.p() > 1.5 && pion2.p() < 2.5 && Math.toDegrees(pion1.theta()) < 28 && Math.toDegrees(pion2.theta()) < 28
                     && Math.toDegrees(pion1.theta()) > 8 && Math.toDegrees(pion1.theta()) > 8) {
+                hPtheta.fill(Math.toDegrees(physicsEvent.getParticleByPid(2212, 0).theta()));
                 hf0.fill(f0.mass());
                 hmxP.fill(missingePi0Pi0.mass());
             }
