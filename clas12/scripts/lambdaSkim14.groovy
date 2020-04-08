@@ -14,6 +14,7 @@ String directory = "/cache/clas12/rg-a/production/recon/fall2018/torus-1/pass1/v
 H1F hpPion = new H1F("pPion", 200, 0.9, 2.0);
 H1F heKaon = new H1F("peKaon", 200, 0.9, 2.0);
 
+
 TCanvas c1 = new TCanvas("c1", 1000, 1000);
 c1.divide(2, 1);
 c1.getCanvas().initTimer(1000);
