@@ -11,8 +11,8 @@ import org.jlab.groot.data.H1F
 
 String directory = "/cache/clas12/rg-a/production/recon/fall2018/torus-1/pass1/v0/dst/train/skim14";
 
-H1F hpPion = new H1F("pPion", 100, 0, 2.0);
-H1F heKaon = new H1F("peKaon", 100, 0, 2.0);
+H1F hpPion = new H1F("pPion", 100, 0.8, 2.0);
+H1F heKaon = new H1F("peKaon", 100, 0.8, 2.0);
 
 TCanvas c1 = new TCanvas("c1", 1000, 1000);
 c1.divide(1, 2);
