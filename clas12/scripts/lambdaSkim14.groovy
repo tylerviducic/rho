@@ -41,7 +41,7 @@ while (reader.hasNext()){
         Particle protonPion = physicsEvent.getParticle("[2212] + [-211]");
         Particle missingEKaon = physicsEvent.getParticle("[b] + [t] - [11] - [321]");
 
-        if(kaon.p() < 2.0 && missingAll.mass2() < 0.05 && missingAll.p() < 0.1){
+        if(kaon.p() < 2.0 && Math.abs(missingAll.mass2()) < 0.05 && missingAll.p() < 0.1){
             hpPion.fill(protonPion.mass());
             heKaon.fill(missingEKaon.mass());
         }
