@@ -15,7 +15,7 @@ H1F hpPion = new H1F("pPion", 100, 0.8, 2.0);
 H1F heKaon = new H1F("peKaon", 100, 0.8, 2.0);
 
 TCanvas c1 = new TCanvas("c1", 1000, 1000);
-c1.divide(1, 2);
+c1.divide(2, 1);
 c1.getCanvas().initTimer(1000);
 c1.cd(0).draw(hpPion);
 c1.cd(1).draw(heKaon);
