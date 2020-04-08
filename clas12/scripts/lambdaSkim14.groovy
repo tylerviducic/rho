@@ -33,7 +33,7 @@ while (reader.hasNext()){
     reader.nextEvent(event);
     event.read(particle);
 
-    PhysicsEvent physicsEvent = DataManager.getPhysicsEvent(10.6, particle);
+    PhysicsEvent physicsEvent = DataManager.getPhysicsEvent(10.614, particle);
     if (eventFilter.isValid(physicsEvent)){
 
         Particle missingAll = physicsEvent.getParticle("[b] + [t] - [2212] - [11] - [321] - [-211]");
