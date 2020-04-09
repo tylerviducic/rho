@@ -195,11 +195,11 @@ while (reader.hasNext()) {
             Particle f0 = Particle.copyFrom(testPion1);
             f0.combine(testPion2, 1);
 
-//            missingePi0Pi0.combine(testPion1, -1);
-//            missingePi0Pi0.combine(testPion2, -1);
+            missingePi0Pi0.combine(testPion1, -1);
+            missingePi0Pi0.combine(testPion2, -1);
 
             for(int i = 1; i < physicsEvent.count(); i ++){
-                if (physicsEvent.getParticle(i).pid() != 2212){
+                if (i != gam0Index && i != gam2Index && i != gam3Index && i != gam1Index &&  physicsEvent.getParticle(i).pid() != 2212){
                     missingePPi0Pi0.combine(Particle.copyFrom(physicsEvent.getParticle(i)), -1);
                 }
             }
