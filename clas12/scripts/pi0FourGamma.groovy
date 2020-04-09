@@ -198,6 +198,12 @@ while (reader.hasNext()) {
             missingePi0Pi0.combine(testPion1, -1);
             missingePi0Pi0.combine(testPion2, -1);
 
+            for(int i = 0; i < physicsEvent.count(); i ++){
+                if (i != gam0Index && i != gam1Index && i != gam2Index && i != gam3Index && physicsEvent.getParticle(i).pid() != 2212){
+                    missingePPi0Pi0.combine(Particle.copyFrom(physicsEvent.getParticle(i)), -1);
+                }
+            }
+
             hpionpion.fill(pion1.mass(), pion2.mass());
             hpion1PvsTheta.fill(pion1.p(), theta1);
             hpion2PvsTheta.fill(pion2.p(), theta2);
