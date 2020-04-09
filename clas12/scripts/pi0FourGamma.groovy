@@ -203,7 +203,6 @@ while (reader.hasNext()) {
                     missingePPi0Pi0.combine(Particle.copyFrom(physicsEvent.getParticle(i)), -1);
                 }
             }
-            hmxP.fill(missingePi0Pi0.mass());
 
             hpionpion.fill(pion1.mass(), pion2.mass());
             hpion1PvsTheta.fill(pion1.p(), theta1);
@@ -214,7 +213,7 @@ while (reader.hasNext()) {
                     && theta1 > 3 && theta2 > 5 && pTheta < 34) {
                 hPtheta.fill(Math.toDegrees(physicsEvent.getParticleByPid(2212, 0).theta()));
                 hf0.fill(f0.mass());
-//                hmxP.fill(missingePi0Pi0.mass());
+                hmxP.fill(missingePi0Pi0.mass());
             }
         }
     }
