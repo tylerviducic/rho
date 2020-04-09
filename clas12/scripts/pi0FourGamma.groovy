@@ -131,6 +131,7 @@ while (reader.hasNext()) {
 
         double theta1;
         double theta2;
+        double pTheta = Math.toDegrees(physicsEvent.getParticleByPid(2212, 0).theta());
 
         //Particle f0 = physicsEvent.getParticle("[22, 0] + [22, 1] + [22, 2] + [22, 3]");
         Particle missingePPi0Pi0 = physicsEvent.getParticle("[b] + [t] - [2212] - [11]");
@@ -203,7 +204,7 @@ while (reader.hasNext()) {
 
             if (pion1.mass() > 0.12 && pion1.mass() < 0.15 && pion2.mass() > 0.12 && pion2.mass() < 0.15
                     && pion1.p() > 1.5 && pion2.p() < 2.5 && pion2.p() > 1 && theta1 < 12 && theta2 < 15
-                    && theta1 > 3 && theta2 > 5) {
+                    && theta1 > 3 && theta2 > 5 && pTheta < 34) {
                 hPtheta.fill(Math.toDegrees(physicsEvent.getParticleByPid(2212, 0).theta()));
                 hf0.fill(f0.mass());
                 hmxP.fill(missingePi0Pi0.mass());
