@@ -202,7 +202,7 @@ while (reader.hasNext()) {
             hpion2PvsTheta.fill(pion2.p(), theta2);
 
             if (pion1.mass() > 0.12 && pion1.mass() < 0.15 && pion2.mass() > 0.12 && pion2.mass() < 0.15
-                    && pion1.p() > 1.5 && pion2.p() < 2.5 && Math.toDegrees(pion1.theta()) < 28 && Math.toDegrees(pion2.theta()) < 28
+                    && pion1.p() > 1.5 && pion2.p() < 2.5 && pion2.p() > 1 && theta1 < 12 && theta2 < 15
                     && theta1 > 3 && theta2 > 5) {
                 hPtheta.fill(Math.toDegrees(physicsEvent.getParticleByPid(2212, 0).theta()));
                 hf0.fill(f0.mass());
