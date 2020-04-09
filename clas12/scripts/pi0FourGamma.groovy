@@ -129,6 +129,9 @@ while (reader.hasNext()) {
         Particle testPion1 = new Particle();
         Particle testPion2 = new Particle();
 
+        double theta1;
+        double theta2;
+
         //Particle f0 = physicsEvent.getParticle("[22, 0] + [22, 1] + [22, 2] + [22, 3]");
         Particle missingePPi0Pi0 = physicsEvent.getParticle("[b] + [t] - [2212] - [11]");
         missingePPi0Pi0.combine(Particle.copyFrom(gam0), -1);
@@ -157,6 +160,9 @@ while (reader.hasNext()) {
                         (gam0.vx() + gam1.py())/2, (gam0.vy() + gam1.vy())/2, (gam0.vz() + gam1.vz())/2);
                 testPion2.initParticleWithMass(0.135, gam2.px() + gam3.px(), gam2.py() + gam3.py(), gam2.pz() + gam3.pz(),
                         (gam2.vx() + gam3.py())/2, (gam2.vy() + gam3.vy())/2, (gam2.vz() + gam3.vz())/2);
+
+                theta1 = Math.toDegrees(Math.acos(gam0.cosTheta(gam1)));
+                theta2 = Math.toDegrees(Math.acos(gam2.cosTheta(gam3)));
             } else if (sector0 == sector2 && sector1 == sector3) {
                 pion1.combine(Particle.copyFrom(gam2), 1);
                 pion2 = Particle.copyFrom(gam1)
@@ -166,6 +172,9 @@ while (reader.hasNext()) {
                         (gam0.vx() + gam2.py())/2, (gam0.vy() + gam2.vy())/2, (gam0.vz() + gam2.vz())/2);
                 testPion2.initParticleWithMass(0.135, gam1.px() + gam3.px(), gam1.py() + gam3.py(), gam1.pz() + gam3.pz(),
                         (gam1.vx() + gam3.py())/2, (gam2.vy() + gam3.vy())/2, (gam1.vz() + gam3.vz())/2);
+
+                theta1 = Math.toDegrees(Math.acos(gam0.cosTheta(gam2)));
+                theta2 = Math.toDegrees(Math.acos(gam1.cosTheta(gam3)));
             } else if (sector0 == sector3 && sector1 == sector2) {
                 pion1.combine(Particle.copyFrom(gam3), 1);
                 pion2 = Particle.copyFrom(gam1);
@@ -175,6 +184,9 @@ while (reader.hasNext()) {
                         (gam0.vx() + gam3.py())/2, (gam0.vy() + gam3.vy())/2, (gam0.vz() + gam3.vz())/2);
                 testPion2.initParticleWithMass(0.135, gam2.px() + gam1.px(), gam2.py() + gam1.py(), gam2.pz() + gam1.pz(),
                         (gam2.vx() + gam1.py())/2, (gam2.vy() + gam1.vy())/2, (gam2.vz() + gam1.vz())/2);
+
+                theta1 = Math.toDegrees(Math.acos(gam0.cosTheta(gam3)));
+                theta2 = Math.toDegrees(Math.acos(gam1.cosTheta(gam2)));
             } else {
                 continue;
             }
@@ -186,8 +198,8 @@ while (reader.hasNext()) {
             missingePi0Pi0.combine(testPion2, -1);
 
             hpionpion.fill(pion1.mass(), pion2.mass());
-            hpion1PvsTheta.fill(pion1.p(), Math.toDegrees(pion1.theta()));
-            hpion2PvsTheta.fill(pion2.p(), Math.toDegrees(pion2.theta()));
+            hpion1PvsTheta.fill(pion1.p(), theta1);
+            hpion2PvsTheta.fill(pion2.p(), theta2);
 
             if (pion1.mass() > 0.12 && pion1.mass() < 0.15 && pion2.mass() > 0.12 && pion2.mass() < 0.15
                     && pion1.p() > 1.5 && pion2.p() < 2.5 && Math.toDegrees(pion1.theta()) < 28 && Math.toDegrees(pion2.theta()) < 28
