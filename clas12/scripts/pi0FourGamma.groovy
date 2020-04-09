@@ -78,7 +78,7 @@ while (reader.hasNext()) {
     event.read(particle);
     event.read(calorimeter);
 
-    PhysicsEvent physicsEvent = DataManager.getPhysicsEvent(10.6, particle);
+    PhysicsEvent physicsEvent = DataManager.getPhysicsEvent(10.614, particle);
 
     if (eventFilter.isValid(physicsEvent)) {
 
