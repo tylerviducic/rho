@@ -210,8 +210,8 @@ while (reader.hasNext()) {
             hpion1PvsTheta.fill(pion1.p(), theta1);
             hpion2PvsTheta.fill(pion2.p(), theta2);
 
-//            if (pion1.mass() > 0.12 && pion1.mass() < 0.15 && pion2.mass() > 0.12 && pion2.mass() < 0.15 &&
-              if(       pion1.p() > 1.5 && pion2.p() < 2.5 && pion2.p() > 1 && theta1 < 10 && theta2 < 14
+            if (pion1.mass() > 0.12 && pion1.mass() < 0.15 && pion2.mass() > 0.12 && pion2.mass() < 0.15
+                    && pion1.p() > 1.5 && pion2.p() < 2.5 && pion2.p() > 1 && theta1 < 10 && theta2 < 14
                     && theta1 > 4 && theta2 > 6) {
                 hf0.fill(f0.mass());
                 hmxP.fill(missingePi0Pi0.mass());
