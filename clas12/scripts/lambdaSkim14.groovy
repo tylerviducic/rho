@@ -28,7 +28,7 @@ reader.open();
 Event event = new Event();
 Bank particle = new Bank(reader.getSchemaFactory().getSchema("REC::Particle"));
 
-EventFilter eventFilter = new EventFilter("11:2212:321:-211");
+EventFilter eventFilter = new EventFilter("11:2212:321:-211:X+:X-:Xn");
 
 while (reader.hasNext()){
     reader.nextEvent(event);
@@ -42,7 +42,7 @@ while (reader.hasNext()){
         Particle protonPion = physicsEvent.getParticle("[2212] + [-211]");
         Particle missingEKaon = physicsEvent.getParticle("[b] + [t] - [11] - [321]");
 
-        if(kaon.p() < 2.0 && Math.abs(missingAll.mass2()) < 0.05 && missingAll.p() < 0.1){
+        if(kaon.p() < 2.0 && Math.abs(missingAll.mass2()) < 0.05 && missingAll.p() < 0.1 && kaon.getStatus() % 1000 == 2){
             hpPion.fill(protonPion.mass());
             heKaon.fill(missingEKaon.mass());
         }
