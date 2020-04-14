@@ -28,7 +28,7 @@ eWriter.open("/w/hallb-scifs17exp/clas12/viducic/data/clas12/premakoff/eDetected
 Event event = new Event();
 Bank particle = new Bank(reader.getSchemaFactory().getSchema("REC::Particle"));
 
-EventFilter filter = new EventFilter("11:-211:211:Xn");
+EventFilter filter = new EventFilter("11:-211:211:Xn:X+:X-");
 
 while (reader.hasNext()){
     reader.nextEvent(event);
