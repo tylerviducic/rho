@@ -212,7 +212,7 @@ while (reader.hasNext()) {
 
             if (pion1.mass() > 0.12 && pion1.mass() < 0.15 && pion2.mass() > 0.12 && pion2.mass() < 0.15
                     && pion1.p() > 1.5 && pion2.p() < 2.5 && pion2.p() > 1 && theta1 < 10 && theta2 < 14
-                    && theta1 > 4 && theta2 > 6 && missingePPi0Pi0.p() < 0.5) {
+                    && theta1 > 4 && theta2 > 6 && missingePPi0Pi0.p() < 0.3) {
                 hf0.fill(f0.mass());
                 hmxP.fill(missingePi0Pi0.mass());
 
