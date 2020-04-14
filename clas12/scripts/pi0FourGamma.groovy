@@ -60,7 +60,7 @@ c1.cd(5).draw(hpion2PvsTheta);
 //c1.cd(3).draw(hmp);
 
 
-String dataFile = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/premakoff/pi0pi0_skim4.hipo";
+String dataFile = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/premakoff/pi0pi0_skim4_inclusive.hipo";
 HipoChain reader = new HipoChain();
 reader.addFile(dataFile);
 reader.open();
