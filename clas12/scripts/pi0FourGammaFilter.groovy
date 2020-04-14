@@ -18,7 +18,7 @@ writer.open("/w/hallb-scifs17exp/clas12/viducic/data/clas12/premakoff/pi0pi0_ski
 Event event = new Event();
 Bank particle = new Bank(reader.getSchemaFactory().getSchema("REC::Particle"));
 
-EventFilter eventFilter = new EventFilter("11:2212:22:22:22:22:Xn:X+:X-");
+EventFilter eventFilter = new EventFilter("11:22:22:22:22:Xn:X+:X-");
 
 while (reader.hasNext()){
     reader.nextEvent(event);
