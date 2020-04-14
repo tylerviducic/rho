@@ -69,7 +69,7 @@ Event event = new Event();
 Bank particle = new Bank(reader.getSchemaFactory().getSchema("REC::Particle"));
 Bank calorimeter = new Bank(reader.getSchemaFactory().getSchema("REC::Calorimeter"));
 
-EventFilter eventFilter = new EventFilter("11:2212:22:22:22:22:Xn");
+EventFilter eventFilter = new EventFilter("11:2212:22:22:22:22:Xn:X+:X-");
 
 double gamCut = 0.3;
 
