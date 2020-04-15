@@ -9,56 +9,15 @@ import org.jlab.jnp.physics.Particle
 import org.jlab.jnp.physics.PhysicsEvent
 import org.jlab.jnp.reader.DataManager
 
-H2F hgam1gam2 = new H2F("gam1gam2", 30, 0, 0.3, 30, 0, 0.3);
-hgam1gam2.setTitleX("gam1gam2");
-hgam1gam2.setTitleY("gam3gam4");
-H2F hgam1gam3 = new H2F("gam1gam3", 30, 0, 0.3, 30, 0, 0.3);
-hgam1gam3.setTitleX("gam1gam3");
-hgam1gam3.setTitleY("gam2gam4");
-H2F hgam1gam4 = new H2F("gam1gam4", 30, 0, 0.3, 30, 0, 0.3);
-hgam1gam4.setTitleX("gam1gam4");
-hgam1gam4.setTitleY("gam2gam3");
+H1F hmmePi0Pi0 = new H1F("missingMassPi0Pi0", 300, 0, 3);
+hMissingePi0Pi0.setTitle("Missing mass of e' pi0 pi0");
 
-H2F hpionpion = new H2F("pionpion", 60, 0, 0.3, 60, 0, 0.3);
-hpionpion.setTitleX("first pion");
-hpionpion.setTitleY("second pion");
-
-H1F hf0 = new H1F("f0", 100, 0.0, 2.0);
-hf0.setTitle("IM(pi0pi0)");
-
-H2F hmp = new H2F("mp", 100, -0.5, 0.5, 100, -0.5, 0.5);
-hmp.setTitle("Missing px vs missing py of all particles");
-
-H1F hmm2 = new H1F("mm2", 100, -0.5, 0.5);
-hmm2.setTitle("Missing mass2 of all particles");
-
-H1F hmxP = new H1F("mxP", 100, 0.5, 1.5);
-hmxP.setTitle("Missing mass of electron and pi0pi0");
-
-H2F hpion1PvsTheta = new H2F("hpion1PvsTheta", 100, 0, 4.0, 40, 0, 40);
-hpion1PvsTheta.setTitleX("first momentum");
-hpion1PvsTheta.setTitleY("first pion theta");
-
-H2F hpion2PvsTheta = new H2F("hpion2PvsTheta", 100, 0, 4.0, 40, 0, 40);
-hpion2PvsTheta.setTitleX("second momentum");
-hpion2PvsTheta.setTitleY("second pion theta");
-
-H1F hmissingMomentum = new H1F("missingMomentum", 300, 0, 3);
-hmissingMomentum.setTitle("missing momentum of (e'pi0pi0)");
-
+H1F hmpePi0Pi0 = new H1F("missingMomentumePi0Pi0", 100, 0, 1);
+hmpePi0Pi0.setTitle("Missing momentum of e', pi0, pi0");
 
 TCanvas c1 = new TCanvas("c1", 1000, 1000);
-c1.divide(3, 2);
+c1.divide(2, 1);
 c1.getCanvas().initTimer(1000);
-
-c1.cd(0).draw(hpionpion);
-c1.cd(1).draw(hf0);
-//c1.cd(2).draw(hmm2);
-c1.cd(2).draw(hmp);
-c1.cd(3).draw(hmxP);
-c1.cd(4).draw(hpion1PvsTheta);
-c1.cd(5).draw(hpion2PvsTheta);
-
 
 String dataFile = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/premakoff/pi0pi0_skim4_inclusive.hipo";
 HipoChain reader = new HipoChain();
@@ -184,18 +143,9 @@ while (reader.hasNext()) {
             missingePi0Pi0.combine(testPion1, -1);
             missingePi0Pi0.combine(testPion2, -1);
 
-            hmxP.fill(missingePi0Pi0.mass());
-            hmissingMomentum.fill(missingePi0Pi0.p());
+            hmmePi0Pi0.fill(missingePi0Pi0.mass());
+            hmmePi0Pi0.fill(missingePi0Pi0.p());
 
-            hpionpion.fill(pion1.mass(), pion2.mass());
-            hpion1PvsTheta.fill(pion1.p(), theta1);
-            hpion2PvsTheta.fill(pion2.p(), theta2);
-
-            if (pion1.mass() > 0.12 && pion1.mass() < 0.15 && pion2.mass() > 0.12 && pion2.mass() < 0.15
-                    && pion1.p() > 1.5 && pion2.p() < 2.5 && pion2.p() > 1 && theta1 < 10 && theta2 < 14
-                    && theta1 > 4 && theta2 > 6 && missingePi0Pi0.p() < 0.3) {
-                hf0.fill(f0.mass());
-            }
         }
     }
 }
