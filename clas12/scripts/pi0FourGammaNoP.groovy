@@ -195,11 +195,6 @@ while (reader.hasNext()) {
                     && pion1.p() > 1.5 && pion2.p() < 2.5 && pion2.p() > 1 && theta1 < 10 && theta2 < 14
                     && theta1 > 4 && theta2 > 6 && missingePi0Pi0.p() < 0.3) {
                 hf0.fill(f0.mass());
-
-
-                if(f0.mass() < 1.0){
-                    hPtheta.fill(Math.toDegrees(physicsEvent.getParticleByPid(2212, 0).theta()));
-                }
             }
         }
     }
