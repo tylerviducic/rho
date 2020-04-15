@@ -162,7 +162,7 @@ while (reader.hasNext()) {
             missingePi0Pi0.combine(testPion2, -1);
 
             hmpePi0Pi0.fill(missingePi0Pi0.p());
-            if(missingePi0Pi0.p() < 0.5) {
+            if(missingePi0Pi0.p() < 1.0) {
 
                 hpion1pion2.fill(pion1.mass(), pion2.mass());
 
