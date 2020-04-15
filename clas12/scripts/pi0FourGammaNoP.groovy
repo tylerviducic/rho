@@ -54,10 +54,10 @@ c1.getCanvas().initTimer(1000);
 c1.cd(0).draw(hpionpion);
 c1.cd(1).draw(hf0);
 //c1.cd(2).draw(hmm2);
+c1.cd(2).draw(hmp);
 c1.cd(3).draw(hmxP);
 c1.cd(4).draw(hpion1PvsTheta);
 c1.cd(5).draw(hpion2PvsTheta);
-c1.cd(2).draw(hmp);
 
 
 String dataFile = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/premakoff/pi0pi0_skim4_inclusive.hipo";
@@ -81,7 +81,6 @@ while (reader.hasNext()) {
     PhysicsEvent physicsEvent = DataManager.getPhysicsEvent(10.614, particle);
 
     if (eventFilter.isValid(physicsEvent)) {
-        System.out.println("valid event");
         ArrayList<Integer> photons = new ArrayList<>();
         for(int i = 0; i < physicsEvent.count(); i++){
             Particle currentParticle = Particle.copyFrom(physicsEvent.getParticle(i));
