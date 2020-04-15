@@ -43,6 +43,9 @@ H2F hpion2PvsTheta = new H2F("hpion2PvsTheta", 100, 0, 4.0, 40, 0, 40);
 hpion2PvsTheta.setTitleX("second momentum");
 hpion2PvsTheta.setTitleY("second pion theta");
 
+H1F hmissingMomentum = new H1F("missingMomentum", 300, 0, 3);
+hmissingMomentum.setTitle("missing momentum of (e'pi0pi0)");
+
 
 TCanvas c1 = new TCanvas("c1", 1000, 1000);
 c1.divide(3, 2);
@@ -183,6 +186,7 @@ while (reader.hasNext()) {
             missingePi0Pi0.combine(testPion2, -1);
 
             hmxP.fill(missingePi0Pi0.mass());
+            hmissingMomentum.fill(missingePi0Pi0.p());
 
             hpionpion.fill(pion1.mass(), pion2.mass());
             hpion1PvsTheta.fill(pion1.p(), theta1);
