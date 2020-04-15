@@ -81,7 +81,7 @@ while (reader.hasNext()) {
     PhysicsEvent physicsEvent = DataManager.getPhysicsEvent(10.614, particle);
 
     if (eventFilter.isValid(physicsEvent)) {
-
+        System.out.println("valid event");
         ArrayList<Integer> photons = new ArrayList<>();
         for(int i = 0; i < physicsEvent.count(); i++){
             Particle currentParticle = Particle.copyFrom(physicsEvent.getParticle(i));
