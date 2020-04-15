@@ -151,11 +151,11 @@ while (reader.hasNext()) {
             missingePi0Pi0.combine(testPion1, -1);
             missingePi0Pi0.combine(testPion2, -1);
 
-            hmmePi0Pi0.fill(missingePi0Pi0.mass2());
-            hmpePi0Pi0.fill(missingePi0Pi0.p());
+            hpion1pion2.fill(pion1.mass(), pion2.mass());
 
-            if(missingePi0Pi0.p() < 1.0){
-                hpion1pion2.fill(pion1.mass(), pion2.mass());
+            if(pion1.mass() > 0.12 && pion1.mass() < 0.15 && pion1.mass() > 0.12 && pion1.mass() < 0.15){
+                hmmePi0Pi0.fill(missingePi0Pi0.mass());
+                hmpePi0Pi0.fill(missingePi0Pi0.p());
             }
 
         }
