@@ -20,12 +20,22 @@ hpion1pion2.setTitle("mass of pion1 vs mass of pion2");
 hpion1pion2.setTitleX("mass of pion1");
 hpion1pion2.setTitleY("mass of pion2");
 
+H2F hpion1PvsTheta = new H2F("hpion1PvsTheta", 100, 0, 4.0, 40, 0, 40);
+hpion1PvsTheta.setTitleX("first pion momentum");
+hpion1PvsTheta.setTitleY("first pair photon opening angle theta");
+
+H2F hpion2PvsTheta = new H2F("hpion1PvsTheta", 100, 0, 4.0, 40, 0, 40);
+hpion2PvsTheta.setTitleX("second pion momentum");
+hpion2PvsTheta.setTitleY("second pair photon opening angle theta");
+
 TCanvas c1 = new TCanvas("c1", 1000, 1000);
-c1.divide(3, 1);
+c1.divide(3, 2);
 c1.getCanvas().initTimer(1000);
 c1.cd(0).draw(hmmePi0Pi0);
 c1.cd(1).draw(hmpePi0Pi0);
 c1.cd(2).draw(hpion1pion2);
+c1.cd(3).draw(hpion1PvsTheta);
+c1.cd(4).draw(hpion2PvsTheta);
 
 String dataFile = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/premakoff/pi0pi0_skim4_inclusive.hipo";
 HipoChain reader = new HipoChain();
@@ -152,6 +162,9 @@ while (reader.hasNext()) {
             missingePi0Pi0.combine(testPion2, -1);
 
             hpion1pion2.fill(pion1.mass(), pion2.mass());
+
+            hpion1PvsTheta.fill(testPion1.p(), theta1);
+            hpion2PvsTheta.fill(testPion2.p(), theta2);
 
             if(pion1.mass() > 0.12 && pion1.mass() < 0.15 && pion1.mass() > 0.12 && pion1.mass() < 0.15){
                 hmmePi0Pi0.fill(missingePi0Pi0.mass());
