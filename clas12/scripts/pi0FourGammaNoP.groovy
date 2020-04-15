@@ -15,11 +15,17 @@ hmmePi0Pi0.setTitle("Missing mass of e' pi0 pi0");
 H1F hmpePi0Pi0 = new H1F("missingMomentumePi0Pi0", 100, 0.0, 10.0);
 hmpePi0Pi0.setTitle("Missing momentum of e', pi0, pi0");
 
+H2F hpion1pion2 = new H2F("pion1pion2", 100, 0, 0.3 , 100, 0, 0.3);
+hpion1pion2.setTitle("mass of pion1 vs mass of pion2");
+hpion1pion2.setTitleX("mass of pion1");
+hpion1pion2.setTitleY("mass of pion2");
+
 TCanvas c1 = new TCanvas("c1", 1000, 1000);
-c1.divide(2, 1);
+c1.divide(3, 1);
 c1.getCanvas().initTimer(1000);
 c1.cd(0).draw(hmmePi0Pi0);
 c1.cd(1).draw(hmpePi0Pi0);
+c1.cd(2).draw(hpion1pion2);
 
 String dataFile = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/premakoff/pi0pi0_skim4_inclusive.hipo";
 HipoChain reader = new HipoChain();
@@ -30,7 +36,7 @@ Event event = new Event();
 Bank particle = new Bank(reader.getSchemaFactory().getSchema("REC::Particle"));
 Bank calorimeter = new Bank(reader.getSchemaFactory().getSchema("REC::Calorimeter"));
 
-EventFilter eventFilter = new EventFilter("11:22:22:22:22:Xn:X+:X-");
+EventFilter eventFilter = new EventFilter("11:22:22:22:22:Xn");
 
 double gamCut = 0.3;
 
@@ -147,6 +153,10 @@ while (reader.hasNext()) {
 
             hmmePi0Pi0.fill(missingePi0Pi0.mass2());
             hmpePi0Pi0.fill(missingePi0Pi0.p());
+
+            if(missingePi0Pi0.p() < 1.0){
+                hpion1pion2.fill(pion1.mass(), pion2.mass());
+            }
 
         }
     }
