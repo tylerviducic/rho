@@ -167,7 +167,9 @@ while (reader.hasNext()) {
             hpion2PvsTheta.fill(testPion2.p(), theta2);
 
             if(pion1.p() > 1 && pion1.p() < 3.0 && theta1 > 5 && theta1 < 15 && pion2.p() > 1 && pion2.p() < 3.0 && theta2 > 5 && theta2 < 15){
-                hmmePi0Pi0.fill(missingePi0Pi0.mass());
+                if (missingePi0Pi0.p() < 2.0){
+                    hmmePi0Pi0.fill(missingePi0Pi0.mass());
+                }
                 hmpePi0Pi0.fill(missingePi0Pi0.p());
             }
 
