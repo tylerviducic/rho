@@ -9,7 +9,7 @@ import org.jlab.jnp.physics.Particle
 import org.jlab.jnp.physics.PhysicsEvent
 import org.jlab.jnp.reader.DataManager
 
-H1F hmmePi0Pi0 = new H1F("missingMassPi0Pi0", 150, 0.0, 3.0);
+H1F hmmePi0Pi0 = new H1F("missingMassPi0Pi0", 150, 0.0, 2.0);
 hmmePi0Pi0.setTitle("Missing mass of e' pi0 pi0");
 
 H1F hmpePi0Pi0 = new H1F("missingMomentumePi0Pi0", 100, 0.0, 10.0);
