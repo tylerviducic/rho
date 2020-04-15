@@ -9,10 +9,10 @@ import org.jlab.jnp.physics.Particle
 import org.jlab.jnp.physics.PhysicsEvent
 import org.jlab.jnp.reader.DataManager
 
-H1F hmmePi0Pi0 = new H1F("missingMassPi0Pi0", 300, 0, 3);
+H1F hmmePi0Pi0 = new H1F("missingMassPi0Pi0", 300, 0.0, 3.0);
 hmmePi0Pi0.setTitle("Missing mass of e' pi0 pi0");
 
-H1F hmpePi0Pi0 = new H1F("missingMomentumePi0Pi0", 100, 0, 10);
+H1F hmpePi0Pi0 = new H1F("missingMomentumePi0Pi0", 100, 0.0, 10.0);
 hmpePi0Pi0.setTitle("Missing momentum of e', pi0, pi0");
 
 TCanvas c1 = new TCanvas("c1", 1000, 1000);
@@ -146,7 +146,7 @@ while (reader.hasNext()) {
             missingePi0Pi0.combine(testPion2, -1);
 
             hmmePi0Pi0.fill(missingePi0Pi0.mass2());
-            System.out.println(missingePi0Pi0.p());
+            hmpePi0Pi0.fill(missingePi0Pi0.p());
 
         }
     }
