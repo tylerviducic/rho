@@ -30,5 +30,4 @@ while (reader.hasNext()){
         writer.addEvent(event);
     }
 }
-
 writer.close();
