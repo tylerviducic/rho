@@ -10,7 +10,7 @@ import org.jlab.jnp.physics.PhysicsEvent
 import org.jlab.jnp.reader.DataManager
 
 H1F hmmePi0Pi0 = new H1F("missingMassPi0Pi0", 300, 0, 3);
-hMissingePi0Pi0.setTitle("Missing mass of e' pi0 pi0");
+hmmePi0Pi0.setTitle("Missing mass of e' pi0 pi0");
 
 H1F hmpePi0Pi0 = new H1F("missingMomentumePi0Pi0", 100, 0, 1);
 hmpePi0Pi0.setTitle("Missing momentum of e', pi0, pi0");
@@ -18,6 +18,8 @@ hmpePi0Pi0.setTitle("Missing momentum of e', pi0, pi0");
 TCanvas c1 = new TCanvas("c1", 1000, 1000);
 c1.divide(2, 1);
 c1.getCanvas().initTimer(1000);
+c1.cd(0).draw(hmmePi0Pi0);
+c1.cd(1).draw(hmpePi0Pi0);
 
 String dataFile = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/premakoff/pi0pi0_skim4_inclusive.hipo";
 HipoChain reader = new HipoChain();
