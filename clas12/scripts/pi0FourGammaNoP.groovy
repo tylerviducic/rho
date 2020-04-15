@@ -161,19 +161,19 @@ while (reader.hasNext()) {
             missingePi0Pi0.combine(testPion1, -1);
             missingePi0Pi0.combine(testPion2, -1);
 
-            hpion1pion2.fill(pion1.mass(), pion2.mass());
+            hmpePi0Pi0.fill(missingePi0Pi0.p());
+            if(missingePi0Pi0.p() < 0.5) {
 
-            hpion1PvsTheta.fill(testPion1.p(), theta1);
-            hpion2PvsTheta.fill(testPion2.p(), theta2);
+                hpion1pion2.fill(pion1.mass(), pion2.mass());
 
-            if(pion1.p() > 1 && pion1.p() < 3.0 && theta1 > 5 && theta1 < 15 && pion2.p() > 1 && pion2.p() < 3.0 && theta2 > 5 && theta2 < 15
-                && pion1.mass() > 0.12 && pion1.mass() < 0.15 && pion2.mass() > 0.12 && pion2.mass() < 0.15){
-                if (missingePi0Pi0.p() < 1.5){
+                hpion1PvsTheta.fill(testPion1.p(), theta1);
+                hpion2PvsTheta.fill(testPion2.p(), theta2);
+
+                if (pion1.p() > 1 && pion1.p() < 3.0 && theta1 > 5 && theta1 < 15 && pion2.p() > 1 && pion2.p() < 3.0 && theta2 > 5 && theta2 < 15
+                        && pion1.mass() > 0.12 && pion1.mass() < 0.15 && pion2.mass() > 0.12 && pion2.mass() < 0.15) {
                     hmmePi0Pi0.fill(missingePi0Pi0.mass());
                 }
-                hmpePi0Pi0.fill(missingePi0Pi0.p());
             }
-
         }
     }
 }
