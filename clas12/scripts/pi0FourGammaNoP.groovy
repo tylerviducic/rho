@@ -146,7 +146,7 @@ while (reader.hasNext()) {
             missingePi0Pi0.combine(testPion2, -1);
 
             hmmePi0Pi0.fill(missingePi0Pi0.mass());
-            missingePi0Pi0.toLundString();
+            System.out.println(missingePi0Pi0.p());
 
         }
     }
