@@ -181,7 +181,9 @@ while (reader.hasNext()) {
                     hmmePi0Pi0.fill(missingePi0Pi0.mass());
                     if (missingePi0Pi0.mass() > 0.8 && missingePi0Pi0.mass() < 1.2){
                         hf0.fill(f0.mass());
-                        hf0Theta.fill(f0.mass(), Math.toDegrees(f0.theta()));
+                        if(f0.mass() < 1.0 && f0.mass() > 0.5){
+                            hf0Theta.fill(f0.mass(), Math.toDegrees(f0.theta()));
+                        }
                     }
                 }
             }
