@@ -28,6 +28,9 @@ H2F hpion2PvsTheta = new H2F("hpion1PvsTheta", 100, 0, 4.0, 40, 0, 40);
 hpion2PvsTheta.setTitleX("second pion momentum");
 hpion2PvsTheta.setTitleY("second pair photon opening angle theta");
 
+H2F hf0Theta = new H2F("hfoTheta", 100, 0, 2, 40, 0, 40);
+hf0Theta.setTitle("IM(pi0pi0) vs theta");
+
 H1F hf0 = new H1F("f0", 100, 0.0, 2.0);
 hf0.setTitle("IM(pi0pi0)");
 
@@ -178,6 +181,7 @@ while (reader.hasNext()) {
                     hmmePi0Pi0.fill(missingePi0Pi0.mass());
                     if (missingePi0Pi0.mass() > 0.8 && missingePi0Pi0.mass() < 1.2){
                         hf0.fill(f0.mass());
+                        hf0Theta.fill(f0.mass(), Math.toDegrees(f0.theta()));
                     }
                 }
             }
