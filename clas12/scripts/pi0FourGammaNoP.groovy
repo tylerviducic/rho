@@ -28,7 +28,7 @@ H2F hpion2PvsTheta = new H2F("hpion1PvsTheta", 100, 0, 4.0, 40, 0, 40);
 hpion2PvsTheta.setTitleX("second pion momentum");
 hpion2PvsTheta.setTitleY("second pair photon opening angle theta");
 
-H2F hf0Theta = new H2F("hfoTheta", 100, 0, 2, 40, 0, 40);
+H2F hf0Theta = new H2F("hfoTheta", 50, 0, 2, 25, 0, 25);
 hf0Theta.setTitle("IM(pi0pi0) vs theta");
 
 H1F hf0 = new H1F("f0", 100, 0.0, 2.0);
