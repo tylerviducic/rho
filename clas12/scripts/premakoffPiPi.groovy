@@ -29,7 +29,7 @@ hEDMm2EPipPim.setTitle("Missing mass2 of e'p'pi+pi-");
 H1F hEDq2 = new H1F("hEDq2", 50, 0, 0.1);
 hEDq2.setTitle("Q2");
 
-H2F hEDImPipPimTheta = new H2F("hEDImPipPimTheta", 150, 0.0, 1.5, 50, 0, 50);
+H2F hEDImPipPimTheta = new H2F("hEDImPipPimTheta", 150, 0.5, 1.5, 50, 0, 50);
 hEDImPipPimTheta.setTitle("EDIMpi+pi- vs theta of p(pi+pi-)");
 
 H1F hIMPiPi = new H1F("imPiPi", 100, 0.5, 1.5);
