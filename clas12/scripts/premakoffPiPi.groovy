@@ -32,6 +32,9 @@ hEDq2.setTitle("Q2");
 H2F hEDImPipPimTheta = new H2F("hEDImPipPimTheta", 150, 0.0, 3, 50, 0, 50);
 hEDImPipPimTheta.setTitle("EDIMpi+pi- vs theta of p(pi+pi-)");
 
+H1F hIMPiPi = new H1F("imPiPi", 100, 0.5, 1.5);
+hIMPiPi.setTitle("Invariant mass of #pi^+#pi^-");
+
 H1F hDiffPT = new H1F("hDiffPT", 100, -0.5, 0.5);
 hDiffPT.setTitle("Difference between Missing PT and ePT");
 
@@ -102,11 +105,10 @@ while (reader.hasNext()){
                 hEDq2.fill(q2);
 //            hDiffPT.fill(missingPT-ePT);
 
-                if (q2 < 0.2) {
-                    hEDImPipPimTheta.fill(imPipPim.mass(), Math.toDegrees(imPipPim.theta()));
-                    if (Math.toDegrees(imPipPim.theta()) < 25) {
-                        eDImPipPimHistos.get(getBinIndex(imPipPim)).fill(imPipPim.mass());
-                    }
+                hEDImPipPimTheta.fill(imPipPim.mass(), Math.toDegrees(imPipPim.theta()));
+                hIMPiPi.fill(imPipPim.mass());
+                if (Math.toDegrees(imPipPim.theta()) < 25) {
+                    eDImPipPimHistos.get(getBinIndex(imPipPim)).fill(imPipPim.mass());
                 }
             }
         }
