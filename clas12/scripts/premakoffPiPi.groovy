@@ -90,7 +90,7 @@ while (reader.hasNext()){
         Particle imPipPim = physicsEvent.getParticle("[211] + [-211]");
 
         double q2 = getQ2(physicsEvent.beamParticle(), electron);
-        hEDMm2EPipPim.fill(missingEPipPim.mass2());
+        hEDMm2EPipPim.fill(missingEPipPim.mass());
 
         if(missingEPipPim.mass2() < 1.4 && missingEPipPim.mass2() > 0.7) {
 //            hEDPxPt.fill(pxPt);
