@@ -10,32 +10,37 @@ import org.jlab.jnp.physics.PhysicsEvent
 import org.jlab.jnp.reader.DataManager
 
 H1F hmmePi0Pi0 = new H1F("missingMassPi0Pi0", 150, 0.0, 2.0);
-hmmePi0Pi0.setTitle("Missing mass of e' pi0 pi0");
+hmmePi0Pi0.setTitle("Missing mass of e' #pi^0 #pi^0");
+hmmePi0Pi0.setTitleX("MM(e'#pi^0#pi^0)[GeV]");
 
 H1F hmpePi0Pi0 = new H1F("missingMomentumePi0Pi0", 100, 0.0, 10.0);
-hmpePi0Pi0.setTitle("Missing momentum of e', pi0, pi0");
+hmpePi0Pi0.setTitle("Missing momentum of e', #pi^0, #pi^0");
 
 H2F hpion1pion2 = new H2F("pion1pion2", 100, 0, 0.3 , 100, 0, 0.3);
-hpion1pion2.setTitle("mass of pion1 vs mass of pion2");
-hpion1pion2.setTitleX("mass of pion1");
-hpion1pion2.setTitleY("mass of pion2");
+hpion1pion2.setTitle("Invariant Mass of #gamma#gamma pairs");
+hpion1pion2.setTitleX("IM(#gamma#gamma1)[GeV]");
+hpion1pion2.setTitleY("IM(#gamma#gamma2)[GeV]");
 
 H2F hpion1PvsTheta = new H2F("hpion1PvsTheta", 100, 0, 4.0, 40, 0, 40);
-hpion1PvsTheta.setTitleX("first pion momentum");
-hpion1PvsTheta.setTitleY("first pair photon opening angle theta");
+hpion1PvsTheta.setTitle("\"Pion1\" momentum vs #gamma#gamma opening angle");
+hpion1PvsTheta.setTitleX("p(#gamma#gamma1)[GeV]");
+hpion1PvsTheta.setTitleY("#theta(#gamma#gamma1)[Degrees]");
 
 H2F hpion2PvsTheta = new H2F("hpion1PvsTheta", 100, 0, 4.0, 40, 0, 40);
-hpion2PvsTheta.setTitleX("second pion momentum");
-hpion2PvsTheta.setTitleY("second pair photon opening angle theta");
+hpion2PvsTheta.setTitle("\"Pion2\" momentum vs #gamma#gamma opening angle");
+hpion2PvsTheta.setTitleX("p(#gamma#gamma2)[GeV]");
+hpion2PvsTheta.setTitleY("#theta(#gamma#gamma2)[Degrees]");
 
 H2F hf0Theta = new H2F("hfoTheta", 50, 0, 2, 25, 0, 25);
-hf0Theta.setTitle("IM(pi0pi0) vs theta");
+hf0Theta.setTitle("IM(#pi^0#pi^0) vs #theta");
 
 H1F hf0 = new H1F("f0", 100, 0.0, 2.0);
-hf0.setTitle("IM(pi0pi0)");
+hf0.setTitle("Invariant mass of #pi^0#pi^0");
+hf0.setTitleX("IM(#pi^0#pi^0)[GeV]");
 
 H1F hq2 = new H1F("q2", 100, 0, 1.0);
 hq2.setTitle("Q^2 of electron");
+hq2.setTitleX("Q^2(e')[GeV]");
 
 TCanvas c1 = new TCanvas("c1", 1000, 1000);
 c1.divide(3, 2);
