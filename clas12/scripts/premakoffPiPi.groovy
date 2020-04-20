@@ -90,24 +90,26 @@ while (reader.hasNext()){
         Particle imPipPim = physicsEvent.getParticle("[211] + [-211]");
 
         double q2 = getQ2(physicsEvent.beamParticle(), electron);
-        hEDMm2EPipPim.fill(missingEPipPim.mass());
 
-        if(missingEPipPim.mass2() < 1.0 && missingEPipPim.mass2() > 0.8) {
+        if(missingEPipPim.p() < 1.0) {
+            hEDMm2EPipPim.fill(missingEPipPim.mass());
+
+            if (missingEPipPim.mass2() < 1.0 && missingEPipPim.mass2() > 0.8) {
 //            hEDPxPt.fill(pxPt);
 //            hEDPyPt.fill(pyPt);
 //            hEDPxPyPt.fill(pxPt, pyPt);
-            hMP.fill(missingEPipPim.p());
-            hEDq2.fill(q2);
+                hMP.fill(missingEPipPim.p());
+                hEDq2.fill(q2);
 //            hDiffPT.fill(missingPT-ePT);
 
-            if(q2 < 0.2){
-                hEDImPipPimTheta.fill(imPipPim.mass(), Math.toDegrees(imPipPim.theta()));
-                if (Math.toDegrees(imPipPim.theta())< 25){
-                    eDImPipPimHistos.get(getBinIndex(imPipPim)).fill(imPipPim.mass());
+                if (q2 < 0.2) {
+                    hEDImPipPimTheta.fill(imPipPim.mass(), Math.toDegrees(imPipPim.theta()));
+                    if (Math.toDegrees(imPipPim.theta()) < 25) {
+                        eDImPipPimHistos.get(getBinIndex(imPipPim)).fill(imPipPim.mass());
+                    }
                 }
             }
         }
-
     }
 }
 
