@@ -21,7 +21,7 @@ hpion1pion2.setTitle("Invariant Mass of #gamma#gamma pairs");
 hpion1pion2.setTitleX("IM(#gamma#gamma1)[GeV]");
 hpion1pion2.setTitleY("IM(#gamma#gamma2)[GeV]");
 
-H2F hpion1PvsTheta = new H2F("hpion1PvsTheta", 100, 0, 4.0, 40, 0, 40);
+H2F hpion1PvsTheta = new H2F("hpion1PvsTheta", 125, 0, 5.0, 40, 0, 40);
 hpion1PvsTheta.setTitle("\"Pion1\" momentum vs #gamma#gamma opening angle");
 hpion1PvsTheta.setTitleX("p(#gamma#gamma1)[GeV]");
 hpion1PvsTheta.setTitleY("#theta(#gamma#gamma1)[Degrees]");
