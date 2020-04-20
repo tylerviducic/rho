@@ -38,13 +38,14 @@ H1F hmxP = new H1F("mxP", 100, 0.5, 1.5);
 hmxP.setTitle("Missing mass of electron and pi0pi0");
 
 H2F hpion1PvsTheta = new H2F("hpion1PvsTheta", 150, 0, 6.0, 40, 0, 40);
-
+hpion1PvsTheta.setTitle("\"Pion1\" momentum vs opening angle of #gamma#gamma");
 hpion1PvsTheta.setTitleX("p(#gamma#gamma1)[GeV]");
-hpion1PvsTheta.setTitleY("#theta(#gamma#gamma2)[Degrees]");
+hpion1PvsTheta.setTitleY("#theta(#gamma#gamma1)[Degrees]");
 
 H2F hpion2PvsTheta = new H2F("hpion2PvsTheta", 100, 0, 4.0, 40, 0, 40);
-hpion2PvsTheta.setTitleX("second momentum");
-hpion2PvsTheta.setTitleY("second pion theta");
+hpion2PvsTheta.setTitle("\"Pion2\" momentum vs opening angle of #gamma#gamma");
+hpion2PvsTheta.setTitleX("p(#gamma#gamma2)[GeV]");
+hpion2PvsTheta.setTitleY("#theta(#gamma#gamma2)[Degrees]");
 
 H1F hPtheta = new H1F("hPtheta", 90, 0, 90);
 hPtheta.setTitle("theta distribution of proton");
@@ -214,7 +215,7 @@ while (reader.hasNext()) {
             hpion2PvsTheta.fill(pion2.p(), theta2);
 
             if (pion1.mass() > 0.12 && pion1.mass() < 0.15 && pion2.mass() > 0.12 && pion2.mass() < 0.15
-                    && pion1.p() > 1.5 && pion2.p() < 2.5 && pion2.p() > 1 && theta1 < 10 && theta2 < 14
+                    && pion1.p() > 1.5 && pion1.p() < 5.0 && pion2.p() < 2.5 && pion2.p() > 1 && theta1 < 10 && theta2 < 14
                     && theta1 > 4 && theta2 > 6 && missingePPi0Pi0.p() < 0.3) {
                 hf0.fill(f0.mass());
                 hmxP.fill(missingePi0Pi0.mass());
