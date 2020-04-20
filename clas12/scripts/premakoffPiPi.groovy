@@ -57,7 +57,7 @@ TCanvas c1 = new TCanvas("c1", 1000, 1000);
 c1.divide(2,2);
 c1.getCanvas().initTimer(1000);
 c1.cd(0).draw(hEDMm2EPipPim);
-c1.cd(1).draw(hEDq2);
+c1.cd(1).draw(hIMPiPi);
 c1.cd(2).draw(hMP);
 c1.cd(3).draw(hEDImPipPimTheta);
 
@@ -93,7 +93,7 @@ while (reader.hasNext()){
         Particle imPipPim = physicsEvent.getParticle("[211] + [-211]");
 
         double q2 = getQ2(physicsEvent.beamParticle(), electron);
-
+        hMP.fill(missingEPipPim.p());
         if(missingEPipPim.p() < 1.0) {
             hEDMm2EPipPim.fill(missingEPipPim.mass());
 
@@ -101,7 +101,6 @@ while (reader.hasNext()){
 //            hEDPxPt.fill(pxPt);
 //            hEDPyPt.fill(pyPt);
 //            hEDPxPyPt.fill(pxPt, pyPt);
-                hMP.fill(missingEPipPim.p());
                 hEDq2.fill(q2);
 //            hDiffPT.fill(missingPT-ePT);
 
