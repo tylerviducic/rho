@@ -21,7 +21,7 @@ hpion1pion2.setTitle("Invariant Mass of #gamma#gamma pairs");
 hpion1pion2.setTitleX("IM(#gamma#gamma1)[GeV]");
 hpion1pion2.setTitleY("IM(#gamma#gamma2)[GeV]");
 
-H2F hpion1PvsTheta = new H2F("hpion1PvsTheta", 125, 0, 5.0, 40, 0, 40);
+H2F hpion1PvsTheta = new H2F("hpion1PvsTheta", 150, 0, 6.0, 40, 0, 40);
 hpion1PvsTheta.setTitle("\"Pion1\" momentum vs #gamma#gamma opening angle");
 hpion1PvsTheta.setTitleX("p(#gamma#gamma1)[GeV]");
 hpion1PvsTheta.setTitleY("#theta(#gamma#gamma1)[Degrees]");
@@ -190,7 +190,7 @@ while (reader.hasNext()) {
 
                 hq2.fill(q2);
 
-                if (pion1.p() > 1 && pion1.p() < 5 && theta1 > 5 && theta1 < 15 && pion2.p() > 1 && pion2.p() < 3.0 && theta2 > 5 && theta2 < 15
+                if (pion1.p() > 1 && pion1.p() < 5.5 && theta1 > 5 && theta1 < 15 && pion2.p() > 1 && pion2.p() < 3.0 && theta2 > 5 && theta2 < 15
                         && pion1.mass() > 0.12 && pion1.mass() < 0.15 && pion2.mass() > 0.12 && pion2.mass() < 0.15 && q2 < 0.3) {
                     hmmePi0Pi0.fill(missingePi0Pi0.mass());
                     if (missingePi0Pi0.mass() > 0.8 && missingePi0Pi0.mass() < 1.2){

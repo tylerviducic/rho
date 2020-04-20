@@ -20,11 +20,13 @@ hgam1gam4.setTitleX("gam1gam4");
 hgam1gam4.setTitleY("gam2gam3");
 
 H2F hpionpion = new H2F("pionpion", 60, 0, 0.3, 60, 0, 0.3);
-hpionpion.setTitleX("first pion");
-hpionpion.setTitleY("second pion");
+hpionpion.setTitle("Invariant mass of photons pairs");
+hpionpion.setTitleX("IM(#gamma#gamma1)[GeV]");
+hpionpion.setTitleY("IM(#gamma#gamma2)[GeV]");
 
 H1F hf0 = new H1F("f0", 100, 0.0, 2.0);
-hf0.setTitle("IM(pi0pi0)");
+hf0.setTitle("Invariant Mass of #pi^0#pi^0");
+hf0.setTitleX("IM(#pi^0#pi^0)[GeV]")
 
 H2F hmp = new H2F("mp", 100, -0.5, 0.5, 100, -0.5, 0.5);
 hmp.setTitle("Missing px vs missing py of all particles");
@@ -35,9 +37,10 @@ hmm2.setTitle("Missing mass2 of all particles");
 H1F hmxP = new H1F("mxP", 100, 0.5, 1.5);
 hmxP.setTitle("Missing mass of electron and pi0pi0");
 
-H2F hpion1PvsTheta = new H2F("hpion1PvsTheta", 100, 0, 4.0, 40, 0, 40);
-hpion1PvsTheta.setTitleX("first momentum");
-hpion1PvsTheta.setTitleY("first pion theta");
+H2F hpion1PvsTheta = new H2F("hpion1PvsTheta", 150, 0, 6.0, 40, 0, 40);
+
+hpion1PvsTheta.setTitleX("p(#gamma#gamma1)[GeV]");
+hpion1PvsTheta.setTitleY("#theta(#gamma#gamma2)[Degrees]");
 
 H2F hpion2PvsTheta = new H2F("hpion2PvsTheta", 100, 0, 4.0, 40, 0, 40);
 hpion2PvsTheta.setTitleX("second momentum");
