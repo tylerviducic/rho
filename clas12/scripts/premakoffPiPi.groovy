@@ -23,7 +23,7 @@ hEDPxPt.setTitle("missing ptx/missing p");
 H2F hEDPxPyPt = new H2F("hEDPxPyPt", 100, -0.2, 0.2, 100, -0.2, 0.2);
 hEDPxPyPt.setTitle("ptx/p vs pty/p");
 
-H1F hEDMm2EPipPim = new H1F("hEDMmPPipPim", 150, 0.0, 3);
+H1F hEDMm2EPipPim = new H1F("hEDMmPPipPim", 150, 0.0, 1.5);
 hEDMm2EPipPim.setTitle("Missing mass2 of e'p'pi+pi-");
 
 H1F hEDq2 = new H1F("hEDq2", 50, 0, 0.1);
