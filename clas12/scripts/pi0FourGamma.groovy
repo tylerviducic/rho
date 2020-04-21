@@ -114,7 +114,6 @@ while (reader.hasNext()) {
         }
         else if(photons.size() > 4){
             while(photons.size() > 4){
-                System.out.println(photons.size());
                 double smallestP = physicsEvent.getParticle(0).p();
                 int smallestIndex = 0;
                 for(int i = 1; i < photons.size(); i++){
