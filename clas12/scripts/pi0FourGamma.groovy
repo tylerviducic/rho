@@ -55,7 +55,7 @@ hWvsIMpi0pi0.setTitle("W vs IM(#pi^0#pi^0)");
 hWvsIMpi0pi0.setTitleX("IM(#pi^0#pi^0) [GeV]");
 hWvsIMpi0pi0.setTitleY("W [Gev]");
 
-H2F hQ2vsIMpi0pi0 = new H2F("q2vsIMpi0pi0", 100, 0, 2, 100, 0, 1);
+H2F hQ2vsIMpi0pi0 = new H2F("q2vsIMpi0pi0", 100, 0, 2, 250, 0, 5);
 hQ2vsIMpi0pi0.setTitle("Q^2 vs IM(#pi^0#pi^0)");
 hQ2vsIMpi0pi0.setTitleX("IM(#pi^0#pi^0) [GeV]");
 hQ2vsIMpi0pi0.setTitleY("Q^2 [Gev]");
@@ -236,7 +236,7 @@ while (reader.hasNext()) {
                 hf0.fill(f0.mass());
                 hmxP.fill(missingePi0Pi0.mass());
                 double q2 = getQ2(Particle.copyFrom(physicsEvent.beamParticle()), Particle.copyFrom(physicsEvent.getParticleByPid(11, 0)));
-                System.out.println(q2);
+                System.out.println(w.mass());
 
                 hWvsIMpi0pi0.fill(f0.mass(), w.mass());
                 hQ2vsIMpi0pi0.fill(f0.mass(), q2);
