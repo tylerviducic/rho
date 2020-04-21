@@ -236,9 +236,8 @@ while (reader.hasNext()) {
                 hf0.fill(f0.mass());
                 hmxP.fill(missingePi0Pi0.mass());
                 double q2 = getQ2(Particle.copyFrom(physicsEvent.beamParticle()), Particle.copyFrom(physicsEvent.getParticleByPid(11, 0)));
-                System.out.println(w.mass());
 
-                hWvsIMpi0pi0.fill(f0.mass(), w.mass());
+                hWvsIMpi0pi0.fill(f0.mass(), Math.abs(w.mass()));
                 hQ2vsIMpi0pi0.fill(f0.mass(), q2);
 
                 if(f0.mass() < 1.0){
