@@ -50,6 +50,16 @@ hpion2PvsTheta.setTitleY("#theta(#gamma#gamma2)[Degrees]");
 H1F hPtheta = new H1F("hPtheta", 90, 0, 90);
 hPtheta.setTitle("theta distribution of proton");
 
+H2F hWvsIMpi0pi0 = new H2F("wvsIMpi0pi0", 100, 0, 2, 250, 0, 5);
+hWvsIMpi0pi0.setTitle("W vs IM(#pi^0#pi^0)");
+hWvsIMpi0pi0.setTitleX("IM(#pi^0#pi^0) [GeV]");
+hWvsIMpi0pi0.setTitleY("W [Gev]");
+
+H2F hQ2vsIMpi0pi0 = new H2F("q2vsIMpi0pi0", 100, 0, 2, 100, 0, 1);
+hQ2vsIMpi0pi0.setTitle("Q^2 vs IM(#pi^0#pi^0)");
+hQ2vsIMpi0pi0.setTitleX("IM(#pi^0#pi^0) [GeV]");
+Q2vsIMpi0pi0.setTitleY("Q^2 [Gev]");
+
 TCanvas c1 = new TCanvas("c1", 1000, 1000);
 c1.divide(3, 2);
 c1.getCanvas().initTimer(1000);
@@ -61,7 +71,12 @@ c1.cd(2).draw(hPtheta);
 c1.cd(3).draw(hmxP);
 c1.cd(4).draw(hpion1PvsTheta);
 c1.cd(5).draw(hpion2PvsTheta);
-//c1.cd(3).draw(hmp);
+
+TCanvas c2 = new TCanvas("c2", 1000, 1000);
+c2.divide(2,1);
+c2.getCanvas().initTimer(1000);
+c2.cd(0).draw(hQ2vsIMpi0pi0);
+c2.cd(1).draw(hWvsIMpi0pi0);
 
 
 String dataFile = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/premakoff/pi0pi0_skim4_inclusive.hipo";
@@ -145,6 +160,7 @@ while (reader.hasNext()) {
         missingePPi0Pi0.combine(Particle.copyFrom(gam3), -1);
 
         Particle missingePi0Pi0 = physicsEvent.getParticle("[b] + [t] - [11]");
+        Particle w = physicsEvent.getParticle("[b] - [11]");
 
         hmp.fill(missingePPi0Pi0.px()/missingePPi0Pi0.p(), missingePPi0Pi0.py()/missingePPi0Pi0.p());
         hmm2.fill(missingePPi0Pi0.mass2());
@@ -216,9 +232,13 @@ while (reader.hasNext()) {
 
             if (pion1.mass() > 0.12 && pion1.mass() < 0.15 && pion2.mass() > 0.12 && pion2.mass() < 0.15
                     && pion1.p() > 1.5 && pion1.p() < 5.0 && pion2.p() < 2.5 && pion2.p() > 1 && theta1 < 10 && theta2 < 14
-                    && theta1 > 4 && theta2 > 6 && missingePPi0Pi0.p() < 0.3) {
+                    && theta1 > 4 && theta2 > 6 && missingePPi0Pi0.p() < 1.0) {
                 hf0.fill(f0.mass());
                 hmxP.fill(missingePi0Pi0.mass());
+                double q2 = getQ2(Particle.copyFrom(physicsEvent.beamParticle()), Particle.copyFrom(physicsEvent.getParticleByPid(11, 0)));
+
+                hWvsIMpi0pi0.fill(f0.mass(), w.mass());
+                hQ2vsIMpi0pi0.fill(f0.mass(), q2);
 
                 if(f0.mass() < 1.0){
                     hPtheta.fill(Math.toDegrees(physicsEvent.getParticleByPid(2212, 0).theta()));
@@ -238,4 +258,8 @@ public static int getSector(int pindex, Bank calorimeter){
         }
     }
     return -1;
+}
+
+public static double getQ2(Particle particle1, Particle particle2){
+    return 4 * particle1.e() * particle2.e() * Math.sin(particle2.theta() /2) * Math.sin(particle2.theta()/2);
 }
