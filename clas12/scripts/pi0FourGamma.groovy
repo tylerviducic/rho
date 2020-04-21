@@ -109,6 +109,7 @@ while (reader.hasNext()) {
             }
         }
 
+        println(photons.size());
         if(photons.size() < 4){
             continue;
         }
@@ -124,7 +125,6 @@ while (reader.hasNext()) {
                 }
                 photons.remove(smallestP);
             }
-            println(photons.size());
         }
 
         int gam0Index = photons.get(0);
