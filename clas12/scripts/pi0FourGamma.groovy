@@ -112,6 +112,19 @@ while (reader.hasNext()) {
         if(photons.size() != 4){
             continue;
         }
+        else if(photons.size() > 4){
+            while(photons.size() > 4){
+                smallestP = physicsEvent.getParticle(0).p();
+                smallestIndex = 0;
+                for(int i = 1; i < photons.size(); i++){
+                    currentP = physicsEvent.getParticle(i).p();
+                    if(currentP < smallestP){
+                        smallestIndex = i;
+                    }
+                }
+                photons.remove(smallestP);
+            }
+        }
 
         int gam0Index = photons.get(0);
         int gam1Index = photons.get(1);
