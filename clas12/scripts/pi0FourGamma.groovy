@@ -109,7 +109,7 @@ while (reader.hasNext()) {
             }
         }
 
-        if(photons.size() != 4){
+        if(photons.size() < 4){
             continue;
         }
         else if(photons.size() > 4){
