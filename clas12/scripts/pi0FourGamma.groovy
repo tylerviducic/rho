@@ -123,7 +123,7 @@ while (reader.hasNext()) {
                         smallestIndex = i;
                     }
                 }
-                photons.remove(smallestP);
+                photons.remove(smallestIndex);
             }
         }
 
