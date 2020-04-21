@@ -58,7 +58,7 @@ hWvsIMpi0pi0.setTitleY("W [Gev]");
 H2F hQ2vsIMpi0pi0 = new H2F("q2vsIMpi0pi0", 100, 0, 2, 100, 0, 1);
 hQ2vsIMpi0pi0.setTitle("Q^2 vs IM(#pi^0#pi^0)");
 hQ2vsIMpi0pi0.setTitleX("IM(#pi^0#pi^0) [GeV]");
-Q2vsIMpi0pi0.setTitleY("Q^2 [Gev]");
+hQ2vsIMpi0pi0.setTitleY("Q^2 [Gev]");
 
 TCanvas c1 = new TCanvas("c1", 1000, 1000);
 c1.divide(3, 2);
