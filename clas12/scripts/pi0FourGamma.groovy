@@ -109,11 +109,11 @@ while (reader.hasNext()) {
             }
         }
 
-        println(photons.size());
         if(photons.size() < 4){
             continue;
         }
         else if(photons.size() > 4){
+            println(photons.size());
             while(photons.size() > 4){
                 smallestP = physicsEvent.getParticle(0).p();
                 smallestIndex = 0;
