@@ -115,8 +115,8 @@ while (reader.hasNext()) {
         else if(photons.size() > 4){
             println(photons.size());
             while(photons.size() > 4){
-                smallestP = physicsEvent.getParticle(0).p();
-                smallestIndex = 0;
+                double smallestP = physicsEvent.getParticle(0).p();
+                int smallestIndex = 0;
                 for(int i = 1; i < photons.size(); i++){
                     currentP = physicsEvent.getParticle(i).p();
                     if(currentP < smallestP){
@@ -277,3 +277,7 @@ public static int getSector(int pindex, Bank calorimeter){
 public static double getQ2(Particle particle1, Particle particle2){
     return 4 * particle1.e() * particle2.e() * Math.sin(particle2.theta() /2) * Math.sin(particle2.theta()/2);
 }
+
+//public static ArrayList<Integer> removeSmallest(ArrayList<Integer> particles, PhysicsEvent physicsEvent){
+//    double smallestP =
+//}
