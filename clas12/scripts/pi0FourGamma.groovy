@@ -50,12 +50,12 @@ hpion2PvsTheta.setTitleY("#theta(#gamma#gamma2)[Degrees]");
 H1F hPtheta = new H1F("hPtheta", 90, 0, 90);
 hPtheta.setTitle("theta distribution of proton");
 
-H2F hWvsIMpi0pi0 = new H2F("wvsIMpi0pi0", 100, 0, 2, 100, 0, 3);
+H2F hWvsIMpi0pi0 = new H2F("wvsIMpi0pi0", 50, 1, 2, 100, 0, 3);
 hWvsIMpi0pi0.setTitle("W vs IM(#pi^0#pi^0)");
 hWvsIMpi0pi0.setTitleX("IM(#pi^0#pi^0) [GeV]");
 hWvsIMpi0pi0.setTitleY("W [Gev]");
 
-H2F hQ2vsIMpi0pi0 = new H2F("q2vsIMpi0pi0", 100, 0, 2, 100, 0, 3);
+H2F hQ2vsIMpi0pi0 = new H2F("q2vsIMpi0pi0", 50, 1, 2, 100, 0, 3.5);
 hQ2vsIMpi0pi0.setTitle("Q^2 vs IM(#pi^0#pi^0)");
 hQ2vsIMpi0pi0.setTitleX("IM(#pi^0#pi^0) [GeV]");
 hQ2vsIMpi0pi0.setTitleY("Q^2 [Gev]");
