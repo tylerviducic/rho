@@ -32,10 +32,10 @@ c1.cd(0).draw(hIMGamGam);
 c1.cd(1).draw(hMissingMassEPi0Pi0);
 c1.cd(2).draw(hIMGamGamVSMM);
 
-String directory = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/pion/pi0Photoproduction_skim4.hipo";
+String file = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/pion/pi0Photoproduction_skim4.hipo";
 
 HipoChain reader = new HipoChain();
-reader.addDir(directory);
+reader.addFile(file);
 reader.open();
 
 Event event = new Event();
