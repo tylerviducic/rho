@@ -55,9 +55,11 @@ while (reader.hasNext()){
     missingEPi0Pi0.combine(Particle.copyFrom(pi0), -1);
 
     if(missingEPi0Pi0.p() < 1.0){
-        hIMGamGamVSMM.fill(pi0.mass(), missingEPi0Pi0.mass());
-        hIMGamGam.fill(pi0.mass());
         hMissingMassEPi0Pi0.fill(missingEPi0Pi0.mass());
+        hIMGamGamVSMM.fill(pi0.mass(), missingEPi0Pi0.mass());
+        if(missingEPi0Pi0.mass() > 0.8 && missingEPi0Pi0.mass() < 1.1){
+            hIMGamGam.fill(pi0.mass());
+        }
     }
 }
 
