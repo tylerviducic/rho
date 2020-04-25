@@ -22,15 +22,21 @@ hIMGamGamVSMM.setTitle("IM(#gamma#gamma) vs MM(e#gamma#gamma)");
 hIMGamGamVSMM.setTitleX("IM(#gamma#gamma)");
 hIMGamGamVSMM.setTitleY("MM(e#gamma#gamma");
 
+H2F hIMGamGamVSMissingP = new H2F("IMGamGamVSMissingP", 100, 0, 0.3, 100, 0, 1);
+hIMGamGamVSMissingP.setTitle("IM(#gamma#gamma) vs Missing Momentum of e' #gamma#gamma");
+hIMGamGamVSMissingP.setTitleX("IM(#gamma#gamma)");
+hIMGamGamVSMissingP.setTitleY("Missing Momentum of e' #gamma#gamma");
+
 // ------------------------------------------              ------------------------------------------------
 
 
 TCanvas c1 = new TCanvas("c1", 1000, 1000);
-c1.divide(3, 1);
+c1.divide(2, 2);
 c1.getCanvas().initTimer(1000);
 c1.cd(0).draw(hIMGamGam);
 c1.cd(1).draw(hMissingMassEPi0Pi0);
 c1.cd(2).draw(hIMGamGamVSMM);
+c1.cd(3).draw(hIMGamGamVSMissingP);
 
 String file = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/pion/pi0Photoproduction_skim4.hipo";
 
@@ -59,6 +65,7 @@ while (reader.hasNext()){
         hIMGamGamVSMM.fill(pi0.mass(), missingEPi0Pi0.mass());
         if(missingEPi0Pi0.mass() > 0.8 && missingEPi0Pi0.mass() < 1.1){
             hIMGamGam.fill(pi0.mass());
+            hIMGamGamVSMissingP.fill(pi0.mass(), missingEPi0Pi0.p());
         }
     }
 }
