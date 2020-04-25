@@ -27,16 +27,23 @@ hIMGamGamVSMissingP.setTitle("IM(#gamma#gamma) vs Missing Momentum of e' #gamma#
 hIMGamGamVSMissingP.setTitleX("IM(#gamma#gamma)");
 hIMGamGamVSMissingP.setTitleY("Missing Momentum of e' #gamma#gamma");
 
+H2F hMMvsMP = new H2F("MMvsMP", 100, 0, 2, 100, 0, 5);
+hMMvsMP.setTitle("MM(e'#gamma#gamma) vs MP(e'#gamma#gamma)");
+hMMvsMP.setTitleX("MM(e'#gamma#gamma)");
+hMMvsMP.setTitleY("MP(e'#gamma#gamma)");
+
+
 // ------------------------------------------              ------------------------------------------------
 
 
 TCanvas c1 = new TCanvas("c1", 1000, 1000);
-c1.divide(2, 2);
+c1.divide(3, 2);
 c1.getCanvas().initTimer(1000);
 c1.cd(0).draw(hIMGamGam);
 c1.cd(1).draw(hMissingMassEPi0Pi0);
 c1.cd(2).draw(hIMGamGamVSMM);
 c1.cd(3).draw(hIMGamGamVSMissingP);
+c1.cd(4).draw(hMMvsMP);
 
 String file = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/pion/pi0Photoproduction_skim4.hipo";
 
@@ -59,6 +66,8 @@ while (reader.hasNext()){
     Particle missingEPi0Pi0 = physicsEvent.getParticle("[b] + [t] - [11]");
 
     missingEPi0Pi0.combine(Particle.copyFrom(pi0), -1);
+
+    hMMvsMP.fill(missingEPi0Pi0.mass(), missingEPi0Pi0.p());
 
     if(missingEPi0Pi0.p() < 1.0){
         hMissingMassEPi0Pi0.fill(missingEPi0Pi0.mass());
