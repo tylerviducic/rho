@@ -27,7 +27,7 @@ hIMGamGamVSMissingP.setTitle("IM(#gamma#gamma) vs Missing Momentum of e' #gamma#
 hIMGamGamVSMissingP.setTitleX("IM(#gamma#gamma)");
 hIMGamGamVSMissingP.setTitleY("Missing Momentum of e' #gamma#gamma");
 
-H2F hMMvsMP = new H2F("MMvsMP", 100, 0, 2, 100, 0, 5);
+H2F hMMvsMP = new H2F("MMvsMP", 40, 0.8, 1.2, 100, 0, 5);
 hMMvsMP.setTitle("MM(e'#gamma#gamma) vs MP(e'#gamma#gamma)");
 hMMvsMP.setTitleX("MM(e'#gamma#gamma)");
 hMMvsMP.setTitleY("MP(e'#gamma#gamma)");
