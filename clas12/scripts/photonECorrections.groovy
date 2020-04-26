@@ -32,7 +32,7 @@ hMMvsMP.setTitle("MM(e'#gamma#gamma) vs MP(e'#gamma#gamma)");
 hMMvsMP.setTitleX("MM(e'#gamma#gamma)");
 hMMvsMP.setTitleY("MP(e'#gamma#gamma)");
 
-H2F hGamGamPvsTheta = new H2F("GamGamPvsTheta", 200, 0, 6, 90, 0, 90);
+H2F hGamGamPvsTheta = new H2F("GamGamPvsTheta", 200, 0, 6, 35, 0, 35);
 hGamGamPvsTheta.setTitle("Momentum of #gamma#gamma vs opening angle between them");
 hGamGamPvsTheta.setTitleX("P(#gamma#gamma)");
 hGamGamPvsTheta.setTitleY("#theta(#gamma#gamma)");
