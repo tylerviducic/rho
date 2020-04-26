@@ -71,6 +71,8 @@ while (reader.hasNext()){
     Particle photon1 = photons.get(0);
     Particle photon2 = photons.get(1);
 
+    double photonTheta = Math.toDegrees(Math.acos(photon1.cosTheta(photon2)));
+
     Particle pi0 = Particle.copyFrom(photon1);
     pi0.combine(Particle.copyFrom(photon2), 1);
 
@@ -84,9 +86,11 @@ while (reader.hasNext()){
         hMissingMassEPi0Pi0.fill(missingEPi0Pi0.mass());
         hIMGamGamVSMM.fill(pi0.mass(), missingEPi0Pi0.mass());
         if(missingEPi0Pi0.mass() > 0.8 && missingEPi0Pi0.mass() < 1.1){
-            hIMGamGam.fill(pi0.mass());
             //hIMGamGamVSMissingP.fill(pi0.mass(), missingEPi0Pi0.p());
-            hGamGamPvsTheta.fill(pi0.p(), Math.toDegrees(Math.acos(photon1.cosTheta(photon2))));
+            hGamGamPvsTheta.fill(pi0.p(), photonTheta);
+            if(pi0.p() > 2 && pi0.p() < 5.5 && photonTheta < 10 && photonTheta > 3){
+                hIMGamGam.fill(pi0.mass());
+            }
         }
     }
 }
