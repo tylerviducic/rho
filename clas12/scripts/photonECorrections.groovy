@@ -32,6 +32,11 @@ hMMvsMP.setTitle("MM(e'#gamma#gamma) vs MP(e'#gamma#gamma)");
 hMMvsMP.setTitleX("MM(e'#gamma#gamma)");
 hMMvsMP.setTitleY("MP(e'#gamma#gamma)");
 
+H2F hGamGamPvsTheta = new H2F("GamGamPvsTheta", 200, 0, 6, 90, 0, 90);
+hGamGamPvsTheta.setTitle("Momentum of #gamma#gamma vs opening angle between them");
+hGamGamPvsTheta.setTitleX("P(#gamma#gamma)");
+hGamGamPvsTheta.setTitleY("#theta(#gamma#gamma)");
+
 
 // ------------------------------------------              ------------------------------------------------
 
@@ -42,7 +47,7 @@ c1.getCanvas().initTimer(1000);
 c1.cd(0).draw(hIMGamGam);
 c1.cd(1).draw(hMissingMassEPi0Pi0);
 c1.cd(2).draw(hIMGamGamVSMM);
-c1.cd(3).draw(hIMGamGamVSMissingP);
+c1.cd(3).draw(hGamGamPvsTheta);
 c1.cd(4).draw(hMMvsMP);
 
 String file = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/pion/pi0Photoproduction_skim4.hipo";
@@ -54,7 +59,7 @@ reader.open();
 Event event = new Event();
 Bank particle = new Bank(reader.getSchemaFactory().getSchema("REC::Particle"));
 
-EventFilter eventFilter = new EventFilter("11:22:22:Xn:X+:X-");
+//EventFilter eventFilter = new EventFilter("11:22:22:Xn:X+:X-");
 
 while (reader.hasNext()){
     reader.nextEvent(event);
@@ -62,7 +67,13 @@ while (reader.hasNext()){
 
     PhysicsEvent physicsEvent = DataManager.getPhysicsEvent(10.614, particle);
 
-    Particle pi0 = getBestPi0(physicsEvent);
+    ArrayList<Particle> photons = getBestPhotons(physicsEvent);
+    Particle photon1 = photons.get(0);
+    Particle photon2 = photons.get(1);
+
+    Particle pi0 = Particle.copyFrom(photon1);
+    pi0.combine(Particle.copyFrom(photon2), 1);
+
     Particle missingEPi0Pi0 = physicsEvent.getParticle("[b] + [t] - [11]");
 
     missingEPi0Pi0.combine(Particle.copyFrom(pi0), -1);
@@ -74,7 +85,8 @@ while (reader.hasNext()){
         hIMGamGamVSMM.fill(pi0.mass(), missingEPi0Pi0.mass());
         if(missingEPi0Pi0.mass() > 0.8 && missingEPi0Pi0.mass() < 1.1){
             hIMGamGam.fill(pi0.mass());
-            hIMGamGamVSMissingP.fill(pi0.mass(), missingEPi0Pi0.p());
+            //hIMGamGamVSMissingP.fill(pi0.mass(), missingEPi0Pi0.p());
+            hGamGamPvsTheta.fill(pi0.p(), Math.toDegrees(Math.acos(photon1.cosTheta(photon2))));
         }
     }
 }
@@ -82,21 +94,27 @@ while (reader.hasNext()){
 System.out.println("done");
 
 
-public static Particle getBestPi0(PhysicsEvent physicsEvent){
+public static ArrayList<Particle> getBestPhotons(PhysicsEvent physicsEvent){
+    ArrayList<Particle> photons = new ArrayList<>();
     int numPhotons = physicsEvent.countByPid(22);
 
     for(int i = 0; i < numPhotons - 1; i++){
-        Particle photon1 = physicsEvent.getParticleByPid(22, i);
+        Particle photon1 = Particle.copyFrom(physicsEvent.getParticleByPid(22, i));
 
         for (int j = i + 1; j < numPhotons; j++){
             Particle pi0 = Particle.copyFrom(photon1);
-            pi0.combine(Particle.copyFrom(physicsEvent.getParticleByPid(22, j)), 1);
+            Particle photon2 = Particle.copyFrom(physicsEvent.getParticleByPid(22, j));
+            pi0.combine(photon2, 1);
             if (pi0.mass() > 0.12 && pi0.mass() < 0.15){
-                return pi0;
+                photons.add(photon1);
+                photons.add(photon2);
+                return photons;
             }
         }
     }
-    Particle pi0 = Particle.copyFrom(physicsEvent.getParticleByPid(22, 0));
-    pi0.combine(Particle.copyFrom(physicsEvent.getParticleByPid(22,1)), 1);
-    return pi0;
+//    Particle pi0 = Particle.copyFrom(physicsEvent.getParticleByPid(22, 0));
+//    pi0.combine(Particle.copyFrom(physicsEvent.getParticleByPid(22,1)), 1);
+    photons.add(Particle.copyFrom(physicsEvent.getParticleByPid(22, 0)));
+    photons.add(Particle.copyFrom(physicsEvent.getParticleByPid(22, 1)));
+    return photons;
 }
