@@ -126,8 +126,8 @@ public static ArrayList<Integer> getBestPhotons(PhysicsEvent physicsEvent){
     }
 //    Particle pi0 = Particle.copyFrom(physicsEvent.getParticleByPid(22, 0));
 //    pi0.combine(Particle.copyFrom(physicsEvent.getParticleByPid(22,1)), 1);
+    photons.add(0);
     photons.add(1);
-    photons.add(2);
     return photons;
 }
 
