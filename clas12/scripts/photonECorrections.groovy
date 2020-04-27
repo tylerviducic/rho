@@ -132,5 +132,5 @@ public static ArrayList<Integer> getBestPhotons(PhysicsEvent physicsEvent){
 }
 
 public static double getPhotonIM(Particle photon1, Particle photon2){
-    return Math.sqrt(photon1.e() * photon2.e()) * (1 - photon1.cosTheta(photon2));
+    return (Math.sqrt(photon1.e() * photon2.e()) * (1 - photon1.cosTheta(photon2)));
 }
