@@ -99,6 +99,7 @@ while (reader.hasNext()){
             hGamGamPvsTheta.fill(pi0.p(), photonTheta);
             if(pi0.p() > 2 && pi0.p() < 5.5 && photonTheta < 10 && photonTheta > 3){
                 hIMGamGam.fill(imGamGam);
+                System.out.println("equation: " + imGamGam + "  --  object: " + pi0.mass());
                 if(photon1.e()/ photon2.e() < 1.02 && photon1.e()/ photon2.e() > 0.98){
                     hEGamGam.fill((photon1.e() + photon2.e()) / 2);
                 }
@@ -121,7 +122,6 @@ public static ArrayList<Particle> getBestPhotons(PhysicsEvent physicsEvent){
             Particle photon2 = Particle.copyFrom(physicsEvent.getParticleByPid(22, j));
             double imGamGam = getPhotonIM(photon1, photon2);
             if (imGamGam > 0.12 && imGamGam < 0.15){
-                System.out.println(imGamGam);
                 photons.add(photon1);
                 photons.add(photon2);
                 return photons;
