@@ -78,6 +78,7 @@ while (reader.hasNext()){
 
     double photonTheta = Math.toDegrees(Math.acos(photon1.cosTheta(photon2)));
     double imGamGam = getPhotonIM(photon1, photon2);
+    hIMGamGam.fill(imGamGam);
 
     Particle pi0 = Particle.copyFrom(photon1);
     pi0.combine(Particle.copyFrom(photon2), 1);
@@ -95,7 +96,7 @@ while (reader.hasNext()){
             //hIMGamGamVSMissingP.fill(pi0.mass(), missingEPi0Pi0.p());
             hGamGamPvsTheta.fill(pi0.p(), photonTheta);
             if(pi0.p() > 2 && pi0.p() < 5.5 && photonTheta < 10 && photonTheta > 3){
-                hIMGamGam.fill(imGamGam);
+//                hIMGamGam.fill(imGamGam);
                 if(photon1.e()/ photon2.e() < 1.02 && photon1.e()/ photon2.e() > 0.98){
                     hEGamGam.fill((photon1.e() + photon2.e()) / 2);
                 }
@@ -132,5 +133,5 @@ public static ArrayList<Integer> getBestPhotons(PhysicsEvent physicsEvent){
 }
 
 public static double getPhotonIM(Particle photon1, Particle photon2){
-    return (Math.sqrt(photon1.e() * photon2.e()) * (1 - photon1.cosTheta(photon2)));
+    return Math.sqrt(photon1.e() * photon2.e()) * (1 - photon1.cosTheta(photon2));
 }
