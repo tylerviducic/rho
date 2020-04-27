@@ -72,13 +72,15 @@ while (reader.hasNext()){
 
     PhysicsEvent physicsEvent = DataManager.getPhysicsEvent(10.614, particle);
 
-    ArrayList<Integer> photons = getBestPhotons(physicsEvent);
-    Particle photon1 = physicsEvent.getParticleByPid(22, photons.get(0));
-    Particle photon2 = physicsEvent.getParticleByPid(22, photons.get(1));
+    ArrayList<Particle> photons = getBestPhotons(physicsEvent);
+//    Particle photon1 = physicsEvent.getParticleByPid(22, photons.get(0));
+//    Particle photon2 = physicsEvent.getParticleByPid(22, photons.get(1));
+
+    Particle photon1 = photons.get(0);
+    Particle photon2 = photons.get(1);
 
     double photonTheta = Math.toDegrees(Math.acos(photon1.cosTheta(photon2)));
     double imGamGam = getPhotonIM(photon1, photon2);
-    hIMGamGam.fill(imGamGam);
 
     Particle pi0 = Particle.copyFrom(photon1);
     pi0.combine(Particle.copyFrom(photon2), 1);
@@ -96,7 +98,7 @@ while (reader.hasNext()){
             //hIMGamGamVSMissingP.fill(pi0.mass(), missingEPi0Pi0.p());
             hGamGamPvsTheta.fill(pi0.p(), photonTheta);
             if(pi0.p() > 2 && pi0.p() < 5.5 && photonTheta < 10 && photonTheta > 3){
-//                hIMGamGam.fill(imGamGam);
+                hIMGamGam.fill(imGamGam);
                 if(photon1.e()/ photon2.e() < 1.02 && photon1.e()/ photon2.e() > 0.98){
                     hEGamGam.fill((photon1.e() + photon2.e()) / 2);
                 }
@@ -108,8 +110,8 @@ while (reader.hasNext()){
 System.out.println("done");
 
 
-public static ArrayList<Integer> getBestPhotons(PhysicsEvent physicsEvent){
-    ArrayList<Integer> photons = new ArrayList<>();
+public static ArrayList<Particle> getBestPhotons(PhysicsEvent physicsEvent){
+    ArrayList<Particle> photons = new ArrayList<>();
     int numPhotons = physicsEvent.countByPid(22);
 
     for(int i = 0; i < numPhotons - 1; i++){
@@ -119,16 +121,16 @@ public static ArrayList<Integer> getBestPhotons(PhysicsEvent physicsEvent){
             Particle photon2 = Particle.copyFrom(physicsEvent.getParticleByPid(22, j));
             double imGamGam = getPhotonIM(photon1, photon2);
             if (imGamGam > 0.12 && imGamGam < 0.15){
-                photons.add(i);
-                photons.add(j);
+                photons.add(photon1);
+                photons.add(photon2);
                 return photons;
             }
         }
     }
 //    Particle pi0 = Particle.copyFrom(physicsEvent.getParticleByPid(22, 0));
 //    pi0.combine(Particle.copyFrom(physicsEvent.getParticleByPid(22,1)), 1);
-    photons.add(0);
-    photons.add(1);
+    photons.add(Particle.copyFrom(physicsEvent.getParticleByPid(22, 0)));
+    photons.add(Particle.copyFrom(physicsEvent.getParticleByPid(22, 1)));
     return photons;
 }
 
