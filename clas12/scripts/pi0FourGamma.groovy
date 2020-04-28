@@ -67,7 +67,7 @@ hQ2vsIMpi0pi0.setTitleY("Q^2 [Gev]");
 
 TCanvas c1 = new TCanvas("c1", 1000, 1000);
 c1.divide(3, 2);
-c1.getCanvas().initTimer(1000);
+c1.getCanvas().initTimer(10000);
 
 c1.cd(0).draw(hpionpion);
 c1.cd(1).draw(hf0);
@@ -79,7 +79,7 @@ c1.cd(5).draw(hpion2PvsTheta);
 
 TCanvas c2 = new TCanvas("c2", 1000, 1000);
 c2.divide(2,1);
-c2.getCanvas().initTimer(1000);
+c2.getCanvas().initTimer(10000);
 c2.cd(0).draw(hQ2vsIMpi0pi0);
 c2.cd(1).draw(hWvsIMpi0pi0);
 
