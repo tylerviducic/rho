@@ -24,6 +24,11 @@ hpionpion.setTitle("Invariant mass of photons pairs");
 hpionpion.setTitleX("IM(#gamma#gamma1)[GeV]");
 hpionpion.setTitleY("IM(#gamma#gamma2)[GeV]");
 
+H2F hCutpionpion = new H2F("Cutpionpion", 60, 0, 0.3, 60, 0, 0.3);
+hpionpion.setTitle("Invariant mass of photons pairs with p and #theta cuts");
+hpionpion.setTitleX("IM(#gamma#gamma1)[GeV]");
+hpionpion.setTitleY("IM(#gamma#gamma2)[GeV]");
+
 H1F hf0 = new H1F("f0", 100, 0.0, 2.0);
 hf0.setTitle("Invariant Mass of #pi^0#pi^0");
 hf0.setTitleX("IM(#pi^0#pi^0)[GeV]")
@@ -67,7 +72,7 @@ c1.getCanvas().initTimer(1000);
 c1.cd(0).draw(hpionpion);
 c1.cd(1).draw(hf0);
 //c1.cd(2).draw(hmm2);
-c1.cd(2).draw(hPtheta);
+c1.cd(2).draw(hCutpionpion);
 c1.cd(3).draw(hmxP);
 c1.cd(4).draw(hpion1PvsTheta);
 c1.cd(5).draw(hpion2PvsTheta);
@@ -243,18 +248,21 @@ while (reader.hasNext()) {
             hpion1PvsTheta.fill(pion1.p(), theta1);
             hpion2PvsTheta.fill(pion2.p(), theta2);
 
-            if (pion1.mass() > 0.12 && pion1.mass() < 0.15 && pion2.mass() > 0.12 && pion2.mass() < 0.15
-                    && pion1.p() > 1.5 && pion1.p() < 5.0 && pion2.p() < 2.5 && pion2.p() > 1 && theta1 < 10 && theta2 < 14
+            if (pion1.p() > 1.0 && pion1.p() < 5.0 && pion2.p() < 5.0 && pion2.p() > 1 && theta1 < 10 && theta2 < 14
                     && theta1 > 4 && theta2 > 6 && missingePPi0Pi0.p() < 0.5) {
-                hf0.fill(f0.mass());
-                hmxP.fill(missingePi0Pi0.mass());
-                double q2 = getQ2(Particle.copyFrom(physicsEvent.beamParticle()), Particle.copyFrom(physicsEvent.getParticleByPid(11, 0)));
+                hCutpionpion.fill(pion1.mass(), pion2.mass());
 
-                hWvsIMpi0pi0.fill(f0.mass(), Math.abs(w.mass()));
-                hQ2vsIMpi0pi0.fill(f0.mass(), q2);
+                if (pion1.mass() > 0.12 && pion1.mass() < 0.15 && pion2.mass() > 0.12 && pion2.mass() < 0.15) {
+                    hf0.fill(f0.mass());
+                    hmxP.fill(missingePi0Pi0.mass());
+                    double q2 = getQ2(Particle.copyFrom(physicsEvent.beamParticle()), Particle.copyFrom(physicsEvent.getParticleByPid(11, 0)));
 
-                if(f0.mass() < 1.0){
-                    hPtheta.fill(Math.toDegrees(physicsEvent.getParticleByPid(2212, 0).theta()));
+                    hWvsIMpi0pi0.fill(f0.mass(), Math.abs(w.mass()));
+                    hQ2vsIMpi0pi0.fill(f0.mass(), q2);
+
+                    if (f0.mass() < 1.0) {
+                        hPtheta.fill(Math.toDegrees(physicsEvent.getParticleByPid(2212, 0).theta()));
+                    }
                 }
             }
         }
