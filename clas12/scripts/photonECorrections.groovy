@@ -124,6 +124,7 @@ public static ArrayList<Particle> getBestPhotons(PhysicsEvent physicsEvent){
 
             if (pi0.mass() > 0.12 && pi0.mass() < 0.15){
                 System.out.println("equation: " + imGamGam + "  --  object: " + pi0.mass());
+                System.out.println("gagik's theta: " + photon1.cosTheta(photon2) + "  --  my theta: " + myCosTheta(photon1, photon2));
 
                 photons.add(photon1);
                 photons.add(photon2);
@@ -140,4 +141,8 @@ public static ArrayList<Particle> getBestPhotons(PhysicsEvent physicsEvent){
 
 public static double getPhotonIM(Particle photon1, Particle photon2){
     return Math.sqrt(photon1.e() * photon2.e()) * (1 - photon1.cosTheta(photon2));
+}
+
+public static double myCosTheta(Particle part1, Particle part2){
+        return (part1.px() * part2.px() + part1.py() * part2.py() + part1.pz() * part2.pz()) / (part1.p() * part2.p());
 }
