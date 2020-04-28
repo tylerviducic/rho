@@ -25,9 +25,9 @@ hpionpion.setTitleX("IM(#gamma#gamma1)[GeV]");
 hpionpion.setTitleY("IM(#gamma#gamma2)[GeV]");
 
 H2F hCutpionpion = new H2F("Cutpionpion", 60, 0, 0.3, 60, 0, 0.3);
-hpionpion.setTitle("Invariant mass of photons pairs with p and #theta cuts");
-hpionpion.setTitleX("IM(#gamma#gamma1)[GeV]");
-hpionpion.setTitleY("IM(#gamma#gamma2)[GeV]");
+hCutpionpion.setTitle("Invariant mass of photons pairs with p and #theta cuts");
+hCutpionpion.setTitleX("IM(#gamma#gamma1)[GeV]");
+hCutpionpion.setTitleY("IM(#gamma#gamma2)[GeV]");
 
 H1F hf0 = new H1F("f0", 100, 0.0, 2.0);
 hf0.setTitle("Invariant Mass of #pi^0#pi^0");
