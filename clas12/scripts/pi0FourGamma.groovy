@@ -230,8 +230,11 @@ while (reader.hasNext()) {
                 continue;
             }
 
-            Particle f0 = Particle.copyFrom(testPion1);
-            f0.combine(testPion2, 1);
+//            Particle f0 = Particle.copyFrom(testPion1);
+//            f0.combine(testPion2, 1);
+
+            Particle f0 = Particle.copyFrom(pion1);
+            f0.combine(pion2, 1);
 
 //            missingePPi0Pi0.combine(f0, -1);
 
