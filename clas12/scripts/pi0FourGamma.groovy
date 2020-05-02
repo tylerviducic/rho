@@ -19,7 +19,7 @@ H2F hgam1gam4 = new H2F("gam1gam4", 30, 0, 0.3, 30, 0, 0.3);
 hgam1gam4.setTitleX("gam1gam4");
 hgam1gam4.setTitleY("gam2gam3");
 
-H2F hpionpion = new H2F("pionpion", 60, 0, 0.3, 60, 0, 0.3);
+H2F hpionpion = new H2F("pionpion", 180, 0, 0.9, 180, 0, 0.9);
 hpionpion.setTitle("Invariant mass of photons pairs");
 hpionpion.setTitleX("IM(#gamma#gamma1)[GeV]");
 hpionpion.setTitleY("IM(#gamma#gamma2)[GeV]");
