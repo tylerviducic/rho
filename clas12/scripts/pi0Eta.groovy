@@ -53,14 +53,17 @@ while (reader.hasNext()) {
     PhysicsEvent physicsEvent = DataManager.getPhysicsEvent(10.614, particle);
 
     if(eventFilter.isValid(physicsEvent)) {
-        ArrayList<Integer> photonsPion = getBestPhotons(physicsEvent);
-        ArrayList<Integer> photonsEta = getNextPhotons(physicsEvent, photonsPion.get(0), photonsPion.get(1));
+//        ArrayList<Integer> photonsPion = getBestPhotons(physicsEvent);
+//        ArrayList<Integer> photonsEta = getNextPhotons(physicsEvent, photonsPion.get(0), photonsPion.get(1));
+//
+//        Particle pion = Particle.copyFrom(physicsEvent.getParticleByPid(22, photonsPion.get(0)));
+//        pion.combine(Particle.copyFrom(physicsEvent.getParticleByPid(22, photonsPion.get(1))), 1);
+//
+//        Particle eta = Particle.copyFrom(physicsEvent.getParticleByPid(22, photonsEta.get(0)));
+//        eta.combine(Particle.copyFrom(physicsEvent.getParticleByPid(22, photonsEta.get(1))), 1);
 
-        Particle pion = Particle.copyFrom(physicsEvent.getParticleByPid(22, photonsPion.get(0)));
-        pion.combine(Particle.copyFrom(physicsEvent.getParticleByPid(22, photonsPion.get(1))), 1);
-
-        Particle eta = Particle.copyFrom(physicsEvent.getParticleByPid(22, photonsEta.get(0)));
-        eta.combine(Particle.copyFrom(physicsEvent.getParticleByPid(22, photonsEta.get(1))), 1);
+        Particle pion = physicsEvent.getParticle("[22, 0] + [22, 1]");
+        Particle eta = physicsEvent.getParticle("[22, 2] + [22, 3]");
 
         Particle missingEPPi0Eta = physicsEvent.getParticle("[b] + [t] - [11] - [2212]");
         missingEPPi0Eta.combine(Particle.copyFrom(eta), -1);
