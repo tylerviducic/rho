@@ -65,10 +65,10 @@ hQ2vsIMpi0pi0.setTitle("Q^2 vs IM(#pi^0#pi^0)");
 hQ2vsIMpi0pi0.setTitleX("IM(#pi^0#pi^0) [GeV]");
 hQ2vsIMpi0pi0.setTitleY("Q^2 [Gev]");
 
-H2F hIMPi0Pi0TMand = new H2F("IMPi0Pi0TMand", 100, 0, 2, 50, 0, 2);
+H2F hIMPi0Pi0TMand = new H2F("IMPi0Pi0TMand", 50, 0.4, 1.6, 30, 0.4, 1.6);
 hIMPi0Pi0TMand.setTitle("M(#pi^0#pi^0) vs -tMand");
 
-H2F hIMPi0Pi0EGam = new H2F("IMPi0Pi0EGam", 100, 0, 2, 50, 0, 5);
+H2F hIMPi0Pi0EGam = new H2F("IMPi0Pi0EGam", 50, 0.4, 1.6, 50, 3, 7);
 hIMPi0Pi0EGam.setTitle("M(#pi^0#pi^0) vs E_#gamma");
 
 TCanvas c1 = new TCanvas("c1", 1000, 1000);
