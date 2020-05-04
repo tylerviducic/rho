@@ -68,9 +68,7 @@ while (reader.hasNext()) {
 
         hMissingMassEPPi0Eta.fill(missingEPPi0Eta.mass());
 
-        if (Math.abs(missingEPPi0Eta.mass()) < 0.1) {
-            hIMPi0Eta.fill(pion.mass(), eta.mass());
-        }
+        hIMPi0Eta.fill(pion.mass(), eta.mass());
     }
 }
 
