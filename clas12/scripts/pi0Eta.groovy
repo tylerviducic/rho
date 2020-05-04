@@ -14,7 +14,7 @@ import java.nio.file.Path
 
 // ------------------------------------------  Histograms ------------------------------------------------
 H1F hMissingMassEPPi0Eta = new H1F("MissingMassEPi0Pi0", 100, -0.5, 0.5);
-hMissingMassEPi0Pi0.setTitle("Missing mass of e'#gamma#gamma");
+hMissingMassEPPi0Eta.setTitle("Missing mass of e'#gamma#gamma");
 
 H1F hIMGamGam = new H1F("IMGamGam", 100, 0, 0.3);
 hIMGamGam.setTitle("Invariant mass of #gamma#gamma");
