@@ -65,6 +65,12 @@ hQ2vsIMpi0pi0.setTitle("Q^2 vs IM(#pi^0#pi^0)");
 hQ2vsIMpi0pi0.setTitleX("IM(#pi^0#pi^0) [GeV]");
 hQ2vsIMpi0pi0.setTitleY("Q^2 [Gev]");
 
+H2F hIMPi0Pi0TMand = new H2F("IMPi0Pi0TMand", 100, 0, 2, 50, 0, 2);
+hIMPi0Pi0TMand.setTitle("M(#pi^0#pi^0) vs -tMand");
+
+H2F hIMPi0Pi0EGam = new H2F("IMPi0Pi0EGam", 100, 0, 2, 50, 0, 5);
+hIMPi0Pi0EGam.setTitle("M(#pi^0#pi^0) vs E_#gamma");
+
 TCanvas c1 = new TCanvas("c1", 1000, 1000);
 c1.divide(3, 2);
 c1.getCanvas().initTimer(10000);
@@ -80,8 +86,10 @@ c1.cd(5).draw(hpion2PvsTheta);
 TCanvas c2 = new TCanvas("c2", 1000, 1000);
 c2.divide(2,1);
 c2.getCanvas().initTimer(10000);
-c2.cd(0).draw(hQ2vsIMpi0pi0);
-c2.cd(1).draw(hWvsIMpi0pi0);
+//c2.cd(0).draw(hQ2vsIMpi0pi0);
+//c2.cd(1).draw(hWvsIMpi0pi0);
+c2.cd(0).draw(hIMPi0Pi0TMand);
+c2.cd(1).draw(hIMPi0Pi0EGam);
 
 
 String dataFile = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/premakoff/pi0pi0_skim4_inclusive.hipo";
@@ -170,6 +178,9 @@ while (reader.hasNext()) {
         double theta2;
         double pTheta = Math.toDegrees(physicsEvent.getParticleByPid(2212, 0).theta());
 
+        double tMand = physicsEvent.getParticle("[t] - [2212]").mass();
+        double eGam = physicsEvent.getParticle("[b] - [11]").e();
+
         //Particle f0 = physicsEvent.getParticle("[22, 0] + [22, 1] + [22, 2] + [22, 3]");
         Particle missingePPi0Pi0 = physicsEvent.getParticle("[b] + [t] - [2212] - [11]");
         missingePPi0Pi0.combine(Particle.copyFrom(gam0), -1);
@@ -230,22 +241,13 @@ while (reader.hasNext()) {
                 continue;
             }
 
-//            Particle f0 = Particle.copyFrom(testPion1);
-//            f0.combine(testPion2, 1);
 
             Particle f0 = Particle.copyFrom(testPion1);
             f0.combine(testPion2, 1);
 
-//            missingePPi0Pi0.combine(f0, -1);
 
             missingePi0Pi0.combine(testPion1, -1);
             missingePi0Pi0.combine(testPion2, -1);
-
-//            for(int i = 1; i < physicsEvent.count(); i ++){
-//                if (i != gam0Index && i != gam2Index && i != gam3Index && i != gam1Index &&  physicsEvent.getParticle(i).pid() != 2212){
-//                    missingePPi0Pi0.combine(Particle.copyFrom(physicsEvent.getParticle(i)), -1);
-//                }
-//            }
 
             hpionpion.fill(pion1.mass(), pion2.mass());
             hpion1PvsTheta.fill(pion1.p(), theta1);
@@ -262,6 +264,9 @@ while (reader.hasNext()) {
 
                     hWvsIMpi0pi0.fill(f0.mass(), Math.abs(w.mass()));
                     hQ2vsIMpi0pi0.fill(f0.mass(), q2);
+
+                    hIMPi0Pi0EGam.fill(f0.mass(), eGam);
+                    hIMPi0Pi0TMand.fill(f0.mass(), tMand);
 
                     if (f0.mass() < 1.0) {
                         hPtheta.fill(Math.toDegrees(physicsEvent.getParticleByPid(2212, 0).theta()));
@@ -287,7 +292,3 @@ public static int getSector(int pindex, Bank calorimeter){
 public static double getQ2(Particle particle1, Particle particle2){
     return 4 * particle1.e() * particle2.e() * Math.sin(particle2.theta() /2) * Math.sin(particle2.theta()/2);
 }
-
-//public static ArrayList<Integer> removeSmallest(ArrayList<Integer> particles, PhysicsEvent physicsEvent){
-//    double smallestP =
-//}
