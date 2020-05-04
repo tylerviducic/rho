@@ -19,7 +19,7 @@ H2F hgam1gam4 = new H2F("gam1gam4", 30, 0, 0.3, 30, 0, 0.3);
 hgam1gam4.setTitleX("gam1gam4");
 hgam1gam4.setTitleY("gam2gam3");
 
-H2F hpionpion = new H2F("pionpion", 180, 0, 0.9, 180, 0, 0.9);
+H2F hpionpion = new H2F("pionpion", 60, 0, 0.3, 60, 0, 0.3);
 hpionpion.setTitle("Invariant mass of photons pairs");
 hpionpion.setTitleX("IM(#gamma#gamma1)[GeV]");
 hpionpion.setTitleY("IM(#gamma#gamma2)[GeV]");
@@ -266,7 +266,7 @@ while (reader.hasNext()) {
                     hQ2vsIMpi0pi0.fill(f0.mass(), q2);
 
                     hIMPi0Pi0EGam.fill(f0.mass(), eGam);
-                    hIMPi0Pi0TMand.fill(f0.mass(), tMand);
+                    hIMPi0Pi0TMand.fill(f0.mass(), -tMand);
 
                     if (f0.mass() < 1.0) {
                         hPtheta.fill(Math.toDegrees(physicsEvent.getParticleByPid(2212, 0).theta()));
