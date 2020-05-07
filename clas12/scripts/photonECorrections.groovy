@@ -63,6 +63,7 @@ reader.open();
 
 Event event = new Event();
 Bank particle = new Bank(reader.getSchemaFactory().getSchema("REC::Particle"));
+Bank eCal = new Bank(reader.getSchemaFactory().getSchema("REC::Calorimeter"));
 
 //EventFilter eventFilter = new EventFilter("11:22:22:Xn:X+:X-");
 
@@ -72,12 +73,19 @@ while (reader.hasNext()){
 
     PhysicsEvent physicsEvent = DataManager.getPhysicsEvent(10.614, particle);
 
-    ArrayList<Particle> photons = getBestPhotons(physicsEvent);
+    ArrayList<Integer> photons = getBestPhotons(physicsEvent);
 //    Particle photon1 = physicsEvent.getParticleByPid(22, photons.get(0));
 //    Particle photon2 = physicsEvent.getParticleByPid(22, photons.get(1));
 
-    Particle photon1 = photons.get(0);
-    Particle photon2 = photons.get(1);
+    Particle photon1 = physicsEvent.getParticle(photons.get(0));
+    Particle photon2 = physicsEvent.getParticle(photons.get(1));
+
+    int sector1 = getSector(photons.get(0), eCal);
+    int sector2 = getSector(photons.get(1), eCal);
+
+    if(sector1 != sector2){
+        continue;
+    }
 
     double photonTheta = Math.toDegrees(Math.acos(photon1.cosTheta(photon2)));
     double imGamGam = getPhotonIM(photon1, photon2);
@@ -110,8 +118,8 @@ while (reader.hasNext()){
 System.out.println("done");
 
 
-public static ArrayList<Particle> getBestPhotons(PhysicsEvent physicsEvent){
-    ArrayList<Particle> photons = new ArrayList<>();
+public static ArrayList<Integer> getBestPhotons(PhysicsEvent physicsEvent){
+    ArrayList<Integer> photons = new ArrayList<>();
     int numPhotons = physicsEvent.countByPid(22);
 
     for(int i = 0; i < numPhotons - 1; i++){
@@ -126,16 +134,16 @@ public static ArrayList<Particle> getBestPhotons(PhysicsEvent physicsEvent){
                 System.out.println("equation: " + imGamGam + "  --  object: " + pi0.mass());
                 System.out.println("gagik's theta: " + photon1.cosTheta(photon2) + "  --  my theta: " + myCosTheta(photon1, photon2));
 
-                photons.add(photon1);
-                photons.add(photon2);
+                photons.add(physicsEvent.getParticleIndex(22, i));
+                photons.add(physicsEvent.getParticleIndex(22, j));
                 return photons;
             }
         }
     }
 //    Particle pi0 = Particle.copyFrom(physicsEvent.getParticleByPid(22, 0));
 //    pi0.combine(Particle.copyFrom(physicsEvent.getParticleByPid(22,1)), 1);
-    photons.add(Particle.copyFrom(physicsEvent.getParticleByPid(22, 0)));
-    photons.add(Particle.copyFrom(physicsEvent.getParticleByPid(22, 1)));
+    photons.add(physicsEvent.getParticleIndex(22, 0));
+    photons.add(physicsEvent.getParticleIndex(22, 1));
     return photons;
 }
 
@@ -145,4 +153,13 @@ public static double getPhotonIM(Particle photon1, Particle photon2){
 
 public static double myCosTheta(Particle part1, Particle part2){
         return (part1.px() * part2.px() + part1.py() * part2.py() + part1.pz() * part2.pz()) / (part1.p() * part2.p());
+}
+
+public static int getSector(int pindex, Bank calorimeter){
+    for(int i = 0; i < calorimeter.getRows(); i++){
+        if(calorimeter.getInt("pindex", i) == pindex){
+            return calorimeter.getInt("sector", i);
+        }
+    }
+    return -1;
 }
