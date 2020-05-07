@@ -93,16 +93,16 @@ while (reader.hasNext()){
     Particle pi0 = Particle.copyFrom(photon1);
     pi0.combine(Particle.copyFrom(photon2), 1);
 
-    Particle missingEPi0Pi0 = physicsEvent.getParticle("[b] + [t] - [11]");
+    Particle missingEPi0 = physicsEvent.getParticle("[b] + [t] - [11]");
 
-    missingEPi0Pi0.combine(Particle.copyFrom(pi0), -1);
+    missingEPi0.combine(Particle.copyFrom(pi0), -1);
 
-    hMMvsMP.fill(missingEPi0Pi0.mass(), missingEPi0Pi0.p());
+    hMMvsMP.fill(missingEPi0.mass(), missingEPi0.p());
 
-    if(missingEPi0Pi0.p() < 1.0){
-        hMissingMassEPi0Pi0.fill(missingEPi0Pi0.mass());
-        hIMGamGamVSMM.fill(pi0.mass(), missingEPi0Pi0.mass());
-        if(missingEPi0Pi0.mass() > 0.8 && missingEPi0Pi0.mass() < 1.1){
+    if(missingEPi0.p() < 1.0){
+        hMissingMassEPi0Pi0.fill(missingEPi0.mass());
+        hIMGamGamVSMM.fill(pi0.mass(), missingEPi0.mass());
+        if(missingEPi0.mass() > 0.8 && missingEPi0.mass() < 1.1){
             //hIMGamGamVSMissingP.fill(pi0.mass(), missingEPi0Pi0.p());
             hGamGamPvsTheta.fill(pi0.p(), photonTheta);
             if(pi0.p() > 2 && pi0.p() < 5.5 && photonTheta < 10 && photonTheta > 3){
@@ -131,8 +131,8 @@ public static ArrayList<Integer> getBestPhotons(PhysicsEvent physicsEvent){
             pi0.combine(photon2, 1);
 
             if (pi0.mass() > 0.12 && pi0.mass() < 0.15){
-                System.out.println("equation: " + imGamGam + "  --  object: " + pi0.mass());
-                System.out.println("gagik's theta: " + photon1.cosTheta(photon2) + "  --  my theta: " + myCosTheta(photon1, photon2));
+//                System.out.println("equation: " + imGamGam + "  --  object: " + pi0.mass());
+//                System.out.println("gagik's theta: " + photon1.cosTheta(photon2) + "  --  my theta: " + myCosTheta(photon1, photon2));
 
                 photons.add(physicsEvent.getParticleIndex(22, i));
                 photons.add(physicsEvent.getParticleIndex(22, j));
