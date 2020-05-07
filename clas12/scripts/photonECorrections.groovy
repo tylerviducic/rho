@@ -37,7 +37,7 @@ hGamGamPvsTheta.setTitle("Momentum of #gamma#gamma vs opening angle between them
 hGamGamPvsTheta.setTitleX("P(#gamma#gamma)");
 hGamGamPvsTheta.setTitleY("#theta(#gamma#gamma)");
 
-H1F hEGamGam = new H1F("eGamGam", 100, 0, 2.5);
+H1F hEGamGam = new H1F("eGamGam", 100, 0, 5.0);
 hEGamGam.setTitle("Energy of photons with same energy");
 hEGamGam.setTitleX("E(#gamma");
 
