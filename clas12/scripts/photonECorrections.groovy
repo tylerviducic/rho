@@ -106,7 +106,7 @@ while (reader.hasNext()){
             //hIMGamGamVSMissingP.fill(pi0.mass(), missingEPi0Pi0.p());
             hGamGamPvsTheta.fill(pi0.p(), photonTheta);
             if(pi0.p() > 2 && pi0.p() < 5.5 && photonTheta < 10 && photonTheta > 3){
-                hIMGamGam.fill(imGamGam);
+                hIMGamGam.fill(pi0.mass());
                 if(photon1.e()/ photon2.e() < 1.02 && photon1.e()/ photon2.e() > 0.98){
                     hEGamGam.fill((photon1.e() + photon2.e()) / 2);
                 }
