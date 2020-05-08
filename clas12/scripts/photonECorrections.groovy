@@ -41,19 +41,36 @@ H1F hEGamGam = new H1F("eGamGam", 20, 1, 3.0);
 hEGamGam.setTitle("Energy of photons with same energy");
 hEGamGam.setTitleX("E(#gamma");
 
+ArrayList<H1F> pionsBinned = new ArrayList<>();
+for(int i = 0; i < 20; i++){
+    double histoBin = 1 + i/10;
+    String histoName = "E-" + Double.toString(histoBin);
+    H1F histo = new H1F(histoName, 100, 0, 0.3);
+    histo.setTitle("IM(#gamma#gamma) for E_#gamma = " + (1 + i/10));
+    pionsBinned.add(histo);
+}
+
+
 
 // ------------------------------------------              ------------------------------------------------
 
 
 TCanvas c1 = new TCanvas("c1", 1000, 1000);
 c1.divide(3, 2);
-c1.getCanvas().initTimer(1000);
+c1.getCanvas().initTimer(30000);
 c1.cd(0).draw(hIMGamGam);
 c1.cd(1).draw(hMissingMassEPi0Pi0);
 c1.cd(2).draw(hIMGamGamVSMM);
 c1.cd(3).draw(hGamGamPvsTheta);
 c1.cd(4).draw(hMMvsMP);
 c1.cd(5).draw(hEGamGam);
+
+TCanvas c2 = new TCanvas("c2", 1000, 1000);
+c2.divide(5, 4);
+c2.getCanvas().initTimer(30000);
+for(int i = 0; i < 20; i++){
+    c2.cd(i).draw(pionsBinned.get(i));
+}
 
 String file = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/pion/pi0Photoproduction_skim4.hipo";
 
@@ -107,8 +124,13 @@ while (reader.hasNext()){
             hGamGamPvsTheta.fill(pi0.p(), photonTheta);
             if(pi0.p() > 2 && pi0.p() < 5.5 && photonTheta < 10 && photonTheta > 3){
                 hIMGamGam.fill(pi0.mass());
-                if(photon1.e()/ photon2.e() < 1.02 && photon1.e()/ photon2.e() > 0.98){
-                    hEGamGam.fill((photon1.e() + photon2.e()) / 2);
+                if(photon1.e()/ photon2.e() < 1.04 && photon1.e()/ photon2.e() > 0.96){
+                    double energy = (photon1.e() + photon2.e()) / 2
+                    hEGamGam.fill(energy);
+                    int index = (int)(10 * (energy - 1));
+                    if (index > -1 && index < 20){
+                        pionsBinned.get(index).fill(pi0.mass());
+                    }
                 }
             }
         }
@@ -116,6 +138,12 @@ while (reader.hasNext()){
 }
 
 System.out.println("done");
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////    METHODS   //////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 public static ArrayList<Integer> getBestPhotons(PhysicsEvent physicsEvent){
