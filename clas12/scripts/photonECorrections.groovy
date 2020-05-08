@@ -1,3 +1,5 @@
+import org.jlab.groot.fitter.DataFitter
+import org.jlab.groot.math.F1D
 import org.jlab.groot.ui.TCanvas
 import org.jlab.jnp.hipo4.data.Bank
 import org.jlab.jnp.hipo4.data.Event
@@ -125,7 +127,7 @@ while (reader.hasNext()){
             if(pi0.p() > 2 && pi0.p() < 5.5 && photonTheta < 10 && photonTheta > 3){
                 hIMGamGam.fill(pi0.mass());
                 if(photon1.e()/ photon2.e() < 1.04 && photon1.e()/ photon2.e() > 0.96){
-                    double energy = (photon1.e() + photon2.e()) / 2
+                    double energy = (photon1.e() + photon2.e()) / 2;
                     hEGamGam.fill(energy);
                     int index = (int)(10 * (energy - 1));
                     if (index > -1 && index < 20){
@@ -135,6 +137,14 @@ while (reader.hasNext()){
             }
         }
     }
+}
+
+for(int i = 0; i < 20; i++){
+    F1D f1 = new F1D("f1", "[amp]*gaus(x,[mean],[sigma]) + [p0] + [p1]*x + [p2]*x*x", 0.1, 0.2);
+    DataFitter.fit(f1, pionsBinned.get(i),"N");
+
+    System.out.println("Fit for E(#gamma) = " + (1 + i/10));
+    f1.show();
 }
 
 System.out.println("done");
