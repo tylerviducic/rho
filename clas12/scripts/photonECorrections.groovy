@@ -141,6 +141,9 @@ while (reader.hasNext()){
 
 for(int i = 0; i < 20; i++){
     F1D f1 = new F1D("f1", "[amp]*gaus(x,[mean],[sigma]) + [p0] + [p1]*x + [p2]*x*x", 0.1, 0.2);
+    f1.setParameter(0, 100);
+    f1.setParameter(1, 0.135);
+    f1.setParameter(2, 0.009);
     DataFitter.fit(f1, pionsBinned.get(i),"N");
 
     System.out.println("Fit for E(#gamma) = " + (1 + i/10));
