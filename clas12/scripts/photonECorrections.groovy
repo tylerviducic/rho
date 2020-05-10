@@ -141,7 +141,7 @@ while (reader.hasNext()){
     }
 }
 
-for(int i = 0; i < 20; i++){
+for(int i = 0; i < 18; i++){
     F1D f1 = new F1D("f1", "[amp]*gaus(x,[mean],[sigma]) + [p0] + [p1]*x + [p2]*x*x", 0.1, 0.2);
     f1.setParameter(0, 100);
     f1.setParameter(1, 0.135);
@@ -150,7 +150,7 @@ for(int i = 0; i < 20; i++){
 
     System.out.println("Fit for E(#gamma) = " + (1 + i/10));
     f1.show();
-    c2.cd(0).draw(f1, "same");
+    c2.cd(i).draw(f1, "same");
 
     double massRatio = f1.getParameter(1)/0.135;
     massRatioVsE.addPoint((1 + i/10), massRatio, 0, 0);
