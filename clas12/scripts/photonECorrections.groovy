@@ -1,3 +1,4 @@
+import org.jlab.groot.data.GraphErrors
 import org.jlab.groot.fitter.DataFitter
 import org.jlab.groot.math.F1D
 import org.jlab.groot.ui.TCanvas
@@ -52,7 +53,8 @@ for(int i = 0; i < 20; i++){
     pionsBinned.add(histo);
 }
 
-
+GraphErrors massRatioVsE = new GraphErrors("massRatioVsE");
+massRatioVsE.setTitle("IM(#gamma#gamma) vs m(#pi^0)");
 
 // ------------------------------------------              ------------------------------------------------
 
@@ -148,7 +150,25 @@ for(int i = 0; i < 20; i++){
 
     System.out.println("Fit for E(#gamma) = " + (1 + i/10));
     f1.show();
+    c2.cd(0).draw(f1, "same");
+
+    double massRatio = f1.getParameter(1)/0.135;
+    massRatioVsE.addPoint((1 + i/10), massRatio, 0, 0);
 }
+
+F1D correction = new F1D("correction", "[p0] + [p1]/x + [p2]/(x*x) + [p3]/(x*x*x)", 1, 3);
+correction.setParameter(0, 1.173);
+correction.setParameter(1, -0.02846);
+correction.setParameter(2, 0.009149);
+correction.setParameter(3, -0.0001132);
+
+DataFitter.fit(correction, massRatioVsE, "N");
+
+TCanvas c3 = new TCanvas("c3", 500, 500);
+c3.draw(massRatioVsE);
+c3.draw(correction, "same");
+
+correction.show();
 
 System.out.println("done");
 
