@@ -128,7 +128,7 @@ while (reader.hasNext()){
             hGamGamPvsTheta.fill(pi0.p(), photonTheta);
             if(pi0.p() > 2 && pi0.p() < 5.5 && photonTheta < 10 && photonTheta > 3){
                 hIMGamGam.fill(pi0.mass());
-                if(photon1.e()/ photon2.e() < 1.04 && photon1.e()/ photon2.e() > 0.96){
+                if(photon1.e()/ photon2.e() < 1.05 && photon1.e()/ photon2.e() > 0.95){
                     double energy = (photon1.e() + photon2.e()) / 2;
                     hEGamGam.fill(energy);
                     int index = (int)(10 * (energy - 1));
