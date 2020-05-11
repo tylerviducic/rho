@@ -38,10 +38,10 @@ c1.cd(3).draw(hGamGamPvsTheta);
 c1.cd(4).draw(hQ2);
 
 
-String directory = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/pion/pi0Photoproduction_skim3.hipo";
+String file = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/pion/pi0Photoproduction_skim3.hipo";
 
 HipoChain reader = new HipoChain();
-reader.addDir(directory);
+reader.addFile(file);
 reader.open();
 
 Event event = new Event();
