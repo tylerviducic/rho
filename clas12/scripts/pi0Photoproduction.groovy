@@ -71,7 +71,7 @@ while (reader.hasNext()){
     double photonTheta = Math.toDegrees(Math.acos(photon1.cosTheta(photon2)));
 
     hQ2.fill(q2);
-    if(q2 < 0.1) {
+    if(q2 < 0.1 && missingEPPi0.p() < 1.0) {
         hMissingMassEPPi0.fill(missingEPPi0.mass2());
 
         if (missingEPPi0.mass2() < 0.1) {
