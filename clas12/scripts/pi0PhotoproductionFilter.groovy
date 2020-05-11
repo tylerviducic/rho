@@ -14,20 +14,20 @@ import org.jlab.jnp.utils.file.FileUtils
 
 
 //String directory = "/volatile/clas12/users/clas12/release/6b.5.1/calib/recon/005038/";
-String directory = "/cache/clas12/rg-a/production/recon/fall2018/torus-1/pass1/v0/dst/train/skim4";
+String directory = "/lustre19/expphy/volatile/clas12/rg-a/production/recon/fall2018/torus+1/pass1/v0/dst/train/skim3";
 
 HipoChain reader = new HipoChain();
 reader.addDir(directory);
 reader.open();
 
 HipoWriter writer = new HipoWriter(reader.getSchemaFactory());
-writer.open("/w/hallb-scifs17exp/clas12/viducic/data/clas12/pion/pi0Photoproduction_skim4.hipo");
+writer.open("/w/hallb-scifs17exp/clas12/viducic/data/clas12/pion/pi0Photoproduction_skim3.hipo");
 
 
 Event event = new Event();
 Bank particle = new Bank(reader.getSchemaFactory().getSchema("REC::Particle"));
 
-EventFilter filter = new EventFilter("11:22:22:Xn:X+:X-");
+EventFilter filter = new EventFilter("11:22:22:2212:Xn:X+:X-");
 
 while (reader.hasNext()){
     reader.nextEvent(event);
