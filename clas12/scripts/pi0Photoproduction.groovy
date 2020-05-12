@@ -93,9 +93,39 @@ System.out.println("done");
 ///////////////////////////////////////////////////    METHODS   //////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+//public static ArrayList<Integer> getBestPhotons(PhysicsEvent physicsEvent){
+//    ArrayList<Integer> photons = new ArrayList<>();
+//    int numPhotons = physicsEvent.countByPid(22);
+//
+//    for(int i = 0; i < numPhotons - 1; i++){
+//        Particle photon1 = Particle.copyFrom(physicsEvent.getParticleByPid(22, i));
+//        for (int j = i + 1; j < numPhotons; j++){
+//            Particle photon2 = Particle.copyFrom(physicsEvent.getParticleByPid(22, j));
+//            Particle pi0 = Particle.copyFrom(photon1);
+//            pi0.combine(photon2, 1);
+//            double photonTheta = Math.toDegrees(Math.acos(photon1.cosTheta(photon2)));
+//
+//            if (pi0.mass() > 0.1 && pi0.mass() < 0.15){
+////            if(pi0.p() > 0.2 && photonTheta > 5){
+//                photons.add(physicsEvent.getParticleIndex(22, i));
+//                photons.add(physicsEvent.getParticleIndex(22, j));
+//                return photons;
+//            }
+//        }
+//    }
+//    photons.add(physicsEvent.getParticleIndex(22, 0));
+//    photons.add(physicsEvent.getParticleIndex(22, 1));
+//    return photons;
+//}
+
 public static ArrayList<Integer> getBestPhotons(PhysicsEvent physicsEvent){
     ArrayList<Integer> photons = new ArrayList<>();
     int numPhotons = physicsEvent.countByPid(22);
+    int photonIndex1 = 0;
+    int photonIndex2 = 0;
+
+    double closest = 69420;
+
 
     for(int i = 0; i < numPhotons - 1; i++){
         Particle photon1 = Particle.copyFrom(physicsEvent.getParticleByPid(22, i));
@@ -103,18 +133,15 @@ public static ArrayList<Integer> getBestPhotons(PhysicsEvent physicsEvent){
             Particle photon2 = Particle.copyFrom(physicsEvent.getParticleByPid(22, j));
             Particle pi0 = Particle.copyFrom(photon1);
             pi0.combine(photon2, 1);
-            double photonTheta = Math.toDegrees(Math.acos(photon1.cosTheta(photon2)));
-
-            if (pi0.mass() > 0.1 && pi0.mass() < 0.15){
-//            if(pi0.p() > 0.2 && photonTheta > 5){
-                photons.add(physicsEvent.getParticleIndex(22, i));
-                photons.add(physicsEvent.getParticleIndex(22, j));
-                return photons;
+            double distance = Math.abs(pi0.mass() - 0.135);
+            if(distance < closest){
+                photonIndex1 = i;
+                photonIndex2 = j;
             }
         }
     }
-    photons.add(physicsEvent.getParticleIndex(22, 0));
-    photons.add(physicsEvent.getParticleIndex(22, 1));
+    photons.add(physicsEvent.getParticleIndex(22, photonIndex1));
+    photons.add(physicsEvent.getParticleIndex(22, photonIndex2));
     return photons;
 }
 
