@@ -80,10 +80,9 @@ while (reader.hasNext()){
     double photonTheta = Math.toDegrees(Math.acos(photon1.cosTheta(photon2)));
 
     hIMGamGam.fill(pion.mass());
-    if(pion.mass() < 0.15 && pion.mass() > 0.1) {\
+    if(pion.mass() < 0.15 && pion.mass() > 0.1 && missingEPPi0.p() < 1.5) {
         hQ2.fill(q2);
         hMissingMassEPPi0.fill(missingEPPi0.mass2());
-        hmissingMomentum.fill(missingEPPi0.p());
         hMissingMassEPi0.fill(missingEPi0.mass());
 
         hGamGamPvsTheta.fill(pion.p(), photonTheta);
