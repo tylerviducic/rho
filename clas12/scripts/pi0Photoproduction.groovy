@@ -7,6 +7,7 @@ import org.jlab.jnp.hipo4.io.HipoChain
 import org.jlab.jnp.physics.Particle
 import org.jlab.jnp.physics.PhysicsEvent
 import org.jlab.jnp.reader.DataManager
+import org.jlab.jnp.physics.EventFilter
 
 // ------------------------------------------  Histograms ------------------------------------------------
 H1F hMissingMassEPi0= new H1F("MissingMassEPi0", 100, 0, 2);
@@ -51,13 +52,15 @@ reader.open();
 Event event = new Event();
 Bank particle = new Bank(reader.getSchemaFactory().getSchema("REC::Particle"));
 
+EventFilter eventFilter = new EventFilter("11:2212:22:22:Xn");
+
 while (reader.hasNext()){
     reader.nextEvent(event);
     event.read(particle);
 
     PhysicsEvent physicsEvent = DataManager.getPhysicsEvent(10.6, particle);
 
-    if(physicsEvent.getParticle(0).pid() == 11 && physicsEvent.getParticleByPid(2212, 0).theta() > Math.toRadians(35)){
+    if(!eventFilter.isValid(physicsEvent) && physicsEvent.getParticle(0).pid() == 11 && physicsEvent.getParticleByPid(2212, 0).theta() > Math.toRadians(35)){
         continue;
     }
     //Particle electron = getTaggerElectron(physicsEvent);
