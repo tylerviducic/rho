@@ -45,10 +45,10 @@ hEGamGam.setTitle("Energy of photons with same energy");
 hEGamGam.setTitleX("E(#gamma");
 
 ArrayList<H1F> pionsBinned = new ArrayList<>();
-for(int i = 0; i < 20; i++){
+for(int i = 0; i < 15; i++){
     double histoBin = 1 + i/10;
     String histoName = "E-" + Double.toString(histoBin);
-    H1F histo = new H1F(histoName, 100, 0, 0.3);
+    H1F histo = new H1F(histoName, 100, 0, 0.27);
     histo.setTitle("IM(#gamma#gamma) for E_#gamma = " + (1 + i/10));
     pionsBinned.add(histo);
 }
@@ -72,7 +72,7 @@ c1.cd(5).draw(hEGamGam);
 TCanvas c2 = new TCanvas("c2", 1000, 1000);
 c2.divide(5, 4);
 c2.getCanvas().initTimer(30000);
-for(int i = 0; i < 20; i++){
+for(int i = 0; i < 15; i++){
     c2.cd(i).draw(pionsBinned.get(i));
 }
 
@@ -128,7 +128,7 @@ while (reader.hasNext()){
             hGamGamPvsTheta.fill(pi0.p(), photonTheta);
             if(pi0.p() > 2 && pi0.p() < 5.5 && photonTheta < 10 && photonTheta > 3){
                 hIMGamGam.fill(pi0.mass());
-                if(photon1.e()/ photon2.e() < 1.05 && photon1.e()/ photon2.e() > 0.95){
+                if(photon1.e()/ photon2.e() < 1.03 && photon1.e()/ photon2.e() > 0.97){
                     double energy = (photon1.e() + photon2.e()) / 2;
                     hEGamGam.fill(energy);
                     int index = (int)(10 * (energy - 1));
@@ -141,7 +141,7 @@ while (reader.hasNext()){
     }
 }
 
-for(int i = 0; i < 18; i++){
+for(int i = 0; i < 15; i++){
     F1D f1 = new F1D("f1", "[amp]*gaus(x,[mean],[sigma]) + [p0] + [p1]*x + [p2]*x*x", 0.1, 0.2);
     f1.setParameter(0, 100);
     f1.setParameter(1, 0.135);
