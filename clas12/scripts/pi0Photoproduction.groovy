@@ -78,8 +78,9 @@ while (reader.hasNext()){
     if(q2 < 0.1) {
         hIMGamGam.fill(physicsEvent.getParticle("[22, 0] + [22, 1]").mass());
         hMissingMassEPPi0.fill(missingEPPi0.mass2());
-        hmissingMomentum.fill(missingEPPi0.p());
-
+        if(physicsEvent.getParticle("[22, 0] + [22, 1]").mass() < 0.15 && physicsEvent.getParticle("[22, 0] + [22, 1]").mass() > 0.1) {
+            hmissingMomentum.fill(missingEPPi0.p());
+        }
         if (Math.abs(missingEPPi0.mass2()) < 0.1) {
             hMissingMassEPi0.fill(missingEPi0.mass());
 
