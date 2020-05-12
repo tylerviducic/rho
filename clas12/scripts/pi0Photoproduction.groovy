@@ -86,7 +86,9 @@ while (reader.hasNext()){
     if(pion.mass() < 0.15 && pion.mass() > 0.1 && missingEPPi0.p() < 1.5) {
         hQ2.fill(q2);
         hMissingMassEPPi0.fill(missingEPPi0.mass2());
-        hMissingMassEPi0.fill(missingEPi0.mass());
+        if(q2 < 0.2 && Math.abs(missingEPPi0.mass2()) < 0.1) {
+            hMissingMassEPi0.fill(missingEPi0.mass());
+        }
 
         hGamGamPvsTheta.fill(pion.p(), photonTheta);
     }
