@@ -63,8 +63,9 @@ while (reader.hasNext()){
     Particle photon1 = physicsEvent.getParticle(photonIndexes.get(0));
     Particle photon2 = physicsEvent.getParticle(photonIndexes.get(1));
 
-    Particle pion = Particle.copyFrom(photon1);
-    pion.combine(Particle.copyFrom(photon2), 1);
+//    Particle pion = Particle.copyFrom(photon1);
+//    pion.combine(Particle.copyFrom(photon2), 1);
+    Particle pion = physicsEvent.getParticle("[22, 0] + [22, 1]");
 
     Particle missingEPPi0 = physicsEvent.getParticle("[b] + [t] - [2212] - [11] - [22, 0] - [22, 1]");
     Particle missingEPi0 = physicsEvent.getParticle("[b] + [t] - [11] - [22, 0] - [22, 1]");
@@ -76,16 +77,15 @@ while (reader.hasNext()){
 
     hQ2.fill(q2);
     if(q2 < 0.1) {
-        hIMGamGam.fill(physicsEvent.getParticle("[22, 0] + [22, 1]").mass());
         hMissingMassEPPi0.fill(missingEPPi0.mass2());
-        if(physicsEvent.getParticle("[22, 0] + [22, 1]").mass() < 0.15 && physicsEvent.getParticle("[22, 0] + [22, 1]").mass() > 0.1) {
+        if(pion.mass() < 0.15 && pion.mass() > 0.1) {
             hmissingMomentum.fill(missingEPPi0.p());
         }
         if (Math.abs(missingEPPi0.mass2()) < 0.1) {
             hMissingMassEPi0.fill(missingEPi0.mass());
 
             hGamGamPvsTheta.fill(pion.p(), photonTheta);
-                //hIMGamGam.fill(pion.mass());
+            hIMGamGam.fill(pion.mass());
         }
     }
 }
