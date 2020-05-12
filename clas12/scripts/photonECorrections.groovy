@@ -59,15 +59,15 @@ massRatioVsE.setTitle("IM(#gamma#gamma) vs m(#pi^0)");
 // ------------------------------------------              ------------------------------------------------
 
 
-TCanvas c1 = new TCanvas("c1", 1000, 1000);
-c1.divide(3, 2);
-c1.getCanvas().initTimer(30000);
-c1.cd(0).draw(hIMGamGam);
-c1.cd(1).draw(hMissingMassEPi0Pi0);
-c1.cd(2).draw(hIMGamGamVSMM);
-c1.cd(3).draw(hGamGamPvsTheta);
-c1.cd(4).draw(hMMvsMP);
-c1.cd(5).draw(hEGamGam);
+//TCanvas c1 = new TCanvas("c1", 1000, 1000);
+//c1.divide(3, 2);
+//c1.getCanvas().initTimer(30000);
+//c1.cd(0).draw(hIMGamGam);
+//c1.cd(1).draw(hMissingMassEPi0Pi0);
+//c1.cd(2).draw(hIMGamGamVSMM);
+//c1.cd(3).draw(hGamGamPvsTheta);
+//c1.cd(4).draw(hMMvsMP);
+//c1.cd(5).draw(hEGamGam);
 
 TCanvas c2 = new TCanvas("c2", 1000, 1000);
 c2.divide(5, 4);
@@ -118,21 +118,21 @@ while (reader.hasNext()){
 
     missingEPi0.combine(Particle.copyFrom(pi0), -1);
 
-    hMMvsMP.fill(missingEPi0.mass(), missingEPi0.p());
+//    hMMvsMP.fill(missingEPi0.mass(), missingEPi0.p());
 
     if(missingEPi0.p() < 1.0){
-        hMissingMassEPi0Pi0.fill(missingEPi0.mass());
-        hIMGamGamVSMM.fill(pi0.mass(), missingEPi0.mass());
+//        hMissingMassEPi0Pi0.fill(missingEPi0.mass());
+//        hIMGamGamVSMM.fill(pi0.mass(), missingEPi0.mass());
         if(missingEPi0.mass() > 0.8 && missingEPi0.mass() < 1.1){
             //hIMGamGamVSMissingP.fill(pi0.mass(), missingEPi0Pi0.p());
-            hGamGamPvsTheta.fill(pi0.p(), photonTheta);
+//            hGamGamPvsTheta.fill(pi0.p(), photonTheta);
             if(pi0.p() > 2 && pi0.p() < 5.5 && photonTheta < 10 && photonTheta > 3){
-                hIMGamGam.fill(pi0.mass());
+//                hIMGamGam.fill(pi0.mass());
                 if(photon1.e()/ photon2.e() < 1.03 && photon1.e()/ photon2.e() > 0.97){
                     double energy = (photon1.e() + photon2.e()) / 2;
                     hEGamGam.fill(energy);
-                    int index = (int)(10 * (energy - 1));
-                    if (index > -1 && index < 15){
+                    int index = (int)((energy - 1)/0.17);
+                    if (index > -1 && index < 11){
                         pionsBinned.get(index).fill(pi0.mass());
                     }
                 }
