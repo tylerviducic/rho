@@ -72,13 +72,14 @@ while (reader.hasNext()){
 
     hQ2.fill(q2);
     if(q2 < 0.1 && missingEPPi0.p() < 0.5) {
+        hIMGamGam.fill(physicsEvent.getParticle("[22, 0] + [22, 1]").mass());
         hMissingMassEPPi0.fill(missingEPPi0.mass2());
 
         if (Math.abs(missingEPPi0.mass2()) < 0.1) {
             hMissingMassEPi0.fill(missingEPi0.mass());
 
             hGamGamPvsTheta.fill(pion.p(), photonTheta);
-                hIMGamGam.fill(pion.mass());
+                //hIMGamGam.fill(pion.mass());
         }
     }
 }
