@@ -78,7 +78,9 @@ while (reader.hasNext()){
             hMissingMassEPi0.fill(missingEPi0.mass());
 
             hGamGamPvsTheta.fill(pion.p(), photonTheta);
-            hIMGamGam.fill(pion.mass());
+            if(photonTheta > 5){
+                hIMGamGam.fill(pion.mass());
+            }
         }
     }
 }
