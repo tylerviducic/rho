@@ -74,8 +74,8 @@ while (reader.hasNext()){
 //    pion.combine(Particle.copyFrom(photon2), 1);
     Particle pion = physicsEvent.getParticle("[22, 0] + [22, 1]");
 
-    Particle missingEPPi0 = physicsEvent.getParticle("[b] + [t] - [2212] - [11] - [22, 0] - [22, 1]");
-    Particle missingEPi0 = physicsEvent.getParticle("[b] + [t] - [11] - [22, 0] - [22, 1]");
+    Particle missingEPPi0 = physicsEvent.getParticle("[b] + [t] - [2212] - [11, 0] - [22, 0] - [22, 1]");
+    Particle missingEPi0 = physicsEvent.getParticle("[b] + [t] - [11, 0] - [22, 0] - [22, 1]");
 //    missingEPi0.combine(Particle.copyFrom(pion), -1);
 //    missingEPPi0.combine(Particle.copyFrom(pion), -1);
 
