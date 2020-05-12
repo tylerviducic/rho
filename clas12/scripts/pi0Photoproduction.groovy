@@ -62,10 +62,10 @@ while (reader.hasNext()){
     Particle pion = Particle.copyFrom(photon1);
     pion.combine(Particle.copyFrom(photon2), 1);
 
-    Particle missingEPPi0 = physicsEvent.getParticle("[b] + [t] - [2212] - [11]");
-    Particle missingEPi0 = physicsEvent.getParticle("[b] + [t] - [11]");
-    missingEPi0.combine(Particle.copyFrom(pion), -1);
-    missingEPPi0.combine(Particle.copyFrom(pion), -1);
+    Particle missingEPPi0 = physicsEvent.getParticle("[b] + [t] - [2212] - [11] - [22, 0] - [22, 1]");
+    Particle missingEPi0 = physicsEvent.getParticle("[b] + [t] - [11] - [22, 0] - [22, 1]");
+//    missingEPi0.combine(Particle.copyFrom(pion), -1);
+//    missingEPPi0.combine(Particle.copyFrom(pion), -1);
 
     double q2 = getQ2(physicsEvent.beamParticle(), electron);
     double photonTheta = Math.toDegrees(Math.acos(photon1.cosTheta(photon2)));
