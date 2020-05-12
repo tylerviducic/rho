@@ -45,11 +45,11 @@ hEGamGam.setTitle("Energy of photons with same energy");
 hEGamGam.setTitleX("E(#gamma");
 
 ArrayList<H1F> pionsBinned = new ArrayList<>();
-for(int i = 0; i < 15; i++){
-    double histoBin = 1 + i/10;
+for(int i = 0; i < 10; i++){
+    double histoBin = 1 + i * 0.17;
     String histoName = "E-" + Double.toString(histoBin);
     H1F histo = new H1F(histoName, 100, 0, 0.27);
-    histo.setTitle("IM(#gamma#gamma) for E_#gamma = " + (1 + i/10));
+    histo.setTitle("IM(#gamma#gamma) for E_#gamma = " + (1 + i * 0.17));
     pionsBinned.add(histo);
 }
 
@@ -72,7 +72,7 @@ c1.cd(5).draw(hEGamGam);
 TCanvas c2 = new TCanvas("c2", 1000, 1000);
 c2.divide(5, 4);
 c2.getCanvas().initTimer(30000);
-for(int i = 0; i < 15; i++){
+for(int i = 0; i < 10; i++){
     c2.cd(i).draw(pionsBinned.get(i));
 }
 
@@ -141,19 +141,19 @@ while (reader.hasNext()){
     }
 }
 
-for(int i = 0; i < 15; i++){
+for(int i = 0; i < 10; i++){
     F1D f1 = new F1D("f1", "[amp]*gaus(x,[mean],[sigma]) + [p0] + [p1]*x + [p2]*x*x", 0.1, 0.2);
     f1.setParameter(0, 100);
     f1.setParameter(1, 0.135);
     f1.setParameter(2, 0.009);
     DataFitter.fit(f1, pionsBinned.get(i),"N");
 
-    System.out.println("Fit for E(#gamma) = " + (1 + i/10));
+    System.out.println("Fit for E(#gamma) = " + (1 + i * 0.17));
     f1.show();
     c2.cd(i).draw(f1, "same");
 
     double massRatio = f1.getParameter(1)/0.135;
-    massRatioVsE.addPoint((1 + i/10), massRatio, 0, 0);
+    massRatioVsE.addPoint((1 + i * 0.17), massRatio, 0, 0);
 }
 
 F1D correction = new F1D("correction", "[p0] + [p1]/x + [p2]/(x*x) + [p3]/(x*x*x)", 1, 3);
