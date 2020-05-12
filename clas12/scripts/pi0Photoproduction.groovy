@@ -26,6 +26,9 @@ hGamGamPvsTheta.setTitleY("#theta(#gamma#gamma)");
 H1F hQ2 = new H1F("q2", 100, 0, 3);
 hQ2.setTitle("Q^2 of e'");
 
+H1F hmissingMomentum = new H1F("missingMomentum", 100, 0, 3);
+hmissingMomentum.setTitle("Missing Momentum in region of pion");
+
 // ------------------------------------------  Histograms ------------------------------------------------
 
 TCanvas c1 = new TCanvas("c1", 1000, 1000);
@@ -36,6 +39,7 @@ c1.cd(1).draw(hMissingMassEPi0);
 c1.cd(2).draw(hMissingMassEPPi0);
 c1.cd(3).draw(hGamGamPvsTheta);
 c1.cd(4).draw(hQ2);
+c1.cd(5).draw(hmissingMomentum);
 
 
 String file = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/pion/pi0Photoproduction_skim3.hipo";
@@ -71,9 +75,10 @@ while (reader.hasNext()){
     double photonTheta = Math.toDegrees(Math.acos(photon1.cosTheta(photon2)));
 
     hQ2.fill(q2);
-    if(q2 < 0.1 && missingEPPi0.p() < 1.0) {
+    if(q2 < 0.1) {
         hIMGamGam.fill(physicsEvent.getParticle("[22, 0] + [22, 1]").mass());
         hMissingMassEPPi0.fill(missingEPPi0.mass2());
+        hmissingMomentum.fill(missingEPPi0.p());
 
         if (Math.abs(missingEPPi0.mass2()) < 0.1) {
             hMissingMassEPi0.fill(missingEPi0.mass());
