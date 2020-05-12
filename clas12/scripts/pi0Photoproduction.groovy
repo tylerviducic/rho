@@ -71,7 +71,7 @@ while (reader.hasNext()){
     double photonTheta = Math.toDegrees(Math.acos(photon1.cosTheta(photon2)));
 
     hQ2.fill(q2);
-    if(q2 < 0.1 && missingEPPi0.p() < 1.0) {
+    if(q2 < 0.1 && missingEPPi0.p() < 0.5) {
         hMissingMassEPPi0.fill(missingEPPi0.mass2());
 
         if (Math.abs(missingEPPi0.mass2()) < 0.1) {
@@ -132,14 +132,12 @@ public static ArrayList<Integer> getBestPhotons(PhysicsEvent physicsEvent){
         for (int j = i + 1; j < numPhotons; j++) {
 
             Particle photon2 = Particle.copyFrom(physicsEvent.getParticleByPid(22, j));
-            if (photon1.p() > 0.3 && photon2.p() > 0.3) {
                 Particle pi0 = Particle.copyFrom(photon1);
                 pi0.combine(photon2, 1);
                 double distance = Math.abs(pi0.mass() - 0.135);
-                if (distance < closest) {
+                if (distance < closest && pi0.mass() > 0.08 && pi0.mass() < 0.17) {
                     photonIndex1 = i;
                     photonIndex2 = j;
-                }
             }
         }
     }
