@@ -132,7 +132,7 @@ while (reader.hasNext()){
                     double energy = (photon1.e() + photon2.e()) / 2;
                     hEGamGam.fill(energy);
                     int index = (int)(10 * (energy - 1));
-                    if (index > -1 && index < 20){
+                    if (index > -1 && index < 15){
                         pionsBinned.get(index).fill(pi0.mass());
                     }
                 }
