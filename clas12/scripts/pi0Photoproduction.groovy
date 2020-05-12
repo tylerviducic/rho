@@ -101,8 +101,10 @@ public static ArrayList<Integer> getBestPhotons(PhysicsEvent physicsEvent){
             Particle photon2 = Particle.copyFrom(physicsEvent.getParticleByPid(22, j));
             Particle pi0 = Particle.copyFrom(photon1);
             pi0.combine(photon2, 1);
+            double photonTheta = Math.toDegrees(Math.acos(photon1.cosTheta(photon2)));
 
-            if (pi0.mass() > 0.12 && pi0.mass() < 0.15){
+//            if (pi0.mass() > 0.12 && pi0.mass() < 0.15){
+            if(pi0.p() > 0.2 && photonTheta > 5){
                 photons.add(physicsEvent.getParticleIndex(22, i));
                 photons.add(physicsEvent.getParticleIndex(22, j));
                 return photons;
