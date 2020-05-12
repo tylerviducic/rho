@@ -122,21 +122,24 @@ public static ArrayList<Integer> getBestPhotons(PhysicsEvent physicsEvent){
     ArrayList<Integer> photons = new ArrayList<>();
     int numPhotons = physicsEvent.countByPid(22);
     int photonIndex1 = 0;
-    int photonIndex2 = 0;
+    int photonIndex2 = 1;
 
     double closest = 69420;
 
 
-    for(int i = 0; i < numPhotons - 1; i++){
+    for(int i = 0; i < numPhotons - 1; i++) {
         Particle photon1 = Particle.copyFrom(physicsEvent.getParticleByPid(22, i));
-        for (int j = i + 1; j < numPhotons; j++){
+        for (int j = i + 1; j < numPhotons; j++) {
+
             Particle photon2 = Particle.copyFrom(physicsEvent.getParticleByPid(22, j));
-            Particle pi0 = Particle.copyFrom(photon1);
-            pi0.combine(photon2, 1);
-            double distance = Math.abs(pi0.mass() - 0.135);
-            if(distance < closest){
-                photonIndex1 = i;
-                photonIndex2 = j;
+            if (photon1.p() > 0.3 && photon2.p() > 0.3) {
+                Particle pi0 = Particle.copyFrom(photon1);
+                pi0.combine(photon2, 1);
+                double distance = Math.abs(pi0.mass() - 0.135);
+                if (distance < closest) {
+                    photonIndex1 = i;
+                    photonIndex2 = j;
+                }
             }
         }
     }
