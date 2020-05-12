@@ -57,7 +57,11 @@ while (reader.hasNext()){
 
     PhysicsEvent physicsEvent = DataManager.getPhysicsEvent(10.6, particle);
 
-    Particle electron = getTaggerElectron(physicsEvent);
+    if(physicsEvent.getParticle(0).pid() == 11 && physicsEvent.getParticleByPid(2212, 0).theta() > Math.toRadians(35)){
+        continue;
+    }
+    //Particle electron = getTaggerElectron(physicsEvent);
+    Particle electron = physicsEvent.getParticleByPid(11, 0);
 
     ArrayList<Integer> photonIndexes = getBestPhotons(physicsEvent);
     Particle photon1 = physicsEvent.getParticle(photonIndexes.get(0));
