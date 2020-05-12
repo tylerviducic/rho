@@ -78,9 +78,7 @@ while (reader.hasNext()){
             hMissingMassEPi0.fill(missingEPi0.mass());
 
             hGamGamPvsTheta.fill(pion.p(), photonTheta);
-            if(photonTheta > 5){
                 hIMGamGam.fill(pion.mass());
-            }
         }
     }
 }
@@ -105,8 +103,7 @@ public static ArrayList<Integer> getBestPhotons(PhysicsEvent physicsEvent){
             pi0.combine(photon2, 1);
             double photonTheta = Math.toDegrees(Math.acos(photon1.cosTheta(photon2)));
 
-            if (pi0.mass() > 0.08 && pi0.mass() < 0.17){
-//            if(pi0.p() > 0.2 && photonTheta > 5){
+            if (pi0.mass() > 0.12 && pi0.mass() < 0.15){
                 photons.add(physicsEvent.getParticleIndex(22, i));
                 photons.add(physicsEvent.getParticleIndex(22, j));
                 return photons;
