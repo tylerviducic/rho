@@ -82,7 +82,9 @@ while (reader.hasNext()){
     double q2 = getQ2(physicsEvent.beamParticle(), electron);
     double photonTheta = Math.toDegrees(Math.acos(photon1.cosTheta(photon2)));
 
-    if(pion.mass() < 0.15 && pion.mass() > 0.1 && missingEPPi0.p() < 1.5) {
+    hGamGamPvsTheta.fill(pion.p(), photonTheta);
+
+    if(pion.p() > 0.3 && photonTheta > 5 && missingEPPi0.p() < 1.5) {
         hQ2.fill(q2);
         hMissingMassEPPi0.fill(missingEPPi0.mass2());
         if(q2 < 0.2 && Math.abs(missingEPPi0.mass2()) < 0.1) {
@@ -90,7 +92,6 @@ while (reader.hasNext()){
             hIMGamGam.fill(pion.mass());
         }
 
-        hGamGamPvsTheta.fill(pion.p(), photonTheta);
     }
 }
 
