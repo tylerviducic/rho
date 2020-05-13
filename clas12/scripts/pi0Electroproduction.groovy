@@ -128,21 +128,15 @@ public static ArrayList<Integer> getBestPhotons(PhysicsEvent physicsEvent){
         for (int j = i + 1; j < numPhotons; j++){
             Particle photon2 = Particle.copyFrom(physicsEvent.getParticleByPid(22, j));
             Particle pi0 = Particle.copyFrom(photon1);
-            double imGamGam = getPhotonIM(photon1, photon2);
             pi0.combine(photon2, 1);
 
             if (pi0.mass() > 0.12 && pi0.mass() < 0.15){
-//                System.out.println("equation: " + imGamGam + "  --  object: " + pi0.mass());
-//                System.out.println("gagik's theta: " + photon1.cosTheta(photon2) + "  --  my theta: " + myCosTheta(photon1, photon2));
-
                 photons.add(physicsEvent.getParticleIndex(22, i));
                 photons.add(physicsEvent.getParticleIndex(22, j));
                 return photons;
             }
         }
     }
-//    Particle pi0 = Particle.copyFrom(physicsEvent.getParticleByPid(22, 0));
-//    pi0.combine(Particle.copyFrom(physicsEvent.getParticleByPid(22,1)), 1);
     photons.add(physicsEvent.getParticleIndex(22, 0));
     photons.add(physicsEvent.getParticleIndex(22, 1));
     return photons;
