@@ -87,7 +87,7 @@ while (reader.hasNext()) {
         Particle missingEPi0 = physicsEvent.getParticle("[b] + [t] - [11]");
 
         Particle kinFitPion = Particle.initParticleWithMass(0.135, photon1.px() + photon2.px(), photon1.py() + photon2.py(), photon1.pz() + photon2.pz(),
-                (photon1.vx() + photon2.vx())/2, (photon1.vy() + photon2.vy())/2, (photon1.vz() + photon2.vz())/2)
+                (photon1.vx() + photon2.vx())/2, (photon1.vy() + photon2.vy())/2, (photon1.vz() + photon2.vz())/2);
 
         missingEPi0.combine(Particle.copyFrom(kinFitPion), -1);
 
