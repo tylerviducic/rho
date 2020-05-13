@@ -97,10 +97,10 @@ while (reader.hasNext()) {
             hMissingMassEPi0.fill(missingEPi0.mass());
             if (missingEPi0.mass() > 0.8 && missingEPi0.mass() < 1.1) {
                 hGamGamPvsTheta.fill(pi0.p(), photonTheta);
+                hIMGamGam.fill(pi0.mass());
+                hIMGamGamVsMMEP.fill(pi0.mass(), missingEP.mass());
                 if (pi0.p() > 2 && pi0.p() < 5.5 && photonTheta < 10 && photonTheta > 3) {
-                    hIMGamGam.fill(pi0.mass());
                     hMMEP.fill(missingEP.mass());
-                    hIMGamGamVsMMEP.fill(pi0.mass(), missingEP.mass());
                     hQ2.fill(q2);
                 }
             }
