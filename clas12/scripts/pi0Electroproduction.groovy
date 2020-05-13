@@ -92,8 +92,6 @@ while (reader.hasNext()) {
 
         missingEPi0.combine(Particle.copyFrom(kinFitPion), -1);
 
-        hMMvsMP.fill(missingEPi0.mass(), missingEPi0.p());
-
         if (missingEPi0.p() < 1.0) {
             hIMGamGamVsMM.fill(pi0.mass(), missingEPi0.mass());
             if (missingEPi0.mass() > 0.8 && missingEPi0.mass() < 1.1) {
