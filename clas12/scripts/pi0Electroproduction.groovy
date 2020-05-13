@@ -16,15 +16,15 @@ import org.jlab.groot.data.H2F
 H1F hMissingMassEPi0 = new H1F("MissingMassEPi0Pi0", 100, 0, 2);
 hMissingMassEPi0.setTitle("Missing mass of e'#gamma#gamma");
 
-H1F hIMGamGam = new H1F("IMGamGam", 100, 0, 0.3);
+H1F hIMGamGam = new H1F("IMGamGam", 200, 0, 1.0);
 hIMGamGam.setTitle("Invariant mass of #gamma#gamma");
 
-H2F hIMGamGamVsMM = new H2F("IMGamGamVsMM", 100, 0, 0.3, 100, 0, 2);
+H2F hIMGamGamVsMM = new H2F("IMGamGamVsMM", 200, 0, 1.0, 100, 0, 2);
 hIMGamGamVsMM.setTitle("IM(#gamma#gamma) vs MM(e#gamma#gamma)");
 hIMGamGamVsMM.setTitleX("IM(#gamma#gamma)");
 hIMGamGamVsMM.setTitleY("MM(e#gamma#gamma");
 
-H1F hMMEP = new H1F("MMEP", 100, 0, 0.3);
+H1F hMMEP = new H1F("MMEP", 200, 0, 1.0);
 hMMEP.setTitle("MM(e'p')");
 
 H2F hGamGamPvsTheta = new H2F("GamGamPvsTheta", 200, 0, 6, 35, 0, 35);
@@ -32,7 +32,7 @@ hGamGamPvsTheta.setTitle("Momentum of #gamma#gamma vs opening angle between them
 hGamGamPvsTheta.setTitleX("P(#gamma#gamma)");
 hGamGamPvsTheta.setTitleY("#theta(#gamma#gamma)");
 
-H2F hIMGamGamVsMMEP = new H2F("IMGamGamVsMMEP", 100, 0, 0.3, 100, 0, 0.3);
+H2F hIMGamGamVsMMEP = new H2F("IMGamGamVsMMEP", 200, 0, 1.0, 200, 0, 1.0);
 hIMGamGamVsMMEP.setTitleX("IM(#gamma#gamma)");
 hIMGamGamVsMMEP.setTitleY("MM(e'p'");
 
@@ -129,7 +129,7 @@ public static ArrayList<Integer> getBestPhotons(PhysicsEvent physicsEvent){
             Particle pi0 = Particle.copyFrom(photon1);
             pi0.combine(photon2, 1);
 
-            if (pi0.mass() > 0.12 && pi0.mass() < 0.15){
+            if ((pi0.mass() > 0.12 && pi0.mass() < 0.15) || (pi0.mass() > 0.5 && pi0.mass() < 0.6)){
                 photons.add(physicsEvent.getParticleIndex(22, i));
                 photons.add(physicsEvent.getParticleIndex(22, j));
                 return photons;
