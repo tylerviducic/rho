@@ -118,9 +118,34 @@ System.out.println("done");
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+//public static ArrayList<Integer> getBestPhotons(PhysicsEvent physicsEvent){
+//    ArrayList<Integer> photons = new ArrayList<>();
+//    int numPhotons = physicsEvent.countByPid(22);
+//
+//    for(int i = 0; i < numPhotons - 1; i++){
+//        Particle photon1 = Particle.copyFrom(physicsEvent.getParticleByPid(22, i));
+//        for (int j = i + 1; j < numPhotons; j++){
+//            Particle photon2 = Particle.copyFrom(physicsEvent.getParticleByPid(22, j));
+//            Particle pi0 = Particle.copyFrom(photon1);
+//            pi0.combine(photon2, 1);
+//
+//            if ((pi0.mass() > 0.12 && pi0.mass() < 0.15) || (pi0.mass() > 0.5 && pi0.mass() < 0.6)){
+//                photons.add(physicsEvent.getParticleIndex(22, i));
+//                photons.add(physicsEvent.getParticleIndex(22, j));
+//                return photons;
+//            }
+//        }
+//    }
+//    photons.add(physicsEvent.getParticleIndex(22, 0));
+//    photons.add(physicsEvent.getParticleIndex(22, 1));
+//    return photons;
+//}
+
 public static ArrayList<Integer> getBestPhotons(PhysicsEvent physicsEvent){
     ArrayList<Integer> photons = new ArrayList<>();
+    ArrayList<Integer> candidates = new ArrayList<>();
     int numPhotons = physicsEvent.countByPid(22);
+    double closest = 10.0;
 
     for(int i = 0; i < numPhotons - 1; i++){
         Particle photon1 = Particle.copyFrom(physicsEvent.getParticleByPid(22, i));
@@ -130,14 +155,46 @@ public static ArrayList<Integer> getBestPhotons(PhysicsEvent physicsEvent){
             pi0.combine(photon2, 1);
 
             if ((pi0.mass() > 0.12 && pi0.mass() < 0.15) || (pi0.mass() > 0.5 && pi0.mass() < 0.6)){
-                photons.add(physicsEvent.getParticleIndex(22, i));
-                photons.add(physicsEvent.getParticleIndex(22, j));
-                return photons;
+                candidates.add(physicsEvent.getParticleIndex(22, i));
+                candidates.add(physicsEvent.getParticleIndex(22, j));
             }
         }
     }
-    photons.add(physicsEvent.getParticleIndex(22, 0));
-    photons.add(physicsEvent.getParticleIndex(22, 1));
+
+    if(candidates.size() > 1){
+        for(int i = 0; i < candidates.size(); i = i+2){
+            Particle candidate1 = Particle.copyFrom(physicsEvent.getParticle(candidates.get(i)));
+            candidate1.combine(Particle.copyFrom(physicsEvent.getParticle(candidates.get(i + 1))), 1);
+            if(candidate1.mass() > 0.12 && candidate1.mass() < 0.15){
+                double distance = Math.abs(0.135  - candidate1.mass());
+                if(distance < closest){
+                    closest = distance;
+                    photons.add(0, candidates.get(i));
+                    photons.add(1, candidates.get(i + 1));
+                }
+            }
+            else if(candidate1.mass() > 0.5 && candidate1.mass() < 0.6){
+                double distance = Math.abs(0.547  - candidate1.mass());
+                if(distance < closest){
+                    closest = distance;
+                    photons.add(0, candidates.get(i));
+                    photons.add(1, candidates.get(i + 1));
+                }
+            }
+            else{
+                int randomIndex1 = -1;
+                int randomIndex2 = -1;
+                while (randomIndex1 == randomIndex2){
+                    randomIndex1 = Random.nextInt(numPhotons);
+                    randomIndex2 = Random.nextInt(numPhotons);
+                }
+                photons.add(0, physicsEvent.getParticleIndex(22, randomIndex1));
+                photons.add(1, physicsEvent.getParticleIndex(22, randomIndex2));
+            }
+        }
+        return photons;
+    }
+
     return photons;
 }
 
