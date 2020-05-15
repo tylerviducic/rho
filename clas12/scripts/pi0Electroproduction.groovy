@@ -181,20 +181,18 @@ public static ArrayList<Integer> getBestPhotons(PhysicsEvent physicsEvent){
                     photons.add(1, candidates.get(i + 1));
                 }
             }
-            else{
-                int randomIndex1 = -1;
-                int randomIndex2 = -1;
-                while (randomIndex1 == randomIndex2){
-                    randomIndex1 = Random.nextInt(numPhotons);
-                    randomIndex2 = Random.nextInt(numPhotons);
-                }
-                photons.add(0, physicsEvent.getParticleIndex(22, randomIndex1));
-                photons.add(1, physicsEvent.getParticleIndex(22, randomIndex2));
-            }
         }
-        return photons;
     }
-
+    else{
+        int randomIndex1 = -1;
+        int randomIndex2 = -1;
+        while (randomIndex1 == randomIndex2){
+            randomIndex1 = Random.nextInt(numPhotons);
+            randomIndex2 = Random.nextInt(numPhotons);
+        }
+        photons.add(0, physicsEvent.getParticleIndex(22, randomIndex1));
+        photons.add(1, physicsEvent.getParticleIndex(22, randomIndex2));
+    }
     return photons;
 }
 
