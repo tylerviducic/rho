@@ -146,6 +146,7 @@ public static ArrayList<Integer> getBestPhotons(PhysicsEvent physicsEvent){
     ArrayList<Integer> candidates = new ArrayList<>();
     int numPhotons = physicsEvent.countByPid(22);
     double closest = 10.0;
+    Random r = new Random();
 
     for(int i = 0; i < numPhotons - 1; i++){
         Particle photon1 = Particle.copyFrom(physicsEvent.getParticleByPid(22, i));
@@ -187,8 +188,8 @@ public static ArrayList<Integer> getBestPhotons(PhysicsEvent physicsEvent){
         int randomIndex1 = -1;
         int randomIndex2 = -1;
         while (randomIndex1 == randomIndex2){
-            randomIndex1 = Random.nextInt(numPhotons);
-            randomIndex2 = Random.nextInt(numPhotons);
+            randomIndex1 = r.nextInt(numPhotons);
+            randomIndex2 = r.nextInt(numPhotons);
         }
         photons.add(0, physicsEvent.getParticleIndex(22, randomIndex1));
         photons.add(1, physicsEvent.getParticleIndex(22, randomIndex2));
