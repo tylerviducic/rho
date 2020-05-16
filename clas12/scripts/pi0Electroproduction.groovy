@@ -145,7 +145,7 @@ public static ArrayList<Integer> getBestPhotons(PhysicsEvent physicsEvent){
     ArrayList<Integer> photons = new ArrayList<>();
     ArrayList<Integer> candidates = new ArrayList<>();
     int numPhotons = physicsEvent.countByPid(22);
-    double closest = 10.0;
+    double closest = 1.0;
     Random r = new Random();
 
     for(int i = 0; i < numPhotons - 1; i++){
@@ -167,7 +167,7 @@ public static ArrayList<Integer> getBestPhotons(PhysicsEvent physicsEvent){
             Particle candidate1 = Particle.copyFrom(physicsEvent.getParticle(candidates.get(i)));
             candidate1.combine(Particle.copyFrom(physicsEvent.getParticle(candidates.get(i + 1))), 1);
             if(candidate1.mass() > 0.12 && candidate1.mass() < 0.15){
-                double distance = Math.abs(0.135  - candidate1.mass());
+                double distance = Math.abs(1 - 0.135/candidate1.mass());
                 if(distance < closest){
                     closest = distance;
                     photons.add(0, candidates.get(i));
@@ -175,7 +175,7 @@ public static ArrayList<Integer> getBestPhotons(PhysicsEvent physicsEvent){
                 }
             }
             else if(candidate1.mass() > 0.5 && candidate1.mass() < 0.6){
-                double distance = Math.abs(0.547  - candidate1.mass());
+                double distance = Math.abs(1 - 0.547/candidate1.mass());
                 if(distance < closest){
                     closest = distance;
                     photons.add(0, candidates.get(i));
