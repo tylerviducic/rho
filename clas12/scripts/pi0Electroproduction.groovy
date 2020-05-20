@@ -75,7 +75,7 @@ while (reader.hasNext()) {
 
     PhysicsEvent physicsEvent = DataManager.getPhysicsEvent(10.614, particle);
 
-    if (eventFilter.isValid(physicsEvent)) {
+//    if (eventFilter.isValid(physicsEvent)) {
 
         ArrayList<Integer> photons = getBestPhotons(physicsEvent);
 
@@ -117,7 +117,7 @@ while (reader.hasNext()) {
             }
         }
     }
-}
+//}
 
 
 System.out.println("done");
