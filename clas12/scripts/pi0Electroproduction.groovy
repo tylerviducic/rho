@@ -47,16 +47,16 @@ hIMpi0VsSin2Phi.setTitleY("Sin^2[#phi(#gamma#pi^0)]");
 
 
 TCanvas c1 = new TCanvas("c1", 1000, 1000);
-c1.divide(4, 2);
+c1.divide(3, 2);
 c1.getCanvas().initTimer(30000);
 c1.cd(0).draw(hIMGamGam);
 c1.cd(1).draw(hMissingMassEPi0);
 c1.cd(2).draw(hIMGamGamVsMM);
 c1.cd(3).draw(hGamGamPvsTheta);
-c1.cd(4).draw(hMMEP);
-c1.cd(5).draw(hIMGamGamVsMMEP);
-c1.cd(6).draw(hQ2);
-c1.cd(7).draw(hIMpi0VsSin2Phi);
+//c1.cd(4).draw(hMMEP);
+//c1.cd(5).draw(hIMGamGamVsMMEP);
+c1.cd(4).draw(hQ2);
+c1.cd(5).draw(hIMpi0VsSin2Phi);
 
 String file = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/pion/pi0Photoproduction_skim4.hipo";
 
@@ -92,7 +92,7 @@ while (reader.hasNext()) {
 
         double pionPhi = getPhiAngle(virtualPhoton, pi0);
 
-        Particle missingEP = physicsEvent.getParticle("[b] + [t] - [2212] - [11]");
+        //Particle missingEP = physicsEvent.getParticle("[b] + [t] - [2212] - [11]");
         Particle missingEPi0 = physicsEvent.getParticle("[b] + [t] - [11]");
 
         Particle kinFitPion = new Particle();
@@ -107,10 +107,10 @@ while (reader.hasNext()) {
             if (missingEPi0.mass() > 0.8 && missingEPi0.mass() < 1.1) {
                 hGamGamPvsTheta.fill(pi0.p(), photonTheta);
                 hIMGamGam.fill(pi0.mass());
-                hIMGamGamVsMMEP.fill(pi0.mass(), missingEP.mass());
+                //hIMGamGamVsMMEP.fill(pi0.mass(), missingEP.mass());
                 if ((pi0.p() > 2 && pi0.p() < 5.5 && photonTheta < 10 && photonTheta > 3) ||
                         (pi0.p() > 2 && pi0.p() < 5.5 && photonTheta < 10 && photonTheta > 3)) {
-                    hMMEP.fill(missingEP.mass());
+                    //hMMEP.fill(missingEP.mass());
                     hQ2.fill(q2);
                     hIMpi0VsSin2Phi.fill(pi0.mass(), Math.sin(pionPhi) * Math.sin(pionPhi));
                 }
