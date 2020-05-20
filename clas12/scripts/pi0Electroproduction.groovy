@@ -39,6 +39,10 @@ hIMGamGamVsMMEP.setTitleY("MM(e'p'");
 H1F hQ2 = new H1F("Q2", 100, 0, 3);
 hQ2.setTitle("Q2");
 
+H2F hIMpi0VsSin2Phi = new H2F("IMpi0VsSin2Phi", 100, 0.5, 0.2, 100, 0, 1);
+hIMpi0VsSin2Phi.setTitleX("IM(#pi^0)");
+hIMpi0VsSin2Phi.setTitleY("Sin^2[#phi(#gamma#pi^0)]");
+
 // ------------------------------------------              ------------------------------------------------
 
 
@@ -52,6 +56,7 @@ c1.cd(3).draw(hGamGamPvsTheta);
 c1.cd(4).draw(hMMEP);
 c1.cd(5).draw(hIMGamGamVsMMEP);
 c1.cd(6).draw(hQ2);
+c1.cd(7).draw(hIMpi0VsSin2Phi);
 
 String file = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/pion/pi0Photoproduction_skim4.hipo";
 
@@ -74,6 +79,8 @@ while (reader.hasNext()) {
 
         ArrayList<Integer> photons = getBestPhotons(physicsEvent);
 
+        Particle virtualPhoton = physicsEvent.getParticle("[b] - [11]");
+
         Particle photon1 = physicsEvent.getParticle(photons.get(0));
         Particle photon2 = physicsEvent.getParticle(photons.get(1));
 
@@ -82,6 +89,8 @@ while (reader.hasNext()) {
 
         Particle pi0 = Particle.copyFrom(photon1);
         pi0.combine(Particle.copyFrom(photon2), 1);
+
+        double pionPhi = Math.toDegrees(getPhiAngle(virtualPhoton, pi0));
 
         Particle missingEP = physicsEvent.getParticle("[b] + [t] - [2212] - [11]");
         Particle missingEPi0 = physicsEvent.getParticle("[b] + [t] - [11]");
@@ -99,9 +108,11 @@ while (reader.hasNext()) {
                 hGamGamPvsTheta.fill(pi0.p(), photonTheta);
                 hIMGamGam.fill(pi0.mass());
                 hIMGamGamVsMMEP.fill(pi0.mass(), missingEP.mass());
-                if (pi0.p() > 2 && pi0.p() < 5.5 && photonTheta < 10 && photonTheta > 3) {
+                if ((pi0.p() > 2 && pi0.p() < 5.5 && photonTheta < 10 && photonTheta > 3) ||
+                        (pi0.p() > 2 && pi0.p() < 5.5 && photonTheta < 10 && photonTheta > 3)) {
                     hMMEP.fill(missingEP.mass());
                     hQ2.fill(q2);
+                    hIMpi0VsSin2Phi.fill(pi0.mass(), Math.sin(pionPhi) * Math.sin(pionPhi));
                 }
             }
         }
@@ -208,4 +219,8 @@ public static int getSector(int pindex, Bank calorimeter){
 
 public static double getQ2(Particle particle1, Particle particle2){
     return 4 * particle1.e() * particle2.e() * Math.sin(particle2.theta() /2) * Math.sin(particle2.theta()/2);
+}
+
+public static getPhiAngle(Particle particle1, Particle particle2){
+    return Math.atan((particle1.py() - particle2.py()) / (particle1.px() - particle2.px()));
 }
