@@ -39,7 +39,7 @@ hIMGamGamVsMMEP.setTitleY("MM(e'p'");
 H1F hQ2 = new H1F("Q2", 100, 0, 3);
 hQ2.setTitle("Q2");
 
-H2F hIMpi0VsSin2Phi = new H2F("IMpi0VsSin2Phi", 100, 0.5, 0.2, 100, 0, 1);
+H2F hIMpi0VsSin2Phi = new H2F("IMpi0VsSin2Phi", 100, 0.05, 0.2, 50, 0, 1);
 hIMpi0VsSin2Phi.setTitleX("IM(#pi^0)");
 hIMpi0VsSin2Phi.setTitleY("Sin^2[#phi(#gamma#pi^0)]");
 
