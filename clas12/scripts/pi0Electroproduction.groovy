@@ -43,6 +43,9 @@ H2F hIMpi0VsSin2Phi = new H2F("IMpi0VsSin2Phi", 50, 0.1, 0.16, 50, 0, 1);
 hIMpi0VsSin2Phi.setTitleX("IM(#pi^0)");
 hIMpi0VsSin2Phi.setTitleY("Sin^2[#phi(#gamma#pi^0)]");
 
+H1F hSin2Phi = new H1F("Sin2Phi", 100, 0, 1);
+hSin2Phi.setTitle("Sin^2(#phi)");
+
 // ------------------------------------------              ------------------------------------------------
 
 
@@ -51,7 +54,8 @@ c1.divide(3, 2);
 c1.getCanvas().initTimer(30000);
 c1.cd(0).draw(hIMGamGam);
 c1.cd(1).draw(hMissingMassEPi0);
-c1.cd(2).draw(hIMGamGamVsMM);
+//c1.cd(2).draw(hIMGamGamVsMM);
+c1.cd(2).draw(hSin2Phi);
 c1.cd(3).draw(hGamGamPvsTheta);
 //c1.cd(4).draw(hMMEP);
 //c1.cd(5).draw(hIMGamGamVsMMEP);
@@ -113,6 +117,7 @@ while (reader.hasNext()) {
                     //hMMEP.fill(missingEP.mass());
                     hQ2.fill(q2);
                     hIMpi0VsSin2Phi.fill(pi0.mass(), Math.sin(pionPhi) * Math.sin(pionPhi));
+                    hSin2Phi.fill(Math.sin(pionPhi) * Math.sin(pionPhi));
                 }
             }
         }
