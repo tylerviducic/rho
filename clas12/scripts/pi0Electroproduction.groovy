@@ -90,7 +90,8 @@ while (reader.hasNext()) {
         Particle pi0 = Particle.copyFrom(photon1);
         pi0.combine(Particle.copyFrom(photon2), 1);
 
-        double pionPhi = Math.toDegrees(getPhiAngle(virtualPhoton, pi0));
+        double pionPhi = getPhiAngle(virtualPhoton, pi0);
+        System.out.println(Math.sin(pionPhi) * Math.sin(pionPhi));
 
         Particle missingEP = physicsEvent.getParticle("[b] + [t] - [2212] - [11]");
         Particle missingEPi0 = physicsEvent.getParticle("[b] + [t] - [11]");
