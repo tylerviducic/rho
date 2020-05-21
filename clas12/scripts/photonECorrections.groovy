@@ -150,10 +150,12 @@ for(int i = 0; i < 10; i++){
 
     System.out.println("Fit for E(#gamma) = " + (1 + i * 0.17));
     f1.show();
+    f1.setOptStat("111111111");
+    f1.setLineColor(2);
     c2.cd(i).draw(f1, "same");
 
     double massRatio = f1.getParameter(1)/0.135;
-    massRatioVsE.addPoint((1 + i * 0.17), massRatio, 0, 0);
+    massRatioVsE.addPoint((1 + i * 0.17), massRatio, 0, f1.parameter(1).error());
 }
 
 F1D correction = new F1D("correction", "[p0] + [p1]/x + [p2]/(x*x) + [p3]/(x*x*x)", 1, 3);
@@ -161,8 +163,17 @@ correction.setParameter(0, 1.173);
 correction.setParameter(1, -0.02846);
 correction.setParameter(2, 0.009149);
 correction.setParameter(3, -0.0001132);
+correction.setLineColor(2);
+
+F1D noWeightCorrection = new F1D("correction", "[p0] + [p1]/x + [p2]/(x*x) + [p3]/(x*x*x)", 1, 3);
+correction.setParameter(0, 1.173);
+correction.setParameter(1, -0.02846);
+correction.setParameter(2, 0.009149);
+correction.setParameter(3, -0.0001132);
+noWeightCorrection.setLineColor(4);
 
 DataFitter.fit(correction, massRatioVsE, "N");
+DataFitter.fit(noWeightCorrection, massRatioVsE, "W"); // equal weighting
 
 TCanvas c3 = new TCanvas("c3", 500, 500);
 c3.draw(massRatioVsE);
