@@ -164,13 +164,15 @@ correction.setParameter(1, -0.02846);
 correction.setParameter(2, 0.009149);
 correction.setParameter(3, -0.0001132);
 correction.setLineColor(2);
+correction.setOptStat(11111111);
 
 F1D noWeightCorrection = new F1D("correction", "[p0] + [p1]/x + [p2]/(x*x) + [p3]/(x*x*x)", 1, 3);
-correction.setParameter(0, 1.173);
-correction.setParameter(1, -0.02846);
-correction.setParameter(2, 0.009149);
-correction.setParameter(3, -0.0001132);
+noWeightCorrection.setParameter(0, 1.173);
+noWeightCorrection.setParameter(1, -0.02846);
+noWeightCorrection.setParameter(2, 0.009149);
+noWeightCorrection.setParameter(3, -0.0001132);
 noWeightCorrection.setLineColor(4);
+noWeightCorrection.setOptStat(11111111);
 
 DataFitter.fit(correction, massRatioVsE, "N");
 DataFitter.fit(noWeightCorrection, massRatioVsE, "W"); // equal weighting
