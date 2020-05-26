@@ -44,6 +44,9 @@ H1F hEGamGam = new H1F("eGamGam", 20, 1, 3.0);
 hEGamGam.setTitle("Energy of photons with same energy");
 hEGamGam.setTitleX("E(#gamma");
 
+H1F hElectronMomentum = new H1F("ElectronMomentum", 100, 0, 10);
+hElectronMomentum.setTitle("Detected Electron Momentum");
+
 ArrayList<H1F> pionsBinned = new ArrayList<>();
 for(int i = 0; i < 10; i++){
     double histoBin = 1 + i * 0.17;
@@ -59,7 +62,9 @@ massRatioVsE.setTitle("IM(#gamma#gamma) vs m(#pi^0)");
 // ------------------------------------------              ------------------------------------------------
 
 
-//TCanvas c1 = new TCanvas("c1", 1000, 1000);
+TCanvas c1 = new TCanvas("c1", 1000, 1000);
+c1.getCanvas().initTimer(30000);
+c1.draw(hElectronMomentum);
 //c1.divide(3, 2);
 //c1.getCanvas().initTimer(30000);
 //c1.cd(0).draw(hIMGamGam);
@@ -101,6 +106,8 @@ while (reader.hasNext()){
     Particle photon1 = physicsEvent.getParticle(photons.get(0));
     Particle photon2 = physicsEvent.getParticle(photons.get(1));
 
+    Particle electron = physicsEvent.getParticleByPid(11, 0);
+
     int sector1 = getSector(photons.get(0), eCal);
     int sector2 = getSector(photons.get(1), eCal);
 
@@ -128,6 +135,7 @@ while (reader.hasNext()){
 //            hGamGamPvsTheta.fill(pi0.p(), photonTheta);
             if(pi0.p() > 2 && pi0.p() < 5.5 && photonTheta < 10 && photonTheta > 3){
 //                hIMGamGam.fill(pi0.mass());
+                hElectronMomentum.fill(electron.p());
                 if(photon1.e()/ photon2.e() < 1.03 && photon1.e()/ photon2.e() > 0.97){
                     double energy = (photon1.e() + photon2.e()) / 2;
                     hEGamGam.fill(energy);
@@ -159,18 +167,18 @@ for(int i = 0; i < 10; i++){
 }
 
 F1D correction = new F1D("correction", "[p0] + [p1]/x + [p2]/(x*x) + [p3]/(x*x*x)", 1, 3);
-correction.setParameter(0, 1.173);
-correction.setParameter(1, -0.02846);
-correction.setParameter(2, 0.009149);
-correction.setParameter(3, -0.0001132);
+//correction.setParameter(0, 1.173);
+//correction.setParameter(1, -0.02846);
+//correction.setParameter(2, 0.009149);
+//correction.setParameter(3, -0.0001132);
 correction.setLineColor(2);
 correction.setOptStat(11111111);
 
 F1D noWeightCorrection = new F1D("correction", "[p0] + [p1]/x + [p2]/(x*x) + [p3]/(x*x*x)", 1, 3);
-noWeightCorrection.setParameter(0, 1.173);
-noWeightCorrection.setParameter(1, -0.02846);
-noWeightCorrection.setParameter(2, 0.009149);
-noWeightCorrection.setParameter(3, -0.0001132);
+//noWeightCorrection.setParameter(0, 1.173);
+//noWeightCorrection.setParameter(1, -0.02846);
+//noWeightCorrection.setParameter(2, 0.009149);
+//noWeightCorrection.setParameter(3, -0.0001132);
 noWeightCorrection.setLineColor(4);
 noWeightCorrection.setOptStat(11111111);
 
