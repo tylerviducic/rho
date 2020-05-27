@@ -203,7 +203,7 @@ for(int i = 0; i < 8; i++){
     missingMassRatioVsP.addPoint((4.5 + i * 0.5), massRatio, 0, f1.parameter(1).error());
 }
 
-F1D correction = new F1D("correction", "[p0] + [p1]/x + [p2]/(x*x) + [p3]/(x*x*x)", 1, 3);
+F1D correction = new F1D("correction", "[p0] + [p1]/x + [p2]/(x*x) + [p3]/(x*x*x)", 0, 2);
 //correction.setParameter(0, 1.173);
 //correction.setParameter(1, -0.02846);
 //correction.setParameter(2, 0.009149);
