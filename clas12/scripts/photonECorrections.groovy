@@ -56,8 +56,19 @@ for(int i = 0; i < 10; i++){
     pionsBinned.add(histo);
 }
 
+ArrayList<H1F> protonBinned = new ArrayList<>();
+for(int i = 0; i < 8; i++){
+    double histoBin = 4.5 + i * 0.5;
+    String histoName = "P(e') = " + Double.toString(histoBin);
+    H1F histo = new H1F(histoName, 100, 0.0, 2);
+    histo.setTitle("MM(e'#pi^0) for P(e') = " + (4.5 + i * 0.5));
+    protonBinned.add(histo);
+}
 GraphErrors massRatioVsE = new GraphErrors("massRatioVsE");
 massRatioVsE.setTitle("IM(#gamma#gamma) vs m(#pi^0)");
+
+GraphErrors missingMassRatioVsP = new GraphErrors("missingMassRatioVsP");
+missingMassRatioVsP.setTitle("P(e') vs MM(e'#pi^0)/m_p");
 
 // ------------------------------------------              ------------------------------------------------
 
@@ -79,6 +90,13 @@ c2.divide(5, 4);
 c2.getCanvas().initTimer(30000);
 for(int i = 0; i < 10; i++){
     c2.cd(i).draw(pionsBinned.get(i));
+}
+
+TCanvas c4 = new TCanvas("c4", 1000, 1000);
+c2.divide(4, 2);
+c2.getCanvas().initTimer(30000);
+for(int i = 0; i < 8; i++){
+    c2.cd(i).draw(protonBinned.get(i));
 }
 
 String file = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/pion/pi0Photoproduction_skim4.hipo";
@@ -127,13 +145,16 @@ while (reader.hasNext()){
 
 //    hMMvsMP.fill(missingEPi0.mass(), missingEPi0.p());
 
-    if(missingEPi0.p() < 1.0){
+    if(missingEPi0.p() < 1.0 && pi0.p() > 2 && pi0.p() < 5.5 && photonTheta < 10 && photonTheta > 3){
 //        hMissingMassEPi0Pi0.fill(missingEPi0.mass());
 //        hIMGamGamVSMM.fill(pi0.mass(), missingEPi0.mass());
+        int protonIndex = (int) ((electron.p() - 4.5) / 0.5);
+        if(protonIndex > -1 && protonIndex < 8){
+            protonBinned.get(protonIndex).fill(missingEPi0.mass());
+        }
         if(missingEPi0.mass() > 0.8 && missingEPi0.mass() < 1.1){
             //hIMGamGamVSMissingP.fill(pi0.mass(), missingEPi0Pi0.p());
 //            hGamGamPvsTheta.fill(pi0.p(), photonTheta);
-            if(pi0.p() > 2 && pi0.p() < 5.5 && photonTheta < 10 && photonTheta > 3){
 //                hIMGamGam.fill(pi0.mass());
                 hElectronMomentum.fill(electron.p());
                 if(photon1.e()/ photon2.e() < 1.03 && photon1.e()/ photon2.e() > 0.97){
@@ -147,7 +168,6 @@ while (reader.hasNext()){
             }
         }
     }
-}
 
 for(int i = 0; i < 10; i++){
     F1D f1 = new F1D("f1", "[amp]*gaus(x,[mean],[sigma]) + [p0] + [p1]*x + [p2]*x*x", 0.1, 0.2);
@@ -164,6 +184,23 @@ for(int i = 0; i < 10; i++){
 
     double massRatio = f1.getParameter(1)/0.135;
     massRatioVsE.addPoint((1 + i * 0.17), massRatio, 0, f1.parameter(1).error());
+}
+
+for(int i = 0; i < 8; i++){
+    F1D f1 = new F1D("f1", "[amp]*gaus(x,[mean],[sigma]) + [p0] + [p1]*x + [p2]*x*x", 0.5, 1.5);
+    f1.setParameter(0, 100);
+    f1.setParameter(1, 0.938);
+    f1.setParameter(2, 1.0);
+    DataFitter.fit(f1, protonBinned.get(i),"N");
+
+    System.out.println("Fit for P(e') = " + (4.5 + i * 0.5));
+    f1.show();
+    f1.setOptStat("111111111");
+    f1.setLineColor(2);
+    c4.cd(i).draw(f1, "same");
+
+    double massRatio = f1.getParameter(1)/0.938;
+    missingMassRatioVsP.addPoint((4.5 + i * 0.5), massRatio, 0, f1.parameter(1).error());
 }
 
 F1D correction = new F1D("correction", "[p0] + [p1]/x + [p2]/(x*x) + [p3]/(x*x*x)", 1, 3);
