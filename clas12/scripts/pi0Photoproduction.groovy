@@ -52,6 +52,7 @@ reader.open();
 Event event = new Event();
 Bank particle = new Bank(reader.getSchemaFactory().getSchema("REC::Particle"));
 
+
 EventFilter eventFilter = new EventFilter("11:2212:22:22:Xn");
 
 while (reader.hasNext()){

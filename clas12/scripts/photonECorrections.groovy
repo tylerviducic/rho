@@ -93,10 +93,10 @@ for(int i = 0; i < 10; i++){
 }
 
 TCanvas c4 = new TCanvas("c4", 1000, 1000);
-c2.divide(4, 2);
-c2.getCanvas().initTimer(30000);
+c4.divide(4, 2);
+c4.getCanvas().initTimer(30000);
 for(int i = 0; i < 8; i++){
-    c2.cd(i).draw(protonBinned.get(i));
+    c4.cd(i).draw(protonBinned.get(i));
 }
 
 String file = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/pion/pi0Photoproduction_skim4.hipo";
