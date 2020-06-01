@@ -1,6 +1,7 @@
 import org.jlab.groot.data.GraphErrors
 import org.jlab.groot.fitter.DataFitter
 import org.jlab.groot.math.F1D
+import org.jlab.groot.math.StatNumber
 import org.jlab.groot.ui.TCanvas
 import org.jlab.jnp.hipo4.data.Bank
 import org.jlab.jnp.hipo4.data.Event
@@ -73,9 +74,9 @@ missingMassRatioVsP.setTitle("P(e') vs MM(e'#pi^0)/m_p");
 // ------------------------------------------              ------------------------------------------------
 
 
-TCanvas c1 = new TCanvas("c1", 1000, 1000);
-c1.getCanvas().initTimer(30000);
-c1.draw(hElectronMomentum);
+//TCanvas c1 = new TCanvas("c1", 1000, 1000);
+//c1.getCanvas().initTimer(30000);
+//c1.draw(hElectronMomentum);
 //c1.divide(3, 2);
 //c1.getCanvas().initTimer(30000);
 //c1.cd(0).draw(hIMGamGam);
@@ -182,8 +183,10 @@ for(int i = 0; i < 10; i++){
     f1.setLineColor(2);
     c2.cd(i).draw(f1, "same");
 
-    double massRatio = f1.getParameter(1)/0.135;
-    massRatioVsE.addPoint((1 + i * 0.17), massRatio, 0, f1.parameter(1).error());
+    StatNumber massRatio = new StatNumber(f1.parameter(1).value(), f1.parameter(1).error());
+    massRatio.divide(new StatNumber(0.135, 0.0000005));
+
+    massRatioVsE.addPoint((1 + i * 0.17), massRatio.number(), 0, massRatio.error());
 }
 
 for(int i = 0; i < 8; i++){
@@ -203,7 +206,7 @@ for(int i = 0; i < 8; i++){
     missingMassRatioVsP.addPoint((4.5 + i * 0.5), massRatio, 0, f1.parameter(1).error());
 }
 
-F1D correction = new F1D("correction", "[p0] + [p1]/x + [p2]/(x*x) + [p3]/(x*x*x)", 0, 2);
+F1D correction = new F1D("correction", "[p0] + [p1]/x + [p2]/(x*x) + [p3]/(x*x*x)", 1, 3);
 //correction.setParameter(0, 1.173);
 //correction.setParameter(1, -0.02846);
 //correction.setParameter(2, 0.009149);
@@ -225,6 +228,7 @@ DataFitter.fit(noWeightCorrection, massRatioVsE, "W"); // equal weighting
 TCanvas c3 = new TCanvas("c3", 500, 500);
 c3.draw(massRatioVsE);
 c3.draw(correction, "same");
+c3.draw(noWeightCorrection, "same");
 
 correction.show();
 
