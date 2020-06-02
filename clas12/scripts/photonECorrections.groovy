@@ -178,7 +178,7 @@ for(int i = 0; i < 10; i++){
     DataFitter.fit(f1, pionsBinned.get(i),"N");
 
     System.out.println("Fit for E(#gamma) = " + (1 + i * 0.17));
-    f1.show();
+    System.out.println("Mean mass = " + f1.parameter(1).value() + " --- Error = " + f1.parameter(1).error());
     f1.setOptStat("111111111");
     f1.setLineColor(2);
     c2.cd(i).draw(f1, "same");
@@ -207,18 +207,18 @@ for(int i = 0; i < 8; i++){
 }
 
 F1D correction = new F1D("correction", "[p0] + [p1]/x + [p2]/(x*x) + [p3]/(x*x*x)", 1, 3);
-//correction.setParameter(0, 1.173);
-//correction.setParameter(1, -0.02846);
-//correction.setParameter(2, 0.009149);
-//correction.setParameter(3, -0.0001132);
+correction.setParameter(0, 1.173);
+correction.setParameter(1, -0.02846);
+correction.setParameter(2, 0.009149);
+correction.setParameter(3, -0.0001132);
 correction.setLineColor(2);
 correction.setOptStat(11111111);
 
 F1D noWeightCorrection = new F1D("correction", "[p0] + [p1]/x + [p2]/(x*x) + [p3]/(x*x*x)", 1, 3);
-//noWeightCorrection.setParameter(0, 1.173);
-//noWeightCorrection.setParameter(1, -0.02846);
-//noWeightCorrection.setParameter(2, 0.009149);
-//noWeightCorrection.setParameter(3, -0.0001132);
+noWeightCorrection.setParameter(0, 1.173);
+noWeightCorrection.setParameter(1, -0.02846);
+noWeightCorrection.setParameter(2, 0.009149);
+noWeightCorrection.setParameter(3, -0.0001132);
 noWeightCorrection.setLineColor(4);
 noWeightCorrection.setOptStat(11111111);
 
