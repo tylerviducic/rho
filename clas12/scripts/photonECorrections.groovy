@@ -207,18 +207,18 @@ for(int i = 0; i < 8; i++){
 }
 
 F1D correction = new F1D("correction", "[p0] + [p1]/x + [p2]/(x*x) + [p3]/(x*x*x)", 1, 3);
-correction.setParameter(0, 1.173);
-correction.setParameter(1, -0.02846);
-correction.setParameter(2, 0.009149);
-correction.setParameter(3, -0.0001132);
+correction.setParameter(0, 1);
+correction.setParameter(1, 1);
+correction.setParameter(2, 1);
+correction.setParameter(3, 1);
 correction.setLineColor(2);
 correction.setOptStat(11111111);
 
 F1D noWeightCorrection = new F1D("correction", "[p0] + [p1]/x + [p2]/(x*x) + [p3]/(x*x*x)", 1, 3);
-noWeightCorrection.setParameter(0, 1.173);
-noWeightCorrection.setParameter(1, -0.02846);
-noWeightCorrection.setParameter(2, 0.009149);
-noWeightCorrection.setParameter(3, -0.0001132);
+noWeightCorrection.setParameter(0, 1);
+noWeightCorrection.setParameter(1, 1);
+noWeightCorrection.setParameter(2, 1);
+noWeightCorrection.setParameter(3, 1);
 noWeightCorrection.setLineColor(4);
 noWeightCorrection.setOptStat(11111111);
 
