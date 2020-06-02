@@ -130,7 +130,7 @@ while (reader.hasNext()){
     int sector1 = getSector(photons.get(0), eCal);
     int sector2 = getSector(photons.get(1), eCal);
 
-    if(sector1 != sector2){
+    if(sector1 == sector2){
         continue;
     }
 
