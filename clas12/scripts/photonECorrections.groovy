@@ -153,20 +153,20 @@ while (reader.hasNext()){
         if(protonIndex > -1 && protonIndex < 8){
             protonBinned.get(protonIndex).fill(missingEPi0.mass());
         }
-        if(missingEPi0.mass() > 0.8 && missingEPi0.mass() < 1.1){
-            //hIMGamGamVSMissingP.fill(pi0.mass(), missingEPi0Pi0.p());
-//            hGamGamPvsTheta.fill(pi0.p(), photonTheta);
-//                hIMGamGam.fill(pi0.mass());
-                hElectronMomentum.fill(electron.p());
-                if(photon1.e()/ photon2.e() < 1.03 && photon1.e()/ photon2.e() > 0.97){
-                    double energy = (photon1.e() + photon2.e()) / 2;
-                    hEGamGam.fill(energy);
-                    int index = (int)((energy - 1)/0.17);
-                    if (index > -1 && index < 10){
-                        pionsBinned.get(index).fill(pi0.mass());
-                    }
-                }
-            }
+//        if(missingEPi0.mass() > 0.8 && missingEPi0.mass() < 1.1){
+//            //hIMGamGamVSMissingP.fill(pi0.mass(), missingEPi0Pi0.p());
+////            hGamGamPvsTheta.fill(pi0.p(), photonTheta);
+////                hIMGamGam.fill(pi0.mass());
+//                hElectronMomentum.fill(electron.p());
+//                if(photon1.e()/ photon2.e() < 1.03 && photon1.e()/ photon2.e() > 0.97){
+//                    double energy = (photon1.e() + photon2.e()) / 2;
+//                    hEGamGam.fill(energy);
+//                    int index = (int)((energy - 1)/0.17);
+//                    if (index > -1 && index < 10){
+//                        pionsBinned.get(index).fill(pi0.mass());
+//                    }
+//                }
+//            }
         }
     }
 
