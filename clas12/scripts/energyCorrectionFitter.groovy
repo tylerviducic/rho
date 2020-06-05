@@ -41,13 +41,13 @@ TCanvas c1 = new TCanvas("c1", 1000, 1000);
 System.out.println("printing graph");
 c1.draw(graph);
 
-F1D func = new F1D("func", "[p0] + [p1]/x + [p2]/(x*x) + [p3]/(x*x*x)", 0, 3);
+F1D func = new F1D("func", "[p0] + [p1]/x + [p2]/(x*x) + [p3]/(x*x*x)", 0.99, 3);
 func.setParameter(0, 1);
 func.setParameter(1, 1);
 func.setParameter(2, 1);
 func.setParameter(3, 1);
 
-F1D funcW = new F1D("funcW", "[p0] + [p1]/x + [p2]/(x*x) + [p3]/(x*x*x)", 0, 3);
+F1D funcW = new F1D("funcW", "[p0] + [p1]/x + [p2]/(x*x) + [p3]/(x*x*x)", 0.99, 3);
 funcW.setParameter(0, 1);
 funcW.setParameter(1, 1);
 funcW.setParameter(2, 1);
@@ -58,12 +58,11 @@ funcW.setLineColor(4);
 
 DataFitter.fit(func, graph, "N");
 DataFitter.fit(funcW, graph, "W");
+
 System.out.println("printing fit 1");
-
-
-//c1.draw(func, "same");
-//c1.draw(funcW, "same");
-//System.out.println("printing fit 2");
+c1.draw(func, "same");
+c1.draw(funcW, "same");
+System.out.println("printing fit 2");
 
 //Fit for E(#gamma) = 1.00
 //Mean mass = 0.13425468758675885 --- Error = 3.392943496316817E-4
