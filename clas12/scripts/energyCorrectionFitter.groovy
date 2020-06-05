@@ -61,10 +61,10 @@ DataFitter.fit(funcW, graph, "W");
 func.setLineColor(2);
 func.setLineColor(4);
 
-//c1.draw(func, "same");
-//System.out.println("printing fit 1");
-//c1.draw(funcW, "same");
-//System.out.println("printing fit 2");
+c1.draw(func, "same");
+System.out.println("printing fit 1");
+c1.draw(funcW, "same");
+System.out.println("printing fit 2");
 
 //Fit for E(#gamma) = 1.00
 //Mean mass = 0.13425468758675885 --- Error = 3.392943496316817E-4
