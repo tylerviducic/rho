@@ -37,6 +37,10 @@ for(int i = 0; i < mass.size(); i++){
     graph.addPoint(1 + (i * 0.17), dataPoint.number(), 0, dataPoint.error());
 }
 
+TCanvas c1 = new TCanvas("c1", 1000, 1000);
+System.out.println("printing graph");
+c1.draw(graph);
+
 F1D func = new F1D("func", "[p0] + [p1]/x + [p2]/(x*x) + [p3]/(x*x*x)", 0, 3);
 func.setParameter(0, 1);
 func.setParameter(1, 1);
@@ -57,9 +61,6 @@ DataFitter.fit(funcW, graph, "W");
 func.setLineColor(2);
 func.setLineColor(4);
 
-TCanvas c1 = new TCanvas("c1", 1000, 1000);
-System.out.println("printing graph");
-c1.draw(graph);
 //c1.draw(func, "same");
 //System.out.println("printing fit 1");
 //c1.draw(funcW, "same");
