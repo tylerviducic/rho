@@ -41,8 +41,8 @@ TCanvas c1 = new TCanvas("c1", 1000, 1000);
 System.out.println("printing graph");
 c1.draw(graph);
 
-F1D func = new F1D("func", "[p0] + [p1]/x + [p2]/(x*x) + [p3]/(x*x*x)", 0.99, 3);
-F1D funcW = new F1D("funcW", "[p0] + [p1]/x + [p2]/(x*x) + [p3]/(x*x*x)", 0.99, 3);
+F1D func = new F1D("func", "[p0] + [p1]/x + [p2]/(x*x) + [p3]/(x*x*x)", 0.99, 2.5);
+F1D funcW = new F1D("funcW", "[p0] + [p1]/x + [p2]/(x*x) + [p3]/(x*x*x)", 0.99, 2.5);
 func.setLineColor(2);
 funcW.setLineColor(4);
 
