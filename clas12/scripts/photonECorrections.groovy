@@ -86,12 +86,12 @@ missingMassRatioVsP.setTitle("P(e') vs MM(e'#pi^0)/m_p");
 //c1.cd(4).draw(hMMvsMP);
 //c1.cd(5).draw(hEGamGam);
 
-TCanvas c2 = new TCanvas("c2", 1000, 1000);
-c2.divide(5, 4);
-c2.getCanvas().initTimer(30000);
-for(int i = 0; i < 10; i++){
-    c2.cd(i).draw(pionsBinned.get(i));
-}
+//TCanvas c2 = new TCanvas("c2", 1000, 1000);
+//c2.divide(5, 4);
+//c2.getCanvas().initTimer(30000);
+//for(int i = 0; i < 10; i++){
+//    c2.cd(i).draw(pionsBinned.get(i));
+//}
 
 TCanvas c4 = new TCanvas("c4", 1000, 1000);
 c4.divide(4, 2);
@@ -172,67 +172,68 @@ while (reader.hasNext()){
         }
     }
 
-for(int i = 0; i < 10; i++){
-    F1D f1 = new F1D("f1", "[amp]*gaus(x,[mean],[sigma]) + [p0] + [p1]*x + [p2]*x*x", 0.1, 0.2);
-    f1.setParameter(0, 100);
-    f1.setParameter(1, 0.135);
-    f1.setParameter(2, 0.009);
-    DataFitter.fit(f1, pionsBinned.get(i),"N");
-
-    System.out.println("Fit for E(#gamma) = " + (1 + i * 0.17));
-    System.out.println("Mean mass = " + f1.parameter(1).value() + " --- Error = " + f1.parameter(1).error());
-    f1.setOptStat("111111111");
-    f1.setLineColor(2);
-    c2.cd(i).draw(f1, "same");
-
-    StatNumber massRatio = new StatNumber(f1.parameter(1).value(), f1.parameter(1).error());
-    massRatio.divide(new StatNumber(0.135, 0.0000005));
-
-    massRatioVsE.addPoint((1 + i * 0.17), massRatio.number(), 0, massRatio.error());
-}
+//for(int i = 0; i < 10; i++){
+//    F1D f1 = new F1D("f1", "[amp]*gaus(x,[mean],[sigma]) + [p0] + [p1]*x + [p2]*x*x", 0.1, 0.2);
+//    f1.setParameter(0, 100);
+//    f1.setParameter(1, 0.135);
+//    f1.setParameter(2, 0.009);
+//    DataFitter.fit(f1, pionsBinned.get(i),"N");
+//
+//    System.out.println("Fit for E(#gamma) = " + (1 + i * 0.17));
+//    System.out.println("Mean mass = " + f1.parameter(1).value() + " --- Error = " + f1.parameter(1).error());
+//    f1.setOptStat("111111111");
+//    f1.setLineColor(2);
+//    c2.cd(i).draw(f1, "same");
+//
+//    StatNumber massRatio = new StatNumber(f1.parameter(1).value(), f1.parameter(1).error());
+//    massRatio.divide(new StatNumber(0.135, 0.0000005));
+//
+//    massRatioVsE.addPoint((1 + i * 0.17), massRatio.number(), 0, massRatio.error());
+//}
 
 for(int i = 0; i < 8; i++){
-    F1D f1 = new F1D("f1", "[amp]*gaus(x,[mean],[sigma]) + [p0] + [p1]*x + [p2]*x*x", 0.5, 1.5);
-    f1.setParameter(0, 100);
-    f1.setParameter(1, 0.938);
-    f1.setParameter(2, 1.0);
+    F1D f1 = new F1D("f1", "[amp]*gaus(x,[mean],[sigma]) + [p0] + [p1]*x + [p2]*x*x", 0.3, 2.0);
+//    f1.setParameter(0, 100);
+//    f1.setParameter(1, 0.938);
+//    f1.setParameter(2, 1.0);
     DataFitter.fit(f1, protonBinned.get(i),"N");
 
-    System.out.println("Fit for P(e') = " + (4.5 + i * 0.5));
-    f1.show();
+//    System.out.println("Fit for P(e') = " + (4.5 + i * 0.5));
+//    f1.show();
+    System.out.println("Mean mass = " + f1.parameter(1).value() + " --- Error = " + f1.parameter(1).error());
     f1.setOptStat("111111111");
     f1.setLineColor(2);
     c4.cd(i).draw(f1, "same");
 
-    double massRatio = f1.getParameter(1)/0.938;
-    missingMassRatioVsP.addPoint((4.5 + i * 0.5), massRatio, 0, f1.parameter(1).error());
+//    double massRatio = f1.getParameter(1)/0.938;
+//    missingMassRatioVsP.addPoint((4.5 + i * 0.5), massRatio, 0, f1.parameter(1).error());
 }
 
-F1D correction = new F1D("correction", "[p0] + [p1]/x + [p2]/(x*x) + [p3]/(x*x*x)", 1, 3);
-correction.setParameter(0, 1);
-correction.setParameter(1, 1);
-correction.setParameter(2, 1);
-correction.setParameter(3, 1);
-correction.setLineColor(2);
-correction.setOptStat(11111111);
-
-F1D noWeightCorrection = new F1D("correction", "[p0] + [p1]/x + [p2]/(x*x) + [p3]/(x*x*x)", 1, 3);
-noWeightCorrection.setParameter(0, 1);
-noWeightCorrection.setParameter(1, 1);
-noWeightCorrection.setParameter(2, 1);
-noWeightCorrection.setParameter(3, 1);
-noWeightCorrection.setLineColor(4);
-noWeightCorrection.setOptStat(11111111);
-
-DataFitter.fit(correction, massRatioVsE, "N");
-DataFitter.fit(noWeightCorrection, massRatioVsE, "W"); // equal weighting
-
-TCanvas c3 = new TCanvas("c3", 500, 500);
-c3.draw(massRatioVsE);
-c3.draw(correction, "same");
-c3.draw(noWeightCorrection, "same");
-
-correction.show();
+//F1D correction = new F1D("correction", "[p0] + [p1]/x + [p2]/(x*x) + [p3]/(x*x*x)", 1, 3);
+//correction.setParameter(0, 1);
+//correction.setParameter(1, 1);
+//correction.setParameter(2, 1);
+//correction.setParameter(3, 1);
+//correction.setLineColor(2);
+//correction.setOptStat(11111111);
+//
+//F1D noWeightCorrection = new F1D("correction", "[p0] + [p1]/x + [p2]/(x*x) + [p3]/(x*x*x)", 1, 3);
+//noWeightCorrection.setParameter(0, 1);
+//noWeightCorrection.setParameter(1, 1);
+//noWeightCorrection.setParameter(2, 1);
+//noWeightCorrection.setParameter(3, 1);
+//noWeightCorrection.setLineColor(4);
+//noWeightCorrection.setOptStat(11111111);
+//
+//DataFitter.fit(correction, massRatioVsE, "N");
+//DataFitter.fit(noWeightCorrection, massRatioVsE, "W"); // equal weighting
+//
+//TCanvas c3 = new TCanvas("c3", 500, 500);
+//c3.draw(massRatioVsE);
+//c3.draw(correction, "same");
+//c3.draw(noWeightCorrection, "same");
+//
+//correction.show();
 
 
 System.out.println("done");
