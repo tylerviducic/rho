@@ -27,7 +27,6 @@ error.add(0.0002701);
 error.add(0.0002572);
 error.add(0.0003295);
 error.add(0.0003959);
-error.add(0.0003959);
 error.add(0.0003564);
 error.add(0.0004967);
 
@@ -49,10 +48,8 @@ funcW.setLineColor(4);
 DataFitter.fit(func, graph, "N");
 DataFitter.fit(funcW, graph, "W");
 
-System.out.println("printing fit 1");
 c1.draw(func, "same");
 c1.draw(funcW, "same");
-System.out.println("printing fit 2");
 
 //Fit for E(#gamma) = 1.00
 //Mean mass = 0.13425468758675885 --- Error = 3.392943496316817E-4
