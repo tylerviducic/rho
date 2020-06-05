@@ -38,9 +38,20 @@ for(int i = 0; i < mass.size(); i++){
 }
 
 F1D func = new F1D("func", "[p0] + [p1]/x + [p2]/(x*x) + [p3]/(x*x*x)", 0, 3);
+func.setParameter(0, 1);
+func.setParameter(1, 1);
+func.setParameter(2, 1);
+func.setParameter(3, 1);
+
 DataFitter.fit(func, graph, "N");
 
+
 F1D funcW = new F1D("func", "[p0] + [p1]/x + [p2]/(x*x) + [p3]/(x*x*x)", 0, 3);
+funcW.setParameter(0, 1);
+funcW.setParameter(1, 1);
+funcW.setParameter(2, 1);
+funcW.setParameter(3, 1);
+
 DataFitter.fit(funcW, graph, "W");
 
 func.setLineColor(2);
