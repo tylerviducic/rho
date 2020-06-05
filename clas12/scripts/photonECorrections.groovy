@@ -134,8 +134,6 @@ while (reader.hasNext()){
         continue;
     }
 
-    System.out.println("passed");
-
     double photonTheta = Math.toDegrees(Math.acos(photon1.cosTheta(photon2)));
     double imGamGam = getPhotonIM(photon1, photon2);
 
