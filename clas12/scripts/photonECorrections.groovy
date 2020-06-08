@@ -124,23 +124,23 @@ while (reader.hasNext()) {
 
     missingEPi0.combine(Particle.copyFrom(pi0), -1);
 
-    hMMvsMP.fill(missingEPi0.mass(), missingEPi0.p());
+//    hMMvsMP.fill(missingEPi0.mass(), missingEPi0.p());
 
     if (missingEPi0.p() < 1.0 && pi0.p() > 2 && pi0.p() < 5.5 && photonTheta < 10 && photonTheta > 3) {
-        hMissingMassEPi0Pi0.fill(missingEPi0.mass());
-        hIMGamGamVSMM.fill(pi0.mass(), missingEPi0.mass());
+//        hMissingMassEPi0Pi0.fill(missingEPi0.mass());
+//        hIMGamGamVSMM.fill(pi0.mass(), missingEPi0.mass());
         int protonIndex = (int) ((electron.p() - 4.5) / 0.5);
         if (protonIndex > -1 && protonIndex < 8) {
             protonBinned.get(protonIndex).fill(missingEPi0.mass());
         }
         if (missingEPi0.mass() > 0.8 && missingEPi0.mass() < 1.1) {
             //hIMGamGamVSMissingP.fill(pi0.mass(), missingEPi0Pi0.p());
-            hGamGamPvsTheta.fill(pi0.p(), photonTheta);
-            hIMGamGam.fill(pi0.mass());
-            hElectronMomentum.fill(electron.p());
+//            hGamGamPvsTheta.fill(pi0.p(), photonTheta);
+//            hIMGamGam.fill(pi0.mass());
+//            hElectronMomentum.fill(electron.p());
             if (photon1.e() / photon2.e() < 1.03 && photon1.e() / photon2.e() > 0.97) {
                 double energy = (photon1.e() + photon2.e()) / 2;
-                hEGamGam.fill(energy);
+//                hEGamGam.fill(energy);
                 int index = (int) ((energy - 1) / 0.17);
                 if (index > -1 && index < 10) {
                     pionsBinned.get(index).fill(pi0.mass());
