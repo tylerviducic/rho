@@ -1,4 +1,6 @@
+import groovy.swing.factory.TDFactory
 import org.jlab.groot.data.GraphErrors
+import org.jlab.groot.data.TDirectory
 import org.jlab.groot.fitter.DataFitter
 import org.jlab.groot.math.F1D
 import org.jlab.groot.math.StatNumber
@@ -49,7 +51,7 @@ H1F hElectronMomentum = new H1F("ElectronMomentum", 100, 0, 10);
 hElectronMomentum.setTitle("Detected Electron Momentum");
 
 ArrayList<H1F> pionsBinned = new ArrayList<>();
-for(int i = 0; i < 10; i++){
+for (int i = 0; i < 10; i++) {
     double histoBin = 1 + i * 0.17;
     String histoName = "E-" + Double.toString(histoBin);
     H1F histo = new H1F(histoName, 100, 0, 0.27);
@@ -58,7 +60,7 @@ for(int i = 0; i < 10; i++){
 }
 
 ArrayList<H1F> protonBinned = new ArrayList<>();
-for(int i = 0; i < 8; i++){
+for (int i = 0; i < 8; i++) {
     double histoBin = 4.5 + i * 0.5;
     String histoName = "P(e') = " + Double.toString(histoBin);
     H1F histo = new H1F(histoName, 100, 0.0, 2);
@@ -73,32 +75,10 @@ missingMassRatioVsP.setTitle("P(e') vs MM(e'#pi^0)/m_p");
 
 // ------------------------------------------              ------------------------------------------------
 
+TDirectory dir = new TDirectory();
+dir.mkdir("/ProtonsBinned");
+dir.mkdir("/PionsBinned");
 
-//TCanvas c1 = new TCanvas("c1", 1000, 1000);
-//c1.getCanvas().initTimer(30000);
-//c1.draw(hElectronMomentum);
-//c1.divide(3, 2);
-//c1.getCanvas().initTimer(30000);
-//c1.cd(0).draw(hIMGamGam);
-//c1.cd(1).draw(hMissingMassEPi0Pi0);
-//c1.cd(2).draw(hIMGamGamVSMM);
-//c1.cd(3).draw(hGamGamPvsTheta);
-//c1.cd(4).draw(hMMvsMP);
-//c1.cd(5).draw(hEGamGam);
-
-//TCanvas c2 = new TCanvas("c2", 1000, 1000);
-//c2.divide(5, 4);
-//c2.getCanvas().initTimer(30000);
-//for(int i = 0; i < 10; i++){
-//    c2.cd(i).draw(pionsBinned.get(i));
-//}
-
-TCanvas c4 = new TCanvas("c4", 1000, 1000);
-c4.divide(4, 2);
-c4.getCanvas().initTimer(30000);
-for(int i = 0; i < 8; i++){
-    c4.cd(i).draw(protonBinned.get(i));
-}
 
 String file = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/pion/pi0Photoproduction_skim4.hipo";
 
@@ -112,7 +92,7 @@ Bank eCal = new Bank(reader.getSchemaFactory().getSchema("REC::Calorimeter"));
 
 //EventFilter eventFilter = new EventFilter("11:22:22:Xn:X+:X-");
 
-while (reader.hasNext()){
+while (reader.hasNext()) {
     reader.nextEvent(event);
     event.read(particle);
 
@@ -130,7 +110,7 @@ while (reader.hasNext()){
     int sector1 = getSector(photons.get(0), eCal);
     int sector2 = getSector(photons.get(1), eCal);
 
-    if(sector1 != sector2){
+    if (sector1 != sector2) {
         continue;
     }
 
@@ -144,31 +124,42 @@ while (reader.hasNext()){
 
     missingEPi0.combine(Particle.copyFrom(pi0), -1);
 
-//    hMMvsMP.fill(missingEPi0.mass(), missingEPi0.p());
+    hMMvsMP.fill(missingEPi0.mass(), missingEPi0.p());
 
-    if(missingEPi0.p() < 1.0 && pi0.p() > 2 && pi0.p() < 5.5 && photonTheta < 10 && photonTheta > 3){
-//        hMissingMassEPi0Pi0.fill(missingEPi0.mass());
-//        hIMGamGamVSMM.fill(pi0.mass(), missingEPi0.mass());
+    if (missingEPi0.p() < 1.0 && pi0.p() > 2 && pi0.p() < 5.5 && photonTheta < 10 && photonTheta > 3) {
+        hMissingMassEPi0Pi0.fill(missingEPi0.mass());
+        hIMGamGamVSMM.fill(pi0.mass(), missingEPi0.mass());
         int protonIndex = (int) ((electron.p() - 4.5) / 0.5);
-        if(protonIndex > -1 && protonIndex < 8){
+        if (protonIndex > -1 && protonIndex < 8) {
             protonBinned.get(protonIndex).fill(missingEPi0.mass());
         }
-//        if(missingEPi0.mass() > 0.8 && missingEPi0.mass() < 1.1){
-//            //hIMGamGamVSMissingP.fill(pi0.mass(), missingEPi0Pi0.p());
-////            hGamGamPvsTheta.fill(pi0.p(), photonTheta);
-////                hIMGamGam.fill(pi0.mass());
-//                hElectronMomentum.fill(electron.p());
-//                if(photon1.e()/ photon2.e() < 1.03 && photon1.e()/ photon2.e() > 0.97){
-//                    double energy = (photon1.e() + photon2.e()) / 2;
-//                    hEGamGam.fill(energy);
-//                    int index = (int)((energy - 1)/0.17);
-//                    if (index > -1 && index < 10){
-//                        pionsBinned.get(index).fill(pi0.mass());
-//                    }
-//                }
-//            }
+        if (missingEPi0.mass() > 0.8 && missingEPi0.mass() < 1.1) {
+            //hIMGamGamVSMissingP.fill(pi0.mass(), missingEPi0Pi0.p());
+            hGamGamPvsTheta.fill(pi0.p(), photonTheta);
+            hIMGamGam.fill(pi0.mass());
+            hElectronMomentum.fill(electron.p());
+            if (photon1.e() / photon2.e() < 1.03 && photon1.e() / photon2.e() > 0.97) {
+                double energy = (photon1.e() + photon2.e()) / 2;
+                hEGamGam.fill(energy);
+                int index = (int) ((energy - 1) / 0.17);
+                if (index > -1 && index < 10) {
+                    pionsBinned.get(index).fill(pi0.mass());
+                }
+            }
         }
     }
+}
+
+dir.cd("/PionsBinned");
+for(int i = 0; i < pionsBinned.size(); i++){
+    dir.addDataSet(pionsBinned.get(i));
+}
+dir.cd("ProtonsBinned");
+for(int i = 0; i < protonBinned.size(); i++) {
+    dir.addDataSet(protonBinned.get(i));
+}
+
+dir.writeFile("/w/hallb-scifs17exp/clas12/viducic/rho/clas12/results/energyCorrections.hipo");
 
 //for(int i = 0; i < 10; i++){
 //    F1D f1 = new F1D("f1", "[amp]*gaus(x,[mean],[sigma]) + [p0] + [p1]*x + [p2]*x*x", 0.1, 0.2);
@@ -189,23 +180,23 @@ while (reader.hasNext()){
 //    massRatioVsE.addPoint((1 + i * 0.17), massRatio.number(), 0, massRatio.error());
 //}
 
-for(int i = 0; i < 8; i++){
-    F1D f1 = new F1D("f1", "[amp]*gaus(x,[mean],[sigma]) + [p0] + [p1]*x + [p2]*x*x", 0.3, 2.0);
-//    f1.setParameter(0, 100);
-//    f1.setParameter(1, 0.938);
-//    f1.setParameter(2, 1.0);
-    DataFitter.fit(f1, protonBinned.get(i),"N");
-
-//    System.out.println("Fit for P(e') = " + (4.5 + i * 0.5));
-//    f1.show();
-    System.out.println("Mean mass = " + f1.parameter(1).value() + " --- Error = " + f1.parameter(1).error());
-    f1.setOptStat("111111111");
-    f1.setLineColor(2);
-    c4.cd(i).draw(f1, "same");
-
-//    double massRatio = f1.getParameter(1)/0.938;
-//    missingMassRatioVsP.addPoint((4.5 + i * 0.5), massRatio, 0, f1.parameter(1).error());
-}
+//for(int i = 0; i < 8; i++){
+//    F1D f1 = new F1D("f1", "[amp]*gaus(x,[mean],[sigma]) + [p0] + [p1]*x + [p2]*x*x", 0.3, 2.0);
+////    f1.setParameter(0, 100);
+////    f1.setParameter(1, 0.938);
+////    f1.setParameter(2, 1.0);
+//    DataFitter.fit(f1, protonBinned.get(i),"N");
+//
+////    System.out.println("Fit for P(e') = " + (4.5 + i * 0.5));
+////    f1.show();
+//    System.out.println("Mean mass = " + f1.parameter(1).value() + " --- Error = " + f1.parameter(1).error());
+//    f1.setOptStat("111111111");
+//    f1.setLineColor(2);
+//    c4.cd(i).draw(f1, "same");
+//
+////    double massRatio = f1.getParameter(1)/0.938;
+////    missingMassRatioVsP.addPoint((4.5 + i * 0.5), massRatio, 0, f1.parameter(1).error());
+//}
 
 //F1D correction = new F1D("correction", "[p0] + [p1]/x + [p2]/(x*x) + [p3]/(x*x*x)", 1, 3);
 //correction.setParameter(0, 1);
@@ -237,25 +228,24 @@ for(int i = 0; i < 8; i++){
 System.out.println("done");
 
 
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////    METHODS   //////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-public static ArrayList<Integer> getBestPhotons(PhysicsEvent physicsEvent){
+public static ArrayList<Integer> getBestPhotons(PhysicsEvent physicsEvent) {
     ArrayList<Integer> photons = new ArrayList<>();
     int numPhotons = physicsEvent.countByPid(22);
 
-    for(int i = 0; i < numPhotons - 1; i++){
+    for (int i = 0; i < numPhotons - 1; i++) {
         Particle photon1 = Particle.copyFrom(physicsEvent.getParticleByPid(22, i));
-        for (int j = i + 1; j < numPhotons; j++){
+        for (int j = i + 1; j < numPhotons; j++) {
             Particle photon2 = Particle.copyFrom(physicsEvent.getParticleByPid(22, j));
             Particle pi0 = Particle.copyFrom(photon1);
             double imGamGam = getPhotonIM(photon1, photon2);
             pi0.combine(photon2, 1);
 
-            if (pi0.mass() > 0.12 && pi0.mass() < 0.15){
+            if (pi0.mass() > 0.12 && pi0.mass() < 0.15) {
 //                System.out.println("equation: " + imGamGam + "  --  object: " + pi0.mass());
 //                System.out.println("gagik's theta: " + photon1.cosTheta(photon2) + "  --  my theta: " + myCosTheta(photon1, photon2));
 
@@ -272,17 +262,17 @@ public static ArrayList<Integer> getBestPhotons(PhysicsEvent physicsEvent){
     return photons;
 }
 
-public static double getPhotonIM(Particle photon1, Particle photon2){
+public static double getPhotonIM(Particle photon1, Particle photon2) {
     return Math.sqrt(photon1.e() * photon2.e()) * (1 - photon1.cosTheta(photon2));
 }
 
-public static double myCosTheta(Particle part1, Particle part2){
-        return (part1.px() * part2.px() + part1.py() * part2.py() + part1.pz() * part2.pz()) / (part1.p() * part2.p());
+public static double myCosTheta(Particle part1, Particle part2) {
+    return (part1.px() * part2.px() + part1.py() * part2.py() + part1.pz() * part2.pz()) / (part1.p() * part2.p());
 }
 
-public static int getSector(int pindex, Bank calorimeter){
-    for(int i = 0; i < calorimeter.getRows(); i++){
-        if(calorimeter.getInt("pindex", i) == pindex){
+public static int getSector(int pindex, Bank calorimeter) {
+    for (int i = 0; i < calorimeter.getRows(); i++) {
+        if (calorimeter.getInt("pindex", i) == pindex) {
             return calorimeter.getInt("sector", i);
         }
     }
