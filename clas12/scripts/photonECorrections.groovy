@@ -53,7 +53,7 @@ hElectronMomentum.setTitle("Detected Electron Momentum");
 ArrayList<H1F> pionsBinned = new ArrayList<>();
 for (int i = 0; i < 10; i++) {
     double histoBin = 1 + i * 0.17;
-    String histoName = "E-" + Double.toString(histoBin);
+    String histoName = "e(gam)=" + Double.toString(histoBin);
     H1F histo = new H1F(histoName, 100, 0, 0.27);
     histo.setTitle("IM(#gamma#gamma) for E_#gamma = " + (1 + i * 0.17));
     pionsBinned.add(histo);
@@ -62,7 +62,7 @@ for (int i = 0; i < 10; i++) {
 ArrayList<H1F> protonBinned = new ArrayList<>();
 for (int i = 0; i < 8; i++) {
     double histoBin = 4.5 + i * 0.5;
-    String histoName = "P(e') = " + Double.toString(histoBin);
+    String histoName = "p(e)=" + Double.toString(histoBin);
     H1F histo = new H1F(histoName, 100, 0.0, 2);
     histo.setTitle("MM(e'#pi^0) for P(e') = " + (4.5 + i * 0.5));
     protonBinned.add(histo);
@@ -154,7 +154,7 @@ dir.cd("/PionsBinned");
 for(int i = 0; i < pionsBinned.size(); i++){
     dir.addDataSet(pionsBinned.get(i));
 }
-dir.cd("ProtonsBinned");
+dir.cd("/ProtonsBinned");
 for(int i = 0; i < protonBinned.size(); i++) {
     dir.addDataSet(protonBinned.get(i));
 }
