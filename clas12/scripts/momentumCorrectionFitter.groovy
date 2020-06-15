@@ -31,6 +31,7 @@ error.add(8.2E-4);
 
 for(int i = 0; i < mass.size(); i++){
     StatNumber dataPoint = new StatNumber(mass.get(i), error.get(i));
+    System.out.println(error.get(i));
     dataPoint.divide(new StatNumber(0.938272, 0.0000058));
     graph.addPoint(4.5 + (i * 0.5), dataPoint.number(), 0, dataPoint.error());
 }
