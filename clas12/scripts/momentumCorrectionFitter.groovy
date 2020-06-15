@@ -5,7 +5,7 @@ import org.jlab.groot.math.StatNumber
 import org.jlab.groot.ui.TCanvas
 
 GraphErrors graph = new GraphErrors("MassRatioVsEnergy");
-graph.setTitle("Pion Mass Ratio vs Photon Energy");
+graph.setTitle("MM(e'#pi^0)/M(p) vs Momemtum(e')");
 
 ArrayList<Double> mass = new ArrayList<>();
 ArrayList<Double> error = new ArrayList<>();
