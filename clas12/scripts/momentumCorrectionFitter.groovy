@@ -48,7 +48,7 @@ func3.setLineColor(3);
 
 DataFitter.fit(func, graph, "N");
 DataFitter.fit(funcW, graph, "W");
-DataFitter.fit(func3, graph, "N");
+DataFitter.fit(func3, graph, "W");
 
 c1.draw(func, "same");
 c1.draw(funcW, "same");
