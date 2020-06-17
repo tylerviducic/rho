@@ -120,7 +120,8 @@ while (reader.hasNext()) {
     Particle pi0 = Particle.copyFrom(photon1);
     pi0.combine(Particle.copyFrom(photon2), 1);
 
-    Particle kinPi0 = Particle.initParticleWithMass(0.135, photon1.px() + photon2.px(), photon1.py() + photon2.py(), photon1.pz() + photon2.pz(),
+    Particle kinPi0 = new Particle();
+    kinPi0.initParticleWithMass(0.135, photon1.px() + photon2.px(), photon1.py() + photon2.py(), photon1.pz() + photon2.pz(),
             (photon1.vx() + photon2.vx())/2,(photon1.vy() + photon2.vy())/2, (photon1.vz() + photon2.vz())/2);
 
     Particle missingEPi0 = physicsEvent.getParticle("[b] + [t] - [11]");
