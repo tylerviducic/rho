@@ -79,7 +79,6 @@ TDirectory dir = new TDirectory();
 dir.mkdir("/ProtonsBinned");
 dir.mkdir("/PionsBinned");
 
-
 String file = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/pion/pi0Photoproduction_skim4.hipo";
 
 HipoChain reader = new HipoChain();
@@ -110,19 +109,23 @@ while (reader.hasNext()) {
     int sector1 = getSector(photons.get(0), eCal);
     int sector2 = getSector(photons.get(1), eCal);
 
+
     if (sector1 != sector2) {
         continue;
     }
 
-    double photonTheta = Math.toDegrees(Math.acos(photon1.cosTheta(photon2)));
-    double imGamGam = getPhotonIM(photon1, photon2);
+//    double photonTheta = Math.toDegrees(Math.acos(photon1.cosTheta(photon2)));
+//    double imGamGam = getPhotonIM(photon1, photon2);
 
     Particle pi0 = Particle.copyFrom(photon1);
     pi0.combine(Particle.copyFrom(photon2), 1);
 
+    Particle kinPi0 = Particle.initParticleWithMass(0.135, photon1.px() + photon2.px(), photon1.py() + photon2.py(), photon1.pz() + photon2.pz(),
+            (photon1.vx() + photon2.vx())/2,(photon1.vy() + photon2.vy())/2, (photon1.vz() + photon2.vz())/2);
+
     Particle missingEPi0 = physicsEvent.getParticle("[b] + [t] - [11]");
 
-    missingEPi0.combine(Particle.copyFrom(pi0), -1);
+    missingEPi0.combine(Particle.copyFrom(kinPi0), -1);
 
 //    hMMvsMP.fill(missingEPi0.mass(), missingEPi0.p());
 
@@ -138,6 +141,7 @@ while (reader.hasNext()) {
 //            hGamGamPvsTheta.fill(pi0.p(), photonTheta);
 //            hIMGamGam.fill(pi0.mass());
 //            hElectronMomentum.fill(electron.p());
+
             if (photon1.e() / photon2.e() < 1.03 && photon1.e() / photon2.e() > 0.97) {
                 double energy = (photon1.e() + photon2.e()) / 2;
 //                hEGamGam.fill(energy);
