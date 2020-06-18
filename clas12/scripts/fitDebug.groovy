@@ -11,7 +11,7 @@ dir.cd();
 GraphErrors graph = (GraphErrors) dir.getObject("/Plot/MassRatioVsEnergy");
 
 F1D func = new F1D("func", "[p0]+[p1]*x+[p2]*x*x+[p3]*x*x*x", 4.5, 8.0);
-DataFitter.fit(func, graph, "N");
+DataFitter.fit(func, graph, "");
 
 TCanvas c1 = new TCanvas("c1", 1000, 1000);
 c1.draw(graph);
