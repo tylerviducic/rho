@@ -140,7 +140,7 @@ while (reader.hasNext()) {
 
     if (missingEPi0.p() < 1.0 && pi0.p() > 2 && pi0.p() < 5.5 && photonTheta < 10 && photonTheta > 3 &&
             missingEPi0.mass() > 0.8 && missingEPi0.mass() < 1.1) {
-        if (photon1.e() > 1.0 && photon1.e() < 2.6 && (photon2.e() < 1.0 && photon2.e() >= 04 || photon2.e() > 2.6)){
+        if (photon1.e() > 1.0 && photon1.e() < 2.6 && ((photon2.e() < 1.0 && photon2.e() >= 04) || photon2.e() > 2.6)){
 //            hEUncorrectedGamma.fill(photon2.e());
             photon1.setP(photon1.p()/getCorrection(photon1.e()));
             Particle newPi0 = Particle.copyFrom(photon1);
