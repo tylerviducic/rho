@@ -41,7 +41,7 @@ for(int i = 0; i < mass.size(); i++){
 
 dir.cd("/Plot");
 dir.addDataSet(graph);
-dir.writeFile("/w/hallb-scifs17exp/clas12/viducic/rho/clas12/results/missingProtonResult");
+dir.writeFile("/w/hallb-scifs17exp/clas12/viducic/rho/clas12/results/missingProtonResult.hipo");
 
 TCanvas c1 = new TCanvas("c1", 1000, 1000);
 System.out.println("printing graph");
