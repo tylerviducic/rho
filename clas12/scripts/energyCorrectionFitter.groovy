@@ -20,15 +20,15 @@ mass.add(0.13759914635520898);
 mass.add(0.13843131323153757);
 mass.add(0.13813582623651843);
 
-error.add(0.003392);
-error.add(0.002641);
-error.add(0.002759);
-error.add(0.002701);
-error.add(0.002572);
-error.add(0.003295);
-error.add(0.003959);
-error.add(0.003564);
-error.add(0.004967);
+error.add(0.0003392);
+error.add(0.0002641);
+error.add(0.0002759);
+error.add(0.0002701);
+error.add(0.0002572);
+error.add(0.0003295);
+error.add(0.0003959);
+error.add(0.0003564);
+error.add(0.0004967);
 
 for(int i = 0; i < mass.size(); i++){
     StatNumber dataPoint = new StatNumber(mass.get(i), error.get(i));
