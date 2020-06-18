@@ -1,4 +1,5 @@
 import org.jlab.groot.data.GraphErrors
+import org.jlab.groot.data.TDirectory
 import org.jlab.groot.fitter.DataFitter
 import org.jlab.groot.math.F1D
 import org.jlab.groot.math.StatNumber
@@ -9,6 +10,9 @@ graph.setTitle("MM(e'#pi^0)/M(p) vs Momemtum(e')");
 
 ArrayList<Double> mass = new ArrayList<>();
 ArrayList<Double> error = new ArrayList<>();
+
+TDirectory dir = new TDirectory();
+dir.mkdir("/Plot");
 
 mass.add(1.228);
 mass.add(1.052);
@@ -34,6 +38,10 @@ for(int i = 0; i < mass.size(); i++){
     dataPoint.divide(new StatNumber(0.938272, 0.0000058));
     graph.addPoint(4.5 + (i * 0.5), dataPoint.number(), 0, dataPoint.error());
 }
+
+dir.cd("/Plot");
+dir.addDataSet(graph);
+dir.writeFile("/w/hallb-scifs17exp/clas12/viducic/rho/clas12/results/missingProtonResult");
 
 TCanvas c1 = new TCanvas("c1", 1000, 1000);
 System.out.println("printing graph");
