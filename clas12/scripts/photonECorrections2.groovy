@@ -50,15 +50,24 @@ hEGamGam.setTitleX("E(#gamma");
 H1F hElectronMomentum = new H1F("ElectronMomentum", 100, 0, 10);
 hElectronMomentum.setTitle("Detected Electron Momentum");
 
-H1F hEUncorrectedGamma = new H1F("EUncorrectedGamma", 100, 0, 10);
+//H1F hEUncorrectedGamma = new H1F("EUncorrectedGamma", 100, 0, 10);
 
-ArrayList<H1F> pionsBinned = new ArrayList<>();
-for (int i = 0; i < 10; i++) {
-    double histoBin = 1 + i * 0.17;
+ArrayList<H1F> pionsBinnedLeft = new ArrayList<>();
+for (int i = 0; i < 6; i++) {
+    double histoBin = 0.4 + i * 0.1;
     String histoName = "e(gam)=" + Double.toString(histoBin);
     H1F histo = new H1F(histoName, 100, 0, 0.27);
-    histo.setTitle("IM(#gamma#gamma) for E_#gamma = " + (1 + i * 0.17));
-    pionsBinned.add(histo);
+    histo.setTitle("IM(#gamma#gamma) for E_#gamma = " + Double.toString(histoBin));
+    pionsBinnedLeft.add(histo);
+}
+
+ArrayList<H1F> pionsBinnedRight = new ArrayList<>();
+for (int i = 0; i < 10; i++) {
+    double histoBin = 2.6 + i * 0.19;
+    String histoName = "e(gam)=" + Double.toString(histoBin);
+    H1F histo = new H1F(histoName, 100, 0, 0.27);
+    histo.setTitle("IM(#gamma#gamma) for E_#gamma = " + Double.toString(histoBin));
+    pionsBinnedRight.add(histo);
 }
 
 //ArrayList<H1F> protonBinned = new ArrayList<>();
@@ -77,13 +86,13 @@ massRatioVsE.setTitle("IM(#gamma#gamma) vs m(#pi^0)");
 
 // ------------------------------------------              ------------------------------------------------
 
-//TDirectory dir = new TDirectory();
+TDirectory dir = new TDirectory();
 ////dir.mkdir("/ProtonsBinned");
-//dir.mkdir("/PionsBinned");
+dir.mkdir("/PionsBinned");
 
-TCanvas c1 = new TCanvas("c1", 1000, 1000);
-c1.getCanvas().initTimer(10000);
-c1.draw(hEUncorrectedGamma);
+//TCanvas c1 = new TCanvas("c1", 1000, 1000);
+//c1.getCanvas().initTimer(10000);
+//c1.draw(hEUncorrectedGamma);
 
 String file = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/pion/pi0Photoproduction_skim4.hipo";
 
@@ -132,20 +141,33 @@ while (reader.hasNext()) {
     if (missingEPi0.p() < 1.0 && pi0.p() > 2 && pi0.p() < 5.5 && photonTheta < 10 && photonTheta > 3 &&
             missingEPi0.mass() > 0.8 && missingEPi0.mass() < 1.1) {
         if (photon1.e() > 1.0 && photon1.e() < 2.6 && (photon2.e() < 1.0 || photon2.e() > 2.6)){
-            hEUncorrectedGamma.fill(photon2.e());
+//            hEUncorrectedGamma.fill(photon2.e());
+            photon1.setP(photon1.p()/getCorrection(photon1.e()));
+            Particle newPi0 = Particle.copyFrom(photon1);
+            newPi0.combine(photon2, -1);
+            int energyIndex = (int) ((photon2.e() - 0.4) / 0.1);
+            pionsBinnedLeft.get(energyIndex).fill(newPi0.mass2());
         }
         if (photon2.e() > 1.0 && photon2.e() < 2.6 && (photon1.e() < 1.0 || photon1.e() > 2.6)){
-            hEUncorrectedGamma.fill(photon1.e());
+//            hEUncorrectedGamma.fill(photon1.e());
+            photon2.setP(photon2.p()/getCorrection(photon2.e()));
+            Particle newPi0 = Particle.copyFrom(photon2);
+            newPi0.combine(photon1, -1);
+            int energyIndex = (int) ((photon1.e() - 2.6) / 0.19);
+            pionsBinnedRight.get(energyIndex).fill(newPi0.mass2());
         }
     }
 }
 
-//dir.cd("/PionsBinned");
-//for(int i = 0; i < pionsBinned.size(); i++){
-//    dir.addDataSet(pionsBinned.get(i));
-//}
-//
-//dir.writeFile("/w/hallb-scifs17exp/clas12/viducic/rho/clas12/results/energyCorrections2.hipo");
+dir.cd("/PionsBinned");
+for(int i = 0; i < pionsBinnedLeft.size(); i++){
+    dir.addDataSet(pionsBinnedLeft.get(i));
+}
+for(int i = 0; i < pionsBinnedRight.size(); i++){
+    dir.addDataSet(pionsBinnedRight.get(i));
+}
+
+dir.writeFile("/w/hallb-scifs17exp/clas12/viducic/rho/clas12/results/energyCorrections2.hipo");
 
 System.out.println("done");
 
@@ -199,4 +221,8 @@ public static int getSector(int pindex, Bank calorimeter) {
         }
     }
     return -1;
+}
+
+public static double getCorrection(double energy){
+     return 0.986 + 0.186/energy - 0.290/(energy * energy) + 0.155/(energy * energy * energy);
 }
