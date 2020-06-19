@@ -145,6 +145,7 @@ while (reader.hasNext()) {
             photon1.setP(photon1.p()/getCorrection(photon1.e()));
             Particle newPi0 = Particle.copyFrom(photon1);
             newPi0.combine(photon2, -1);
+            System.out.println(newPi0.mass2());
             int energyIndex = (int) ((photon2.e() - 0.4) / 0.1);
             pionsBinnedLeft.get(energyIndex).fill(newPi0.mass2());
         }
