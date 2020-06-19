@@ -127,6 +127,8 @@ while (reader.hasNext()) {
         continue;
     }
 
+    System.out.println("cut 2 passed");
+
     double photonTheta = Math.toDegrees(Math.acos(photon1.cosTheta(photon2)));
 
     Particle pi0 = Particle.copyFrom(photon1);
@@ -142,10 +144,10 @@ while (reader.hasNext()) {
             missingEPi0.mass() > 0.8 && missingEPi0.mass() < 1.1) {
         if (photon1.e() > 1.0 && photon1.e() < 2.6 && ((photon2.e() < 1.0 && photon2.e() >= 04) || photon2.e() > 2.6)){
 //            hEUncorrectedGamma.fill(photon2.e());
+            System.out.println("cut 2 passed");
             photon1.setP(photon1.p()/getCorrection(photon1.e()));
             Particle newPi0 = Particle.copyFrom(photon1);
             newPi0.combine(photon2, -1);
-            System.out.println(newPi0.mass2());
             int energyIndex = (int) ((photon2.e() - 0.4) / 0.1);
             pionsBinnedLeft.get(energyIndex).fill(newPi0.mass2());
         }
