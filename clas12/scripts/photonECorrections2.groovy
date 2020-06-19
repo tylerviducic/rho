@@ -142,14 +142,13 @@ while (reader.hasNext()) {
             missingEPi0.mass() > 0.8 && missingEPi0.mass() < 1.1) {
         if (photon1.e() > 1.0 && photon1.e() < 2.6 && ((photon2.e() < 1.0 && photon2.e() >= 0.4) || photon2.e() > 2.6)){
 //            hEUncorrectedGamma.fill(photon2.e());
-            System.out.println("cut passed");
             photon1.setP(photon1.p()/getCorrection(photon1.e()));
             Particle newPi0 = Particle.copyFrom(photon1);
             newPi0.combine(photon2, -1);
             int energyIndex = (int) ((photon2.e() - 0.4) / 0.1);
             pionsBinnedLeft.get(energyIndex).fill(newPi0.mass2());
         }
-        if (photon2.e() > 1.0 && photon2.e() < 2.6 && (photon1.e() < 1.0 || photon1.e() > 2.6)){
+        if (photon2.e() > 1.0 && photon2.e() < 2.6 && ((photon1.e() < 1.0 && photon1.e() >= 0.4) || photon1.e() > 2.6)){
 //            hEUncorrectedGamma.fill(photon1.e());
             photon2.setP(photon2.p()/getCorrection(photon2.e()));
             Particle newPi0 = Particle.copyFrom(photon2);
