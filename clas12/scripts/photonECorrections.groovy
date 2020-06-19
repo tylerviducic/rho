@@ -79,7 +79,7 @@ TDirectory dir = new TDirectory();
 dir.mkdir("/ProtonsBinned");
 dir.mkdir("/PionsBinned");
 
-String file = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/pion/pi0Photoproduction_skim4.hipo";
+String file = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/pion/pi0Photoproduction_skim4_filtered.hipo";
 
 HipoChain reader = new HipoChain();
 reader.addFile(file);
