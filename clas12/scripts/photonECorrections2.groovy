@@ -127,7 +127,7 @@ while (reader.hasNext()) {
         continue;
     }
 
-    System.out.println("cut 2 passed");
+    System.out.println("cut 1 passed");
 
     double photonTheta = Math.toDegrees(Math.acos(photon1.cosTheta(photon2)));
 
