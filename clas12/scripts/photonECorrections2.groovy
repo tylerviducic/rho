@@ -90,9 +90,9 @@ TDirectory dir = new TDirectory();
 ////dir.mkdir("/ProtonsBinned");
 dir.mkdir("/PionsBinned");
 
-//TCanvas c1 = new TCanvas("c1", 1000, 1000);
-//c1.getCanvas().initTimer(10000);
-//c1.draw(hEUncorrectedGamma);
+TCanvas c1 = new TCanvas("c1", 1000, 1000);
+c1.getCanvas().initTimer(10000);
+c1.draw(pionsBinnedLeft.get(3));
 
 String file = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/pion/pi0Photoproduction_skim4_filtered.hipo";
 
@@ -145,7 +145,6 @@ while (reader.hasNext()) {
             photon1.setP(photon1.p()/getCorrection(photon1.e()));
             Particle newPi0 = Particle.copyFrom(photon1);
             newPi0.combine(photon2, 1);
-            System.out.println(newPi0.mass2());
             if(photon2.e() < 1.0){
                 int energyIndex = (int) ((photon2.e() - 0.4) / 0.1);
                 pionsBinnedLeft.get(energyIndex).fill(newPi0.mass2());
@@ -159,7 +158,6 @@ while (reader.hasNext()) {
             photon2.setP(photon2.p()/getCorrection(photon2.e()));
             Particle newPi0 = Particle.copyFrom(photon2);
             newPi0.combine(photon1, 1);
-            System.out.println(newPi0.mass2());
             if(photon1.e() < 1.0){
                 int energyIndex = (int) ((photon1.e() - 0.4) / 0.1);
                 pionsBinnedLeft.get(energyIndex).fill(newPi0.mass2());
