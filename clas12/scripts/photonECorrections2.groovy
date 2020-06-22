@@ -144,17 +144,29 @@ while (reader.hasNext()) {
 //            hEUncorrectedGamma.fill(photon2.e());
             photon1.setP(photon1.p()/getCorrection(photon1.e()));
             Particle newPi0 = Particle.copyFrom(photon1);
-            newPi0.combine(photon2, -1);
-            int energyIndex = (int) ((photon2.e() - 0.4) / 0.1);
-            pionsBinnedLeft.get(energyIndex).fill(newPi0.mass2());
+            newPi0.combine(photon2, 1);
+            System.out.println(newPi0.mass2());
+            if(photon2.e() < 1.0){
+                int energyIndex = (int) ((photon2.e() - 0.4) / 0.1);
+                pionsBinnedLeft.get(energyIndex).fill(newPi0.mass2());
+            } else{
+                int energyIndex = (int) ((photon2.e() - 2.6) / 0.19);
+                pionsBinnedRight.get(energyIndex).fill(newPi0.mass2());
+            }
         }
         if (photon2.e() > 1.0 && photon2.e() < 2.6 && ((photon1.e() < 1.0 && photon1.e() >= 0.4) || photon1.e() > 2.6)){
 //            hEUncorrectedGamma.fill(photon1.e());
             photon2.setP(photon2.p()/getCorrection(photon2.e()));
             Particle newPi0 = Particle.copyFrom(photon2);
-            newPi0.combine(photon1, -1);
-            int energyIndex = (int) ((photon1.e() - 2.6) / 0.19);
-            pionsBinnedRight.get(energyIndex).fill(newPi0.mass2());
+            newPi0.combine(photon1, 1);
+            System.out.println(newPi0.mass2());
+            if(photon1.e() < 1.0){
+                int energyIndex = (int) ((photon1.e() - 0.4) / 0.1);
+                pionsBinnedLeft.get(energyIndex).fill(newPi0.mass2());
+            } else{
+                int energyIndex = (int) ((photon1.e() - 2.6) / 0.19);
+                pionsBinnedRight.get(energyIndex).fill(newPi0.mass2());
+            }
         }
     }
 }
