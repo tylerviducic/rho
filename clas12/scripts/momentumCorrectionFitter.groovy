@@ -4,9 +4,13 @@ import org.jlab.groot.fitter.DataFitter
 import org.jlab.groot.math.F1D
 import org.jlab.groot.math.StatNumber
 import org.jlab.groot.ui.TCanvas
+import org.jlab.groot.data.H1F
 
 GraphErrors graph = new GraphErrors("MassRatioVsEnergy");
 graph.setTitle("MM(e'#pi^0)/M(p) vs Momemtum(e')");
+
+TDirectory protonDir = new TDirectory();
+protonDir.readFile("/w/hallb-scifs17exp/clas12/viducic/rho/clas12/results/energyCorrections.hipo");
 
 ArrayList<Double> mass = new ArrayList<>();
 ArrayList<Double> error = new ArrayList<>();
@@ -14,27 +18,33 @@ ArrayList<Double> error = new ArrayList<>();
 TDirectory dir = new TDirectory();
 dir.mkdir("/Plot");
 
-mass.add(1.228);
-mass.add(1.052);
-mass.add(1.025);
-mass.add(1.013);
-mass.add(1.02);
-mass.add(1.011);
-mass.add(1.003);
-mass.add(0.948);
+//mass.add(1.228);
+//mass.add(1.052);
+//mass.add(1.025);
+//mass.add(1.013);
+//mass.add(1.02);
+//mass.add(1.011);
+//mass.add(1.003);
+//mass.add(0.948);
+//
+//
+//error.add(5.35E-3);
+//error.add(1.696E-3);
+//error.add(1.088E-3);
+//error.add(7.068E-4);
+//error.add(8.107E-4);
+//error.add(6.47E-4);
+//error.add(4.779E-4);
+//error.add(8.2E-4);
 
-
-error.add(5.35E-3);
-error.add(1.696E-3);
-error.add(1.088E-3);
-error.add(7.068E-4);
-error.add(8.107E-4);
-error.add(6.47E-4);
-error.add(4.779E-4);
-error.add(8.2E-4);
+for(int i = 0; i < 8; i++){
+    String pEnergy = Double.toString(4.5 + i * 0.5);
+    System.out.println(pEnergy);
+    H1F protonHisto = (H1F) protonDir.getObject("/ProtonsBinned/p(e)=" + pEnergy);
+}
 
 for(int i = 0; i < mass.size(); i++){
-    StatNumber dataPoint = new StatNumber(mass.get(i), error.get(i));
+//    StatNumber dataPoint = new StatNumber(mass.get(i), error.get(i));
     dataPoint.divide(new StatNumber(0.938272, 0.0000058));
     graph.addPoint(4.5 + (i * 0.5), dataPoint.number(), 0, dataPoint.error());
 }
