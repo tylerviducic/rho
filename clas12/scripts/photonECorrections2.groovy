@@ -90,9 +90,9 @@ TDirectory dir = new TDirectory();
 ////dir.mkdir("/ProtonsBinned");
 dir.mkdir("/PionsBinned");
 
-TCanvas c1 = new TCanvas("c1", 1000, 1000);
-c1.getCanvas().initTimer(10000);
-c1.draw(pionsBinnedRight.get(3));
+//TCanvas c1 = new TCanvas("c1", 1000, 1000);
+//c1.getCanvas().initTimer(10000);
+//c1.draw(pionsBinnedRight.get(3));
 
 String file = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/pion/pi0Photoproduction_skim4_filtered.hipo";
 
