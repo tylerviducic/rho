@@ -44,7 +44,7 @@ for(int i = 0; i < 8; i++){
     String pEnergy = Double.toString(4.5 + i * 0.5);
     System.out.println(pEnergy);
     H1F protonHisto = (H1F) protonDir.getObject("/ProtonsBinned/p(e)=" + pEnergy);
-    F1D protonMeanFunc = new F1D("protonMeanFunc", "([amp]*gaus(x,[mean],[sigma])) + [p0]+[p1]*x+[p2]*x*x", 0.0, 2.0);
+    F1D protonMeanFunc = new F1D("protonMeanFunc", "([amp]*gaus(x,[mean],[sigma]))", 0.0, 2.0);
 
     DataFitter.fit(protonMeanFunc, protonHisto, "");
 
