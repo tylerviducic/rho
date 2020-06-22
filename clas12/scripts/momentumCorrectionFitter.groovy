@@ -44,14 +44,14 @@ for(int i = 0; i < 8; i++){
     String pEnergy = Double.toString(4.5 + i * 0.5);
     System.out.println(pEnergy);
     H1F protonHisto = (H1F) protonDir.getObject("/ProtonsBinned/p(e)=" + pEnergy);
-    F1D protonMeanFunc = new F1D("protonMeanFunc", "([amp]*gaus(x,[mean],[sigma])) + [p0]+[p1]*x+[p2]*x*x", 0.4, 1.5);
+    F1D protonMeanFunc = new F1D("protonMeanFunc", "([amp]*gaus(x,[mean],[sigma])) + [p0]+[p1]*x+[p2]*x*x", 0.0, 2.0);
 
     DataFitter.fit(protonMeanFunc, protonHisto, "");
 
     c2.cd(i).draw(protonHisto);
     c2.draw(protonMeanFunc, "same");
 
-    StatNumber dataPoint = new StatNumber(protonMeanFunc.parameter(4).value(), protonMeanFunc.parameter(4).error());
+    StatNumber dataPoint = new StatNumber(protonMeanFunc.parameter(1).value(), protonMeanFunc.parameter(1).error());
     dataPoint.divide(new StatNumber(0.938272, 0.0000058));
     graph.addPoint(4.5 + (i * 0.5), dataPoint.number(), 0, dataPoint.error());
 }
