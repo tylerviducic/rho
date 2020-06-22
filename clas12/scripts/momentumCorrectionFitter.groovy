@@ -37,6 +37,9 @@ dir.mkdir("/Plot");
 //error.add(4.779E-4);
 //error.add(8.2E-4);
 
+TCanvas c2 = new TCanvas("c2", 1000, 1000);
+c2.divide(2, 4);
+
 for(int i = 0; i < 8; i++){
     String pEnergy = Double.toString(4.5 + i * 0.5);
     System.out.println(pEnergy);
@@ -44,6 +47,10 @@ for(int i = 0; i < 8; i++){
     F1D protonMeanFunc = new F1D("protonMeanFunc", "[p0]+[p1]*x+[p2]*x*x+[amp]*gaus(x,[mean],[sigma])", 0.4, 1.5);
 
     DataFitter.fit(protonMeanFunc, protonHisto, "");
+
+    c2.cd(i).draw(protonHisto);
+    c2.draw(protonMeanFunc, "same");
+
     StatNumber dataPoint = new StatNumber(protonMeanFunc.parameter(4).value(), protonMeanFunc.parameter(4).error());
     dataPoint.divide(new StatNumber(0.938272, 0.0000058));
     graph.addPoint(4.5 + (i * 0.5), dataPoint.number(), 0, dataPoint.error());
