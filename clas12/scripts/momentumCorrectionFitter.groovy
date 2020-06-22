@@ -12,8 +12,8 @@ graph.setTitle("MM(e'#pi^0)/M(p) vs Momemtum(e')");
 TDirectory protonDir = new TDirectory();
 protonDir.readFile("/w/hallb-scifs17exp/clas12/viducic/rho/clas12/results/energyCorrections.hipo");
 
-ArrayList<Double> mass = new ArrayList<>();
-ArrayList<Double> error = new ArrayList<>();
+//ArrayList<Double> mass = new ArrayList<>();
+//ArrayList<Double> error = new ArrayList<>();
 
 TDirectory dir = new TDirectory();
 dir.mkdir("/Plot");
@@ -41,10 +41,10 @@ for(int i = 0; i < 8; i++){
     String pEnergy = Double.toString(4.5 + i * 0.5);
     System.out.println(pEnergy);
     H1F protonHisto = (H1F) protonDir.getObject("/ProtonsBinned/p(e)=" + pEnergy);
-}
+    F1D protonMeanFunc = new F1D("protonMeanFunc", "[p0]+[p1]*x+[p2]*x*x+[amp]*gaus(x,[mean],[sigma])", 0.4, 1.5);
 
-for(int i = 0; i < mass.size(); i++){
-//    StatNumber dataPoint = new StatNumber(mass.get(i), error.get(i));
+    DataFitter.fit(protonMeanFunc, protonHisto, "");
+    StatNumber dataPoint = new StatNumber(protonMeanFunc.parameter(4).value(), protonMeanFunc.parameter(4).error());
     dataPoint.divide(new StatNumber(0.938272, 0.0000058));
     graph.addPoint(4.5 + (i * 0.5), dataPoint.number(), 0, dataPoint.error());
 }
