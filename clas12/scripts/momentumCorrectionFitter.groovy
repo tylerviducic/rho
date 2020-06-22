@@ -45,9 +45,10 @@ for(int i = 0; i < 8; i++){
     System.out.println(pEnergy);
     H1F protonHisto = (H1F) protonDir.getObject("/ProtonsBinned/p(e)=" + pEnergy);
     F1D protonMeanFunc = new F1D("protonMeanFunc", "[amp]*gaus(x,[mean],[sigma])+[p0]+[p1]*x+[p2]*x*x", 0.0, 2.0);
+    protonMeanFunc.setParameter(0, protonHisto.getMax());
     protonMeanFunc.setParameter(1, 0.983272);
 
-    DataFitter.fit(protonMeanFunc, protonHisto, "N");
+    DataFitter.fit(protonMeanFunc, protonHisto, "");
 
     c2.cd(i).draw(protonHisto);
     c2.draw(protonMeanFunc, "same");
