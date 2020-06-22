@@ -56,7 +56,7 @@ ArrayList<H1F> pionsBinnedLeft = new ArrayList<>();
 for (int i = 0; i < 6; i++) {
     double histoBin = 0.4 + i * 0.1;
     String histoName = "e(gam)=" + Double.toString(histoBin);
-    H1F histo = new H1F(histoName, 100, 0, 0.27);
+    H1F histo = new H1F(histoName, 100, 0, 0.1);
     histo.setTitle("IM(#gamma#gamma) for E_#gamma = " + Double.toString(histoBin));
     pionsBinnedLeft.add(histo);
 }
@@ -65,7 +65,7 @@ ArrayList<H1F> pionsBinnedRight = new ArrayList<>();
 for (int i = 0; i < 10; i++) {
     double histoBin = 2.6 + i * 0.19;
     String histoName = "e(gam)=" + Double.toString(histoBin);
-    H1F histo = new H1F(histoName, 100, 0, 0.27);
+    H1F histo = new H1F(histoName, 100, 0, 0.1);
     histo.setTitle("IM(#gamma#gamma) for E_#gamma = " + Double.toString(histoBin));
     pionsBinnedRight.add(histo);
 }
@@ -92,7 +92,7 @@ dir.mkdir("/PionsBinned");
 
 TCanvas c1 = new TCanvas("c1", 1000, 1000);
 c1.getCanvas().initTimer(10000);
-c1.draw(pionsBinnedLeft.get(3));
+c1.draw(pionsBinnedRight.get(3));
 
 String file = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/pion/pi0Photoproduction_skim4_filtered.hipo";
 
