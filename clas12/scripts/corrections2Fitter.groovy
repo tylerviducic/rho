@@ -22,7 +22,7 @@ for(int i = 0; i < 6; i++){
     graphErrors.addPoint(energy, statNumber.number(), 0, statNumber.error());
 }
 
-for(int i = 0; i < 10; i++){
+for(int i = 0; i < 9; i++){
     Double energy = 2.6 + i * 0.19;
     String energyString = energy.toString();
     H1F histo = (H1F) dir1.getObject("/PionsBinned/e(gam)=" + energyString);
@@ -35,7 +35,7 @@ for(int i = 0; i < 10; i++){
 TDirectory dir2 = new TDirectory();
 dir2.readFile("/w/hallb-scifs17exp/clas12/viducic/rho/clas12/results/energyCorrections.hipo");
 
-for(int i = 0; i < 10; i++){
+for(int i = 0; i < 9; i++){
     Double energy = 1 + i * 0.17;
     String energyString = energy.toString();
     H1F histo = (H1F) dir2.getObject("/PionsBinned/e(gam)=" + energyString);
