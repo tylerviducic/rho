@@ -60,7 +60,7 @@ public static StatNumber getMass2DataPoint(H1F histo){
     DataFitter.fit(func, histo, "");
 
     StatNumber statNumber = new StatNumber(func.parameter(1).value(), func.parameter(1).error());
-    statNumber..divide(new StatNumber(0.135 * 0.135, 0.0000005 * 0.0000005));
+    statNumber.divide(new StatNumber(0.135 * 0.135, 0.0000005 * 0.0000005));
 
     return statNumber;
 }
@@ -74,7 +74,7 @@ public static StatNumber getMassDataPoint(H1F histo){
     DataFitter.fit(func, histo, "");
 
     StatNumber statNumber = new StatNumber(func.parameter(1).value(), func.parameter(1).error());
-    statNumber..divide(new StatNumber(0.135, 0.0000005));
+    statNumber.divide(new StatNumber(0.135, 0.0000005));
 
     return statNumber;
 }
