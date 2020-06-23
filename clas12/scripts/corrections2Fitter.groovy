@@ -71,7 +71,7 @@ public static StatNumber getMass2DataPoint(H1F histo){
 }
 
 public static StatNumber getMassDataPoint(H1F histo){
-    F1D func = new F1D("f1", "[amp]*gaus(x,[mean],[sigme])+[p0]+[p1]*x+[p2]*x*x", 0.01, 0.02);
+    F1D func = new F1D("f1", "[amp]*gaus(x,[mean],[sigme])+[p0]+[p1]*x+[p2]*x*x", 0.1, 0.2);
     func.setParameter(0, histo.getMax());
     func.setParameter(1, 0.135);
     func.setParameter(2, 0.01);
