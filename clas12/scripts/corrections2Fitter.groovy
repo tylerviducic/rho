@@ -42,7 +42,7 @@ for(int i = 0; i < 8; i++){
 
     StatNumber statNumber = getMassDataPoint(histo);
 
-    graphErrors.addPoint(energy, statNumber.number(), 0, statNumber.error()/1000);
+    graphErrors.addPoint(energy, statNumber.number(), 0, statNumber.error()/10);
 }
 
 TCanvas c1 = new TCanvas("c1", 1000, 1000);
