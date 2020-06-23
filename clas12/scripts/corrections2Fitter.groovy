@@ -35,7 +35,7 @@ for(int i = 0; i < 9; i++){
 TDirectory dir2 = new TDirectory();
 dir2.readFile("/w/hallb-scifs17exp/clas12/viducic/rho/clas12/results/energyCorrections.hipo");
 
-for(int i = 0; i < 9; i++){
+for(int i = 0; i < 8; i++){
     Double energy = 1 + i * 0.17;
     String energyString = energy.toString();
     H1F histo = (H1F) dir2.getObject("/PionsBinned/e(gam)=" + energyString);
