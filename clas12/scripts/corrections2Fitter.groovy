@@ -17,7 +17,7 @@ for(int i = 0; i < 6; i++){
     String energyString = energy.toString();
     H1F histo = (H1F) dir1.getObject("/PionsBinned/e(gam)=" + energyString);
 
-    StatNumber statNumber = getMass2DataPointLeft(histo);
+    StatNumber statNumber = getMass2DataPoint(histo);
 
     graphErrors.addPoint(energy, statNumber.number(), 0, statNumber.error());
 }
@@ -27,7 +27,7 @@ for(int i = 0; i < 10; i++){
     String energyString = energy.toString();
     H1F histo = (H1F) dir1.getObject("/PionsBinned/e(gam)=" + energyString);
 
-    StatNumber statNumber = getMass2DataPointRight(histo);
+    StatNumber statNumber = getMass2DataPoint(histo);
 
     graphErrors.addPoint(energy, statNumber.number(), 0, statNumber.error());
 }
