@@ -81,9 +81,9 @@ public static StatNumber getMassDataPoint(H1F histo){
     StatNumber statNumber = new StatNumber(func.parameter(1).value(), func.parameter(1).error());
     statNumber.divide(new StatNumber(0.135, 0.0000005));
 
-    TCanvas c1 = new TCanvas("c1", 500, 500);
-    c1.draw(histo);
-    c1.draw(func, "same");
+//    TCanvas c1 = new TCanvas("c1", 500, 500);
+//    c1.draw(histo);
+//    c1.draw(func, "same");
 
     return statNumber;
 }
