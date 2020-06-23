@@ -10,7 +10,7 @@ TDirectory dir1 = new TDirectory();
 dir1.readFile("/w/hallb-scifs17exp/clas12/viducic/rho/clas12/results/energyCorrections2.hipo");
 
 GraphErrors graphErrors = new GraphErrors("graph");
-
+graphErrors.setTitle("M(#gamma#gamma)/M(#pi^0) vs E(#gamma)");
 
 for(int i = 0; i < 6; i++){
     Double energy = 0.4 + i * 0.1;
