@@ -42,7 +42,7 @@ for(int i = 0; i < 10; i++){
 
     StatNumber statNumber = getMassDataPoint(histo);
 
-    graphErrors.addPoint(energy, statNumber.number(), 0, statNumber.error()/100);
+    graphErrors.addPoint(energy, statNumber.number(), 0, statNumber.error()/1000);
 }
 
 TCanvas c1 = new TCanvas("c1", 1000, 1000);
@@ -71,7 +71,7 @@ public static StatNumber getMass2DataPoint(H1F histo){
 }
 
 public static StatNumber getMassDataPoint(H1F histo){
-    F1D func = new F1D("f1", "[amp]*gaus(x,[mean],[sigme])+[p0]+[p1]*x+[p2]*x*x", 0.01, 0.03);
+    F1D func = new F1D("f1", "[amp]*gaus(x,[mean],[sigme])+[p0]+[p1]*x+[p2]*x*x", 0.01, 0.02);
     func.setParameter(0, histo.getMax());
     func.setParameter(1, 0.135);
     func.setParameter(2, 0.01);
