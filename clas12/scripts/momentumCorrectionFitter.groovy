@@ -71,8 +71,8 @@ c1.draw(graph);
 //F1D funcW = new F1D("funcW", "[p0] + [p1]/x + [p2]/(x*x) + [p3]/(x*x*x)", 4.5, 8.0);
 F1D func3 = new F1D("func3", "[p0]+[p1]*x+[p2]*x*x+[p3]*x*x*x", 4.5, 8.0);
 
-func.setLineColor(2);
-funcW.setLineColor(4);
+//func.setLineColor(2);
+//funcW.setLineColor(4);
 func3.setLineColor(3);
 
 //DataFitter.fit(func, graph, "N");
