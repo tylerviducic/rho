@@ -39,10 +39,12 @@ for(int i = 0; i < 10; i++){
     Double energy = 4.5 + i * 0.5;
     String energyString = energy.toString();
     H1F histo = (H1F) dir2.getObject("/PionsBinned/e(gam)=" + energyString);
+    TCanvas c1 = new TCanvas("c1", 1000, 1000);
+    c1.draw(histo);
 
-    StatNumber statNumber = getMassDataPoint(histo);
-
-    graphErrors.addPoint(energy, statNumber.number(), 0, statNumber.error());
+//    StatNumber statNumber = getMassDataPoint(histo);
+//
+//    graphErrors.addPoint(energy, statNumber.number(), 0, statNumber.error());
 }
 
 TCanvas c1 = new TCanvas("c1", 1000, 1000);
@@ -60,9 +62,9 @@ public static StatNumber getMass2DataPoint(H1F histo){
 
     DataFitter.fit(func, histo, "");
 
-    TCanvas c1 = new TCanvas("c1", 500, 500);
-    c1.draw(histo);
-    c1.draw(func, "same");
+//    TCanvas c1 = new TCanvas("c1", 500, 500);
+//    c1.draw(histo);
+//    c1.draw(func, "same");
 
     StatNumber statNumber = new StatNumber(func.parameter(1).value(), func.parameter(1).error());
     statNumber.divide(new StatNumber(0.135 * 0.135, 0.0000005 * 0.0000005));
