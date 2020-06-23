@@ -52,27 +52,9 @@ c1.draw(graphErrors);
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-public static StatNumber getMass2DataPointLeft(H1F histo){
+public static StatNumber getMass2DataPoint(H1F histo){
     F1D func = new F1D("f1", "[amp]*gaus(x,[mean],[sigme])+[p0]+[p1]*x+[p2]*x*x", 0.01, 0.03);
-    func.setParameter(0, 2000);
-    func.setParameter(1, 0.018);
-    func.setParameter(2, 0.01);
-
-    DataFitter.fit(func, histo, "");
-
-    TCanvas c1 = new TCanvas("c1", 500, 500);
-    c1.draw(histo);
-    c1.draw(func, "same");
-
-    StatNumber statNumber = new StatNumber(func.parameter(1).value(), func.parameter(1).error());
-    statNumber.divide(new StatNumber(0.135 * 0.135, 0.0000005 * 0.0000005));
-
-    return statNumber;
-}
-
-public static StatNumber getMass2DataPointRight(H1F histo){
-    F1D func = new F1D("f1", "[amp]*gaus(x,[mean],[sigme])+[p0]+[p1]*x+[p2]*x*x", 0.01, 0.03);
-    func.setParameter(0, 100);
+    func.setParameter(0, histo.getMax());
     func.setParameter(1, 0.018);
     func.setParameter(2, 0.01);
 
@@ -90,7 +72,7 @@ public static StatNumber getMass2DataPointRight(H1F histo){
 
 public static StatNumber getMassDataPoint(H1F histo){
     F1D func = new F1D("f1", "[amp]*gaus(x,[mean],[sigme])+[p0]+[p1]*x+[p2]*x*x", 0.01, 0.03);
-    func.setParameter(0, 100);
+    func.setParameter(0, histo.getMax());
     func.setParameter(1, 0.135);
     func.setParameter(2, 0.01);
 
