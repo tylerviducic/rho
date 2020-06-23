@@ -11,6 +11,7 @@ dir1.readFile("/w/hallb-scifs17exp/clas12/viducic/rho/clas12/results/energyCorre
 
 GraphErrors graphErrors = new GraphErrors("graph");
 
+
 for(int i = 0; i < 6; i++){
     Double energy = 0.4 + i * 0.1;
     String energyString = energy.toString();
@@ -58,6 +59,10 @@ public static StatNumber getMass2DataPoint(H1F histo){
     func.setParameter(2, 0.01);
 
     DataFitter.fit(func, histo, "");
+
+    TCanvas c1 = new TCanvas("c1", 500, 500);
+    c1.draw(histo);
+    c1.draw(func, "same");
 
     StatNumber statNumber = new StatNumber(func.parameter(1).value(), func.parameter(1).error());
     statNumber.divide(new StatNumber(0.135 * 0.135, 0.0000005 * 0.0000005));
