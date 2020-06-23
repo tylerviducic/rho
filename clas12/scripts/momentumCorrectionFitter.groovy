@@ -44,19 +44,19 @@ for(int i = 0; i < 8; i++){
     String pEnergy = Double.toString(4.5 + i * 0.5);
     System.out.println(pEnergy);
     H1F protonHisto = (H1F) protonDir.getObject("/ProtonsBinned/p(e)=" + pEnergy);
-//    F1D protonMeanFunc = new F1D("f1","[amp]*gaus(x,[mean],[sigma])+[p0]+[p1]*x+[p2]*x*x", 0.0, 2.0);
-//              F1D func = new F1D("f1","[amp]*gaus(x,[mean],[sigma])",0.1,0.8);
-//    protonMeanFunc.setParameter(0, protonHisto.getMax());
-//    protonMeanFunc.setParameter(1, 0.983272);
-//
-//    DataFitter.fit(protonMeanFunc, protonHisto, "");
+    F1D protonMeanFunc = new F1D("f1","[amp]*gaus(x,[mean],[sigme])+[p0]+[p1]*x+[p2]*x*x",0.2,1.6);
+    protonMeanFunc.setParameter(0, 1000);
+    protonMeanFunc.setParameter(1, 1.0);
+    protonMeanFunc.setParameter(2, 0.4);
+
+    DataFitter.fit(protonMeanFunc, protonHisto, "");
 
     c2.cd(i).draw(protonHisto);
-//    c2.draw(protonMeanFunc, "same");
+    c2.draw(protonMeanFunc, "same");
 
-//    StatNumber dataPoint = new StatNumber(protonMeanFunc.parameter(1).value(), protonMeanFunc.parameter(1).error());
-//    dataPoint.divide(new StatNumber(0.938272, 0.0000058));
-//    graph.addPoint(4.5 + (i * 0.5), dataPoint.number(), 0, dataPoint.error());
+    StatNumber dataPoint = new StatNumber(protonMeanFunc.parameter(1).value(), protonMeanFunc.parameter(1).error());
+    dataPoint.divide(new StatNumber(0.938272, 0.0000058));
+    graph.addPoint(4.5 + (i * 0.5), dataPoint.number(), 0, dataPoint.error());
 }
 
 dir.cd("/Plot");
