@@ -17,7 +17,7 @@ for(int i = 0; i < 6; i++){
     String energyString = energy.toString();
     H1F histo = (H1F) dir1.getObject("/PionsBinned/e(gam)=" + energyString);
 
-    StatNumber statNumber = getMass2DataPoint(histo);
+    StatNumber statNumber = getMass2DataPointLeft(histo);
 
     graphErrors.addPoint(energy, statNumber.number(), 0, statNumber.error());
 }
@@ -27,7 +27,7 @@ for(int i = 0; i < 10; i++){
     String energyString = energy.toString();
     H1F histo = (H1F) dir1.getObject("/PionsBinned/e(gam)=" + energyString);
 
-    StatNumber statNumber = getMass2DataPoint(histo);
+    StatNumber statNumber = getMass2DataPointRight(histo);
 
     graphErrors.addPoint(energy, statNumber.number(), 0, statNumber.error());
 }
@@ -52,9 +52,27 @@ c1.draw(graphErrors);
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-public static StatNumber getMass2DataPoint(H1F histo){
+public static StatNumber getMass2DataPointLeft(H1F histo){
     F1D func = new F1D("f1", "[amp]*gaus(x,[mean],[sigme])+[p0]+[p1]*x+[p2]*x*x", 0.01, 0.03);
     func.setParameter(0, 2000);
+    func.setParameter(1, 0.018);
+    func.setParameter(2, 0.01);
+
+    DataFitter.fit(func, histo, "");
+
+    TCanvas c1 = new TCanvas("c1", 500, 500);
+    c1.draw(histo);
+    c1.draw(func, "same");
+
+    StatNumber statNumber = new StatNumber(func.parameter(1).value(), func.parameter(1).error());
+    statNumber.divide(new StatNumber(0.135 * 0.135, 0.0000005 * 0.0000005));
+
+    return statNumber;
+}
+
+public static StatNumber getMass2DataPointRight(H1F histo){
+    F1D func = new F1D("f1", "[amp]*gaus(x,[mean],[sigme])+[p0]+[p1]*x+[p2]*x*x", 0.01, 0.03);
+    func.setParameter(0, 100);
     func.setParameter(1, 0.018);
     func.setParameter(2, 0.01);
 
