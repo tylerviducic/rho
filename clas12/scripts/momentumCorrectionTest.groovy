@@ -9,11 +9,11 @@ import org.jlab.jnp.reader.DataManager
 
 
 H1F hNoKinNoCor = new H1F("NoKinNoCor", 100, 0, 2);
-hNoKinNoCor.setTitle("MM(e#pi^0) - no kin no correction - BLACK");
+hNoKinNoCor.setTitle("MM(e#pi^0) - no kin no correction - Red");
 hNoKinNoCor.setLineColor(2);
 
 H1F hNoKinCor = new H1F("NoKinCor", 100, 0, 2);
-hNoKinCor.setTitle("MM(e#pi^0) - no kin w/ correction - RED");
+hNoKinCor.setTitle("MM(e#pi^0) - no kin w/ correction - Blue");
 hNoKinCor.setLineColor(4);
 
 H1F hKinNoCor = new H1F("NoKinNoCor", 100, 0, 2);
