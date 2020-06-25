@@ -10,19 +10,19 @@ import org.jlab.jnp.reader.DataManager
 
 H1F hNoKinNoCor = new H1F("NoKinNoCor", 100, 0, 2);
 hNoKinNoCor.setTitle("MM(e#pi^0) - no kin no correction - BLACK");
-hNoKinNoCor.setFillColor(1);
+hNoKinNoCor.setLineColor(1);
 
 H1F hNoKinCor = new H1F("NoKinCor", 100, 0, 2);
 hNoKinCor.setTitle("MM(e#pi^0) - no kin w/ correction - RED");
-hNoKinCor.setFillColor(2);
+hNoKinCor.setLineColor(2);
 
 H1F hKinNoCor = new H1F("NoKinNoCor", 100, 0, 2);
 hKinNoCor.setTitle("MM(e#pi^0) - w/ kin no correction - GREEN");
-hKinNoCor.setFillColor(3);
+hKinNoCor.setLineColor(3);
 
 H1F hKinCor = new H1F("KinCor", 100, 0, 2);
 hKinCor.setTitle("MM(e#pi^0) - w/ kin w/ correction - BLUE");
-hKinCor.setFillColor(4);
+hKinCor.setLineColor(4);
 
 String file = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/pion/pi0Photoproduction_skim4_filtered.hipo";
 
@@ -152,7 +152,7 @@ public static ArrayList<Integer> getBestPhotons(PhysicsEvent physicsEvent) {
 public static Particle correctedElectron(Particle electron){
     Particle correctedElectron = Particle.copyFrom(electron);
     double momentum = electron.p();
-    correctedElectron.setP(6.8123 - 2.6613 * momentum + 0.41056 * momentum * momentum - 0.021082 * momentum * momentum * momentum);
+    correctedElectron.setP( momentum / (6.8123 - 2.6613 * momentum + 0.41056 * momentum * momentum - 0.021082 * momentum * momentum * momentum));
 
     return correctedElectron;
 }
