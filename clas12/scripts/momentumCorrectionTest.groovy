@@ -24,11 +24,11 @@ H1F hKinCor = new H1F("KinCor", 100, 0, 2);
 hKinCor.setTitle("MM(e#pi^0) - w/ kin w/ correction - BLUE");
 hKinCor.setLineColor(4);
 
-H1F hUncorrected = new H1F("Uncorrected", 100, 0, 5);
+H1F hUncorrected = new H1F("Uncorrected", 100, 0, 10);
 hUncorrected.setTitle("Uncorrected momentum - red");
 hUncorrected.setLineColor(2);
 
-H1F hCorrected = new H1F("Uncorrected", 100, 0, 5);
+H1F hCorrected = new H1F("Uncorrected", 100, 0, 10);
 hCorrected.setTitle("Corrected momentum - Blue");
 hCorrected.setLineColor(4);
 
