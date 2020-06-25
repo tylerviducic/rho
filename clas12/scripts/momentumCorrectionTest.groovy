@@ -85,12 +85,12 @@ while (reader.hasNext() && counter <= 1000000){
     missingEPi0Corrected.combine(Particle.copyFrom(correctedElectron), -1);
     missingEPi0Corrected.combine(Particle.copyFrom(pi0), -1);
 
-    Particle missingEKinPi0NoCorrection = physicsEvent.getParticle("[b] + [t] - [11,0]");
-    missingEKinPi0NoCorrection.combine(Particle.copyFrom(kinPi0), -1);
-
-    Particle missingEKinPi0Corrected = physicsEvent.getParticle("[b] + [t]");
-    missingEKinPi0Corrected.combine(Particle.copyFrom(correctedElectron), -1);
-    missingEPi0Corrected.combine(Particle.copyFrom(kinPi0), -1);
+//    Particle missingEKinPi0NoCorrection = physicsEvent.getParticle("[b] + [t] - [11,0]");
+//    missingEKinPi0NoCorrection.combine(Particle.copyFrom(kinPi0), -1);
+//
+//    Particle missingEKinPi0Corrected = physicsEvent.getParticle("[b] + [t]");
+//    missingEKinPi0Corrected.combine(Particle.copyFrom(correctedElectron), -1);
+//    missingEPi0Corrected.combine(Particle.copyFrom(kinPi0), -1);
 
     if (missingEPi0NoCorrection.p() < 1.0 && pi0.p() > 2 && pi0.p() < 5.5 && photonTheta < 10 && photonTheta > 3) {
 
@@ -99,23 +99,23 @@ while (reader.hasNext() && counter <= 1000000){
 
         hNoKinNoCor.fill(missingEPi0NoCorrection.mass());
         hNoKinCor.fill(missingEPi0Corrected.mass());
-        hKinNoCor.fill(missingEKinPi0NoCorrection.mass());
-        hKinCor.fill(missingEKinPi0Corrected.mass());
+//        hKinNoCor.fill(missingEKinPi0NoCorrection.mass());
+//        hKinCor.fill(missingEKinPi0Corrected.mass());
     }
 }
 
 TCanvas c1 = new TCanvas("c1", 1000, 1000);
-c1.divide(2, 2);
+c1.divide(2, 1);
 c1.cd(0).draw(hNoKinNoCor);
 c1.cd(1).draw(hNoKinCor);
-c1.cd(2).draw(hKinNoCor);
-c1.cd(3).draw(hKinCor);
+//c1.cd(2).draw(hKinNoCor);
+//c1.cd(3).draw(hKinCor);
 
 TCanvas c2 = new TCanvas("c2", 1000, 1000);
 c2.draw(hNoKinNoCor);
 c2.draw(hNoKinCor, "same");
-c2.draw(hKinNoCor, "same");
-c2.draw(hKinCor, "same");
+//c2.draw(hKinNoCor, "same");
+//c2.draw(hKinCor, "same");
 
 TCanvas c3 = new TCanvas("c3", 1000, 1000);
 c3.draw(hUncorrected);
