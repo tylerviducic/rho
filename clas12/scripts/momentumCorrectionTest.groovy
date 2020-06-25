@@ -24,6 +24,14 @@ H1F hKinCor = new H1F("KinCor", 100, 0, 2);
 hKinCor.setTitle("MM(e#pi^0) - w/ kin w/ correction - BLUE");
 hKinCor.setLineColor(4);
 
+H1F hUncorrected = new H1F("Uncorrected", 100, 0, 5);
+hUncorrected.setTitle("Uncorrected momentum - red");
+hUncorrected.setLineColor(2);
+
+H1F hCorrected = new H1F("Uncorrected", 100, 0, 5);
+hCorrected.setTitle("Corrected momentum - Blue");
+hCorrected.setLineColor(4);
+
 String file = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/pion/pi0Photoproduction_skim4_filtered.hipo";
 
 HipoChain reader = new HipoChain();
@@ -86,8 +94,10 @@ while (reader.hasNext() && counter <= 1000000){
 
     if (missingEPi0NoCorrection.p() < 1.0 && pi0.p() > 2 && pi0.p() < 5.5 && photonTheta < 10 && photonTheta > 3) {
 
+        hUncorrected.fill(electron.p());
+        hCorrected.fill(correctedElectron.p());
+
         hNoKinNoCor.fill(missingEPi0NoCorrection.mass());
-        hNoKinNoCor.setTitle("MM(e#pi^0) - no kin no correction");
         hNoKinCor.fill(missingEPi0Corrected.mass());
         hKinNoCor.fill(missingEKinPi0NoCorrection.mass());
         hKinCor.fill(missingEKinPi0Corrected.mass());
@@ -106,6 +116,10 @@ c2.draw(hNoKinNoCor);
 c2.draw(hNoKinCor, "same");
 c2.draw(hKinNoCor, "same");
 c2.draw(hKinCor, "same");
+
+TCanvas c3 = new TCanvas("c3", 1000, 1000);
+c3.draw(hUncorrected);
+c3.draw(hCorrected, "same");
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
