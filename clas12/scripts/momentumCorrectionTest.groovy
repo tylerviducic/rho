@@ -82,12 +82,14 @@ while (reader.hasNext() && counter <= 1000000){
     missingEKinPi0Corrected.combine(Particle.copyFrom(correctedElectron), -1);
     missingEPi0Corrected.combine(Particle.copyFrom(kinPi0), -1);
 
-    hNoKinNoCor.fill(missingEPi0NoCorrection.mass());
-    hNoKinNoCor.setTitle("MM(e#pi^0) - no kin no correction");
-    hNoKinCor.fill(missingEPi0Corrected.mass());
-    hKinNoCor.fill(missingEKinPi0NoCorrection.mass());
-    hKinCor.fill(missingEKinPi0Corrected.mass());
+    if (missingEPi0.p() < 1.0 && pi0.p() > 2 && pi0.p() < 5.5 && photonTheta < 10 && photonTheta > 3) {
 
+        hNoKinNoCor.fill(missingEPi0NoCorrection.mass());
+        hNoKinNoCor.setTitle("MM(e#pi^0) - no kin no correction");
+        hNoKinCor.fill(missingEPi0Corrected.mass());
+        hKinNoCor.fill(missingEKinPi0NoCorrection.mass());
+        hKinCor.fill(missingEKinPi0Corrected.mass());
+    }
 }
 
 TCanvas c1 = new TCanvas("c1", 1000, 1000);
