@@ -18,7 +18,7 @@ protonDir.readFile("/w/hallb-scifs17exp/clas12/viducic/rho/clas12/results/energy
 TCanvas c2 = new TCanvas("c2", 1000, 1000);
 c2.divide(2, 4);
 
-for(int i = 1; i < 8; i++){
+for(int i = 0; i < 8; i++){
     String pEnergy = Double.toString(4.5 + i * 0.5);
     System.out.println(pEnergy);
     H1F protonHisto = (H1F) protonDir.getObject("/ProtonsBinned/p(e)=" + pEnergy);
