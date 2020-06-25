@@ -10,11 +10,11 @@ import org.jlab.jnp.reader.DataManager
 
 H1F hNoKinNoCor = new H1F("NoKinNoCor", 100, 0, 2);
 hNoKinNoCor.setTitle("MM(e#pi^0) - no kin no correction - BLACK");
-hNoKinNoCor.setLineColor(1);
+hNoKinNoCor.setLineColor(2);
 
 H1F hNoKinCor = new H1F("NoKinCor", 100, 0, 2);
 hNoKinCor.setTitle("MM(e#pi^0) - no kin w/ correction - RED");
-hNoKinCor.setLineColor(2);
+hNoKinCor.setLineColor(4);
 
 H1F hKinNoCor = new H1F("NoKinNoCor", 100, 0, 2);
 hKinNoCor.setTitle("MM(e#pi^0) - w/ kin no correction - GREEN");
@@ -28,7 +28,7 @@ H1F hUncorrected = new H1F("Uncorrected", 100, 0, 10);
 hUncorrected.setTitle("Uncorrected momentum - red");
 hUncorrected.setLineColor(2);
 
-H1F hCorrected = new H1F("Uncorrected", 100, 0, 10);
+H1F hCorrected = new H1F("Corrected", 100, 0, 10);
 hCorrected.setTitle("Corrected momentum - Blue");
 hCorrected.setLineColor(4);
 
