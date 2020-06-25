@@ -61,6 +61,8 @@ while (reader.hasNext() && counter <= 1000000){
         continue;
     }
 
+    double photonTheta = Math.toDegrees(Math.acos(photon1.cosTheta(photon2)));
+
     Particle pi0 = Particle.copyFrom(photon1);
     pi0.combine(Particle.copyFrom(photon2), 1);
 
@@ -82,7 +84,7 @@ while (reader.hasNext() && counter <= 1000000){
     missingEKinPi0Corrected.combine(Particle.copyFrom(correctedElectron), -1);
     missingEPi0Corrected.combine(Particle.copyFrom(kinPi0), -1);
 
-    if (missingEPi0.p() < 1.0 && pi0.p() > 2 && pi0.p() < 5.5 && photonTheta < 10 && photonTheta > 3) {
+    if (missingEPi0NoCorrection.p() < 1.0 && pi0.p() > 2 && pi0.p() < 5.5 && photonTheta < 10 && photonTheta > 3) {
 
         hNoKinNoCor.fill(missingEPi0NoCorrection.mass());
         hNoKinNoCor.setTitle("MM(e#pi^0) - no kin no correction");
