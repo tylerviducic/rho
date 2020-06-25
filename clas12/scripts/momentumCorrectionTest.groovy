@@ -126,7 +126,6 @@ public static ArrayList<Integer> getBestPhotons(PhysicsEvent physicsEvent) {
         for (int j = i + 1; j < numPhotons; j++) {
             Particle photon2 = Particle.copyFrom(physicsEvent.getParticleByPid(22, j));
             Particle pi0 = Particle.copyFrom(photon1);
-            double imGamGam = getPhotonIM(photon1, photon2);
             pi0.combine(photon2, 1);
 
             if (pi0.mass() > 0.12 && pi0.mass() < 0.15) {
