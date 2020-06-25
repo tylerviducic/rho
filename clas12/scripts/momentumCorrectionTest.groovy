@@ -166,7 +166,7 @@ public static ArrayList<Integer> getBestPhotons(PhysicsEvent physicsEvent) {
 public static Particle correctedElectron(Particle electron){
     Particle correctedElectron = Particle.copyFrom(electron);
     double momentum = electron.p();
-    correctedElectron.setP( momentum / (6.8123 - 2.6613 * momentum + 0.41056 * momentum * momentum - 0.021082 * momentum * momentum * momentum));
-
+//    correctedElectron.setP( momentum / (6.8123 - 2.6613 * momentum + 0.41056 * momentum * momentum - 0.021082 * momentum * momentum * momentum));
+    correctedElectron.setP( momentum / (4.88 - 1.792 * momentum + 0.2815 * momentum * momentum - 0.01476 * momentum * momentum * momentum));
     return correctedElectron;
 }
