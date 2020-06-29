@@ -16,14 +16,6 @@ H1F hNoKinCor = new H1F("NoKinCor", 100, 0, 2);
 hNoKinCor.setTitle("MM(e#pi^0) - no kin w/ correction - Blue");
 hNoKinCor.setLineColor(4);
 
-H1F hKinNoCor = new H1F("NoKinNoCor", 100, 0, 2);
-hKinNoCor.setTitle("MM(e#pi^0) - w/ kin no correction - GREEN");
-hKinNoCor.setLineColor(3);
-
-H1F hKinCor = new H1F("KinCor", 100, 0, 2);
-hKinCor.setTitle("MM(e#pi^0) - w/ kin w/ correction - BLUE");
-hKinCor.setLineColor(4);
-
 H1F hUncorrected = new H1F("Uncorrected", 100, 0, 10);
 hUncorrected.setTitle("Uncorrected momentum - red");
 hUncorrected.setLineColor(2);
@@ -31,6 +23,14 @@ hUncorrected.setLineColor(2);
 H1F hCorrected = new H1F("Corrected", 100, 0, 10);
 hCorrected.setTitle("Corrected momentum - Blue");
 hCorrected.setLineColor(4);
+
+H1F hWUncor = new H1F("WUncor", 100, 0, 10);
+hWUncor.setTitle("W uncorrected");
+hWUncor.setLineColor(2);
+
+H1F hWCor = new H1F("WCor", 100, 0, 10);
+hWCor.setTitle("W corrected");
+hWCor.setLineColor(4);
 
 String file = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/pion/pi0Photoproduction_skim4_filtered.hipo";
 
@@ -85,12 +85,10 @@ while (reader.hasNext() && counter <= 1000000){
     missingEPi0Corrected.combine(Particle.copyFrom(correctedElectron), -1);
     missingEPi0Corrected.combine(Particle.copyFrom(pi0), -1);
 
-//    Particle missingEKinPi0NoCorrection = physicsEvent.getParticle("[b] + [t] - [11,0]");
-//    missingEKinPi0NoCorrection.combine(Particle.copyFrom(kinPi0), -1);
-//
-//    Particle missingEKinPi0Corrected = physicsEvent.getParticle("[b] + [t]");
-//    missingEKinPi0Corrected.combine(Particle.copyFrom(correctedElectron), -1);
-//    missingEPi0Corrected.combine(Particle.copyFrom(kinPi0), -1);
+    double wUncor = physicsEvent.getParticle("[b] + [t] - [11]").mass();
+    Particle wCor = physicsEvent.getParticle("[b] + [t]");
+    wCor.combine(Particle.copyFrom(correctedElectron), -1);
+
 
     if (missingEPi0NoCorrection.p() < 1.0 && pi0.p() > 2 && pi0.p() < 5.5 && photonTheta < 10 && photonTheta > 3) {
 
@@ -99,8 +97,9 @@ while (reader.hasNext() && counter <= 1000000){
 
         hNoKinNoCor.fill(missingEPi0NoCorrection.mass());
         hNoKinCor.fill(missingEPi0Corrected.mass());
-//        hKinNoCor.fill(missingEKinPi0NoCorrection.mass());
-//        hKinCor.fill(missingEKinPi0Corrected.mass());
+
+        hWUncor.fill(wUncor);
+        hWCor.fill(wCor.mass());
     }
 }
 
@@ -108,18 +107,18 @@ TCanvas c1 = new TCanvas("c1", 1000, 1000);
 c1.divide(2, 1);
 c1.cd(0).draw(hNoKinNoCor);
 c1.cd(1).draw(hNoKinCor);
-//c1.cd(2).draw(hKinNoCor);
-//c1.cd(3).draw(hKinCor);
 
 TCanvas c2 = new TCanvas("c2", 1000, 1000);
 c2.draw(hNoKinNoCor);
 c2.draw(hNoKinCor, "same");
-//c2.draw(hKinNoCor, "same");
-//c2.draw(hKinCor, "same");
 
 TCanvas c3 = new TCanvas("c3", 1000, 1000);
 c3.draw(hUncorrected);
 c3.draw(hCorrected, "same");
+
+TCanvas c4 = new TCanvas("c4", 1000, 1000);
+c4.draw(hWUncor);
+c4.draw(hWCor, "same");
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -167,6 +166,6 @@ public static Particle correctedElectron(Particle electron){
     Particle correctedElectron = Particle.copyFrom(electron);
     double momentum = electron.p();
 //    correctedElectron.setP( momentum / (6.8123 - 2.6613 * momentum + 0.41056 * momentum * momentum - 0.021082 * momentum * momentum * momentum));
-    correctedElectron.setP( momentum / (4.88 - 1.792 * momentum + 0.2815 * momentum * momentum - 0.01476 * momentum * momentum * momentum));
+    correctedElectron.setP(momentum / (4.88 - 1.792 * momentum + 0.2815 * momentum * momentum - 0.01476 * momentum * momentum * momentum));
     return correctedElectron;
 }
