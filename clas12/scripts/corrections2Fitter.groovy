@@ -45,7 +45,7 @@ for(int i = 0; i < 8; i++){
     graphErrors.addPoint(energy, statNumber.number(), 0, statNumber.error());
 }
 
-F1D func = new F1D("f1", "[p0]+[p1]/x+[p2]/(x*x)+[p3]/(x*x*x)", 0.4, 4.2);
+F1D func = new F1D("f1", "[p0]+[p1]/x+[p2]/(x*x)+[p3]/(x*x*x)", 0.0, 4.2);
 DataFitter.fit(func, graphErrors, "");
 func.show();
 
