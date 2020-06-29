@@ -33,10 +33,10 @@ H1F hWCor = new H1F("WCor", 100, 0, 10);
 hWCor.setTitle("W corrected");
 hWCor.setLineColor(4);
 
-H2F hWPhi = new H2F("WPhi", 100, 0, 10,180, -180, 180);
+H2F hWPhi = new H2F("WPhi", 100, 0, 5,180, -180, 180);
 hWPhi.setTitle("W vs Phi");
 
-H2F hWPhiCor = new H2F("WPhiCor", 100, 0, 10,180, -180, 180);
+H2F hWPhiCor = new H2F("WPhiCor", 100, 0, 5,180, -180, 180);
 hWPhi.setTitle("W vs Phi Corrected");
 
 String file = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/pion/pi0Photoproduction_skim4_filtered.hipo";
@@ -97,7 +97,7 @@ while (reader.hasNext() && counter <= 1000000){
     wCor.combine(Particle.copyFrom(correctedElectron), -1);
 
     hWPhi.fill(wUncor, Math.toDegrees(electron.phi()));
-    hWPhiCor.fill(wCor.mass(),correctedElectron.phi());
+    hWPhiCor.fill(wCor.mass(), Math.toDegrees(correctedElectron.phi()));
 
     if (missingEPi0NoCorrection.p() < 1.0 && pi0.p() > 2 && pi0.p() < 5.5 && photonTheta < 10 && photonTheta > 3) {
 
