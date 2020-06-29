@@ -22,7 +22,7 @@ for(int i = 0; i < 6; i++){
     graphErrors.addPoint(energy, statNumber.number(), 0, statNumber.error());
 }
 
-for(int i = 0; i < 9; i++){
+for(int i = 0; i < 5; i++){
     Double energy = 2.6 + i * 0.19;
     String energyString = energy.toString();
     H1F histo = (H1F) dir1.getObject("/PionsBinned/e(gam)=" + energyString);
