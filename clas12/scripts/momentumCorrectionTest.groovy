@@ -37,7 +37,7 @@ H2F hWPhi = new H2F("WPhi", 100, 0, 5,180, -180, 180);
 hWPhi.setTitle("W vs Phi");
 
 H2F hWPhiCor = new H2F("WPhiCor", 100, 0, 5,180, -180, 180);
-hWPhi.setTitle("W vs Phi Corrected");
+hWPhiCor.setTitle("W vs Phi Corrected");
 
 String file = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/pion/pi0Photoproduction_skim4_filtered.hipo";
 
