@@ -45,7 +45,7 @@ F1D funcW = new F1D("funcW", "[p0] + [p1]/x + [p2]/(x*x) + [p3]/(x*x*x)", 0.99, 
 func.setLineColor(2);
 funcW.setLineColor(4);
 
-DataFitter.fit(func, graph, "N");
+DataFitter.fit(func, graph, "");
 DataFitter.fit(funcW, graph, "W");
 
 c1.draw(func, "same");
