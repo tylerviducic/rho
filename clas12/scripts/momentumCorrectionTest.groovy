@@ -1,4 +1,5 @@
 import org.jlab.groot.data.H1F
+import org.jlab.groot.data.H2F
 import org.jlab.groot.ui.TCanvas
 import org.jlab.jnp.hipo4.data.Bank
 import org.jlab.jnp.hipo4.data.Event
@@ -31,6 +32,12 @@ hWUncor.setLineColor(2);
 H1F hWCor = new H1F("WCor", 100, 0, 10);
 hWCor.setTitle("W corrected");
 hWCor.setLineColor(4);
+
+H2F hWPhi = new H2F("WPhi", 100, 0, 10,180, -180, 180);
+hWPhi.setTitle("W vs Phi");
+
+H2F hWPhiCor = new H2F("WPhiCor", 100, 0, 10,180, -180, 180);
+hWPhi.setTitle("W vs Phi Corrected");
 
 String file = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/pion/pi0Photoproduction_skim4_filtered.hipo";
 
@@ -89,6 +96,8 @@ while (reader.hasNext() && counter <= 1000000){
     Particle wCor = physicsEvent.getParticle("[b] + [t]");
     wCor.combine(Particle.copyFrom(correctedElectron), -1);
 
+    hWPhi.fill(wUncor, Math.toDegrees(electron.phi()));
+    hWPhiCor.fill(wCor.mass(),correctedElectron.phi());
 
     if (missingEPi0NoCorrection.p() < 1.0 && pi0.p() > 2 && pi0.p() < 5.5 && photonTheta < 10 && photonTheta > 3) {
 
@@ -117,9 +126,11 @@ c3.draw(hUncorrected);
 c3.draw(hCorrected, "same");
 
 TCanvas c4 = new TCanvas("c4", 1000, 1000);
-c4.draw(hWUncor);
-c4.draw(hWCor, "same");
-
+//c4.draw(hWUncor);
+//c4.draw(hWCor, "same");
+c4.divide(2, 1);
+c4.cd(0).draw(hWPhi);
+c4.cd(1).draw(hWPhiCor);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
