@@ -40,6 +40,9 @@ for (int i = 0; i < 10; i++){
     H1F histo = (H1F) dir1.getObject("/PionsBinned/e(gam)=" + energy.toString());
 
     F1D func = new F1D("f"+i, "[amp]*gaus(x,[mean],[sigme])+[p0]+[p1]*x+[p2]*x*x", 0.1, 0.2);
+    func.setParameter(0, histo.getMax());
+    func.setParameter(1, 0.135);
+    func.setParameter(3, 0.01);
     DataFitter.fit(func, histo, "");
 
     TCanvas c1 = new TCanvas("c1", 1000, 1000);
