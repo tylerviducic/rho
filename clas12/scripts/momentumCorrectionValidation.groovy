@@ -37,8 +37,8 @@ while (reader.hasNext() && eventCounter < 10000000){
     Particle cor = physicsEvent.getParticle("[b] + [t]");
     cor.combine(Particle.copyFrom(correctedElectron), -1);
 
-    hWPhi.fill(unCor.mass(), electron.phi());
-    hWPhiCor.fill(cor.mass(), correctedElectron.phi());
+    hWPhi.fill(unCor.mass(), Math.toDegrees(electron.phi()));
+    hWPhiCor.fill(cor.mass(), Math.toDegrees(correctedElectron.phi()));
 }
 
 TCanvas c1 = new TCanvas("c1", 1000, 1000);
