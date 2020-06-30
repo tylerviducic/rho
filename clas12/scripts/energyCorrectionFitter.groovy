@@ -43,7 +43,7 @@ for (int i = 0; i < 10; i++){
     DataFitter.fit(func, histo, "");
 
     TCanvas c1 = new TCanvas("c1", 1000, 1000);
-    c1.draw(graph);
+    c1.draw(histo);
     c1.draw(func, "same");
 
     StatNumber statNumber = new StatNumber(func.parameter(1).value(), func.parameter(1).error());
