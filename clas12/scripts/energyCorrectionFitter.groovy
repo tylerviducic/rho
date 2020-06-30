@@ -41,6 +41,11 @@ for (int i = 0; i < 10; i++){
 
     F1D func = new F1D("f"+i, "[amp]*gaus(x,[mean],[sigme])+[p0]+[p1]*x+[p2]*x*x", 0.1, 0.2);
     DataFitter.fit(func, histo, "");
+
+    TCanvas c1 = new TCanvas("c1", 1000, 1000);
+    c1.draw(graph);
+    c1.draw(func, "same");
+
     StatNumber statNumber = new StatNumber(func.parameter(1).value(), func.parameter(1).error());
     statNumber.divide(new StatNumber(0.135, 0.0000005));
 
