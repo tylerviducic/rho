@@ -15,7 +15,7 @@ hWPhiCor.setTitle("W vs Phi Corrected");
 
 String dir = "/lustre19/expphy/cache/clas12/rg-a/production/recon/fall2018/torus-1/pass1/v0/dst/train/skim4/";
 HipoChain reader = new HipoChain();
-reader.addDir(dir, "skim4_00512*.hipo");
+reader.addDir(dir, "*skim4_00512*.hipo");
 reader.open();
 
 Event event = new Event();
