@@ -35,7 +35,7 @@ graph.setTitle("Pion Mass Ratio vs Photon Energy");
 //error.add(0.0003564);
 //error.add(0.0004967);
 
-for (int i = 0; i < 10; i++){
+for (int i = 0; i < 9; i++){
     Double energy = 1.0 + i * 0.17;
     H1F histo = (H1F) dir1.getObject("/PionsBinned/e(gam)=" + energy.toString());
 
@@ -45,9 +45,11 @@ for (int i = 0; i < 10; i++){
         func.setParameter(1, 0.135);
         func.setParameter(2, 0.01);
         DataFitter.fit(func, histo, "");
+
         TCanvas c1 = new TCanvas("c1", 1000, 1000);
         c1.draw(histo);
         c1.draw(func, "same");
+
         StatNumber statNumber = new StatNumber(func.parameter(1).value(), func.parameter(1).error());
         statNumber.divide(new StatNumber(0.135, 0.0000005));
 
@@ -59,9 +61,11 @@ for (int i = 0; i < 10; i++){
         func.setParameter(1, 0.135);
         func.setParameter(2, 0.01);
         DataFitter.fit(func, histo, "");
+
         TCanvas c1 = new TCanvas("c1", 1000, 1000);
         c1.draw(histo);
         c1.draw(func, "same");
+
         StatNumber statNumber = new StatNumber(func.parameter(1).value(), func.parameter(1).error());
         statNumber.divide(new StatNumber(0.135, 0.0000005));
 
