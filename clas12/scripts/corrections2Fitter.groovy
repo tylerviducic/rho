@@ -22,7 +22,7 @@ for(int i = 0; i < 6; i++){
     graphErrors.addPoint(energy, statNumber.number(), 0, statNumber.error());
 }
 
-for(int i = 0; i < 5; i++){
+for(int i = 0; i < 10; i++){
     Double energy = 2.6 + i * 0.19;
     String energyString = energy.toString();
     H1F histo = (H1F) dir1.getObject("/PionsBinned/e(gam)=" + energyString);
@@ -45,7 +45,7 @@ for(int i = 0; i < 8; i++){
     graphErrors.addPoint(energy, statNumber.number(), 0, statNumber.error());
 }
 
-F1D func = new F1D("f1", "[p0]+[p1]/x+[p2]/(x*x)+[p3]/(x*x*x)", 0.3, 4.2);
+F1D func = new F1D("f1", "[p0]+[p1]/x+[p2]/(x*x)", 0.3, 4.2);
 DataFitter.fit(func, graphErrors, "");
 func.show();
 
