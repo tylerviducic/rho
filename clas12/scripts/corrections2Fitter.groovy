@@ -23,7 +23,7 @@ for(int i = 0; i < 6; i++){
 }
 
 for(int i = 0; i < 10; i++){
-    if(i = 4){
+    if(i == 4){
         continue;
     }
     Double energy = 2.6 + i * 0.19;
