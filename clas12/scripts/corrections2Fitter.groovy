@@ -22,8 +22,8 @@ for(int i = 0; i < 6; i++){
     graphErrors.addPoint(energy, statNumber.number(), 0, statNumber.error());
 }
 
-for(int i = 0; i < 10; i++){
-    if(i == 4 || i == 7){
+for(int i = 0; i < 7; i++){
+    if(i == 4 ){
         continue;
     }
     Double energy = 2.6 + i * 0.19;
