@@ -77,6 +77,8 @@ for (int i = 0; i < 9; i++){
 F1D func2 = new F1D("correctionFunction", "[p0]+[p1]/x+[p2]/(x*x)", 0.99, 3);
 DataFitter.fit(func2, graph, "");
 
+func2.show();
+
 
 TCanvas c1 = new TCanvas("c1", 1000, 1000);
 c1.draw(graph);
