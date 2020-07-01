@@ -234,5 +234,5 @@ public static int getSector(int pindex, Bank calorimeter) {
 }
 
 public static double getCorrection(double energy){
-     return 0.986 + 0.186/energy - 0.290/(energy * energy) + 0.155/(energy * energy * energy);
+     return 1.018 + 2.7391E-2/energy - 4.827E-2/(energy * energy);
 }
