@@ -57,6 +57,7 @@ F1D func2 = new F1D("f2", "[p0]+[p1]/x+[p2]/(x*x)", 0.3, 4.2);
 func2.setParameter(0, 1.018);
 func2.setParameter(1, 2.7391E-2);
 func2.setParameter(2, -4.827E-2);
+func2.setLineColor(2);
 
 TCanvas c1 = new TCanvas("c1", 1000, 1000);
 c1.draw(graphErrors);
