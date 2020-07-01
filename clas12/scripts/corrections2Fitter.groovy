@@ -34,7 +34,6 @@ for(int i = 0; i < 10; i++){
 
     graphErrors.addPoint(energy, statNumber.number(), 0, statNumber.error());
 
-    if(i = )
 }
 
 TDirectory dir2 = new TDirectory();
