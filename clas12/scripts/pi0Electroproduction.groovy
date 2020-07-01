@@ -235,6 +235,6 @@ public static getPhiAngle(Particle particle1, Particle particle2){
 public static Particle applyCorrection(Particle photon){
     Particle corPhoton = Particle.copyFrom(photon);
     double momentum = corPhoton.p();
-    corPhoton.setP(1.05 - 6.54E-2 / momentum + 1.12E-2/(momentum * momentum));
+    corPhoton.setP(momentum / (1.05 - 6.54E-2 / momentum + 1.12E-2/(momentum * momentum)));
     return corPhoton;
 }
