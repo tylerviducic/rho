@@ -62,7 +62,7 @@ c1.cd(3).draw(hGamGamPvsTheta);
 c1.cd(4).draw(hQ2);
 c1.cd(5).draw(hIMpi0VsSin2Phi);
 
-String file = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/pion/pi0Photoproduction_skim4.hipo";
+String file = "/w/hallb-scifs17exp/clas12/viducic/data/clas12/pion/pi0Photoproduction_skim4_filtered.hipo";
 
 HipoChain reader = new HipoChain();
 reader.addFile(file);
@@ -85,8 +85,8 @@ while (reader.hasNext()) {
 
         Particle virtualPhoton = physicsEvent.getParticle("[b] - [11]");
 
-        Particle photon1 = physicsEvent.getParticle(photons.get(0));
-        Particle photon2 = physicsEvent.getParticle(photons.get(1));
+        Particle photon1 = applyCorrection(physicsEvent.getParticle(photons.get(0)));
+        Particle photon2 = applyCorrection(physicsEvent.getParticle(photons.get(1)));
 
         double photonTheta = Math.toDegrees(Math.acos(photon1.cosTheta(photon2)));
         double q2 = getQ2(physicsEvent.beamParticle(), physicsEvent.getParticleByPid(11, 0));
@@ -228,4 +228,11 @@ public static double getQ2(Particle particle1, Particle particle2){
 
 public static getPhiAngle(Particle particle1, Particle particle2){
     return Math.atan((particle1.py() - particle2.py()) / (particle1.px() - particle2.px()));
+}
+
+public static Particle applyCorrection(Particle photon){
+    Particle corPhoton = Particle.copyFrom(photon);
+    double momentum = corPhoton.p();
+    corPhoton.setP(1.05 - 6.54E-2 / momentum + 1.12E-2/(momentum * momentum));
+    return corPhoton;
 }
