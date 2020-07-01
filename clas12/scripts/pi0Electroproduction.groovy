@@ -16,7 +16,8 @@ import org.jlab.groot.data.H2F
 H1F hMissingMassEPi0 = new H1F("MissingMassEPi0Pi0", 100, 0, 2);
 hMissingMassEPi0.setTitle("Missing mass of e'#gamma#gamma");
 
-H1F hIMGamGam = new H1F("IMGamGam", 200, 0, 1.0);
+//H1F hIMGamGam = new H1F("IMGamGam", 200, 0, 1.0);
+H1F hIMGamGam = new H1F("IMGamGam", 100, 0, 0.2);
 hIMGamGam.setTitle("Invariant mass of #gamma#gamma");
 
 H2F hIMGamGamVsMM = new H2F("IMGamGamVsMM", 200, 0, 1.0, 100, 0, 2);
